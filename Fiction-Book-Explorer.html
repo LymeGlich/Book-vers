@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiction Books - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config={
+theme:{
+extend:{
+colors:{
+primary:'#4f46e5',
+secondary:'#f97316'
+},
+borderRadius:{
+'none':'0px',
+'sm':'4px',
+DEFAULT:'8px',
+'md':'12px',
+'lg':'16px',
+'xl':'20px',
+'2xl':'24px',
+'3xl':'32px',
+'full':'9999px',
+'button':'8px'
+}
+}
+}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.book-card:hover .quick-view {
+opacity: 1;
+}
+.price-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+.price-slider::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+border-color: #4f46e5;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<a href="/" class="font-['Pacifico'] text-2xl text-primary mr-8">BookVerse</a>
+<a href="/categories" class="flex items-center text-gray-600 hover:text-primary transition">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span>Back to Categories</span>
+</a>
+</div>
+<div class="relative w-full max-w-md mx-4">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" placeholder="Search fiction books..." class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm">
+</div>
+<div class="flex items-center space-x-5">
+<button class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition !rounded-button">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+<button id="cartButton" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition !rounded-button relative">
+<i class="ri-shopping-cart-line ri-lg"></i>
+<span id="cartCount" class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-secondary text-white text-xs rounded-full hidden">0</span>
+</button>
+<div class="relative">
+<button id="profileButton" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition !rounded-button">
+<i class="ri-user-line ri-lg"></i>
+</button>
+<div id="profileDropdown" class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded shadow-lg border border-gray-100 py-2 z-50">
+<a href="/profile" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-user-line"></i>
+</div>
+<span>My Profile</span>
+</a>
+<a href="/orders" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-file-list-line"></i>
+</div>
+<span>Order History</span>
+</a>
+<a href="/saved" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-bookmark-line"></i>
+</div>
+<span>Saved Books</span>
+</a>
+<a href="/settings" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-settings-line"></i>
+</div>
+<span>Account Settings</span>
+</a>
+<div class="h-px bg-gray-200 my-2"></div>
+<a href="/logout" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-logout-box-line"></i>
+</div>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="container mx-auto px-4 pt-24 pb-16">
+<!-- Page Title -->
+<div class="mb-8">
+<h1 class="text-3xl font-bold text-gray-900">Fiction Books</h1>
+<p class="text-gray-600 mt-2">Discover captivating stories that transport you to new worlds</p>
+</div>
+<!-- Filter Section -->
+<div class="bg-white p-4 rounded shadow-sm mb-8">
+<div class="flex flex-wrap items-center gap-4">
+<div class="relative min-w-[180px]">
+<label class="block text-sm font-medium text-gray-700 mb-1">Sub-genre</label>
+<div class="relative">
+<button class="w-full bg-white border border-gray-200 rounded px-4 py-2 text-left text-sm flex items-center justify-between !rounded-button whitespace-nowrap">
+<span>All Fiction</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="relative min-w-[180px]">
+<label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+<div class="relative">
+<button class="w-full bg-white border border-gray-200 rounded px-4 py-2 text-left text-sm flex items-center justify-between !rounded-button whitespace-nowrap">
+<span>Popularity</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="relative flex-grow max-w-md">
+<label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
+<div class="flex items-center gap-3">
+<span class="text-sm text-gray-600">$0</span>
+<input type="range" min="0" max="100" value="50" class="price-slider w-full h-2 bg-gray-200 rounded-full appearance-none">
+<span class="text-sm text-gray-600">$100</span>
+</div>
+</div>
+<div class="ml-auto">
+<button class="flex items-center gap-1 bg-white border border-gray-200 rounded px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-filter-3-line"></i>
+</div>
+<span>More Filters</span>
+</button>
+</div>
+</div>
+<!-- Advanced Filters (Hidden by default) -->
+<div class="hidden mt-4 pt-4 border-t border-gray-100">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Format</h3>
+<div class="space-y-2">
+<label class="custom-checkbox block text-sm text-gray-700">
+Hardcover
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+Paperback
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+Audiobook
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+E-Book
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Author</h3>
+<div class="space-y-2">
+<label class="custom-checkbox block text-sm text-gray-700">
+Stephen King
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+Colleen Hoover
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+James Patterson
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+J.K. Rowling
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Rating</h3>
+<div class="space-y-2">
+<label class="custom-checkbox block text-sm text-gray-700">
+<div class="flex items-center">
+4+ Stars
+<div class="ml-2 flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+</div>
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+<div class="flex items-center">
+3+ Stars
+<div class="ml-2 flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+</div>
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-sm text-gray-700">
+<div class="flex items-center">
+2+ Stars
+<div class="ml-2 flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+</div>
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+</div>
+<div class="flex justify-end mt-6 gap-3">
+<button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded hover:bg-gray-50 !rounded-button whitespace-nowrap">Clear All</button>
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Apply Filters</button>
+</div>
+</div>
+</div>
+<!-- Featured Books Section -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-gray-900">Bestselling Fiction</h2>
+<div class="flex gap-2">
+<button id="prev-bestseller" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-left-s-line ri-lg"></i>
+</button>
+<button id="next-bestseller" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-right-s-line ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="relative">
+<div id="bestseller-carousel" class="flex overflow-x-auto gap-6 pb-4 hide-scrollbar">
+<!-- Book 1 -->
+<div class="book-card flex-shrink-0 w-[220px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Midnight%20Library%20by%20Matt%20Haig%2C%20minimalist%20style%20with%20stars%20and%20cosmic%20elements%2C%20dark%20blue%20background&width=220&height=280&seq=1&orientation=portrait" alt="The Midnight Library" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 line-clamp-1">The Midnight Library</h3>
+<p class="text-sm text-gray-600 mb-1">Matt Haig</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(4,328)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$16.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card flex-shrink-0 w-[220px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Project%20Hail%20Mary%20by%20Andy%20Weir%2C%20sci-fi%20theme%20with%20space%20elements%2C%20stars%2C%20and%20spacecraft%2C%20professional%20book%20cover&width=220&height=280&seq=2&orientation=portrait" alt="Project Hail Mary" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 line-clamp-1">Project Hail Mary</h3>
+<p class="text-sm text-gray-600 mb-1">Andy Weir</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(3,912)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$18.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card flex-shrink-0 w-[220px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Seven%20Husbands%20of%20Evelyn%20Hugo%20by%20Taylor%20Jenkins%20Reid%2C%20glamorous%20Hollywood%20golden%20era%20style%2C%20elegant%20and%20sophisticated&width=220&height=280&seq=3&orientation=portrait" alt="The Seven Husbands of Evelyn Hugo" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 line-clamp-1">The Seven Husbands of Evelyn Hugo</h3>
+<p class="text-sm text-gray-600 mb-1">Taylor Jenkins Reid</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-xs text-gray-500">(5,127)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$15.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card flex-shrink-0 w-[220px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Verity%20by%20Colleen%20Hoover%2C%20psychological%20thriller%20style%2C%20dark%20and%20mysterious%20with%20subtle%20red%20elements&width=220&height=280&seq=4&orientation=portrait" alt="Verity" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 line-clamp-1">Verity</h3>
+<p class="text-sm text-gray-600 mb-1">Colleen Hoover</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(8,762)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$14.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="book-card flex-shrink-0 w-[220px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Silent%20Patient%20by%20Alex%20Michaelides%2C%20psychological%20thriller%2C%20minimalist%20design%20with%20face%20silhouette&width=220&height=280&seq=5&orientation=portrait" alt="The Silent Patient" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 line-clamp-1">The Silent Patient</h3>
+<p class="text-sm text-gray-600 mb-1">Alex Michaelides</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-xs text-gray-500">(6,543)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$13.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Staff Picks Section -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-gray-900">Staff Picks</h2>
+<div class="flex gap-2">
+<button id="prev-staff" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-left-s-line ri-lg"></i>
+</button>
+<button id="next-staff" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-right-s-line ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="relative">
+<div id="staff-carousel" class="flex overflow-x-auto gap-6 pb-4 hide-scrollbar">
+<!-- Staff Pick 1 -->
+<div class="book-card flex-shrink-0 w-[280px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Circe%20by%20Madeline%20Miller%2C%20mythological%20fantasy%20with%20gold%20accents%20on%20dark%20background%2C%20elegant%20and%20mystical&width=280&height=280&seq=6&orientation=portrait" alt="Circe" class="w-full h-full object-cover object-top">
+<div class="absolute top-3 right-3 bg-secondary text-white px-3 py-1 rounded-full text-xs font-medium">Staff Pick</div>
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Circe</h3>
+<p class="text-sm text-gray-600 mb-1">Madeline Miller</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(3,782)</span>
+</div>
+<p class="text-sm text-gray-700 italic mb-3">"A spellbinding retelling that brings Greek mythology to life in a fresh, feminist light." — Emma, Fiction Editor</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$17.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Staff Pick 2 -->
+<div class="book-card flex-shrink-0 w-[280px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20House%20in%20the%20Cerulean%20Sea%20by%20TJ%20Klune%2C%20whimsical%20fantasy%20with%20pastel%20colors%20and%20magical%20elements&width=280&height=280&seq=7&orientation=portrait" alt="The House in the Cerulean Sea" class="w-full h-full object-cover object-top">
+<div class="absolute top-3 right-3 bg-secondary text-white px-3 py-1 rounded-full text-xs font-medium">Staff Pick</div>
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">The House in the Cerulean Sea</h3>
+<p class="text-sm text-gray-600 mb-1">TJ Klune</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(4,129)</span>
+</div>
+<p class="text-sm text-gray-700 italic mb-3">"A warm hug in book form. This charming fantasy will restore your faith in humanity." — Michael, Fantasy Specialist</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$16.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Staff Pick 3 -->
+<div class="book-card flex-shrink-0 w-[280px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Mexican%20Gothic%20by%20Silvia%20Moreno-Garcia%2C%20gothic%20horror%20with%20Victorian%20mansion%20and%20eerie%20atmosphere&width=280&height=280&seq=8&orientation=portrait" alt="Mexican Gothic" class="w-full h-full object-cover object-top">
+<div class="absolute top-3 right-3 bg-secondary text-white px-3 py-1 rounded-full text-xs font-medium">Staff Pick</div>
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Mexican Gothic</h3>
+<p class="text-sm text-gray-600 mb-1">Silvia Moreno-Garcia</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-xs text-gray-500">(2,845)</span>
+</div>
+<p class="text-sm text-gray-700 italic mb-3">"A mesmerizing gothic thriller that will keep you up at night. Atmospheric and chilling." — Sarah, Horror Curator</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$15.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Staff Pick 4 -->
+<div class="book-card flex-shrink-0 w-[280px] bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Invisible%20Life%20of%20Addie%20LaRue%20by%20V.E.%20Schwab%2C%20magical%20realism%20with%20stars%20and%20ethereal%20elements&width=280&height=280&seq=9&orientation=portrait" alt="The Invisible Life of Addie LaRue" class="w-full h-full object-cover object-top">
+<div class="absolute top-3 right-3 bg-secondary text-white px-3 py-1 rounded-full text-xs font-medium">Staff Pick</div>
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">The Invisible Life of Addie LaRue</h3>
+<p class="text-sm text-gray-600 mb-1">V.E. Schwab</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(5,219)</span>
+</div>
+<p class="text-sm text-gray-700 italic mb-3">"A breathtaking story about memory, time, and what it means to leave a mark on the world." — Daniel, Literary Fiction Lead</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$18.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Book Grid -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-gray-900">All Fiction Books</h2>
+<div class="flex items-center">
+<span class="text-sm text-gray-600 mr-2">Showing 1-12 of 256 books</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Song%20of%20Achilles%20by%20Madeline%20Miller%2C%20Greek%20mythology%20theme%20with%20gold%20accents%20and%20classical%20elements&width=280&height=280&seq=10&orientation=portrait" alt="The Song of Achilles" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">The Song of Achilles</h3>
+<p class="text-sm text-gray-600 mb-1">Madeline Miller</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(4,521)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A captivating retelling of the Iliad from Patroclus's perspective, charting his relationship with the legendary warrior Achilles.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$16.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Klara%20and%20the%20Sun%20by%20Kazuo%20Ishiguro%2C%20minimalist%20design%20with%20sun%20and%20robot%20silhouette&width=280&height=280&seq=11&orientation=portrait" alt="Klara and the Sun" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Klara and the Sun</h3>
+<p class="text-sm text-gray-600 mb-1">Kazuo Ishiguro</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-xs text-gray-500">(2,187)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">From the Nobel Prize-winning author, a story about an Artificial Friend with outstanding observational qualities.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$19.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Thursday%20Murder%20Club%20by%20Richard%20Osman%2C%20cozy%20mystery%20with%20elderly%20detectives%20and%20English%20village%20setting&width=280&height=280&seq=12&orientation=portrait" alt="The Thursday Murder Club" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">The Thursday Murder Club</h3>
+<p class="text-sm text-gray-600 mb-1">Richard Osman</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(3,654)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">Four septuagenarians with a few tricks up their sleeves solve murders in a peaceful retirement village.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$14.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20A%20Little%20Life%20by%20Hanya%20Yanagihara%2C%20literary%20fiction%20with%20minimalist%20design%20and%20emotional%20elements&width=280&height=280&seq=13&orientation=portrait" alt="A Little Life" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">A Little Life</h3>
+<p class="text-sm text-gray-600 mb-1">Hanya Yanagihara</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(3,912)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">An epic about four college friends in New York City, focusing on their relationships and the limits of human endurance.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$18.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Night%20Circus%20by%20Erin%20Morgenstern%2C%20magical%20circus%20theme%20with%20black%2C%20white%2C%20and%20red%20color%20scheme&width=280&height=280&seq=14&orientation=portrait" alt="The Night Circus" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">The Night Circus</h3>
+<p class="text-sm text-gray-600 mb-1">Erin Morgenstern</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(7,321)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A competition between two young magicians set in a mysterious circus that only appears at night.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$15.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Normal%20People%20by%20Sally%20Rooney%2C%20contemporary%20literary%20fiction%20with%20minimalist%20design&width=280&height=280&seq=15&orientation=portrait" alt="Normal People" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Normal People</h3>
+<p class="text-sm text-gray-600 mb-1">Sally Rooney</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-xs text-gray-500">(5,876)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A story about the complex relationship between Marianne and Connell from school through university years.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$14.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Vanishing%20Half%20by%20Brit%20Bennett%2C%20literary%20fiction%20about%20racial%20identity%20with%20elegant%20design&width=280&height=280&seq=16&orientation=portrait" alt="The Vanishing Half" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">The Vanishing Half</h3>
+<p class="text-sm text-gray-600 mb-1">Brit Bennett</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(4,231)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">Twin sisters run away at age 16, and as adults, one passes for white while the other lives as Black.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$16.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Pachinko%20by%20Min%20Jin%20Lee%2C%20historical%20fiction%20with%20Korean%20and%20Japanese%20cultural%20elements&width=280&height=280&seq=17&orientation=portrait" alt="Pachinko" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Pachinko</h3>
+<p class="text-sm text-gray-600 mb-1">Min Jin Lee</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(3,567)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">An epic tale following four generations of a Korean family who migrate to Japan in the early 20th century.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$17.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 9 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Hamnet%20by%20Maggie%20OFarrell%2C%20historical%20fiction%20about%20Shakespeares%20son%20with%20Renaissance%20elements&width=280&height=280&seq=18&orientation=portrait" alt="Hamnet" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Hamnet</h3>
+<p class="text-sm text-gray-600 mb-1">Maggie O'Farrell</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(2,743)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A fictionalized account of Shakespeare's son Hamnet, who died at age 11, and the grief that shaped his play Hamlet.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$16.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 10 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Cloud%20Cuckoo%20Land%20by%20Anthony%20Doerr%2C%20literary%20fiction%20with%20cosmic%20and%20historical%20elements&width=280&height=280&seq=19&orientation=portrait" alt="Cloud Cuckoo Land" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Cloud Cuckoo Land</h3>
+<p class="text-sm text-gray-600 mb-1">Anthony Doerr</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-xs text-gray-500">(1,987)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A novel about children and a text that connects them across time and space, from ancient Constantinople to a future spaceship.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$19.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 11 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Piranesi%20by%20Susanna%20Clarke%2C%20fantasy%20with%20labyrinthine%20architecture%20and%20mystical%20elements&width=280&height=280&seq=20&orientation=portrait" alt="Piranesi" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">Piranesi</h3>
+<p class="text-sm text-gray-600 mb-1">Susanna Clarke</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(2,432)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A mysterious tale about a man who lives in a vast, labyrinthine house with oceanic halls and thousands of statues.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$15.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 12 -->
+<div class="book-card bg-white rounded shadow-sm overflow-hidden relative">
+<div class="relative h-[280px]">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Lincoln%20Highway%20by%20Amor%20Towles%2C%20historical%20fiction%20with%201950s%20Americana%20road%20trip%20theme&width=280&height=280&seq=21&orientation=portrait" alt="The Lincoln Highway" class="w-full h-full object-cover object-top">
+<div class="quick-view opacity-0 transition-opacity absolute inset-0 bg-black/50 flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 rounded text-sm font-medium !rounded-button whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900">The Lincoln Highway</h3>
+<p class="text-sm text-gray-600 mb-1">Amor Towles</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-xs text-gray-500">(3,124)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">In 1954, a young man released from a work farm heads home with plans to take his younger brother to California.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$18.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary/90 !rounded-button">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center mt-10">
+<nav class="flex items-center space-x-1">
+<button class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded bg-primary text-white !rounded-button">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">4</button>
+<span class="w-10 h-10 flex items-center justify-center text-gray-600">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">22</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</nav>
+</div>
+</section>
+</main>
+<!-- Quick View Modal -->
+<div id="quickViewModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] hidden">
+<div class="bg-white rounded-lg w-[90%] max-w-4xl max-h-[90vh] overflow-y-auto relative">
+<button id="closeQuickView" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 !rounded-button">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+<div class="space-y-4">
+<div class="aspect-[3/4] rounded overflow-hidden">
+<img id="modalBookImage" class="w-full h-full object-cover object-top" src="" alt="">
+</div>
+<div class="flex gap-4">
+<button id="addToCartButton" class="flex-1 bg-primary text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-primary/90 !rounded-button whitespace-nowrap">
+<i class="ri-shopping-cart-line"></i>
+<span>Add to Cart</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center border border-gray-200 rounded hover:bg-gray-50 !rounded-button">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<h2 id="modalBookTitle" class="text-2xl font-bold text-gray-900 mb-1"></h2>
+<p id="modalBookAuthor" class="text-lg text-gray-600"></p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center">
+<div id="modalBookRating" class="flex text-yellow-400"></div>
+<span id="modalBookReviews" class="text-sm text-gray-500 ml-2"></span>
+</div>
+<span id="modalBookPrice" class="text-2xl font-bold text-gray-900"></span>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-2">Available Formats</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 border border-gray-200 rounded text-sm font-medium hover:bg-gray-50 !rounded-button whitespace-nowrap">Hardcover</button>
+<button class="px-4 py-2 border border-gray-200 rounded text-sm font-medium hover:bg-gray-50 !rounded-button whitespace-nowrap">Paperback</button>
+<button class="px-4 py-2 border border-gray-200 rounded text-sm font-medium hover:bg-gray-50 !rounded-button whitespace-nowrap">E-Book</button>
+<button class="px-4 py-2 border border-gray-200 rounded text-sm font-medium hover:bg-gray-50 !rounded-button whitespace-nowrap">Audiobook</button>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-2">Description</h3>
+<p id="modalBookDescription" class="text-gray-600 leading-relaxed"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+let cartItems = 0;
+const cartCount = document.getElementById('cartCount');
+const profileButton = document.getElementById('profileButton');
+const profileDropdown = document.getElementById('profileDropdown');
+function toggleProfileDropdown() {
+profileDropdown.classList.toggle('hidden');
+}
+function closeProfileDropdown(event) {
+if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+profileDropdown.classList.add('hidden');
+}
+}
+profileButton.addEventListener('click', function(event) {
+event.stopPropagation();
+toggleProfileDropdown();
+});
+document.addEventListener('click', closeProfileDropdown);
+const addToCartButton = document.getElementById('addToCartButton');
+function showToast(message) {
+const toast = document.createElement('div');
+toast.className = 'fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded shadow-lg z-[200] animate-fade-in';
+toast.textContent = message;
+document.body.appendChild(toast);
+setTimeout(() => {
+toast.classList.add('animate-fade-out');
+setTimeout(() => {
+document.body.removeChild(toast);
+}, 300);
+}, 3000);
+}
+function updateCartCount() {
+cartItems++;
+cartCount.textContent = cartItems;
+cartCount.classList.remove('hidden');
+}
+addToCartButton.addEventListener('click', function() {
+updateCartCount();
+showToast('Book added to cart successfully!');
+quickViewModal.classList.add('hidden');
+document.body.style.overflow = '';
+});
+const style = document.createElement('style');
+style.textContent = `
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(1rem); }
+to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+from { opacity: 1; transform: translateY(0); }
+to { opacity: 0; transform: translateY(1rem); }
+}
+.animate-fade-in {
+animation: fadeIn 0.3s ease-out forwards;
+}
+.animate-fade-out {
+animation: fadeOut 0.3s ease-out forwards;
+}
+`;
+document.head.appendChild(style);
+const quickViewModal = document.getElementById('quickViewModal');
+const closeQuickView = document.getElementById('closeQuickView');
+const modalBookImage = document.getElementById('modalBookImage');
+const modalBookTitle = document.getElementById('modalBookTitle');
+const modalBookAuthor = document.getElementById('modalBookAuthor');
+const modalBookRating = document.getElementById('modalBookRating');
+const modalBookReviews = document.getElementById('modalBookReviews');
+const modalBookPrice = document.getElementById('modalBookPrice');
+const modalBookDescription = document.getElementById('modalBookDescription');
+function openQuickView(bookCard) {
+const image = bookCard.querySelector('img');
+const title = bookCard.querySelector('h3');
+const author = bookCard.querySelector('p');
+const rating = bookCard.querySelector('.flex.text-yellow-400').innerHTML;
+const reviews = bookCard.querySelector('.text-xs.text-gray-500').textContent;
+const price = bookCard.querySelector('.font-bold.text-gray-900').textContent;
+const description = bookCard.querySelector('.line-clamp-2')?.textContent || 'No description available.';
+modalBookImage.src = image.src;
+modalBookImage.alt = image.alt;
+modalBookTitle.textContent = title.textContent;
+modalBookAuthor.textContent = author.textContent;
+modalBookRating.innerHTML = rating;
+modalBookReviews.textContent = reviews;
+modalBookPrice.textContent = price;
+modalBookDescription.textContent = description;
+quickViewModal.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+}
+document.querySelectorAll('.quick-view-btn').forEach(button => {
+button.addEventListener('click', (e) => {
+e.preventDefault();
+const bookCard = e.target.closest('.book-card');
+openQuickView(bookCard);
+});
+});
+closeQuickView.addEventListener('click', () => {
+quickViewModal.classList.add('hidden');
+document.body.style.overflow = '';
+});
+quickViewModal.addEventListener('click', (e) => {
+if (e.target === quickViewModal) {
+quickViewModal.classList.add('hidden');
+document.body.style.overflow = '';
+}
+});
+// Carousel functionality for bestsellers
+const bestsellerCarousel = document.getElementById('bestseller-carousel');
+const prevBestsellerBtn = document.getElementById('prev-bestseller');
+const nextBestsellerBtn = document.getElementById('next-bestseller');
+prevBestsellerBtn.addEventListener('click', function() {
+bestsellerCarousel.scrollBy({ left: -250, behavior: 'smooth' });
+});
+nextBestsellerBtn.addEventListener('click', function() {
+bestsellerCarousel.scrollBy({ left: 250, behavior: 'smooth' });
+});
+// Carousel functionality for staff picks
+const staffCarousel = document.getElementById('staff-carousel');
+const prevStaffBtn = document.getElementById('prev-staff');
+const nextStaffBtn = document.getElementById('next-staff');
+prevStaffBtn.addEventListener('click', function() {
+staffCarousel.scrollBy({ left: -300, behavior: 'smooth' });
+});
+nextStaffBtn.addEventListener('click', function() {
+staffCarousel.scrollBy({ left: 300, behavior: 'smooth' });
+});
+});
+</script>
+</body>
+</html>

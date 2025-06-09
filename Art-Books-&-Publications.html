@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art Books & Publications - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#f59e0b'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Poppins', sans-serif;
+}
+.hero-title {
+font-family: 'Playfair Display', serif;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 18px;
+width: 18px;
+background-color: #f9fafb;
+border: 1px solid #d1d5db;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+background-color: #f3f4f6;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-radio {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+user-select: none;
+}
+.custom-radio input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.radio-mark {
+position: absolute;
+top: 0;
+left: 0;
+height: 18px;
+width: 18px;
+background-color: #f9fafb;
+border: 1px solid #d1d5db;
+border-radius: 50%;
+}
+.custom-radio:hover input ~ .radio-mark {
+background-color: #f3f4f6;
+}
+.custom-radio input:checked ~ .radio-mark {
+background-color: #fff;
+border-color: #4f46e5;
+}
+.radio-mark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-radio input:checked ~ .radio-mark:after {
+display: block;
+}
+.custom-radio .radio-mark:after {
+top: 4px;
+left: 4px;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: #4f46e5;
+}
+.book-card {
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.book-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.book-card .quick-actions {
+opacity: 0;
+transition: opacity 0.3s ease;
+}
+.book-card:hover .quick-actions {
+opacity: 1;
+}
+.subcategory-scroll::-webkit-scrollbar {
+height: 4px;
+}
+.subcategory-scroll::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 10px;
+}
+.subcategory-scroll::-webkit-scrollbar-thumb {
+background: #d1d5db;
+border-radius: 10px;
+}
+.subcategory-scroll::-webkit-scrollbar-thumb:hover {
+background: #9ca3af;
+}
+.collection-scroll::-webkit-scrollbar {
+height: 4px;
+}
+.collection-scroll::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 10px;
+}
+.collection-scroll::-webkit-scrollbar-thumb {
+background: #d1d5db;
+border-radius: 10px;
+}
+.collection-scroll::-webkit-scrollbar-thumb:hover {
+background: #9ca3af;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type="number"] {
+-moz-appearance: textfield;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<a href="/" class="font-['Pacifico'] text-2xl text-primary mr-8">logo</a>
+<a href="/categories" class="flex items-center text-gray-700 hover:text-primary transition-colors">
+<div class="w-6 h-6 flex items-center justify-center mr-1">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span>Back to Categories</span>
+</a>
+</div>
+<div class="relative w-full max-w-md mx-4">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Search art books, artists, publishers...">
+</div>
+<div class="flex items-center space-x-5">
+<div class="relative" id="userProfileContainer">
+<button id="userProfileButton" class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors">
+<i class="ri-user-line ri-lg"></i>
+</button>
+<div id="userProfileDropdown" class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-login-circle-line"></i>
+</div>
+Sign In
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-user-add-line"></i>
+</div>
+Register
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-user-settings-line"></i>
+</div>
+My Profile
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-history-line"></i>
+</div>
+Order History
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-heart-line"></i>
+</div>
+Wishlist
+</a>
+<div class="border-t border-gray-100 my-1"></div>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-logout-circle-line"></i>
+</div>
+Sign Out
+</a>
+</div>
+</div>
+<div class="relative">
+<button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors !rounded-button">
+<i class="ri-shopping-cart-line ri-lg"></i>
+</button>
+<span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-primary text-white text-xs rounded-full">3</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-16">
+<!-- Hero Banner -->
+<section class="relative h-96 overflow-hidden" style="background-image: url('https://readdy.ai/api/search-image?query=Artistic%20background%20with%20paint%20brushes%2C%20canvas%2C%20and%20abstract%20colorful%20paint%20splashes.%20The%20left%20side%20has%20a%20smooth%20gradient%20to%20white%20for%20text%20overlay.%20Modern%2C%20elegant%2C%20high-quality%20professional%20photography%20with%20soft%20lighting%20and%20artistic%20composition&width=1600&height=600&seq=art-hero-1&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent"></div>
+<div class="container mx-auto px-4 h-full flex items-center relative z-10">
+<div class="w-full max-w-2xl">
+<h1 class="hero-title text-5xl font-bold text-gray-900 mb-4">Art Books & Publications</h1>
+<p class="text-lg text-gray-700 mb-8">Discover a curated collection of the finest art books, from classical masterpieces to contemporary visions. Explore the world of visual arts through our extensive catalog.</p>
+<div class="flex space-x-4">
+<button class="bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-primary/90 transition-colors whitespace-nowrap">Explore Collection</button>
+<button class="bg-white text-gray-800 px-6 py-3 rounded-button font-medium border border-gray-200 hover:bg-gray-50 transition-colors whitespace-nowrap">View Featured Artists</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Subcategories -->
+<section class="py-8 bg-white border-b border-gray-100">
+<div class="container mx-auto px-4">
+<div class="relative">
+<div class="subcategory-scroll flex items-center space-x-6 overflow-x-auto py-2 scrollbar-thin">
+<a href="#" class="flex flex-col items-center min-w-[80px] group">
+<div class="w-14 h-14 flex items-center justify-center bg-primary/10 rounded-full mb-2 group-hover:bg-primary/20 transition-colors">
+<i class="ri-paint-brush-line ri-lg text-primary"></i>
+</div>
+<span class="text-sm text-gray-700 group-hover:text-primary transition-colors">Painting</span>
+</a>
+<a href="#" class="flex flex-col items-center min-w-[80px] group">
+<div class="w-14 h-14 flex items-center justify-center bg-gray-100 rounded-full mb-2 group-hover:bg-gray-200 transition-colors">
+<i class="ri-shape-line ri-lg text-gray-700"></i>
+</div>
+<span class="text-sm text-gray-700 group-hover:text-primary transition-colors">Sculpture</span>
+</a>
+<a href="#" class="flex flex-col items-center min-w-[80px] group">
+<div class="w-14 h-14 flex items-center justify-center bg-gray-100 rounded-full mb-2 group-hover:bg-gray-200 transition-colors">
+<i class="ri-camera-line ri-lg text-gray-700"></i>
+</div>
+<span class="text-sm text-gray-700 group-hover:text-primary transition-colors">Photography</span>
+</a>
+<a href="#" class="flex flex-col items-center min-w-[80px] group">
+<div class="w-14 h-14 flex items-center justify-center bg-gray-100 rounded-full mb-2 group-hover:bg-gray-200 transition-colors">
+<i class="ri-brush-line ri-lg text-gray-700"></i>
+</div>
+<span class="text-sm text-gray-700 group-hover:text-primary transition-colors">Digital Art</span>
+</a>
+<a href="#" class="flex flex-col items-center min-w-[80px] group">
+<div class="w-14 h-14 flex items-center justify-center bg-gray-100 rounded-full mb-2 group-hover:bg-gray-200 transition-colors">
+<i class="ri-building-line ri-lg text-gray-700"></i>
+</div>
+<span class="text-sm text-gray-700 group-hover:text-primary transition-colors">Architecture</span>
+</a>
+<a href="#" class="flex flex-col items-center min-w-[80px] group">
+<div class="w-14 h-14 flex items-center justify-center bg-gray-100 rounded-full mb-2 group-hover:bg-gray-200 transition-colors">
+<i class="ri-pencil-ruler-2-line ri-lg text-gray-700"></i>
+</div>
+<span class="text-sm text-gray-700 group-hover:text-primary transition-colors">Design</span>
+</a>
+<a href="#" class="flex flex-col items-center min-w-[80px] group">
+<div class="w-14 h-14 flex items-center justify-center bg-gray-100 rounded-full mb-2 group-hover:bg-gray-200 transition-colors">
+<i class="ri-book-open-line ri-lg text-gray-700"></i>
+</div>
+<span class="text-sm text-gray-700 group-hover:text-primary transition-colors">Art History</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content with Filters -->
+<section class="py-10">
+<div class="container mx-auto px-4">
+<div class="flex flex-wrap -mx-4">
+<!-- Filters Sidebar -->
+<div class="w-full md:w-1/4 px-4">
+<div class="sticky top-24 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+<div class="mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Filters</h3>
+<div class="border-t border-gray-100 pt-4 mb-6">
+<h4 class="font-medium text-gray-800 mb-3">Price Range</h4>
+<div class="mb-4">
+<input type="range" min="0" max="200" value="100" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+</div>
+<div class="flex items-center justify-between">
+<div class="w-20">
+<input type="number" min="0" value="0" class="w-full px-2 py-1 border border-gray-200 rounded text-sm">
+</div>
+<span class="text-gray-400">to</span>
+<div class="w-20">
+<input type="number" min="0" value="100" class="w-full px-2 py-1 border border-gray-200 rounded text-sm">
+</div>
+</div>
+</div>
+<div class="border-t border-gray-100 pt-4 mb-6">
+<h4 class="font-medium text-gray-800 mb-3">Format</h4>
+<div class="space-y-2">
+<label class="custom-checkbox block text-gray-700 text-sm">
+Hardcover
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-gray-700 text-sm">
+Paperback
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox block text-gray-700 text-sm">
+Digital
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<div class="border-t border-gray-100 pt-4 mb-6">
+<h4 class="font-medium text-gray-800 mb-3">Artist/Author</h4>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-4 h-4 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded bg-gray-50 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent text-sm" placeholder="Search artists or authors">
+</div>
+</div>
+<div class="border-t border-gray-100 pt-4 mb-6">
+<h4 class="font-medium text-gray-800 mb-3">Publication Date</h4>
+<div class="space-y-2">
+<label class="custom-radio block text-gray-700 text-sm">
+Last 30 days
+<input type="radio" name="publication" checked>
+<span class="radio-mark"></span>
+</label>
+<label class="custom-radio block text-gray-700 text-sm">
+Last 90 days
+<input type="radio" name="publication">
+<span class="radio-mark"></span>
+</label>
+<label class="custom-radio block text-gray-700 text-sm">
+Last year
+<input type="radio" name="publication">
+<span class="radio-mark"></span>
+</label>
+<label class="custom-radio block text-gray-700 text-sm">
+All time
+<input type="radio" name="publication">
+<span class="radio-mark"></span>
+</label>
+</div>
+</div>
+<div class="border-t border-gray-100 pt-4 mb-6">
+<h4 class="font-medium text-gray-800 mb-3">Rating</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-gray-700 text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="flex items-center ml-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+</div>
+</div>
+</label>
+<label class="custom-checkbox flex items-center text-gray-700 text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="flex items-center ml-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="ml-1">& up</span>
+</div>
+</label>
+<label class="custom-checkbox flex items-center text-gray-700 text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="flex items-center ml-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-fill text-yellow-400"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="ml-1">& up</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex space-x-3">
+<button class="flex-1 bg-primary text-white py-2 rounded-button font-medium hover:bg-primary/90 transition-colors text-sm whitespace-nowrap">Apply Filters</button>
+<button class="flex-1 bg-white text-gray-700 py-2 rounded-button font-medium border border-gray-200 hover:bg-gray-50 transition-colors text-sm whitespace-nowrap">Clear All</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Books Grid -->
+<div class="w-full md:w-3/4 px-4">
+<div class="mb-8">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-semibold text-gray-900">Painting Books</h2>
+<div class="flex items-center">
+<span class="text-sm text-gray-500 mr-3">Sort by:</span>
+<div class="relative">
+<select class="appearance-none bg-white border border-gray-200 text-gray-700 py-2 pl-4 pr-8 rounded leading-tight focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+<option>Popularity</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Newest First</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Book Card 1 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20high-quality%20art%20book%20about%20painting%20techniques.%20The%20book%20cover%20features%20beautiful%20brush%20strokes%20and%20color%20palettes.%20The%20image%20shows%20the%20book%20slightly%20open%20to%20reveal%20colorful%20pages%20inside.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=400&height=500&seq=art-book-1&orientation=portrait" alt="The Art of Color Theory" class="w-full h-60 object-cover object-top">
+<div class="quick-actions absolute top-2 right-2">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-md text-gray-700 hover:text-primary transition-colors !rounded-button">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="text-lg font-medium text-gray-900 mb-1">The Art of Color Theory</h3>
+<p class="text-sm text-gray-600 mb-2">by Isabella Reynolds</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(128)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-lg font-semibold text-gray-900">$42.99</span>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book Card 2 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20premium%20art%20book%20about%20impressionist%20painting%20techniques.%20The%20book%20has%20an%20elegant%20hardcover%20design%20with%20impressionist%20artwork%20on%20the%20cover.%20The%20image%20shows%20the%20book%20displayed%20at%20an%20angle%20to%20highlight%20its%20quality%20binding.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=400&height=500&seq=art-book-2&orientation=portrait" alt="Impressionist Techniques" class="w-full h-60 object-cover object-top">
+<div class="quick-actions absolute top-2 right-2">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-md text-gray-700 hover:text-primary transition-colors !rounded-button">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="text-lg font-medium text-gray-900 mb-1">Impressionist Techniques</h3>
+<p class="text-sm text-gray-600 mb-2">by Claude Beaumont</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(94)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-lg font-semibold text-gray-900">$38.50</span>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book Card 3 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20modern%20art%20book%20about%20abstract%20painting.%20The%20book%20has%20a%20contemporary%20design%20with%20bold%20abstract%20art%20on%20the%20cover.%20The%20image%20shows%20the%20book%20displayed%20elegantly%20with%20a%20few%20pages%20visible.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=400&height=500&seq=art-book-3&orientation=portrait" alt="Abstract Expressions" class="w-full h-60 object-cover object-top">
+<div class="quick-actions absolute top-2 right-2">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-md text-gray-700 hover:text-primary transition-colors !rounded-button">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="text-lg font-medium text-gray-900 mb-1">Abstract Expressions</h3>
+<p class="text-sm text-gray-600 mb-2">by Marcus Chen</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(216)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-lg font-semibold text-gray-900">$45.99</span>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book Card 4 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20classical%20art%20book%20about%20Renaissance%20painting%20techniques.%20The%20book%20has%20an%20elegant%20hardcover%20design%20with%20Renaissance%20artwork%20on%20the%20cover.%20The%20image%20shows%20the%20book%20displayed%20at%20an%20angle%20to%20highlight%20its%20quality%20binding.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=400&height=500&seq=art-book-4&orientation=portrait" alt="Renaissance Masters" class="w-full h-60 object-cover object-top">
+<div class="quick-actions absolute top-2 right-2">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-md text-gray-700 hover:text-primary transition-colors !rounded-button">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="text-lg font-medium text-gray-900 mb-1">Renaissance Masters</h3>
+<p class="text-sm text-gray-600 mb-2">by Elena Vasari</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(152)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-lg font-semibold text-gray-900">$52.75</span>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book Card 5 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20modern%20art%20book%20about%20watercolor%20painting%20techniques.%20The%20book%20has%20a%20beautiful%20cover%20with%20watercolor%20art.%20The%20image%20shows%20the%20book%20displayed%20elegantly%20with%20a%20few%20pages%20visible%20showing%20watercolor%20examples.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=400&height=500&seq=art-book-5&orientation=portrait" alt="Watercolor Wonders" class="w-full h-60 object-cover object-top">
+<div class="quick-actions absolute top-2 right-2">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-md text-gray-700 hover:text-primary transition-colors !rounded-button">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="text-lg font-medium text-gray-900 mb-1">Watercolor Wonders</h3>
+<p class="text-sm text-gray-600 mb-2">by Sarah Watkins</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(87)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-lg font-semibold text-gray-900">$36.99</span>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book Card 6 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20an%20art%20book%20about%20oil%20painting%20techniques%20for%20beginners.%20The%20book%20has%20an%20inviting%20cover%20with%20oil%20painting%20examples.%20The%20image%20shows%20the%20book%20displayed%20elegantly%20with%20a%20few%20pages%20visible%20showing%20step-by-step%20techniques.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=400&height=500&seq=art-book-6&orientation=portrait" alt="Oil Painting for Beginners" class="w-full h-60 object-cover object-top">
+<div class="quick-actions absolute top-2 right-2">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-md text-gray-700 hover:text-primary transition-colors !rounded-button">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="text-lg font-medium text-gray-900 mb-1">Oil Painting for Beginners</h3>
+<p class="text-sm text-gray-600 mb-2">by Thomas Brush</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(203)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-lg font-semibold text-gray-900">$29.95</span>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center">
+<button class="bg-white text-primary px-6 py-3 rounded-button font-medium border border-primary hover:bg-primary/5 transition-colors whitespace-nowrap">Load More</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Collections -->
+<section class="py-10 bg-white">
+<div class="container mx-auto px-4">
+<div class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-semibold text-gray-900">Bestsellers in Art</h2>
+<a href="#" class="text-primary hover:text-primary/80 font-medium">View All</a>
+</div>
+<div class="collection-scroll overflow-x-auto">
+<div class="flex space-x-6 min-w-max pb-4">
+<!-- Book 1 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20bestselling%20art%20history%20book%20with%20a%20beautiful%20cover%20featuring%20famous%20artwork.%20The%20book%20is%20displayed%20at%20an%20elegant%20angle.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=bestseller-1&orientation=portrait" alt="The History of Modern Art" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">The History of Modern Art</h3>
+<p class="text-xs text-gray-600 mb-2">by Jonathan Fisher</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(412)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$48.99</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20bestselling%20art%20book%20about%20famous%20painters.%20The%20book%20has%20a%20premium%20hardcover%20design%20with%20classic%20artwork%20on%20the%20cover.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=bestseller-2&orientation=portrait" alt="Masters of Light" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Masters of Light</h3>
+<p class="text-xs text-gray-600 mb-2">by Victoria Rembrandt</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(287)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$52.50</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20bestselling%20art%20book%20about%20color%20theory%20and%20design.%20The%20book%20has%20a%20vibrant%20cover%20with%20color%20wheels%20and%20design%20elements.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=bestseller-3&orientation=portrait" alt="Color Theory in Practice" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Color Theory in Practice</h3>
+<p class="text-xs text-gray-600 mb-2">by Olivia Palette</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(176)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$34.99</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20bestselling%20art%20book%20about%20contemporary%20sculpture.%20The%20book%20has%20a%20modern%20design%20with%20sculptural%20elements%20on%20the%20cover.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=bestseller-4&orientation=portrait" alt="Contemporary Sculpture" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Contemporary Sculpture</h3>
+<p class="text-xs text-gray-600 mb-2">by Richard Stone</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(219)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$45.75</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20bestselling%20art%20book%20about%20photography%20techniques.%20The%20book%20has%20an%20elegant%20cover%20with%20a%20striking%20photograph.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=bestseller-5&orientation=portrait" alt="The Photographer's Eye" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">The Photographer's Eye</h3>
+<p class="text-xs text-gray-600 mb-2">by Michael Freeman</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(352)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$39.95</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-semibold text-gray-900">New Releases</h2>
+<a href="#" class="text-primary hover:text-primary/80 font-medium">View All</a>
+</div>
+<div class="collection-scroll overflow-x-auto">
+<div class="flex space-x-6 min-w-max pb-4">
+<!-- Book 1 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20new%20release%20art%20book%20about%20digital%20art%20and%20NFTs.%20The%20book%20has%20a%20futuristic%20cover%20with%20digital%20art%20elements.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=new-release-1&orientation=portrait" alt="Digital Art Revolution" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-1 rounded-full">New</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Digital Art Revolution</h3>
+<p class="text-xs text-gray-600 mb-2">by Alex Pixel</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(42)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$41.99</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20new%20release%20art%20book%20about%20sustainable%20art%20practices.%20The%20book%20has%20an%20eco-friendly%20design%20with%20natural%20elements%20on%20the%20cover.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=new-release-2&orientation=portrait" alt="Sustainable Art Practices" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-1 rounded-full">New</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Sustainable Art Practices</h3>
+<p class="text-xs text-gray-600 mb-2">by Emma Green</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(28)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$36.50</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20new%20release%20art%20book%20about%20modern%20architecture.%20The%20book%20has%20a%20sleek%20design%20with%20architectural%20photography%20on%20the%20cover.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=new-release-3&orientation=portrait" alt="Modern Architecture Today" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-1 rounded-full">New</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Modern Architecture Today</h3>
+<p class="text-xs text-gray-600 mb-2">by David Structure</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(35)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$47.95</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20new%20release%20art%20book%20about%20contemporary%20fashion%20design.%20The%20book%20has%20a%20stylish%20cover%20with%20fashion%20elements.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=new-release-4&orientation=portrait" alt="Fashion as Art" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-1 rounded-full">New</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Fashion as Art</h3>
+<p class="text-xs text-gray-600 mb-2">by Sophia Couture</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(19)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$43.25</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="w-56 book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20photograph%20of%20a%20new%20release%20art%20book%20about%20urban%20sketching%20techniques.%20The%20book%20has%20a%20creative%20cover%20with%20urban%20sketch%20artwork.%20Professional%20studio%20lighting%2C%20high%20resolution%2C%20on%20a%20neutral%20background&width=300&height=400&seq=new-release-5&orientation=portrait" alt="Urban Sketching Guide" class="w-full h-48 object-cover object-top">
+<div class="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-1 rounded-full">New</div>
+</div>
+<div class="p-4">
+<h3 class="text-base font-medium text-gray-900 mb-1">Urban Sketching Guide</h3>
+<p class="text-xs text-gray-600 mb-2">by James Sketch</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(23)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-base font-semibold text-gray-900">$32.99</span>
+<button class="bg-primary text-white px-3 py-1 rounded-button text-xs hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2 p-8 md:p-12">
+<h2 class="text-2xl font-bold text-gray-900 mb-3">Subscribe for Art Updates</h2>
+<p class="text-gray-600 mb-6">Get exclusive previews of new art books, artist interviews, and special discounts delivered to your inbox.</p>
+<div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+<input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 border border-gray-200 rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+<button class="bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-primary/90 transition-colors whitespace-nowrap">Subscribe</button>
+</div>
+<p class="text-xs text-gray-500 mt-4">By subscribing, you agree to receive marketing emails from BookVerse. You can unsubscribe at any time.</p>
+</div>
+<div class="md:w-1/2 bg-gray-100" style="background-image: url('https://readdy.ai/api/search-image?query=A%20collection%20of%20art%20books%20and%20art%20supplies%20arranged%20in%20an%20aesthetically%20pleasing%20composition.%20The%20image%20shows%20paintbrushes%2C%20pencils%2C%20and%20open%20art%20books%20with%20beautiful%20illustrations.%20Soft%2C%20natural%20lighting%20creates%20an%20inviting%20atmosphere.%20Professional%20photography%20with%20high%20resolution&width=600&height=500&seq=newsletter-bg&orientation=portrait'); background-size: cover; background-position: center;"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-8">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+<div>
+<h3 class="text-lg font-semibold mb-4">BookVerse</h3>
+<p class="text-gray-400 text-sm mb-4">Your destination for quality books across all genres and interests.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-facebook-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-twitter-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-instagram-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-pinterest-fill"></i>
+</div>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Shop</h3>
+<ul class="space-y-2 text-sm text-gray-400">
+<li><a href="#" class="hover:text-white transition-colors">All Categories</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Featured Books</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Bestsellers</a></li>
+<li><a href="#" class="hover:text-white transition-colors">New Releases</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Special Offers</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Gift Cards</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+<ul class="space-y-2 text-sm text-gray-400">
+<li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+<li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Shipping & Returns</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Order Tracking</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Terms & Conditions</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">My Account</h3>
+<ul class="space-y-2 text-sm text-gray-400">
+<li><a href="#" class="hover:text-white transition-colors">Sign In</a></li>
+<li><a href="#" class="hover:text-white transition-colors">View Cart</a></li>
+<li><a href="#" class="hover:text-white transition-colors">My Wishlist</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Order History</a></li>
+<li><a href="#" class="hover:text-white transition-colors">My Reviews</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<p class="text-sm text-gray-400 mb-4 md:mb-0">&copy; 2025 BookVerse. All rights reserved.</p>
+<div class="flex items-center space-x-4">
+<div class="w-8 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-visa-fill ri-lg"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-mastercard-fill ri-lg"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-paypal-fill ri-lg"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-apple-fill ri-lg"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const userProfileButton = document.getElementById('userProfileButton');
+const userProfileDropdown = document.getElementById('userProfileDropdown');
+const userProfileContainer = document.getElementById('userProfileContainer');
+let isDropdownOpen = false;
+userProfileButton.addEventListener('click', function(e) {
+e.stopPropagation();
+isDropdownOpen = !isDropdownOpen;
+userProfileDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(e) {
+if (!userProfileContainer.contains(e.target) && isDropdownOpen) {
+userProfileDropdown.classList.add('hidden');
+isDropdownOpen = false;
+}
+});
+// Price Range Slider
+const priceRange = document.querySelector('input[type="range"]');
+const minPriceInput = document.querySelectorAll('input[type="number"]')[0];
+const maxPriceInput = document.querySelectorAll('input[type="number"]')[1];
+priceRange.addEventListener('input', function() {
+maxPriceInput.value = this.value;
+});
+minPriceInput.addEventListener('input', function() {
+if (parseInt(this.value) > parseInt(maxPriceInput.value)) {
+this.value = maxPriceInput.value;
+}
+});
+maxPriceInput.addEventListener('input', function() {
+if (parseInt(this.value) < parseInt(minPriceInput.value)) {
+this.value = minPriceInput.value;
+}
+priceRange.value = this.value;
+});
+});
+</script>
+</body>
+</html>

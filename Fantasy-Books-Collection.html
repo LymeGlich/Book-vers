@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Books | BookVerse</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#6d28d9',secondary:'#f59e0b'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+        }
+        .hero-section {
+            background-image: url('https://readdy.ai/api/search-image?query=magical%20fantasy%20forest%20with%20floating%20magical%20lights%2C%20mystical%20atmosphere%2C%20enchanted%20woodland%20scene%20with%20purple%20and%20blue%20hues%2C%20soft%20glowing%20particles%2C%20dreamy%20magical%20environment%20perfect%20for%20children%20books%2C%20high%20quality%20digital%20art&width=1600&height=500&seq=123&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating label {
+            cursor: pointer;
+        }
+        .price-range::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #6d28d9;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .price-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #6d28d9;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .book-card:hover .quick-add {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-['Pacifico'] text-primary">BookVerse</a>
+            </div>
+            
+            <div class="flex-1 max-w-xl mx-8">
+                <div class="relative">
+                    <input type="text" placeholder="Search for fantasy books..." class="w-full py-2 pl-10 pr-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm">
+                    <div class="absolute left-3 top-2.5 w-5 h-5 flex items-center justify-center text-gray-400">
+                        <i class="ri-search-line"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer">
+                    <i class="ri-heart-line ri-lg"></i>
+                </div>
+                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer relative">
+                    <i class="ri-shopping-cart-line ri-lg"></i>
+                    <span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center rounded-full bg-primary text-white text-xs">3</span>
+                </div>
+                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 overflow-hidden cursor-pointer">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20photo%20of%20a%20young%20adult%20with%20a%20friendly%20smile%2C%20high%20quality%2C%20realistic%2C%20detailed%20facial%20features&width=100&height=100&seq=456&orientation=squarish" alt="User profile" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 py-3 flex items-center text-sm">
+        <a href="#" class="text-gray-500 hover:text-primary">Home</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href="#" class="text-gray-500 hover:text-primary">Themes</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-primary font-medium">Fantasy</span>
+        
+        <button class="ml-auto flex items-center text-primary hover:text-primary/80">
+            <i class="ri-arrow-left-line mr-1"></i>
+            <span>Back</span>
+        </button>
+    </div>
+
+    <!-- Age group tabs -->
+    <div class="container mx-auto px-4">
+        <div class="bg-white rounded-lg p-1 inline-flex shadow-sm">
+            <button class="px-4 py-2 rounded-full text-sm font-medium bg-primary text-white">All Ages</button>
+            <button class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-100">0-3 Years</button>
+            <button class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-100">4-6 Years</button>
+            <button class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-100">7-9 Years</button>
+            <button class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-100">10-12 Years</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section mt-6 relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent"></div>
+        <div class="container mx-auto px-4 py-16 relative z-10">
+            <div class="max-w-2xl text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover Magical Worlds</h1>
+                <p class="text-lg mb-8">Explore enchanted realms, mythical creatures, and extraordinary adventures that will spark your child's imagination and inspire a lifelong love of reading.</p>
+                <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-3 rounded-button font-semibold shadow-lg transition-all flex items-center whitespace-nowrap">
+                    Explore Now
+                    <i class="ri-arrow-right-line ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex flex-wrap items-center justify-between bg-white rounded-lg shadow-sm p-4">
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button class="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-button text-sm font-medium whitespace-nowrap">
+                        <span>Filter</span>
+                        <i class="ri-filter-3-line"></i>
+                    </button>
+                    
+                    <!-- Filter dropdown would go here -->
+                </div>
+                
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-gray-500">Active filters:</span>
+                    <div class="flex items-center px-3 py-1 bg-gray-100 rounded-full text-sm">
+                        Fantasy
+                        <button class="ml-1 text-gray-500">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative mt-4 sm:mt-0">
+                <button class="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-button text-sm font-medium whitespace-nowrap">
+                    <span>Sort by: Popularity</span>
+                    <i class="ri-arrow-down-s-line"></i>
+                </button>
+                
+                <!-- Sort dropdown would go here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-wrap -mx-4">
+            <!-- Sidebar -->
+            <div class="w-full md:w-1/4 px-4 mb-8">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="font-bold text-lg mb-4">Refine Results</h3>
+                    
+                    <!-- Price Range -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">Price Range</h4>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-gray-600">$0</span>
+                            <span class="text-sm text-gray-600">$50</span>
+                        </div>
+                        <input type="range" min="0" max="50" value="25" class="price-range w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+                        <div class="mt-2 text-sm text-center font-medium text-primary">Up to $25</div>
+                    </div>
+                    
+                    <!-- Age Range -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">Age Range</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 bg-primary text-white">
+                                    <i class="ri-check-line ri-sm"></i>
+                                </div>
+                                <span class="text-sm">0-3 Years (12)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3">
+                                    <i class="ri-check-line ri-sm opacity-0"></i>
+                                </div>
+                                <span class="text-sm">4-6 Years (24)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3">
+                                    <i class="ri-check-line ri-sm opacity-0"></i>
+                                </div>
+                                <span class="text-sm">7-9 Years (31)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3">
+                                    <i class="ri-check-line ri-sm opacity-0"></i>
+                                </div>
+                                <span class="text-sm">10-12 Years (18)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">Rating</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="rating" class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3">
+                                    <div class="w-3 h-3 rounded-full bg-primary opacity-0"></div>
+                                </div>
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <span class="ml-1 text-sm text-gray-600">(32)</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="rating" class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3">
+                                    <div class="w-3 h-3 rounded-full bg-primary opacity-0"></div>
+                                </div>
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                    <span class="ml-1 text-sm text-gray-600">(47)</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="rating" checked class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3">
+                                    <div class="w-3 h-3 rounded-full bg-primary"></div>
+                                </div>
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                    <i class="ri-star-line"></i>
+                                    <span class="ml-1 text-sm text-gray-600">(29)</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="rating" class="hidden">
+                                <div class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3">
+                                    <div class="w-3 h-3 rounded-full bg-primary opacity-0"></div>
+                                </div>
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                    <i class="ri-star-line"></i>
+                                    <i class="ri-star-line"></i>
+                                    <span class="ml-1 text-sm text-gray-600">(14)</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-button font-medium whitespace-nowrap">Apply Filters</button>
+                </div>
+            </div>
+            
+            <!-- Book Grid -->
+            <div class="w-full md:w-3/4 px-4">
+                <h2 class="text-2xl font-bold mb-6">Fantasy Books (85)</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Book Card 1 -->
+                    <div class="book-card bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20children%20book%20cover%20with%20dragon%2C%20magical%20castle%2C%20high%20quality%20digital%20illustration%2C%20vibrant%20colors%2C%20professional%20book%20cover%20design%2C%20white%20background&width=400&height=600&seq=1001&orientation=portrait" alt="The Dragon's Secret" class="w-full h-full object-cover object-top">
+                            <div class="quick-add absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity">
+                                <button class="bg-white text-primary px-4 py-2 rounded-button font-medium whitespace-nowrap">Quick View</button>
+                            </div>
+                            <div class="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded-full">Bestseller</div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">The Dragon's Secret</h3>
+                            <p class="text-sm text-gray-600 mb-2">by Emily Blackwood</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 mr-1">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="text-sm text-gray-600">4.5 (128)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-primary font-bold">$18.99</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full ml-2">Ages 7-9</span>
+                                </div>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 2 -->
+                    <div class="book-card bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20children%20book%20cover%20with%20unicorn%2C%20rainbow%2C%20magical%20forest%2C%20high%20quality%20digital%20illustration%2C%20vibrant%20colors%2C%20professional%20book%20cover%20design%2C%20white%20background&width=400&height=600&seq=1002&orientation=portrait" alt="Unicorn Dreams" class="w-full h-full object-cover object-top">
+                            <div class="quick-add absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity">
+                                <button class="bg-white text-primary px-4 py-2 rounded-button font-medium whitespace-nowrap">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">Unicorn Dreams</h3>
+                            <p class="text-sm text-gray-600 mb-2">by Sarah Johnson</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 mr-1">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="text-sm text-gray-600">4.0 (95)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-primary font-bold">$15.49</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full ml-2">Ages 4-6</span>
+                                </div>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 3 -->
+                    <div class="book-card bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20children%20book%20cover%20with%20wizard%2C%20magic%20wand%2C%20spellbook%2C%20high%20quality%20digital%20illustration%2C%20vibrant%20colors%2C%20professional%20book%20cover%20design%2C%20white%20background&width=400&height=600&seq=1003&orientation=portrait" alt="Wizard's Apprentice" class="w-full h-full object-cover object-top">
+                            <div class="quick-add absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity">
+                                <button class="bg-white text-primary px-4 py-2 rounded-button font-medium whitespace-nowrap">Quick View</button>
+                            </div>
+                            <div class="absolute top-2 right-2 bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">New</div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">Wizard's Apprentice</h3>
+                            <p class="text-sm text-gray-600 mb-2">by Michael Thompson</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 mr-1">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                                <span class="text-sm text-gray-600">4.9 (42)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-primary font-bold">$21.99</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full ml-2">Ages 10-12</span>
+                                </div>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 4 -->
+                    <div class="book-card bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20children%20book%20cover%20with%20fairy%2C%20glowing%20forest%2C%20magical%20creatures%2C%20high%20quality%20digital%20illustration%2C%20vibrant%20colors%2C%20professional%20book%20cover%20design%2C%20white%20background&width=400&height=600&seq=1004&orientation=portrait" alt="Fairy Whispers" class="w-full h-full object-cover object-top">
+                            <div class="quick-add absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity">
+                                <button class="bg-white text-primary px-4 py-2 rounded-button font-medium whitespace-nowrap">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">Fairy Whispers</h3>
+                            <p class="text-sm text-gray-600 mb-2">by Olivia Parker</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 mr-1">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="text-sm text-gray-600">3.5 (78)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-primary font-bold">$14.99</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full ml-2">Ages 4-6</span>
+                                </div>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 5 -->
+                    <div class="book-card bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20children%20book%20cover%20with%20griffin%2C%20mythical%20creature%2C%20adventure%2C%20high%20quality%20digital%20illustration%2C%20vibrant%20colors%2C%20professional%20book%20cover%20design%2C%20white%20background&width=400&height=600&seq=1005&orientation=portrait" alt="Griffin's Quest" class="w-full h-full object-cover object-top">
+                            <div class="quick-add absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity">
+                                <button class="bg-white text-primary px-4 py-2 rounded-button font-medium whitespace-nowrap">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">Griffin's Quest</h3>
+                            <p class="text-sm text-gray-600 mb-2">by Daniel Roberts</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 mr-1">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="text-sm text-gray-600">4.2 (63)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-primary font-bold">$19.49</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full ml-2">Ages 7-9</span>
+                                </div>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 6 -->
+                    <div class="book-card bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20children%20book%20cover%20with%20mermaids%2C%20underwater%20kingdom%2C%20sea%20creatures%2C%20high%20quality%20digital%20illustration%2C%20vibrant%20colors%2C%20professional%20book%20cover%20design%2C%20white%20background&width=400&height=600&seq=1006&orientation=portrait" alt="Mermaid Kingdom" class="w-full h-full object-cover object-top">
+                            <div class="quick-add absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity">
+                                <button class="bg-white text-primary px-4 py-2 rounded-button font-medium whitespace-nowrap">Quick View</button>
+                            </div>
+                            <div class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">Sale</div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">Mermaid Kingdom</h3>
+                            <p class="text-sm text-gray-600 mb-2">by Sophia Anderson</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 mr-1">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="text-sm text-gray-600">4.7 (112)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-primary font-bold">$16.99</span>
+                                    <span class="text-sm text-gray-500 line-through ml-1">$22.99</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full ml-2">Ages 4-6</span>
+                                </div>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-10 flex justify-center">
+                    <div class="inline-flex items-center">
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white mx-1">1</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 mx-1">2</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 mx-1">3</button>
+                        <span class="mx-1">...</span>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 mx-1">8</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Sections -->
+    <section class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold mb-6">Bestselling Fantasy Series</h2>
+        
+        <div class="relative">
+            <div class="flex overflow-x-auto pb-4 space-x-6 hide-scrollbar">
+                <!-- Series 1 -->
+                <div class="flex-shrink-0 w-64">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20book%20series%20with%20magical%20creatures%2C%20dragon%2C%20wizard%2C%20professional%20book%20cover%20collection%2C%20white%20background&width=300&height=200&seq=2001&orientation=landscape" alt="Magical Creatures" class="w-full h-full object-cover object-top">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                <h3 class="text-white font-bold text-lg">Magical Creatures</h3>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-sm text-gray-600 mb-3">A beloved series about magical creatures and their adventures.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium">5 books in series</span>
+                                <button class="text-primary font-medium text-sm hover:underline whitespace-nowrap">View Series</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Series 2 -->
+                <div class="flex-shrink-0 w-64">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20book%20series%20with%20enchanted%20forest%2C%20magical%20trees%2C%20fairy%2C%20professional%20book%20cover%20collection%2C%20white%20background&width=300&height=200&seq=2002&orientation=landscape" alt="Enchanted Forest" class="w-full h-full object-cover object-top">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                <h3 class="text-white font-bold text-lg">Enchanted Forest</h3>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-sm text-gray-600 mb-3">Discover the secrets of the magical forest and its inhabitants.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium">4 books in series</span>
+                                <button class="text-primary font-medium text-sm hover:underline whitespace-nowrap">View Series</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Series 3 -->
+                <div class="flex-shrink-0 w-64">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20book%20series%20with%20wizard%20school%2C%20magic%20wands%2C%20spellbooks%2C%20professional%20book%20cover%20collection%2C%20white%20background&width=300&height=200&seq=2003&orientation=landscape" alt="Wizard Academy" class="w-full h-full object-cover object-top">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                <h3 class="text-white font-bold text-lg">Wizard Academy</h3>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-sm text-gray-600 mb-3">Follow young wizards as they learn magic at the prestigious academy.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium">7 books in series</span>
+                                <button class="text-primary font-medium text-sm hover:underline whitespace-nowrap">View Series</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Series 4 -->
+                <div class="flex-shrink-0 w-64">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20book%20series%20with%20mythical%20kingdom%2C%20castle%2C%20knights%2C%20professional%20book%20cover%20collection%2C%20white%20background&width=300&height=200&seq=2004&orientation=landscape" alt="Mythical Kingdoms" class="w-full h-full object-cover object-top">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                <h3 class="text-white font-bold text-lg">Mythical Kingdoms</h3>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-sm text-gray-600 mb-3">Epic adventures across magical kingdoms and mystical realms.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium">6 books in series</span>
+                                <button class="text-primary font-medium text-sm hover:underline whitespace-nowrap">View Series</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Series 5 -->
+                <div class="flex-shrink-0 w-64">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=fantasy%20book%20series%20with%20underwater%20world%2C%20mermaids%2C%20sea%20creatures%2C%20professional%20book%20cover%20collection%2C%20white%20background&width=300&height=200&seq=2005&orientation=landscape" alt="Underwater Realms" class="w-full h-full object-cover object-top">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                <h3 class="text-white font-bold text-lg">Underwater Realms</h3>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-sm text-gray-600 mb-3">Dive into magical underwater worlds filled with mermaids and sea creatures.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium">3 books in series</span>
+                                <button class="text-primary font-medium text-sm hover:underline whitespace-nowrap">View Series</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-gray-100 z-10">
+                <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-gray-100 z-10">
+                <i class="ri-arrow-right-s-line"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Popular Fantasy Authors -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold">Popular Fantasy Authors</h2>
+            <a href="#" class="text-primary font-medium hover:underline">View All</a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Author 1 -->
+            <div class="bg-white rounded-lg shadow-sm p-4 flex items-center">
+                <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20female%20childrens%20book%20author%2C%20friendly%20smile%2C%20high%20quality%2C%20realistic&width=100&height=100&seq=3001&orientation=squarish" alt="Emily Blackwood" class="w-16 h-16 rounded-full object-cover mr-4">
+                <div>
+                    <h3 class="font-bold">Emily Blackwood</h3>
+                    <p class="text-sm text-gray-600">12 Fantasy Books</p>
+                    <div class="flex text-yellow-400 text-sm mt-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Author 2 -->
+            <div class="bg-white rounded-lg shadow-sm p-4 flex items-center">
+                <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20male%20childrens%20book%20author%2C%20glasses%2C%20friendly%20smile%2C%20high%20quality%2C%20realistic&width=100&height=100&seq=3002&orientation=squarish" alt="Michael Thompson" class="w-16 h-16 rounded-full object-cover mr-4">
+                <div>
+                    <h3 class="font-bold">Michael Thompson</h3>
+                    <p class="text-sm text-gray-600">9 Fantasy Books</p>
+                    <div class="flex text-yellow-400 text-sm mt-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Author 3 -->
+            <div class="bg-white rounded-lg shadow-sm p-4 flex items-center">
+                <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20female%20childrens%20book%20author%2C%20curly%20hair%2C%20friendly%20smile%2C%20high%20quality%2C%20realistic&width=100&height=100&seq=3003&orientation=squarish" alt="Sophia Anderson" class="w-16 h-16 rounded-full object-cover mr-4">
+                <div>
+                    <h3 class="font-bold">Sophia Anderson</h3>
+                    <p class="text-sm text-gray-600">15 Fantasy Books</p>
+                    <div class="flex text-yellow-400 text-sm mt-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Author 4 -->
+            <div class="bg-white rounded-lg shadow-sm p-4 flex items-center">
+                <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20male%20childrens%20book%20author%2C%20beard%2C%20friendly%20smile%2C%20high%20quality%2C%20realistic&width=100&height=100&seq=3004&orientation=squarish" alt="Daniel Roberts" class="w-16 h-16 rounded-full object-cover mr-4">
+                <div>
+                    <h3 class="font-bold">Daniel Roberts</h3>
+                    <p class="text-sm text-gray-600">8 Fantasy Books</p>
+                    <div class="flex text-yellow-400 text-sm mt-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="text-3xl font-['Pacifico'] text-white mb-4 block">BookVerse</a>
+                    <p class="text-gray-400 mb-4">Inspiring young minds with magical stories and adventures.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="ri-twitter-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="ri-pinterest-line"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">All Books</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Themes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Age Groups</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Authors</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">New Releases</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">My Account</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Track Order</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Returns & Refunds</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to get special offers, free giveaways, and new book alerts.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email address" class="px-4 py-2 rounded-l-button text-gray-900 text-sm border-none focus:outline-none focus:ring-2 focus:ring-primary w-full">
+                        <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-r-button whitespace-nowrap">Subscribe</button>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-medium mb-2">We Accept</h4>
+                        <div class="flex space-x-3">
+                            <i class="ri-visa-fill ri-lg"></i>
+                            <i class="ri-mastercard-fill ri-lg"></i>
+                            <i class="ri-paypal-fill ri-lg"></i>
+                            <i class="ri-amazon-pay-fill ri-lg"></i>
+                            <i class="ri-apple-fill ri-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2025 BookVerse. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Cookies Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Checkbox functionality
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const icon = this.nextElementSibling.querySelector('i');
+                    if (this.checked) {
+                        icon.classList.remove('opacity-0');
+                        this.nextElementSibling.classList.add('bg-primary', 'text-white', 'border-primary');
+                    } else {
+                        icon.classList.add('opacity-0');
+                        this.nextElementSibling.classList.remove('bg-primary', 'text-white', 'border-primary');
+                    }
+                });
+                
+                // Set initial state
+                if (checkbox.checked) {
+                    const icon = checkbox.nextElementSibling.querySelector('i');
+                    icon.classList.remove('opacity-0');
+                    checkbox.nextElementSibling.classList.add('bg-primary', 'text-white', 'border-primary');
+                }
+            });
+            
+            // Radio button functionality
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    radioButtons.forEach(r => {
+                        const circle = r.nextElementSibling.querySelector('div');
+                        if (r === this) {
+                            circle.classList.remove('opacity-0');
+                            r.nextElementSibling.classList.add('border-primary');
+                        } else {
+                            circle.classList.add('opacity-0');
+                            r.nextElementSibling.classList.remove('border-primary');
+                        }
+                    });
+                });
+                
+                // Set initial state
+                if (radio.checked) {
+                    const circle = radio.nextElementSibling.querySelector('div');
+                    circle.classList.remove('opacity-0');
+                    radio.nextElementSibling.classList.add('border-primary');
+                }
+            });
+            
+            // Price range slider
+            const priceSlider = document.querySelector('.price-range');
+            if (priceSlider) {
+                const priceValue = document.querySelector('.price-range + div');
+                priceSlider.addEventListener('input', function() {
+                    priceValue.textContent = `Up to $${this.value}`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

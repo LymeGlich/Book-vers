@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Books | BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#a855f7'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+position: relative;
+display: inline-block;
+width: 18px;
+height: 18px;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+transition: all 0.2s ease;
+}
+.custom-checkbox.checked {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.custom-checkbox.checked::after {
+content: '';
+position: absolute;
+left: 5px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 24px;
+}
+.switch-track {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 34px;
+}
+.switch-thumb {
+position: absolute;
+height: 20px;
+width: 20px;
+left: 2px;
+bottom: 2px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+.switch-active .switch-track {
+background-color: #4f46e5;
+}
+.switch-active .switch-thumb {
+transform: translateX(20px);
+}
+.dropdown {
+position: relative;
+display: inline-block;
+}
+.dropdown-content {
+display: none;
+position: absolute;
+min-width: 180px;
+z-index: 10;
+background-color: white;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+border-radius: 8px;
+padding: 0.5rem 0;
+margin-top: 0.5rem;
+}
+.dropdown-content.show {
+display: block;
+}
+.star-rating {
+display: inline-flex;
+font-size: 14px;
+color: #f59e0b;
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<header class="bg-white shadow-sm sticky top-0 z-10">
+<div class="container mx-auto px-4 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full mr-3">
+<i class="ri-arrow-left-line ri-lg"></i>
+</button>
+<h1 class="text-xl font-semibold text-gray-900">Education</h1>
+</div>
+<div class="flex items-center space-x-4">
+<a href="/Wishlist-of-Educational-Books.html" data-readdy="true" class="w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full">
+<i class="ri-heart-line ri-lg"></i>
+</a>
+<div class="relative">
+<button id="cartButton" class="w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full relative">
+<i class="ri-shopping-cart-line ri-lg"></i>
+<span id="cartBadge" class="absolute top-0 right-0 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+</button>
+<div id="cartDropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-100 z-20">
+<div class="p-4">
+<div class="space-y-3 mb-4">
+<div class="flex items-center gap-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20calculus%20mathematics%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background&width=60&height=80&seq=19&orientation=portrait" alt="Calculus: Early Transcendentals" class="w-12 h-16 object-cover object-top rounded">
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium text-gray-900 truncate">Calculus: Early Transcendentals</h4>
+<p class="text-sm text-gray-500">$129.99</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">-</button>
+<span class="text-sm">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">+</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20biology%20science%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background&width=60&height=80&seq=20&orientation=portrait" alt="Campbell Biology" class="w-12 h-16 object-cover object-top rounded">
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium text-gray-900 truncate">Campbell Biology</h4>
+<p class="text-sm text-gray-500">$149.99</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">-</button>
+<span class="text-sm">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">+</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20psychology%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background&width=60&height=80&seq=21&orientation=portrait" alt="Psychology in Action" class="w-12 h-16 object-cover object-top rounded">
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium text-gray-900 truncate">Psychology in Action</h4>
+<p class="text-sm text-gray-500">$119.99</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">-</button>
+<span class="text-sm">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">+</button>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-100 pt-3 mb-4">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-gray-700">Subtotal</span>
+<span class="text-gray-900">$399.97</span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap hover:bg-gray-50">View Cart</button>
+<button class="flex-1 bg-primary text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap" onclick="window.location.href='/Checkout-Process-Page.html'">Checkout</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 relative">
+<input type="text" placeholder="Search educational books..." class="w-full pl-10 pr-4 py-3 bg-gray-100 border-none rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-500">
+<i class="ri-search-line"></i>
+</div>
+</div>
+</div>
+</header>
+<div class="container mx-auto px-4 py-6">
+<!-- Filters -->
+<div class="overflow-x-auto pb-2 mb-6">
+<div class="flex space-x-3">
+<div class="dropdown">
+<button class="flex items-center space-x-2 bg-white border border-gray-200 px-4 py-2 rounded-button whitespace-nowrap text-sm font-medium">
+<span>All Levels</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div class="dropdown-content left-0">
+<div class="py-1 px-3">
+<div class="flex items-center py-2">
+<div class="custom-checkbox checked mr-2"></div>
+<span class="text-sm">All Levels</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Elementary</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Middle School</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">High School</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">College</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Professional</span>
+</div>
+</div>
+</div>
+</div>
+<div class="dropdown">
+<button class="flex items-center space-x-2 bg-white border border-gray-200 px-4 py-2 rounded-button whitespace-nowrap text-sm font-medium">
+<span>Subjects</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div class="dropdown-content left-0">
+<div class="py-1 px-3">
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Mathematics</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Science</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Language Arts</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Social Studies</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Foreign Languages</span>
+</div>
+</div>
+</div>
+</div>
+<div class="dropdown">
+<button class="flex items-center space-x-2 bg-white border border-gray-200 px-4 py-2 rounded-button whitespace-nowrap text-sm font-medium">
+<span>Sort By</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div class="dropdown-content left-0">
+<div class="py-1 px-3">
+<div class="flex items-center py-2">
+<div class="custom-checkbox checked mr-2"></div>
+<span class="text-sm">Popularity</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">New Releases</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Price: Low to High</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Price: High to Low</span>
+</div>
+<div class="flex items-center py-2">
+<div class="custom-checkbox mr-2"></div>
+<span class="text-sm">Rating</span>
+</div>
+</div>
+</div>
+</div>
+<div class="dropdown">
+<button class="flex items-center space-x-2 bg-white border border-gray-200 px-4 py-2 rounded-button whitespace-nowrap text-sm font-medium">
+<span>Price Range</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div class="dropdown-content right-0" style="width: 280px;">
+<div class="py-3 px-4">
+<div class="flex justify-between mb-2">
+<span class="text-sm font-medium">$0</span>
+<span class="text-sm font-medium">$200</span>
+</div>
+<input type="range" min="0" max="200" value="100" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+<div class="flex items-center justify-between mt-4">
+<div class="relative w-24">
+<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+<input type="number" value="0" class="w-full pl-7 pr-2 py-1 border border-gray-300 rounded text-sm">
+</div>
+<span class="text-gray-500">-</span>
+<div class="relative w-24">
+<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+<input type="number" value="100" class="w-full pl-7 pr-2 py-1 border border-gray-300 rounded text-sm">
+</div>
+</div>
+<button class="mt-4 w-full bg-primary text-white py-2 rounded-button whitespace-nowrap text-sm font-medium">Apply</button>
+</div>
+</div>
+</div>
+<button class="flex items-center space-x-2 bg-white border border-gray-200 px-4 py-2 rounded-button whitespace-nowrap text-sm font-medium">
+<i class="ri-filter-3-line"></i>
+<span>More Filters</span>
+</button>
+</div>
+</div>
+<!-- Featured Categories -->
+<div class="mb-10">
+<h2 class="text-xl font-semibold text-gray-900 mb-4">Featured Categories</h2>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition-shadow">
+<div class="w-14 h-14 flex items-center justify-center bg-blue-100 rounded-full mb-3">
+<i class="ri-book-open-line ri-xl text-primary"></i>
+</div>
+<span class="text-sm font-medium text-center">Textbooks</span>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition-shadow">
+<div class="w-14 h-14 flex items-center justify-center bg-purple-100 rounded-full mb-3">
+<i class="ri-book-read-line ri-xl text-purple-600"></i>
+</div>
+<span class="text-sm font-medium text-center">Reference Materials</span>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition-shadow">
+<div class="w-14 h-14 flex items-center justify-center bg-green-100 rounded-full mb-3">
+<i class="ri-draft-line ri-xl text-green-600"></i>
+</div>
+<span class="text-sm font-medium text-center">Workbooks</span>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition-shadow">
+<div class="w-14 h-14 flex items-center justify-center bg-amber-100 rounded-full mb-3">
+<i class="ri-file-list-3-line ri-xl text-amber-600"></i>
+</div>
+<span class="text-sm font-medium text-center">Study Guides</span>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition-shadow">
+<div class="w-14 h-14 flex items-center justify-center bg-red-100 rounded-full mb-3">
+<i class="ri-device-line ri-xl text-red-600"></i>
+</div>
+<span class="text-sm font-medium text-center">Educational Technology</span>
+</div>
+</div>
+</div>
+<!-- Bestselling Educational Titles -->
+<div class="mb-10">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold text-gray-900">Bestselling Educational Titles</h2>
+<a href="#" class="text-primary text-sm font-medium">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20mathematics%20calculus%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=1&orientation=portrait" alt="Calculus: Early Transcendentals" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Calculus: Early Transcendentals</h3>
+<p class="text-sm text-gray-600 mb-2">James Stewart</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.7 (328)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$129.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20biology%20science%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=2&orientation=portrait" alt="Campbell Biology" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Campbell Biology</h3>
+<p class="text-sm text-gray-600 mb-2">Lisa Urry, Michael Cain</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">4.2 (156)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$149.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20psychology%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=3&orientation=portrait" alt="Psychology in Action" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Psychology in Action</h3>
+<p class="text-sm text-gray-600 mb-2">Karen Huffman</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.9 (215)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$119.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20economics%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=4&orientation=portrait" alt="Principles of Economics" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Principles of Economics</h3>
+<p class="text-sm text-gray-600 mb-2">N. Gregory Mankiw</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.6 (189)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$139.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- New Releases in Education -->
+<div class="mb-10">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold text-gray-900">New Releases in Education</h2>
+<a href="#" class="text-primary text-sm font-medium">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20computer%20science%20programming%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=5&orientation=portrait" alt="Python for Data Science" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">New</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Python for Data Science</h3>
+<p class="text-sm text-gray-600 mb-2">Jake VanderPlas</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">4.3 (87)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$89.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20artificial%20intelligence%20machine%20learning%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=6&orientation=portrait" alt="Machine Learning Fundamentals" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">New</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Machine Learning Fundamentals</h3>
+<p class="text-sm text-gray-600 mb-2">Sebastian Raschka</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.8 (42)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$109.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20environmental%20science%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=7&orientation=portrait" alt="Environmental Science: A Global Perspective" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">New</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Environmental Science: A Global Perspective</h3>
+<p class="text-sm text-gray-600 mb-2">William P. Cunningham</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">4.1 (35)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$99.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20literature%20english%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=8&orientation=portrait" alt="Contemporary Literary Theory" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">New</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Contemporary Literary Theory</h3>
+<p class="text-sm text-gray-600 mb-2">Emily Thompson</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">4.2 (29)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$79.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Special Collections -->
+<div class="mb-10">
+<h2 class="text-xl font-semibold text-gray-900 mb-4">Special Collections</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 relative">
+<img src="https://readdy.ai/api/search-image?query=stack%20of%20educational%20books%20for%20teachers%2C%20professional%20development%2C%20teaching%20methodology%20books%2C%20clean%20background&width=300&height=300&seq=9&orientation=squarish" alt="Teacher Resources" class="w-full h-full object-cover object-top">
+</div>
+<div class="md:w-2/3 p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Teacher Resources</h3>
+<p class="text-sm text-gray-600 mb-4">Comprehensive materials to enhance your teaching methods and classroom management skills.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-1 rounded">Lesson Plans</span>
+<span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Assessment Tools</span>
+<span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-1 rounded">Classroom Management</span>
+</div>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">Explore Collection</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 relative">
+<img src="https://readdy.ai/api/search-image?query=stack%20of%20test%20preparation%20books%2C%20SAT%2C%20ACT%2C%20GRE%20study%20guides%2C%20clean%20background&width=300&height=300&seq=10&orientation=squarish" alt="Test Prep Materials" class="w-full h-full object-cover object-top">
+</div>
+<div class="md:w-2/3 p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Test Prep Materials</h3>
+<p class="text-sm text-gray-600 mb-4">Comprehensive study guides and practice tests for standardized exams at all educational levels.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-1 rounded">SAT/ACT</span>
+<span class="bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-1 rounded">AP Exams</span>
+<span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1 rounded">GRE/GMAT</span>
+</div>
+<button class="bg-primary text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">Explore Collection</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Student Essentials -->
+<div class="mb-10">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold text-gray-900">Student Essentials</h2>
+<a href="#" class="text-primary text-sm font-medium">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20study%20skills%20student%20success%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=11&orientation=portrait" alt="The Study Skills Handbook" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">The Study Skills Handbook</h3>
+<p class="text-sm text-gray-600 mb-2">Stella Cottrell</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.7 (215)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$24.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20critical%20thinking%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=12&orientation=portrait" alt="Critical Thinking Skills" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Critical Thinking Skills</h3>
+<p class="text-sm text-gray-600 mb-2">Tom Chatfield</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">4.2 (178)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$19.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20academic%20writing%20guide%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=13&orientation=portrait" alt="Academic Writing: A Handbook" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Academic Writing: A Handbook</h3>
+<p class="text-sm text-gray-600 mb-2">Janet Williams</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.9 (143)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$29.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20research%20methods%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=14&orientation=portrait" alt="Research Methods: A Practical Guide" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Research Methods: A Practical Guide</h3>
+<p class="text-sm text-gray-600 mb-2">Michael Hammond</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.6 (98)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$34.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Professional Development -->
+<div class="mb-10">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold text-gray-900">Professional Development</h2>
+<a href="#" class="text-primary text-sm font-medium">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20leadership%20management%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=15&orientation=portrait" alt="Leadership in Education" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Leadership in Education</h3>
+<p class="text-sm text-gray-600 mb-2">Robert Marzano</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">4.3 (76)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$45.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20classroom%20management%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=16&orientation=portrait" alt="Effective Classroom Management" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Effective Classroom Management</h3>
+<p class="text-sm text-gray-600 mb-2">Carol Weinstein</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.7 (112)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$39.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20curriculum%20development%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=17&orientation=portrait" alt="Curriculum Development" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Curriculum Development</h3>
+<p class="text-sm text-gray-600 mb-2">Allan Ornstein</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">4.2 (68)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$49.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative pb-[140%]">
+<img src="https://readdy.ai/api/search-image?query=professional%20educational%20textbook%20cover%20design%2C%20educational%20technology%20textbook%2C%20minimalist%20modern%20design%2C%20solid%20color%20background%2C%20title%20and%20author%20name%20visible&width=300&height=420&seq=18&orientation=portrait" alt="Educational Technology Integration" class="absolute inset-0 w-full h-full object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-gray-700 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Educational Technology Integration</h3>
+<p class="text-sm text-gray-600 mb-2">Marc Prensky</p>
+<div class="flex items-center mb-3">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">4.6 (94)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$54.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Back to top button -->
+<button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+<i class="ri-arrow-up-line ri-lg"></i>
+</button>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const cartButton = document.getElementById('cartButton');
+const cartDropdown = document.getElementById('cartDropdown');
+cartButton.addEventListener('click', function(e) {
+e.stopPropagation();
+cartDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(e) {
+if (!cartDropdown.contains(e.target) && !cartButton.contains(e.target)) {
+cartDropdown.classList.add('hidden');
+}
+});
+// Dropdown functionality
+const dropdownButtons = document.querySelectorAll('.dropdown button');
+dropdownButtons.forEach(button => {
+button.addEventListener('click', function() {
+const dropdown = this.closest('.dropdown');
+const content = dropdown.querySelector('.dropdown-content');
+// Close all other dropdowns
+document.querySelectorAll('.dropdown-content.show').forEach(openDropdown => {
+if (openDropdown !== content) {
+openDropdown.classList.remove('show');
+}
+});
+// Toggle current dropdown
+content.classList.toggle('show');
+});
+});
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(event) {
+if (!event.target.closest('.dropdown')) {
+document.querySelectorAll('.dropdown-content.show').forEach(dropdown => {
+dropdown.classList.remove('show');
+});
+}
+});
+// Custom checkbox functionality
+const checkboxes = document.querySelectorAll('.custom-checkbox');
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('click', function() {
+this.classList.toggle('checked');
+});
+});
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Back to top button functionality
+const backToTopButton = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+if (window.pageYOffset > 300) {
+backToTopButton.classList.remove('opacity-0', 'invisible');
+backToTopButton.classList.add('opacity-100', 'visible');
+} else {
+backToTopButton.classList.remove('opacity-100', 'visible');
+backToTopButton.classList.add('opacity-0', 'invisible');
+}
+});
+backToTopButton.addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+});
+</script>
+</body>
+</html>

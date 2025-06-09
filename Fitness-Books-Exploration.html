@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Books - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#f97316'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.price-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 16px;
+height: 16px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+.price-slider::-moz-range-thumb {
+width: 16px;
+height: 16px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+.custom-checkbox {
+display: none;
+}
+.custom-checkbox + label {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+display: inline-block;
+}
+.custom-checkbox + label:before {
+content: '';
+position: absolute;
+left: 0;
+top: 0;
+width: 18px;
+height: 18px;
+border: 1px solid #d1d5db;
+background: #fff;
+border-radius: 4px;
+}
+.custom-checkbox:checked + label:before {
+background: #4f46e5;
+border-color: #4f46e5;
+}
+.custom-checkbox:checked + label:after {
+content: '';
+position: absolute;
+left: 6px;
+top: 3px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-radio {
+display: none;
+}
+.custom-radio + label {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+display: inline-block;
+}
+.custom-radio + label:before {
+content: '';
+position: absolute;
+left: 0;
+top: 0;
+width: 18px;
+height: 18px;
+border: 1px solid #d1d5db;
+background: #fff;
+border-radius: 50%;
+}
+.custom-radio:checked + label:before {
+border-color: #4f46e5;
+}
+.custom-radio:checked + label:after {
+content: '';
+position: absolute;
+left: 5px;
+top: 5px;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #4f46e5;
+}
+.switch {
+position: relative;
+display: inline-block;
+width: 40px;
+height: 22px;
+}
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 34px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 16px;
+width: 16px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #4f46e5;
+}
+input:checked + .slider:before {
+transform: translateX(18px);
+}
+.star-rating {
+display: inline-flex;
+font-size: 1.25rem;
+color: #f59e0b;
+}
+.pagination-item {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 36px;
+height: 36px;
+border-radius: 8px;
+cursor: pointer;
+}
+.pagination-item.active {
+background-color: #4f46e5;
+color: white;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="bg-white shadow-sm py-4 px-6 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-6">
+<a href="#" class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-arrow-left-line text-gray-700 ri-lg"></i>
+</button>
+<span class="font-['Pacifico'] text-2xl text-primary">book vers</span>
+</a>
+</div>
+<div class="flex-1 max-w-xl mx-4">
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+</div>
+<input type="text" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Search fitness books...">
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+<div class="w-5 h-5 flex items-center justify-center cursor-pointer">
+<i class="ri-filter-3-line text-gray-500"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line text-gray-700 ri-lg"></i>
+</button>
+<div class="relative">
+<button id="cartButton" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-shopping-cart-line text-gray-700 ri-lg"></i>
+<span id="cartCount" class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-primary text-white text-xs rounded-full hidden">0</span>
+</button>
+<div id="cartDropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+<div id="cartEmpty" class="p-6 text-center">
+<div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-gray-100">
+<i class="ri-shopping-cart-line text-gray-400 ri-2x"></i>
+</div>
+<h3 class="text-gray-900 font-medium mb-2">Your cart is empty</h3>
+<p class="text-gray-500 text-sm mb-4">Add some books to your cart and they will appear here</p>
+<button class="px-4 py-2 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Browse Books</button>
+</div>
+<div id="cartItems" class="hidden">
+<div class="p-4 border-b border-gray-100">
+<h3 class="font-medium text-gray-900">Shopping Cart</h3>
+</div>
+<div class="max-h-96 overflow-y-auto">
+<div id="cartItemsList" class="divide-y divide-gray-100"></div>
+</div>
+<div class="p-4 border-t border-gray-100">
+<div class="flex justify-between items-center mb-4">
+<span class="text-sm text-gray-600">Subtotal</span>
+<span id="cartSubtotal" class="font-medium text-gray-900">$0.00</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded hover:bg-gray-200 !rounded-button whitespace-nowrap">View Cart</button>
+<button class="w-full px-4 py-2 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Checkout</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+<i class="ri-user-line text-gray-700 ri-lg"></i>
+</div>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- Sidebar Filters -->
+<aside class="w-64 bg-white shadow-sm h-screen sticky top-20 p-6 hidden md:block">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-semibold text-gray-900">Filters</h3>
+<button class="text-sm text-primary hover:text-primary/80 whitespace-nowrap">Clear All</button>
+</div>
+<div class="space-y-6">
+<!-- Price Range -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">Price Range</h4>
+<div class="mb-2">
+<input type="range" min="0" max="100" value="50" class="w-full price-slider h-2 bg-gray-200 rounded-full appearance-none">
+</div>
+<div class="flex justify-between text-sm text-gray-600">
+<span>$0</span>
+<span>$100</span>
+</div>
+</div>
+<!-- Publication Date -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">Publication Date</h4>
+<div class="space-y-2">
+<div>
+<input type="radio" id="all-time" name="publication" class="custom-radio" checked>
+<label for="all-time" class="text-sm text-gray-700">All Time</label>
+</div>
+<div>
+<input type="radio" id="last-30" name="publication" class="custom-radio">
+<label for="last-30" class="text-sm text-gray-700">Last 30 Days</label>
+</div>
+<div>
+<input type="radio" id="last-90" name="publication" class="custom-radio">
+<label for="last-90" class="text-sm text-gray-700">Last 90 Days</label>
+</div>
+<div>
+<input type="radio" id="last-year" name="publication" class="custom-radio">
+<label for="last-year" class="text-sm text-gray-700">Last Year</label>
+</div>
+</div>
+</div>
+<!-- Author -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">Author</h4>
+<div class="space-y-2">
+<div>
+<input type="checkbox" id="author1" class="custom-checkbox">
+<label for="author1" class="text-sm text-gray-700">Mark Rippetoe</label>
+</div>
+<div>
+<input type="checkbox" id="author2" class="custom-checkbox">
+<label for="author2" class="text-sm text-gray-700">Michael Matthews</label>
+</div>
+<div>
+<input type="checkbox" id="author3" class="custom-checkbox">
+<label for="author3" class="text-sm text-gray-700">Kelly Starrett</label>
+</div>
+<div>
+<input type="checkbox" id="author4" class="custom-checkbox">
+<label for="author4" class="text-sm text-gray-700">Layne Norton</label>
+</div>
+<div>
+<input type="checkbox" id="author5" class="custom-checkbox">
+<label for="author5" class="text-sm text-gray-700">Scott Sonnon</label>
+</div>
+</div>
+</div>
+<!-- Rating -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">Rating</h4>
+<div class="space-y-2">
+<div>
+<input type="radio" id="rating5" name="rating" class="custom-radio">
+<label for="rating5" class="text-sm text-gray-700 flex items-center">
+<div class="star-rating">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</label>
+</div>
+<div>
+<input type="radio" id="rating4" name="rating" class="custom-radio">
+<label for="rating4" class="text-sm text-gray-700 flex items-center">
+<div class="star-rating">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-1">& up</span>
+</label>
+</div>
+<div>
+<input type="radio" id="rating3" name="rating" class="custom-radio" checked>
+<label for="rating3" class="text-sm text-gray-700 flex items-center">
+<div class="star-rating">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-1">& up</span>
+</label>
+</div>
+<div>
+<input type="radio" id="rating2" name="rating" class="custom-radio">
+<label for="rating2" class="text-sm text-gray-700 flex items-center">
+<div class="star-rating">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-1">& up</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Format -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">Format</h4>
+<div class="space-y-2">
+<div>
+<input type="checkbox" id="format1" class="custom-checkbox" checked>
+<label for="format1" class="text-sm text-gray-700 cursor-pointer">eBook</label>
+</div>
+<div>
+<input type="checkbox" id="format2" class="custom-checkbox">
+<label for="format2" class="text-sm text-gray-700">Audiobook</label>
+</div>
+<div>
+<input type="checkbox" id="format3" class="custom-checkbox">
+<label for="format3" class="text-sm text-gray-700">Hardcover</label>
+</div>
+<div>
+<input type="checkbox" id="format4" class="custom-checkbox">
+<label for="format4" class="text-sm text-gray-700">Paperback</label>
+</div>
+</div>
+</div>
+<!-- Language -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">Language</h4>
+<div class="space-y-2">
+<div>
+<input type="checkbox" id="lang1" class="custom-checkbox" checked>
+<label for="lang1" class="text-sm text-gray-700">English</label>
+</div>
+<div>
+<input type="checkbox" id="lang2" class="custom-checkbox">
+<label for="lang2" class="text-sm text-gray-700">Spanish</label>
+</div>
+<div>
+<input type="checkbox" id="lang3" class="custom-checkbox">
+<label for="lang3" class="text-sm text-gray-700">French</label>
+</div>
+<div>
+<input type="checkbox" id="lang4" class="custom-checkbox">
+<label for="lang4" class="text-sm text-gray-700">German</label>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 min-h-screen">
+<!-- Hero Section -->
+<section class="relative h-64 overflow-hidden">
+<div style="background-image: url('https://readdy.ai/api/search-image?query=fitness%20gym%20equipment%20with%20weights%2C%20dumbbells%2C%20and%20exercise%20machines%20in%20a%20modern%20gym%20with%20blue%20lighting%2C%20high%20quality%20professional%20photography&width=1280&height=400&seq=1&orientation=landscape');" class="absolute inset-0 bg-cover bg-center"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/30"></div>
+<div class="relative h-full max-w-7xl mx-auto px-6 flex flex-col justify-center">
+<h1 class="text-4xl font-bold text-white mb-2">Fitness Books</h1>
+<p class="text-gray-100 text-lg max-w-xl mb-4">Discover the best books on fitness, exercise, nutrition, and wellness to help you achieve your health goals.</p>
+<div class="text-gray-200">234 Books</div>
+</div>
+</section>
+<!-- Featured Books Carousel -->
+<section class="py-10 px-6 bg-white">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-gray-900">Featured Fitness Books</h2>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-left-s-line text-gray-700 ri-lg"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-right-s-line text-gray-700 ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Featured Book 1 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20with%20a%20muscular%20person%20doing%20weightlifting%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover&width=400&height=600&seq=2&orientation=portrait" alt="Strength Training Anatomy" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg text-gray-900 mb-1">Strength Training Anatomy</h3>
+<p class="text-gray-600 text-sm mb-2">by Frédéric Delavier</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.8 (1,245)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4 line-clamp-2">A detailed visual guide to strength training exercises and anatomy with over 600 full-color illustrations showing precisely which muscles are engaged during each exercise.</p>
+<a href="https://readdy.ai/home/7a6db3f8-47d0-4e9e-a98e-9fc89ffa00c5/bf6d1e1e-13de-4c67-8457-7e63ca5fefb6" data-readdy="true" class="text-primary font-medium text-sm hover:text-primary/80 !rounded-button whitespace-nowrap">Read More</a>
+</div>
+</div>
+<!-- Featured Book 2 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20nutrition%20and%20healthy%20eating%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20fresh%20vegetables%20and%20healthy%20food&width=400&height=600&seq=3&orientation=portrait" alt="Bigger Leaner Stronger" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg text-gray-900 mb-1">Bigger Leaner Stronger</h3>
+<p class="text-gray-600 text-sm mb-2">by Michael Matthews</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.6 (2,890)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4 line-clamp-2">The simple science of building the ultimate male body. This book shows you how to build muscle, lose fat, and transform your body without spending countless hours in the gym.</p>
+<a href="https://readdy.ai/home/7a6db3f8-47d0-4e9e-a98e-9fc89ffa00c5/bf6d1e1e-13de-4c67-8457-7e63ca5fefb6" data-readdy="true" class="text-primary font-medium text-sm hover:text-primary/80 !rounded-button whitespace-nowrap">Read More</a>
+</div>
+</div>
+<!-- Featured Book 3 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20yoga%20and%20meditation%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20person%20in%20yoga%20pose&width=400&height=600&seq=4&orientation=portrait" alt="Becoming a Supple Leopard" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg text-gray-900 mb-1">Becoming a Supple Leopard</h3>
+<p class="text-gray-600 text-sm mb-2">by Kelly Starrett</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.7 (1,567)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4 line-clamp-2">The ultimate guide to resolving pain, preventing injury, and optimizing athletic performance. Learn how to hack human movement and unlock your body's full potential.</p>
+<a href="https://readdy.ai/home/7a6db3f8-47d0-4e9e-a98e-9fc89ffa00c5/bf6d1e1e-13de-4c67-8457-7e63ca5fefb6" data-readdy="true" class="text-primary font-medium text-sm hover:text-primary/80 !rounded-button whitespace-nowrap">Read More</a>
+</div>
+</div>
+<!-- Featured Book 4 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20running%20and%20endurance%20training%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20runner%20silhouette&width=400&height=600&seq=5&orientation=portrait" alt="Born to Run" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg text-gray-900 mb-1">Born to Run</h3>
+<p class="text-gray-600 text-sm mb-2">by Christopher McDougall</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.5 (3,421)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4 line-clamp-2">A hidden tribe, superathletes, and the greatest race the world has never seen. This book will inspire you to run farther and faster than you ever thought possible.</p>
+<a href="https://readdy.ai/home/7a6db3f8-47d0-4e9e-a98e-9fc89ffa00c5/bf6d1e1e-13de-4c67-8457-7e63ca5fefb6" data-readdy="true" class="text-primary font-medium text-sm hover:text-primary/80 !rounded-button whitespace-nowrap">Read More</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Subcategories Grid -->
+<section class="py-10 px-6 bg-gray-50">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Fitness Subcategories</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Subcategory 1 -->
+<div class="bg-white rounded-lg shadow-sm p-6 flex items-center gap-4 hover:shadow-md transition">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 text-primary">
+<i class="ri-boxing-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Workout Guides</h3>
+<p class="text-gray-500 text-sm">62 Books</p>
+</div>
+</div>
+<!-- Subcategory 2 -->
+<div class="bg-white rounded-lg shadow-sm p-6 flex items-center gap-4 hover:shadow-md transition">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 text-green-600">
+<i class="ri-restaurant-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Nutrition & Diet</h3>
+<p class="text-gray-500 text-sm">48 Books</p>
+</div>
+</div>
+<!-- Subcategory 3 -->
+<div class="bg-white rounded-lg shadow-sm p-6 flex items-center gap-4 hover:shadow-md transition">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-600">
+<i class="ri-mental-health-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Yoga & Meditation</h3>
+<p class="text-gray-500 text-sm">37 Books</p>
+</div>
+</div>
+<!-- Subcategory 4 -->
+<div class="bg-white rounded-lg shadow-sm p-6 flex items-center gap-4 hover:shadow-md transition">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-100 text-orange-600">
+<i class="ri-run-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Sports Training</h3>
+<p class="text-gray-500 text-sm">45 Books</p>
+</div>
+</div>
+<!-- Subcategory 5 -->
+<div class="bg-white rounded-lg shadow-sm p-6 flex items-center gap-4 hover:shadow-md transition">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 text-purple-600">
+<i class="ri-user-heart-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Personal Training</h3>
+<p class="text-gray-500 text-sm">29 Books</p>
+</div>
+</div>
+<!-- Subcategory 6 -->
+<div class="bg-white rounded-lg shadow-sm p-6 flex items-center gap-4 hover:shadow-md transition">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-pink-100 text-pink-600">
+<i class="ri-brain-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Mental Fitness</h3>
+<p class="text-gray-500 text-sm">23 Books</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Book List -->
+<section class="py-10 px-6 bg-white">
+<div class="max-w-7xl mx-auto">
+<!-- Active Filters -->
+<div class="flex flex-wrap gap-2 mb-4 active-filters hidden">
+</div>
+<!-- Filter Bar -->
+<div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+<div class="flex items-center gap-4">
+<div class="relative">
+<button class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded shadow-sm text-gray-700 text-sm hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<span>Sort by: Popularity</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+</div>
+<div class="flex border border-gray-200 rounded overflow-hidden">
+<button class="px-3 py-2 bg-primary text-white flex items-center justify-center !rounded-none">
+<i class="ri-layout-grid-line"></i>
+</button>
+<button class="px-3 py-2 bg-white text-gray-500 flex items-center justify-center !rounded-none">
+<i class="ri-list-check"></i>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-600">Showing 1-12 of 234 books</span>
+<div class="relative">
+<button class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded shadow-sm text-gray-700 text-sm hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<span>12 per page</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Books Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
+<!-- Book 1 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20weightlifting%20and%20bodybuilding%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20barbell&width=400&height=600&seq=6&orientation=portrait" alt="Starting Strength" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Starting Strength</h3>
+<p class="text-gray-600 text-sm mb-2">by Mark Rippetoe</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.8 (2,134)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$29.95</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20nutrition%20and%20diet%20for%20athletes%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20healthy%20meal&width=400&height=600&seq=7&orientation=portrait" alt="Thinner Leaner Stronger" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Thinner Leaner Stronger</h3>
+<p class="text-gray-600 text-sm mb-2">by Michael Matthews</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.5 (1,876)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$19.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20mobility%20and%20flexibility%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20person%20stretching&width=400&height=600&seq=8&orientation=portrait" alt="Deskbound" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Deskbound</h3>
+<p class="text-gray-600 text-sm mb-2">by Kelly Starrett</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.6 (1,245)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$24.95</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20marathon%20training%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20runner%20on%20track&width=400&height=600&seq=9&orientation=portrait" alt="Advanced Marathoning" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Advanced Marathoning</h3>
+<p class="text-gray-600 text-sm mb-2">by Pete Pfitzinger</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.7 (987)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$21.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20yoga%20for%20beginners%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20person%20in%20yoga%20pose&width=400&height=600&seq=10&orientation=portrait" alt="Light on Yoga" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Light on Yoga</h3>
+<p class="text-gray-600 text-sm mb-2">by B.K.S. Iyengar</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.5 (2,345)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$18.95</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20sports%20nutrition%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20protein%20shake%20and%20supplements&width=400&height=600&seq=11&orientation=portrait" alt="The Renaissance Diet 2.0" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">The Renaissance Diet 2.0</h3>
+<p class="text-gray-600 text-sm mb-2">by Dr. Mike Israetel</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.6 (1,123)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$27.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20mindfulness%20and%20mental%20health%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20person%20meditating&width=400&height=600&seq=12&orientation=portrait" alt="The Oxygen Advantage" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">The Oxygen Advantage</h3>
+<p class="text-gray-600 text-sm mb-2">by Patrick McKeown</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.7 (876)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$16.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20bodyweight%20training%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20person%20doing%20push-ups&width=400&height=600&seq=13&orientation=portrait" alt="Overcoming Gravity" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Overcoming Gravity</h3>
+<p class="text-gray-600 text-sm mb-2">by Steven Low</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.5 (1,432)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$34.95</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 9 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20injury%20prevention%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20athletic%20tape%20and%20physical%20therapy&width=400&height=600&seq=14&orientation=portrait" alt="Ready to Run" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Ready to Run</h3>
+<p class="text-gray-600 text-sm mb-2">by Kelly Starrett</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.6 (965)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$22.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 10 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20functional%20training%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20kettlebell&width=400&height=600&seq=15&orientation=portrait" alt="Functional Training" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Functional Training</h3>
+<p class="text-gray-600 text-sm mb-2">by Juan Carlos Santana</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.4 (789)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$25.95</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 11 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20sports%20psychology%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20brain%20and%20muscle&width=400&height=600&seq=16&orientation=portrait" alt="The Champion's Mind" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">The Champion's Mind</h3>
+<p class="text-gray-600 text-sm mb-2">by Jim Afremow</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.7 (1,056)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$17.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+<!-- Book 12 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=fitness%20book%20cover%20about%20womens%20strength%20training%2C%20professional%20photography%20with%20clean%20minimalist%20design%2C%20book%20cover%20with%20woman%20lifting%20weights&width=400&height=600&seq=17&orientation=portrait" alt="Strong Curves" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Strong Curves</h3>
+<p class="text-gray-600 text-sm mb-2">by Bret Contreras</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.8 (2,456)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$28.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Library</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center items-center">
+<div class="flex items-center gap-2">
+<button class="pagination-item border border-gray-200 hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button class="pagination-item active !rounded-button whitespace-nowrap">1</button>
+<button class="pagination-item border border-gray-200 hover:bg-gray-50 !rounded-button whitespace-nowrap">2</button>
+<button class="pagination-item border border-gray-200 hover:bg-gray-50 !rounded-button whitespace-nowrap">3</button>
+<button class="pagination-item border border-gray-200 hover:bg-gray-50 !rounded-button whitespace-nowrap">4</button>
+<button class="pagination-item border border-gray-200 hover:bg-gray-50 !rounded-button whitespace-nowrap">5</button>
+<span class="px-2">...</span>
+<button class="pagination-item border border-gray-200 hover:bg-gray-50 !rounded-button whitespace-nowrap">20</button>
+<button class="pagination-item border border-gray-200 hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const formatCheckbox = document.getElementById('format1');
+const cartButton = document.getElementById('cartButton');
+const cartDropdown = document.getElementById('cartDropdown');
+const cartEmpty = document.getElementById('cartEmpty');
+const cartItems = document.getElementById('cartItems');
+const cartItemsList = document.getElementById('cartItemsList');
+const cartCount = document.getElementById('cartCount');
+const cartSubtotal = document.getElementById('cartSubtotal');
+let cart = [];
+function updateCart() {
+cartCount.textContent = cart.length;
+cartCount.classList.toggle('hidden', cart.length === 0);
+if (cart.length === 0) {
+cartEmpty.classList.remove('hidden');
+cartItems.classList.add('hidden');
+} else {
+cartEmpty.classList.add('hidden');
+cartItems.classList.remove('hidden');
+cartItemsList.innerHTML = '';
+let subtotal = 0;
+cart.forEach((item, index) => {
+subtotal += item.price * item.quantity;
+const itemElement = document.createElement('div');
+itemElement.className = 'p-4 flex gap-4';
+itemElement.innerHTML = `
+<img src="${item.image}" alt="${item.title}" class="w-16 h-24 object-cover object-top rounded">
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium text-gray-900 truncate">${item.title}</h4>
+<p class="text-sm text-gray-500">${item.author}</p>
+<div class="flex items-center gap-2 mt-2">
+<button onclick="updateQuantity(${index}, -1)" class="w-6 h-6 flex items-center justify-center rounded border border-gray-200 hover:bg-gray-50 !rounded-button">-</button>
+<span class="text-sm text-gray-700">${item.quantity}</span>
+<button onclick="updateQuantity(${index}, 1)" class="w-6 h-6 flex items-center justify-center rounded border border-gray-200 hover:bg-gray-50 !rounded-button">+</button>
+<button onclick="removeFromCart(${index})" class="ml-auto text-sm text-red-500 hover:text-red-700">Remove</button>
+</div>
+</div>
+<div class="text-sm font-medium text-gray-900">$${(item.price * item.quantity).toFixed(2)}</div>
+`;
+cartItemsList.appendChild(itemElement);
+});
+cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+}
+}
+window.updateQuantity = function(index, change) {
+if (cart[index]) {
+cart[index].quantity = Math.max(1, cart[index].quantity + change);
+updateCart();
+}
+};
+window.removeFromCart = function(index) {
+cart.splice(index, 1);
+updateCart();
+};
+cartButton.addEventListener('click', function(e) {
+e.stopPropagation();
+cartDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(e) {
+if (!cartDropdown.contains(e.target) && !cartButton.contains(e.target)) {
+cartDropdown.classList.add('hidden');
+}
+});
+const addToLibraryButtons = document.querySelectorAll('.bg-primary.text-white.text-sm.rounded');
+addToLibraryButtons.forEach(button => {
+button.addEventListener('click', function() {
+const bookCard = this.closest('.bg-white.rounded-lg');
+const title = bookCard.querySelector('h3').textContent;
+const author = bookCard.querySelector('.text-gray-600.text-sm').textContent;
+const price = parseFloat(bookCard.querySelector('.font-semibold.text-gray-900').textContent.replace('$', ''));
+const image = bookCard.querySelector('img').src;
+const existingItem = cart.find(item => item.title === title);
+if (existingItem) {
+existingItem.quantity += 1;
+} else {
+cart.push({
+title,
+author,
+price,
+image,
+quantity: 1
+});
+}
+updateCart();
+cartDropdown.classList.remove('hidden');
+});
+});
+const activeFilters = document.querySelector('.active-filters');
+function toggleFormatFilter(checked) {
+activeFilters.innerHTML = '';
+if (checked) {
+activeFilters.classList.remove('hidden');
+const filterTag = document.createElement('div');
+filterTag.className = 'flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full text-sm text-gray-700';
+filterTag.innerHTML = `
+<span>Format: eBook</span>
+<button class="w-4 h-4 flex items-center justify-center hover:text-gray-900" onclick="removeFormatFilter()">
+<i class="ri-close-line"></i>
+</button>
+`;
+activeFilters.appendChild(filterTag);
+} else {
+activeFilters.classList.add('hidden');
+}
+// Simulate filtering books (in a real app, this would fetch filtered data)
+const allBooks = document.querySelectorAll('.grid.gap-6.mb-10 > div');
+allBooks.forEach(book => {
+if (checked) {
+book.style.opacity = Math.random() > 0.5 ? '1' : '0.4';
+book.style.transition = 'opacity 0.3s ease';
+} else {
+book.style.opacity = '1';
+}
+});
+}
+window.removeFormatFilter = function() {
+formatCheckbox.checked = false;
+toggleFormatFilter(false);
+};
+formatCheckbox.addEventListener('change', function() {
+toggleFormatFilter(this.checked);
+});
+// Label click handler
+const formatLabel = document.querySelector('label[for="format1"]');
+formatLabel.addEventListener('click', function(e) {
+e.preventDefault();
+formatCheckbox.checked = !formatCheckbox.checked;
+toggleFormatFilter(formatCheckbox.checked);
+});
+// Mobile filter toggle
+const filterButton = document.querySelector('.ri-filter-3-line').parentElement;
+if (filterButton) {
+filterButton.addEventListener('click', function() {
+const sidebar = document.querySelector('aside');
+if (sidebar) {
+sidebar.classList.toggle('hidden');
+sidebar.classList.toggle('md:block');
+sidebar.classList.toggle('fixed');
+sidebar.classList.toggle('inset-0');
+sidebar.classList.toggle('z-50');
+}
+});
+}
+// Sort dropdown functionality
+const sortButton = document.querySelector('button:has(.ri-arrow-down-s-line)');
+if (sortButton) {
+sortButton.addEventListener('click', function() {
+// Add dropdown functionality here
+});
+}
+// View toggle functionality
+const viewButtons = document.querySelectorAll('.flex.border.border-gray-200.rounded.overflow-hidden button');
+if (viewButtons.length) {
+viewButtons.forEach(button => {
+button.addEventListener('click', function() {
+viewButtons.forEach(btn => {
+btn.classList.remove('bg-primary', 'text-white');
+btn.classList.add('bg-white', 'text-gray-500');
+});
+this.classList.remove('bg-white', 'text-gray-500');
+this.classList.add('bg-primary', 'text-white');
+});
+});
+}
+// Pagination functionality
+const paginationItems = document.querySelectorAll('.pagination-item');
+if (paginationItems.length) {
+paginationItems.forEach(item => {
+if (!item.classList.contains('active') && !item.querySelector('i')) {
+item.addEventListener('click', function() {
+paginationItems.forEach(btn => {
+btn.classList.remove('active', 'bg-primary', 'text-white');
+if (!btn.querySelector('i')) {
+btn.classList.add('border', 'border-gray-200', 'hover:bg-gray-50');
+}
+});
+this.classList.remove('border', 'border-gray-200', 'hover:bg-gray-50');
+this.classList.add('active', 'bg-primary', 'text-white');
+});
+}
+});
+}
+});
+</script>
+</body>
+</html>

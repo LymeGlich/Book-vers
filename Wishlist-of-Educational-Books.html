@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Wishlist | BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#a855f7'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Inter', sans-serif;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4f46e5;
+    cursor: pointer;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+.custom-checkbox.checked {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+}
+.custom-checkbox.checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 180px;
+    z-index: 10;
+    background-color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+}
+.dropdown-content.show {
+    display: block;
+}
+.star-rating {
+    display: inline-flex;
+    font-size: 14px;
+    color: #f59e0b;
+}
+.filter-panel {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+.filter-panel.show {
+    transform: translateX(0);
+}
+.remove-item {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.remove-item.removing {
+    transform: translateX(10px);
+    opacity: 0;
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="https://readdy.ai/home/d2ae8240-32dc-4f83-9607-8705b65eb86e/29ccf29e-edb8-487a-beda-de733500d71a" data-readdy="true" class="w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full mr-3">
+                    <i class="ri-arrow-left-line ri-lg"></i>
+                </a>
+                <h1 class="text-xl font-semibold text-gray-900">My Wishlist</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="cartButton" class="w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full relative">
+                        <i class="ri-shopping-cart-line ri-lg"></i>
+                        <span id="cartBadge" class="absolute top-0 right-0 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                    </button>
+                    <div id="cartDropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-100 z-20">
+                        <div class="p-4">
+                            <div class="space-y-3 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520calculus%2520mathematics%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background&width=60&height=80&seq=19&orientation=portrait" alt="Calculus: Early Transcendentals" class="w-12 h-16 object-cover object-top rounded">
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-gray-900 truncate">Calculus: Early Transcendentals</h4>
+                                        <p class="text-sm text-gray-500">$129.99</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">-</button>
+                                        <span class="text-sm">1</span>
+                                        <button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520biology%2520science%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background&width=60&height=80&seq=20&orientation=portrait" alt="Campbell Biology" class="w-12 h-16 object-cover object-top rounded">
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-gray-900 truncate">Campbell Biology</h4>
+                                        <p class="text-sm text-gray-500">$149.99</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">-</button>
+                                        <span class="text-sm">1</span>
+                                        <button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520psychology%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background&width=60&height=80&seq=21&orientation=portrait" alt="Psychology in Action" class="w-12 h-16 object-cover object-top rounded">
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-gray-900 truncate">Psychology in Action</h4>
+                                        <p class="text-sm text-gray-500">$119.99</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">-</button>
+                                        <span class="text-sm">1</span>
+                                        <button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 bg-gray-100 rounded">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-100 pt-3 mb-4">
+                                <div class="flex justify-between text-sm font-medium">
+                                    <span class="text-gray-700">Subtotal</span>
+                                    <span class="text-gray-900">$399.97</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="flex-1 bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap hover:bg-gray-50">View Cart</button>
+                                <button class="flex-1 bg-primary text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 relative">
+            <input type="text" placeholder="Search in wishlist..." class="w-full pl-10 pr-4 py-3 bg-gray-100 border-none rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20">
+            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-500">
+                <i class="ri-search-line"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container mx-auto px-4 py-6">
+    <!-- Sort and Filter Controls -->
+    <div class="flex justify-between items-center mb-6">
+        <div class="dropdown">
+            <button class="flex items-center space-x-2 bg-white border border-gray-200 px-4 py-2 rounded-button whitespace-nowrap text-sm font-medium">
+                <span>Sort by: Latest Added</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </button>
+            <div class="dropdown-content left-0">
+                <div class="py-1 px-3">
+                    <div class="flex items-center py-2">
+                        <div class="custom-checkbox checked mr-2"></div>
+                        <span class="text-sm">Latest Added</span>
+                    </div>
+                    <div class="flex items-center py-2">
+                        <div class="custom-checkbox mr-2"></div>
+                        <span class="text-sm">Price: Low to High</span>
+                    </div>
+                    <div class="flex items-center py-2">
+                        <div class="custom-checkbox mr-2"></div>
+                        <span class="text-sm">Price: High to Low</span>
+                    </div>
+                    <div class="flex items-center py-2">
+                        <div class="custom-checkbox mr-2"></div>
+                        <span class="text-sm">Name: A to Z</span>
+                    </div>
+                    <div class="flex items-center py-2">
+                        <div class="custom-checkbox mr-2"></div>
+                        <span class="text-sm">Rating: High to Low</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="filterButton" class="flex items-center space-x-2 bg-white border border-gray-200 px-4 py-2 rounded-button whitespace-nowrap text-sm font-medium">
+            <i class="ri-filter-3-line"></i>
+            <span>Filter</span>
+        </button>
+    </div>
+
+    <!-- Empty State (initially hidden) -->
+    <div id="emptyState" class="hidden flex flex-col items-center justify-center py-16 px-4">
+        <div class="w-48 h-48 mb-6 flex items-center justify-center bg-gray-100 rounded-full">
+            <i class="ri-heart-line ri-4x text-gray-400"></i>
+        </div>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-2 text-center">Your wishlist is empty</h2>
+        <p class="text-gray-600 mb-8 text-center">Books you save will appear here</p>
+        <a href="https://readdy.ai/home/d2ae8240-32dc-4f83-9607-8705b65eb86e/29ccf29e-edb8-487a-beda-de733500d71a" data-readdy="true" class="bg-primary text-white px-6 py-3 rounded-button text-sm font-medium whitespace-nowrap">Start Browsing</a>
+    </div>
+
+    <!-- Wishlist Content -->
+    <div id="wishlistContent" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Book 1 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520mathematics%2520calculus%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=101&orientation=portrait" alt="Calculus: Early Transcendentals" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Calculus: Early Transcendentals</h3>
+                <p class="text-sm text-gray-600 mb-2">James Stewart</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.7 (328)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$129.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520biology%2520science%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=102&orientation=portrait" alt="Campbell Biology" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Campbell Biology</h3>
+                <p class="text-sm text-gray-600 mb-2">Lisa Urry, Michael Cain</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.2 (156)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$149.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book 3 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520psychology%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=103&orientation=portrait" alt="Psychology in Action" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Psychology in Action</h3>
+                <p class="text-sm text-gray-600 mb-2">Karen Huffman</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.9 (215)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$119.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book 4 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520economics%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=104&orientation=portrait" alt="Principles of Economics" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Principles of Economics</h3>
+                <p class="text-sm text-gray-600 mb-2">N. Gregory Mankiw</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.6 (189)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$139.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book 5 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520computer%2520science%2520programming%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=105&orientation=portrait" alt="Python for Data Science" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Python for Data Science</h3>
+                <p class="text-sm text-gray-600 mb-2">Jake VanderPlas</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.3 (87)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$89.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book 6 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520artificial%2520intelligence%2520machine%2520learning%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=106&orientation=portrait" alt="Machine Learning Fundamentals" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Machine Learning Fundamentals</h3>
+                <p class="text-sm text-gray-600 mb-2">Sebastian Raschka</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.8 (42)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$109.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book 7 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520study%2520skills%2520student%2520success%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=107&orientation=portrait" alt="The Study Skills Handbook" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">The Study Skills Handbook</h3>
+                <p class="text-sm text-gray-600 mb-2">Stella Cottrell</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.7 (215)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$24.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book 8 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow remove-item">
+            <div class="relative pb-[140%]">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520educational%2520textbook%2520cover%2520design%252C%2520critical%2520thinking%2520textbook%252C%2520minimalist%2520modern%2520design%252C%2520solid%2520color%2520background%252C%2520title%2520and%2520author%2520name%2520visible&width=300&height=420&seq=108&orientation=portrait" alt="Critical Thinking Skills" class="absolute inset-0 w-full h-full object-cover object-top">
+                <button class="remove-from-wishlist absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full text-primary hover:text-red-500">
+                    <i class="ri-heart-fill"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Critical Thinking Skills</h3>
+                <p class="text-sm text-gray-600 mb-2">Tom Chatfield</p>
+                <div class="flex items-center mb-3">
+                    <div class="star-rating mr-1">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                    <span class="text-xs text-gray-500">4.2 (178)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-900">$19.99</span>
+                    <button class="add-to-cart bg-primary text-white px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Panel (initially hidden) -->
+<div id="filterPanel" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-xl z-50 filter-panel">
+    <div class="flex justify-between items-center p-4 border-b border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900">Filters</h3>
+        <button id="closeFilterButton" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full">
+            <i class="ri-close-line ri-lg"></i>
+        </button>
+    </div>
+    <div class="p-4 overflow-y-auto h-[calc(100%-64px)]">
+        <!-- Subject Categories -->
+        <div class="mb-6">
+            <h4 class="text-sm font-semibold text-gray-900 mb-3">Subject Categories</h4>
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Mathematics</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Science</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Computer Science</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Psychology</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Economics</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Language Arts</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Level -->
+        <div class="mb-6">
+            <h4 class="text-sm font-semibold text-gray-900 mb-3">Education Level</h4>
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Elementary</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Middle School</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">High School</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">College</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <span class="text-sm">Professional</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="mb-6">
+            <h4 class="text-sm font-semibold text-gray-900 mb-3">Price Range</h4>
+            <div class="mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">$0</span>
+                    <span class="text-sm font-medium">$200</span>
+                </div>
+                <input type="range" min="0" max="200" value="200" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="relative w-24">
+                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <input type="number" value="0" class="w-full pl-7 pr-2 py-1 border border-gray-300 rounded text-sm">
+                </div>
+                <span class="text-gray-500">-</span>
+                <div class="relative w-24">
+                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <input type="number" value="200" class="w-full pl-7 pr-2 py-1 border border-gray-300 rounded text-sm">
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating Filter -->
+        <div class="mb-6">
+            <h4 class="text-sm font-semibold text-gray-900 mb-3">Rating</h4>
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <div class="star-rating">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                    <span class="text-sm ml-2">& Up</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <div class="star-rating">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                    <span class="text-sm ml-2">& Up</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <div class="star-rating">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                    <span class="text-sm ml-2">& Up</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="custom-checkbox mr-2"></div>
+                    <div class="star-rating">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                        <i class="ri-star-line"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                    <span class="text-sm ml-2">& Up</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex gap-3 pt-4 border-t border-gray-200">
+            <button id="clearFilters" class="flex-1 bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap hover:bg-gray-50">Clear All</button>
+            <button id="applyFilters" class="flex-1 bg-primary text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">Apply Filters</button>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for filter panel -->
+<div id="filterOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+<!-- Confirmation Modal (initially hidden) -->
+<div id="confirmationModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div class="fixed inset-0 bg-black bg-opacity-50" id="modalOverlay"></div>
+    <div class="bg-white rounded-lg p-6 max-w-sm mx-4 relative z-10">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Remove from Wishlist</h3>
+        <p class="text-gray-600 mb-6">Are you sure you want to remove this item from your wishlist?</p>
+        <div class="flex justify-end gap-3">
+            <button id="cancelRemove" class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap hover:bg-gray-50">Cancel</button>
+            <button id="confirmRemove" class="bg-red-500 text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">Remove</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add to Cart Success Toast (initially hidden) -->
+<div id="successToast" class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center z-50 transform translate-y-10 opacity-0 transition-all duration-300">
+    <i class="ri-check-line ri-lg mr-2"></i>
+    <span>Item added to cart successfully!</span>
+</div>
+
+<!-- Back to top button -->
+<button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+    <i class="ri-arrow-up-line ri-lg"></i>
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Cart Dropdown
+    const cartButton = document.getElementById('cartButton');
+    const cartDropdown = document.getElementById('cartDropdown');
+    
+    cartButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        cartDropdown.classList.toggle('hidden');
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!cartDropdown.contains(e.target) && !cartButton.contains(e.target)) {
+            cartDropdown.classList.add('hidden');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Dropdown functionality
+    const dropdownButtons = document.querySelectorAll('.dropdown button');
+    
+    dropdownButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const dropdown = this.closest('.dropdown');
+            const content = dropdown.querySelector('.dropdown-content');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.dropdown-content.show').forEach(openDropdown => {
+                if (openDropdown !== content) {
+                    openDropdown.classList.remove('show');
+                }
+            });
+            
+            // Toggle current dropdown
+            content.classList.toggle('show');
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-content.show').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Custom checkbox functionality
+    const checkboxes = document.querySelectorAll('.custom-checkbox');
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', function() {
+            this.classList.toggle('checked');
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter panel functionality
+    const filterButton = document.getElementById('filterButton');
+    const filterPanel = document.getElementById('filterPanel');
+    const closeFilterButton = document.getElementById('closeFilterButton');
+    const filterOverlay = document.getElementById('filterOverlay');
+    const applyFilters = document.getElementById('applyFilters');
+    const clearFilters = document.getElementById('clearFilters');
+    
+    filterButton.addEventListener('click', function() {
+        filterPanel.classList.add('show');
+        filterOverlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    function closeFilterPanel() {
+        filterPanel.classList.remove('show');
+        filterOverlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    
+    closeFilterButton.addEventListener('click', closeFilterPanel);
+    filterOverlay.addEventListener('click', closeFilterPanel);
+    applyFilters.addEventListener('click', closeFilterPanel);
+    clearFilters.addEventListener('click', function() {
+        const checkboxes = filterPanel.querySelectorAll('.custom-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.classList.remove('checked');
+        });
+        
+        const rangeInputs = filterPanel.querySelectorAll('input[type="range"]');
+        rangeInputs.forEach(input => {
+            input.value = input.max;
+        });
+        
+        const minPriceInput = filterPanel.querySelector('input[type="number"]:first-of-type');
+        const maxPriceInput = filterPanel.querySelector('input[type="number"]:last-of-type');
+        
+        if (minPriceInput && maxPriceInput) {
+            minPriceInput.value = 0;
+            maxPriceInput.value = 200;
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Remove from wishlist functionality
+    const removeButtons = document.querySelectorAll('.remove-from-wishlist');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const cancelRemove = document.getElementById('cancelRemove');
+    const confirmRemove = document.getElementById('confirmRemove');
+    const emptyState = document.getElementById('emptyState');
+    const wishlistContent = document.getElementById('wishlistContent');
+    
+    let currentItem = null;
+    
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            currentItem = this.closest('.remove-item');
+            confirmationModal.classList.remove('hidden');
+        });
+    });
+    
+    function closeModal() {
+        confirmationModal.classList.add('hidden');
+    }
+    
+    modalOverlay.addEventListener('click', closeModal);
+    cancelRemove.addEventListener('click', closeModal);
+    
+    confirmRemove.addEventListener('click', function() {
+        if (currentItem) {
+            currentItem.classList.add('removing');
+            
+            setTimeout(() => {
+                currentItem.remove();
+                
+                // Check if there are any items left
+                const remainingItems = wishlistContent.querySelectorAll('.remove-item');
+                if (remainingItems.length === 0) {
+                    wishlistContent.classList.add('hidden');
+                    emptyState.classList.remove('hidden');
+                }
+                
+                closeModal();
+            }, 300);
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Add to cart functionality
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const successToast = document.getElementById('successToast');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Update cart badge
+            const cartBadge = document.getElementById('cartBadge');
+            const currentCount = parseInt(cartBadge.textContent);
+            cartBadge.textContent = currentCount + 1;
+            
+            // Show success toast
+            successToast.classList.remove('translate-y-10', 'opacity-0');
+            successToast.classList.add('translate-y-0', 'opacity-100');
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                successToast.classList.add('translate-y-10', 'opacity-0');
+                successToast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Back to top button functionality
+    const backToTopButton = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.remove('opacity-0', 'invisible');
+            backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+            backToTopButton.classList.remove('opacity-100', 'visible');
+            backToTopButton.classList.add('opacity-0', 'invisible');
+        }
+    });
+    
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
+</body>
+</html>

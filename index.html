@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookVerse - The Ultimate Destination for Books</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#8b5cf6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.hero-section {
+background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.7) 70%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0)), url('https://readdy.ai/api/search-image?query=A%20modern%20library%20with%20bookshelves%20and%20reading%20spaces%2C%20natural%20light%20streaming%20through%20large%20windows%2C%20creating%20a%20warm%20and%20inviting%20atmosphere.%20The%20left%20side%20of%20the%20image%20should%20have%20a%20clean%20white%20space%20that%20gradually%20transitions%20to%20the%20library%20scene%20on%20the%20right.%20The%20transition%20should%20be%20smooth%20and%20natural%2C%20with%20soft%20lighting%20and%20a%20contemporary%20aesthetic.&width=1200&height=600&seq=1&orientation=landscape');
+background-size: cover;
+background-position: center right;
+}
+.custom-checkbox {
+appearance: none;
+-webkit-appearance: none;
+width: 20px;
+height: 20px;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+outline: none;
+cursor: pointer;
+position: relative;
+}
+.custom-checkbox:checked {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.custom-checkbox:checked::after {
+content: '';
+position: absolute;
+top: 3px;
+left: 6px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 48px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.switch-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 24px;
+}
+.switch-slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .switch-slider {
+background-color: #4f46e5;
+}
+input:checked + .switch-slider:before {
+transform: translateX(24px);
+}
+</style>
+</head>
+<body class="bg-white">
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<a href="#" class="text-3xl font-['Pacifico'] text-primary">BookVerse</a>
+<nav class="hidden md:flex items-center space-x-8">
+<a href="#features" class="text-gray-700 hover:text-primary transition-colors">Features</a>
+<a href="#publishers" class="text-gray-700 hover:text-primary transition-colors">For Publishers</a>
+<a href="#categories" class="text-gray-700 hover:text-primary transition-colors">Categories</a>
+<a href="#why" class="text-gray-700 hover:text-primary transition-colors">Why BookVerse</a>
+</nav>
+<div class="flex items-center space-x-4">
+<a href="/BookVerse-Sign-In-Page.html" class="text-gray-700 hover:text-primary px-4 py-2 transition-colors whitespace-nowrap">Sign In</a>
+<a href="/BookVerse-Sign-Up-Page.html" data-readdy="true" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">Get Started</a>
+</div>
+</div>
+</header>
+<section class="hero-section py-20 md:py-32">
+<div class="container mx-auto px-4 w-full">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">BookVerse – The Ultimate Destination for Books</h1>
+<p class="text-xl text-gray-700 mb-8">Whether you're a passionate writer, a publishing house, or a curious reader – BookVerse is built just for you.</p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="/BookVerse-Sign-Up-Page.html" class="bg-primary text-white px-8 py-3 !rounded-button text-center hover:bg-primary/90 transition-colors whitespace-nowrap">Start your journey</a>
+<a href="/Explore-BookVerse-Features.html" class="border border-gray-300 text-gray-700 px-8 py-3 !rounded-button text-center hover:bg-gray-50 transition-colors whitespace-nowrap">Learn more</a>
+</div>
+</div>
+</div>
+</section>
+<section id="features" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Create. Publish. Sell. All in One Place.</h2>
+<p class="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to bring your books to life and reach readers worldwide.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-book-open-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Design and publish</h3>
+<p class="text-gray-600">Create beautiful books with our intuitive design tools. Format text, add images, and publish with ease.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-global-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Sell worldwide</h3>
+<p class="text-gray-600">Reach readers across the globe. Set your prices, manage distribution, and track sales in real-time.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-settings-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Full control</h3>
+<p class="text-gray-600">Maintain complete ownership of your content. Update, revise, and manage your books anytime.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="publishers" class="py-20">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row items-center gap-12">
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=A%20modern%20library%20or%20publishing%20house%20interior%20with%20bookshelves%2C%20digital%20displays%20showing%20book%20covers%2C%20and%20a%20professional%20workspace.%20The%20image%20should%20have%20clean%20lines%2C%20good%20lighting%2C%20and%20a%20contemporary%20business%20atmosphere%20with%20subtle%20technology%20integration.%20The%20scene%20should%20convey%20professionalism%20and%20organization%20in%20the%20publishing%20industry.&width=600&height=500&seq=2&orientation=landscape" alt="For Publishers" class="rounded-lg shadow-md w-full h-auto object-cover object-top">
+</div>
+<div class="md:w-1/2">
+<h2 class="text-3xl font-bold text-gray-900 mb-6">For Libraries & Publishers</h2>
+<div class="space-y-6">
+<div class="flex items-start">
+<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+<i class="ri-store-line text-primary"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Create your official page</h3>
+<p class="text-gray-600">Establish your brand presence with a customized publisher page that showcases your identity and mission.</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+<i class="ri-gallery-line text-primary"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Showcase your collection</h3>
+<p class="text-gray-600">Display your entire catalog with custom categories, featured titles, and special collections.</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+<i class="ri-earth-line text-primary"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Reach a global audience</h3>
+<p class="text-gray-600">Connect with readers worldwide through our extensive network and marketing tools.</p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<a href="/Publisher-Registration-Form.html" data-readdy="true" class="bg-primary text-white px-6 py-3 !rounded-button inline-block hover:bg-primary/90 transition-colors whitespace-nowrap">Join as a Publisher</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="categories" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Explore 20+ Diverse Categories</h2>
+<p class="text-xl text-gray-600 max-w-3xl mx-auto">Find books in every genre to satisfy your reading appetite.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-book-line text-primary"></i>
+</div>
+<a href="/Fiction-Book-Explorer.html"> <h3 class="font-medium text-gray-900">Fiction</h3> </a>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-book-read-line text-primary"></i>
+</div>
+  <a href="/Non-fiction-Books-Overview.html"> <h3 class="font-medium text-gray-900">Non-fiction</h3></a>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-baby-line text-primary"></i>
+</div>
+<a href="/Children's-Books-Exploration.html">  <h3 class="font-medium text-gray-900">Children's Books</h3> </a>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-graduation-cap-line text-primary"></i>
+</div>
+<a href="/Educational-Books-Overview.html"> <h3 class="font-medium text-gray-900">Education</h3> </a>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-flask-line text-primary"></i>
+</div>
+<a href="/Explore-Science-Books.html">  <h3 class="font-medium text-gray-900">Science</h3> </a>
+</div>
+<a href="#">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-ancient-gate-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">History</h3>
+</div>
+</a>
+<a href="/Technology-Books-Browse.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-computer-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Technology</h3>
+</div>
+</a>
+<a href="/Art-Books-&-Publications.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-palette-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Art</h3>
+</div>
+</a>
+<a href="/Business-Books-Exploration_Copy.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-briefcase-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Business</h3>
+</div>
+</a>
+<a href="/Self-Help-Book-Exploration.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-mental-health-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Self-help</h3>
+</div>
+</a>
+<a href="/Discover-Cooking-Books.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-restaurant-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Cooking</h3>
+</div>
+</a>
+<a href="/Manga-Collection-Overview.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-emotion-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Manga</h3>
+</div>
+</a>
+<a href="/Explore-Religious-Books.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-building-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Religion</h3>
+</div>
+</a>
+<a href="/Philosophy-Books-Collection.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-lightbulb-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Philosophy</h3>
+</div>
+</a>
+<a href="/Travel-Book-Exploration-Page_Copy_Copy.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-plane-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Travel</h3>
+</div>
+</a>
+<a href="/Explore-Medical-Books.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-heart-pulse-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Medical</h3>
+</div>
+</a>
+<a href="/Fitness-Books-Exploration.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-run-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Fitness</h3>
+</div>
+<a href="/Political-Literature-Hub.html">
+  <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-government-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Politics</h3>
+</div>
+<a href="/Explore-Poetry-Books.html">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-quill-pen-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Poetry</h3>
+</div>
+</a>
+<a href="">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center hover:bg-primary/5 cursor-pointer">
+<div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-user-star-line text-primary"></i>
+</div>
+<h3 class="font-medium text-gray-900">Biographies</h3>
+</div>
+</div>
+<div class="text-center mt-10">
+<a href="#" class="text-primary hover:text-primary/80 font-medium flex items-center justify-center gap-1 mx-auto w-fit">
+View all categories
+<i class="ri-arrow-right-line"></i>
+</a>
+</div>
+</div>
+</section>
+<section class="py-20">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Modern, Responsive, Animated Design</h2>
+<p class="text-xl text-gray-600 max-w-3xl mx-auto">Experience BookVerse across all your devices with our seamless platform.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-device-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Cross-device Experience</h3>
+<p class="text-gray-600">Enjoy a consistent experience whether you're on mobile, tablet, or desktop. Your books and settings sync automatically.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-animation-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Smooth Animations</h3>
+<p class="text-gray-600">Navigate through pages with fluid transitions and engaging animations that enhance your reading and publishing experience.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-layout-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Intuitive Interface</h3>
+<p class="text-gray-600">Our clean, user-friendly design makes it easy to find, create, and manage your books without any technical hassle.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="why" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Why BookVerse?</h2>
+<p class="text-xl text-gray-600 max-w-3xl mx-auto">Join thousands of authors and publishers who trust BookVerse for their publishing needs.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-14 h-14 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-price-tag-3-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">No Hidden Fees</h3>
+<p class="text-gray-600">Transparent pricing with no surprises. Only pay for what you need with our flexible plans.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-14 h-14 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-line-chart-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Real-time Analytics</h3>
+<p class="text-gray-600">Track sales, reader engagement, and performance metrics to optimize your publishing strategy.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-14 h-14 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-team-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Active Community</h3>
+<p class="text-gray-600">Connect with fellow authors, publishers, and readers to share insights and grow your audience.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-14 h-14 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-customer-service-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Fast Support</h3>
+<p class="text-gray-600">Get help when you need it with our responsive support team and comprehensive resources.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-primary/5">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2 p-10 flex flex-col justify-center">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Stay Updated</h2>
+<p class="text-gray-600 mb-6">Subscribe to our newsletter for the latest updates, publishing tips, and exclusive offers.</p>
+<form class="space-y-4">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+<input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none" placeholder="Your name">
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none" placeholder="Your email address">
+</div>
+<div class="flex items-start">
+<input type="checkbox" id="consent" class="custom-checkbox mt-1">
+<label for="consent" class="ml-2 text-sm text-gray-600">I agree to receive marketing emails and can unsubscribe at any time.</label>
+</div>
+<button type="submit" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90 transition-colors w-full whitespace-nowrap">Subscribe Now</button>
+</form>
+</div>
+<div class="md:w-1/2" style="background-image: url('https://readdy.ai/api/search-image?query=A%20cozy%20reading%20nook%20with%20bookshelves%2C%20comfortable%20chair%2C%20and%20soft%20lighting.%20A%20person%20is%20relaxed%2C%20reading%20a%20book%20with%20a%20cup%20of%20coffee%20nearby.%20The%20scene%20has%20warm%20tones%20and%20creates%20a%20peaceful%20atmosphere%20perfect%20for%20reading%20and%20relaxation.%20The%20image%20should%20have%20a%20clean%2C%20modern%20aesthetic%20with%20soft%20natural%20lighting.&width=500&height=600&seq=3&orientation=portrait'); background-size: cover; background-position: center;"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20">
+<div class="container mx-auto px-4 text-center">
+<h2 class="text-3xl font-bold text-gray-900 mb-6">Join the new era of book publishing and discovery</h2>
+<p class="text-xl text-gray-600 max-w-3xl mx-auto mb-10">Start your journey today at BookVerse – Where stories come to life.</p>
+<a href="#" class="bg-primary text-white px-8 py-3 !rounded-button inline-block hover:bg-primary/90 transition-colors text-lg whitespace-nowrap">Get Started for Free</a>
+</div>
+</section>
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+<div class="lg:col-span-2">
+<a href="#" class="text-3xl font-['Pacifico'] text-white mb-4 inline-block">BookVerse</a>
+<p class="text-gray-400 mb-6">The ultimate destination for books. Create, publish, and sell your books to readers worldwide.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-facebook-fill text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-twitter-fill text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-instagram-fill text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-linkedin-fill text-white"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Resources</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Publishing Guide</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Author Resources</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">API Documentation</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Legal</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Copyright Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Accessibility</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+<div class="flex items-center space-x-4">
+<i class="ri-visa-fill text-gray-400 text-2xl"></i>
+<i class="ri-mastercard-fill text-gray-400 text-2xl"></i>
+<i class="ri-paypal-fill text-gray-400 text-2xl"></i>
+<i class="ri-apple-fill text-gray-400 text-2xl"></i>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const checkbox = document.querySelector('.custom-checkbox');
+if (checkbox) {
+checkbox.addEventListener('click', function() {
+this.classList.toggle('checked');
+});
+}
+});
+</script>
+</body٠</html>

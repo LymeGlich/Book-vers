@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Religious Books - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#818cf8'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.scrollbar-hide::-webkit-scrollbar {
+display: none;
+}
+.scrollbar-hide {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+border: none;
+}
+.custom-checkbox {
+position: relative;
+display: inline-block;
+width: 20px;
+height: 20px;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+transition: all 0.2s ease;
+}
+.custom-checkbox.checked {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.custom-checkbox.checked::after {
+content: '';
+position: absolute;
+left: 6px;
+top: 2px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-radio {
+position: relative;
+display: inline-block;
+width: 20px;
+height: 20px;
+border: 2px solid #d1d5db;
+border-radius: 50%;
+transition: all 0.2s ease;
+}
+.custom-radio.checked {
+border-color: #4f46e5;
+}
+.custom-radio.checked::after {
+content: '';
+position: absolute;
+left: 4px;
+top: 4px;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background-color: #4f46e5;
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 24px;
+background-color: #e5e7eb;
+border-radius: 12px;
+transition: all 0.3s ease;
+}
+.custom-switch.checked {
+background-color: #4f46e5;
+}
+.custom-switch::after {
+content: '';
+position: absolute;
+left: 3px;
+top: 3px;
+width: 18px;
+height: 18px;
+background-color: white;
+border-radius: 50%;
+transition: all 0.3s ease;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.custom-switch.checked::after {
+transform: translateX(20px);
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<a href="#" class="flex items-center gap-2">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-book-open-line ri-2x"></i>
+</div>
+<span class="font-['Pacifico'] text-xl text-primary">book vers</span>
+</a>
+<button class="flex items-center gap-1 text-gray-600 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span class="text-sm font-medium">Back</span>
+</button>
+</div>
+<div class="relative flex-1 max-w-xl mx-4">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" class="w-full py-2 pl-10 pr-4 border-none bg-gray-100 rounded text-sm focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Search religious books...">
+</div>
+<div class="flex items-center gap-3">
+<button id="headerFilterBtn" class="flex items-center gap-1 text-gray-600 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-filter-3-line"></i>
+</div>
+<span class="text-sm font-medium hidden sm:inline">Filter</span>
+</button>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 pb-12">
+<!-- Page Title -->
+<div class="mt-6 mb-8">
+<h1 class="text-3xl font-bold text-gray-900">Religious Books</h1>
+<p class="mt-2 text-gray-600">Explore spiritual texts and religious literature from around the world</p>
+</div>
+<!-- Religion Filter Section -->
+<div class="mb-8">
+<div class="overflow-x-auto scrollbar-hide -mx-4 px-4">
+<div class="flex space-x-3 pb-2 w-max">
+<button class="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">All Religions</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Christianity</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Islam</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Buddhism</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Hinduism</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Judaism</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Spirituality</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Mythology</button>
+<button class="bg-white border border-gray-200 hover:border-primary text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">Others</button>
+</div>
+</div>
+</div>
+<!-- Featured Religious Books -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-gray-900">Featured Religious Books</h2>
+<a href="#" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center">
+View all
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="overflow-x-auto scrollbar-hide -mx-4 px-4">
+<div class="flex space-x-6 pb-4 w-max">
+<!-- Featured Book 1 -->
+<div class="w-[280px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=beautiful%20detailed%20religious%20book%20cover%20with%20ornate%20design%2C%20gold%20embossing%2C%20sacred%20symbols%2C%20spiritual%20imagery%2C%20high%20quality%20book%20cover%20design&width=280&height=380&seq=1&orientation=portrait" alt="The Sacred Path" class="w-full h-[280px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">Featured</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 line-clamp-1">The Sacred Path</h3>
+<p class="text-sm text-gray-600 mt-1">By Sarah Richardson</p>
+<p class="text-sm text-gray-700 mt-3 line-clamp-2">A profound exploration of spiritual awakening across different religious traditions, offering insights into universal truths.</p>
+<div class="flex items-center mt-3 mb-1">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-half-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-2">(128 reviews)</span>
+</div>
+<div class="mt-auto pt-4 flex gap-2">
+<button class="preview-btn flex-1 bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Preview</button>
+<button class="flex-1 bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Buy $24.99</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 2 -->
+<div class="w-[280px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=ancient%20religious%20text%2C%20buddhist%20manuscript%2C%20detailed%20spiritual%20book%20cover%20with%20lotus%20flower%20and%20mandala%20patterns%2C%20gold%20and%20red%20colors%2C%20professional%20book%20cover&width=280&height=380&seq=2&orientation=portrait" alt="The Lotus Sutra" class="w-full h-[280px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">Featured</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 line-clamp-1">The Lotus Sutra: A Modern Translation</h3>
+<p class="text-sm text-gray-600 mt-1">By Dr. Michael Chen</p>
+<p class="text-sm text-gray-700 mt-3 line-clamp-2">A contemporary translation of one of Buddhism's most influential texts, with commentary on its relevance to modern life.</p>
+<div class="flex items-center mt-3 mb-1">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-2">(205 reviews)</span>
+</div>
+<div class="mt-auto pt-4 flex gap-2">
+<button class="preview-btn flex-1 bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Preview</button>
+<button class="flex-1 bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Buy $29.99</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 3 -->
+<div class="w-[280px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=islamic%20religious%20book%20cover%20with%20geometric%20patterns%2C%20calligraphy%2C%20mosque%20silhouette%2C%20deep%20blue%20and%20gold%20colors%2C%20professional%20book%20cover%20design&width=280&height=380&seq=3&orientation=portrait" alt="The Divine Light" class="w-full h-[280px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">Featured</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 line-clamp-1">The Divine Light: Teachings of Sufism</h3>
+<p class="text-sm text-gray-600 mt-1">By Amir Hussain</p>
+<p class="text-sm text-gray-700 mt-3 line-clamp-2">An illuminating journey through the mystical dimension of Islam, exploring the wisdom of Sufi masters throughout history.</p>
+<div class="flex items-center mt-3 mb-1">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-2">(176 reviews)</span>
+</div>
+<div class="mt-auto pt-4 flex gap-2">
+<button class="preview-btn flex-1 bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Preview</button>
+<button class="flex-1 bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Buy $21.50</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 4 -->
+<div class="w-[280px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=christian%20bible%20study%20book%20cover%20with%20cross%20symbol%2C%20warm%20colors%2C%20light%20rays%2C%20professional%20religious%20book%20cover%20design%20with%20minimalist%20style&width=280&height=380&seq=4&orientation=portrait" alt="Wisdom of the Psalms" class="w-full h-[280px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">Featured</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 line-clamp-1">Wisdom of the Psalms: A Modern Commentary</h3>
+<p class="text-sm text-gray-600 mt-1">By Rev. Elizabeth Morgan</p>
+<p class="text-sm text-gray-700 mt-3 line-clamp-2">A thoughtful analysis of the Book of Psalms, offering spiritual guidance and practical wisdom for contemporary challenges.</p>
+<div class="flex items-center mt-3 mb-1">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-half-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-2">(149 reviews)</span>
+</div>
+<div class="mt-auto pt-4 flex gap-2">
+<button class="preview-btn flex-1 bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Preview</button>
+<button class="flex-1 bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Buy $19.95</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Filter and Sort Controls -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+<div class="relative inline-block">
+<button id="filterBtn" class="flex items-center gap-2 bg-white border border-gray-300 rounded-button px-4 py-2 text-gray-700 hover:border-gray-400 whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-filter-3-line"></i>
+</div>
+<span class="text-sm font-medium">Filter</span>
+</button>
+<div id="filterDropdown" class="hidden absolute left-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-10 p-4">
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Price Range</h3>
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm text-gray-600">$0</span>
+<span class="text-sm text-gray-600">$100</span>
+</div>
+<input type="range" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+</div>
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Format</h3>
+<div class="space-y-2">
+<div class="flex items-center">
+<div class="custom-checkbox" data-checked="true"></div>
+<label class="ml-2 text-sm text-gray-700">Hardcover</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" data-checked="true"></div>
+<label class="ml-2 text-sm text-gray-700">Paperback</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" data-checked="true"></div>
+<label class="ml-2 text-sm text-gray-700">eBook</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox"></div>
+<label class="ml-2 text-sm text-gray-700">Audiobook</label>
+</div>
+</div>
+</div>
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Rating</h3>
+<div class="space-y-2">
+<div class="flex items-center">
+<div class="custom-radio" data-checked="true"></div>
+<label class="ml-2 text-sm text-gray-700 flex items-center">
+<div class="flex text-yellow-400 ml-1">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+</div>
+<span class="ml-1">& up</span>
+</label>
+</div>
+<div class="flex items-center">
+<div class="custom-radio"></div>
+<label class="ml-2 text-sm text-gray-700 flex items-center">
+<div class="flex text-yellow-400 ml-1">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+</div>
+<span class="ml-1">& up</span>
+</label>
+</div>
+<div class="flex items-center">
+<div class="custom-radio"></div>
+<label class="ml-2 text-sm text-gray-700 flex items-center">
+<div class="flex text-yellow-400 ml-1">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+</div>
+<span class="ml-1">& up</span>
+</label>
+</div>
+</div>
+</div>
+<div class="flex justify-between pt-2 border-t border-gray-200">
+<button class="text-gray-600 text-sm hover:text-gray-900">Clear all</button>
+<button class="bg-primary text-white px-4 py-1 rounded-button text-sm font-medium whitespace-nowrap">Apply</button>
+</div>
+</div>
+</div>
+<div class="relative inline-block">
+<button id="sortBtn" class="flex items-center gap-2 bg-white border border-gray-300 rounded-button px-4 py-2 text-gray-700 hover:border-gray-400 whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-sort-desc"></i>
+</div>
+<span class="text-sm font-medium">Sort by: Popularity</span>
+</button>
+<div id="sortDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+<ul class="py-2">
+<li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Popularity</li>
+<li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Price: Low to High</li>
+<li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Price: High to Low</li>
+<li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Newest First</li>
+<li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Customer Rating</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Bestsellers Section -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Bestselling Religious Books</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Bestseller 1 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=christian%20bible%20study%20book%20with%20cross%20symbol%2C%20professional%20religious%20book%20cover%20design%20with%20minimalist%20style&width=240&height=320&seq=5&orientation=portrait" alt="The Bible: A Biography" class="w-full h-48 sm:h-56 object-cover object-top">
+<div class="absolute top-2 left-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded">Bestseller</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">The Bible: A Biography</h3>
+<p class="text-sm text-gray-600 mt-1">Karen Armstrong</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-half-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(432)</span>
+</div>
+<p class="text-primary font-medium mt-2">$18.99</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 2 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=quran%20study%20guide%20book%20cover%20with%20islamic%20patterns%2C%20mosque%20silhouette%2C%20professional%20religious%20book%20cover%20design&width=240&height=320&seq=6&orientation=portrait" alt="Understanding the Quran" class="w-full h-48 sm:h-56 object-cover object-top">
+<div class="absolute top-2 left-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded">Bestseller</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">Understanding the Quran</h3>
+<p class="text-sm text-gray-600 mt-1">Farid Esack</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(389)</span>
+</div>
+<p class="text-primary font-medium mt-2">$22.50</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 3 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=buddhist%20meditation%20guide%20book%20cover%20with%20lotus%20flower%2C%20zen%20circle%2C%20professional%20religious%20book%20cover%20design%20with%20minimalist%20style&width=240&height=320&seq=7&orientation=portrait" alt="The Heart of Buddha's Teaching" class="w-full h-48 sm:h-56 object-cover object-top">
+<div class="absolute top-2 left-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded">Bestseller</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">The Heart of Buddha's Teaching</h3>
+<p class="text-sm text-gray-600 mt-1">Thich Nhat Hanh</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(512)</span>
+</div>
+<p class="text-primary font-medium mt-2">$16.95</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 4 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=hindu%20religious%20book%20cover%20with%20mandala%2C%20om%20symbol%2C%20professional%20religious%20book%20cover%20design%20with%20vibrant%20colors&width=240&height=320&seq=8&orientation=portrait" alt="The Bhagavad Gita" class="w-full h-48 sm:h-56 object-cover object-top">
+<div class="absolute top-2 left-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded">Bestseller</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">The Bhagavad Gita</h3>
+<p class="text-sm text-gray-600 mt-1">Eknath Easwaran</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-half-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(478)</span>
+</div>
+<p class="text-primary font-medium mt-2">$14.99</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 5 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=jewish%20religious%20book%20cover%20with%20star%20of%20david%2C%20menorah%2C%20professional%20religious%20book%20cover%20design%20with%20blue%20and%20gold%20colors&width=240&height=320&seq=9&orientation=portrait" alt="Jewish Literacy" class="w-full h-48 sm:h-56 object-cover object-top">
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">Jewish Literacy</h3>
+<p class="text-sm text-gray-600 mt-1">Rabbi Joseph Telushkin</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(356)</span>
+</div>
+<p class="text-primary font-medium mt-2">$25.00</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 6 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=taoism%20religious%20book%20cover%20with%20yin%20yang%20symbol%2C%20flowing%20water%2C%20professional%20religious%20book%20cover%20design%20with%20minimalist%20style&width=240&height=320&seq=10&orientation=portrait" alt="Tao Te Ching" class="w-full h-48 sm:h-56 object-cover object-top">
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">Tao Te Ching</h3>
+<p class="text-sm text-gray-600 mt-1">Lao Tzu (Stephen Mitchell)</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(621)</span>
+</div>
+<p class="text-primary font-medium mt-2">$12.99</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 7 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=sikhism%20religious%20book%20cover%20with%20khanda%20symbol%2C%20golden%20temple%2C%20professional%20religious%20book%20cover%20design&width=240&height=320&seq=11&orientation=portrait" alt="The Sikh Religion" class="w-full h-48 sm:h-56 object-cover object-top">
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">The Sikh Religion</h3>
+<p class="text-sm text-gray-600 mt-1">Nikky-Guninder Kaur Singh</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-line"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(289)</span>
+</div>
+<p class="text-primary font-medium mt-2">$19.95</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 8 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=comparative%20religion%20book%20cover%20with%20symbols%20of%20major%20world%20religions%2C%20professional%20religious%20book%20cover%20design%20with%20unified%20style&width=240&height=320&seq=12&orientation=portrait" alt="The World's Religions" class="w-full h-48 sm:h-56 object-cover object-top">
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">The World's Religions</h3>
+<p class="text-sm text-gray-600 mt-1">Huston Smith</p>
+<div class="flex items-center mt-2">
+<div class="flex text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-fill"></i></div>
+<div class="w-4 h-4 flex items-center justify-center"><i class="ri-star-half-fill"></i></div>
+</div>
+<span class="text-xs text-gray-600 ml-1">(745)</span>
+</div>
+<p class="text-primary font-medium mt-2">$20.99</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</section>
+<!-- New Releases Section -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-gray-900">New Releases</h2>
+<a href="#" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center">
+View all
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="overflow-x-auto scrollbar-hide -mx-4 px-4">
+<div class="flex space-x-5 pb-4 w-max">
+<!-- New Release 1 -->
+<div class="w-[220px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=modern%20spiritual%20book%20cover%20with%20cosmic%20imagery%2C%20stars%2C%20universe%2C%20professional%20religious%20book%20cover%20design%20with%20deep%20blue%20colors&width=220&height=300&seq=13&orientation=portrait" alt="The Cosmic Connection" class="w-full h-[220px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">The Cosmic Connection</h3>
+<p class="text-sm text-gray-600 mt-1">Dr. Sophia Williams</p>
+<p class="text-xs text-gray-500 mt-2">Published: May 15, 2025</p>
+<button class="mt-3 w-full bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Quick Preview</button>
+</div>
+</div>
+<!-- New Release 2 -->
+<div class="w-[220px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=modern%20christian%20spirituality%20book%20cover%20with%20abstract%20cross%2C%20light%20rays%2C%20professional%20religious%20book%20cover%20design%20with%20warm%20colors&width=220&height=300&seq=14&orientation=portrait" alt="Faith in the Modern Age" class="w-full h-[220px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">Faith in the Modern Age</h3>
+<p class="text-sm text-gray-600 mt-1">Rev. James Patterson</p>
+<p class="text-xs text-gray-500 mt-2">Published: May 2, 2025</p>
+<button class="mt-3 w-full bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Quick Preview</button>
+</div>
+</div>
+<!-- New Release 3 -->
+<div class="w-[220px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=islamic%20spirituality%20book%20cover%20with%20geometric%20patterns%2C%20night%20sky%2C%20professional%20religious%20book%20cover%20design%20with%20deep%20blue%20and%20gold%20colors&width=220&height=300&seq=15&orientation=portrait" alt="The Spiritual Journey" class="w-full h-[220px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">The Spiritual Journey</h3>
+<p class="text-sm text-gray-600 mt-1">Yasmin Rahman</p>
+<p class="text-xs text-gray-500 mt-2">Published: April 28, 2025</p>
+<button class="mt-3 w-full bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Quick Preview</button>
+</div>
+</div>
+<!-- New Release 4 -->
+<div class="w-[220px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=zen%20buddhism%20meditation%20guide%20book%20cover%20with%20minimalist%20design%2C%20single%20brush%20stroke%2C%20professional%20religious%20book%20cover%20design&width=220&height=300&seq=16&orientation=portrait" alt="Zen in Daily Life" class="w-full h-[220px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">Zen in Daily Life</h3>
+<p class="text-sm text-gray-600 mt-1">Hiroshi Tanaka</p>
+<p class="text-xs text-gray-500 mt-2">Published: April 20, 2025</p>
+<button class="mt-3 w-full bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Quick Preview</button>
+</div>
+</div>
+<!-- New Release 5 -->
+<div class="w-[220px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=hindu%20spirituality%20book%20cover%20with%20lotus%20flower%2C%20river%20ganges%2C%20professional%20religious%20book%20cover%20design%20with%20vibrant%20colors&width=220&height=300&seq=17&orientation=portrait" alt="Sacred Rivers" class="w-full h-[220px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">Sacred Rivers</h3>
+<p class="text-sm text-gray-600 mt-1">Priya Sharma</p>
+<p class="text-xs text-gray-500 mt-2">Published: April 12, 2025</p>
+<button class="mt-3 w-full bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Quick Preview</button>
+</div>
+</div>
+<!-- New Release 6 -->
+<div class="w-[220px] bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=jewish%20wisdom%20book%20cover%20with%20tree%20of%20life%20symbol%2C%20professional%20religious%20book%20cover%20design%20with%20blue%20and%20silver%20colors&width=220&height=300&seq=18&orientation=portrait" alt="Wisdom of the Sages" class="w-full h-[220px] object-cover object-top">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<h3 class="font-bold text-gray-900 line-clamp-1">Wisdom of the Sages</h3>
+<p class="text-sm text-gray-600 mt-1">Rabbi David Cohen</p>
+<p class="text-xs text-gray-500 mt-2">Published: April 5, 2025</p>
+<button class="mt-3 w-full bg-white border border-primary text-primary hover:bg-primary/5 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Quick Preview</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Preview Modal for New Releases -->
+<div id="newReleasePreviewModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+<div class="bg-white w-[90%] max-w-4xl rounded-lg shadow-xl flex flex-col max-h-[90vh]">
+<div class="p-4 border-b flex items-center justify-between">
+<div>
+<h3 id="previewBookTitle" class="text-xl font-bold text-gray-900"></h3>
+<p id="previewBookAuthor" class="text-sm text-gray-600"></p>
+</div>
+<button id="closeNewReleasePreviewModal" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<div class="p-6">
+<div class="flex gap-6 mb-8">
+<div class="w-1/4">
+<h4 class="font-medium text-gray-900 mb-3">Table of Contents</h4>
+<ul class="text-sm space-y-2">
+<li class="text-primary cursor-pointer">Introduction</li>
+<li class="text-gray-600 hover:text-primary cursor-pointer">Chapter 1: The Beginning</li>
+<li class="text-gray-600 hover:text-primary cursor-pointer">Chapter 2: The Journey</li>
+<li class="text-gray-600 hover:text-primary cursor-pointer">Chapter 3: Discovery</li>
+</ul>
+</div>
+<div class="w-3/4">
+<div class="flex items-center justify-between mb-4">
+<button id="prevNewReleasePage" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary disabled:opacity-50">
+<i class="ri-arrow-left-line ri-lg"></i>
+</button>
+<span class="text-sm text-gray-600">Page <span id="currentNewReleasePage">1</span> of 3</span>
+<button id="nextNewReleasePage" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary">
+<i class="ri-arrow-right-line ri-lg"></i>
+</button>
+</div>
+<div id="newReleasePreviewPages" class="bg-gray-50 rounded-lg p-8">
+<div class="preview-page" data-page="1">
+<h2 class="text-2xl font-bold mb-4">Introduction</h2>
+<p class="text-gray-700 mb-4">Welcome to this enlightening journey through spirituality and faith. This book offers a fresh perspective on ancient wisdom and its relevance in our modern world.</p>
+<p class="text-gray-700">Through careful examination of timeless principles and contemporary challenges, we explore the intersection of traditional beliefs and modern life.</p>
+</div>
+<div class="preview-page hidden" data-page="2">
+<h2 class="text-2xl font-bold mb-4">Chapter 1: The Beginning</h2>
+<p class="text-gray-700 mb-4">In this opening chapter, we explore the foundations of spiritual practice and its significance in today's fast-paced world.</p>
+<blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 my-4">
+"The spiritual journey is the unlearning of fear and the acceptance of love." - Marianne Williamson
+</blockquote>
+</div>
+<div class="preview-page hidden" data-page="3">
+<h2 class="text-2xl font-bold mb-4">Chapter 2: The Journey</h2>
+<p class="text-gray-700 mb-4">As we delve deeper into our spiritual exploration, we discover the transformative power of daily practice and mindful living.</p>
+<div class="bg-primary/5 border-l-4 border-primary p-4 rounded my-4">
+<h4 class="font-medium text-gray-900 mb-2">Essential Practices</h4>
+<ul class="text-sm text-gray-700 list-disc list-inside">
+<li>Daily meditation and reflection</li>
+<li>Cultivating mindful awareness</li>
+<li>Connecting with spiritual community</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 border-t flex items-center justify-between">
+<button id="addNewReleaseToWishlist" class="flex items-center gap-2 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+<span class="text-sm">Add to Wishlist</span>
+</button>
+<button class="bg-primary text-white px-6 py-2 text-sm font-medium !rounded-button hover:bg-primary/90 whitespace-nowrap">
+Buy Now $19.99
+</button>
+</div>
+</div>
+</div>
+<!-- Recommended Religious Texts -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Recommended For You</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Recommendation 1 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=spiritual%20philosophy%20book%20cover%20with%20labyrinth%20symbol%2C%20mountains%2C%20professional%20religious%20book%20cover%20design%20with%20earth%20tones&width=240&height=320&seq=19&orientation=portrait" alt="The Perennial Philosophy" class="w-full h-48 sm:h-56 object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-400 hover:text-primary transition-colors">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex items-center mb-2">
+<span class="text-xs font-medium bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Spirituality</span>
+</div>
+<h3 class="font-bold text-gray-900 line-clamp-1">The Perennial Philosophy</h3>
+<p class="text-sm text-gray-600 mt-1">Aldous Huxley</p>
+<p class="text-sm text-gray-700 mt-2 line-clamp-2">An exploration of the common threads that unite the world's major religious traditions.</p>
+<p class="text-primary font-medium mt-3">$15.99</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Recommendation 2 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=christian%20prayer%20book%20cover%20with%20praying%20hands%2C%20light%20rays%2C%20professional%20religious%20book%20cover%20design%20with%20soft%20colors&width=240&height=320&seq=20&orientation=portrait" alt="The Power of Prayer" class="w-full h-48 sm:h-56 object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-400 hover:text-primary transition-colors">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex items-center mb-2">
+<span class="text-xs font-medium bg-green-100 text-green-800 px-2 py-0.5 rounded">Christianity</span>
+</div>
+<h3 class="font-bold text-gray-900 line-clamp-1">The Power of Prayer</h3>
+<p class="text-sm text-gray-600 mt-1">Thomas Merton</p>
+<p class="text-sm text-gray-700 mt-2 line-clamp-2">A guide to developing a meaningful prayer practice in the Christian tradition.</p>
+<p class="text-primary font-medium mt-3">$18.50</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Recommendation 3 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=islamic%20mysticism%20book%20cover%20with%20sufi%20whirling%20dervish%20silhouette%2C%20stars%2C%20professional%20religious%20book%20cover%20design%20with%20deep%20colors&width=240&height=320&seq=21&orientation=portrait" alt="The Sufi Path of Love" class="w-full h-48 sm:h-56 object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-400 hover:text-primary transition-colors">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex items-center mb-2">
+<span class="text-xs font-medium bg-teal-100 text-teal-800 px-2 py-0.5 rounded">Islam</span>
+</div>
+<h3 class="font-bold text-gray-900 line-clamp-1">The Sufi Path of Love</h3>
+<p class="text-sm text-gray-600 mt-1">William C. Chittick</p>
+<p class="text-sm text-gray-700 mt-2 line-clamp-2">An introduction to the mystical dimension of Islam through the poetry of Rumi.</p>
+<p class="text-primary font-medium mt-3">$22.95</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Recommendation 4 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=buddhist%20mindfulness%20book%20cover%20with%20zen%20garden%2C%20stones%2C%20professional%20religious%20book%20cover%20design%20with%20minimalist%20style&width=240&height=320&seq=22&orientation=portrait" alt="Mindfulness in Plain English" class="w-full h-48 sm:h-56 object-cover object-top">
+<button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-400 hover:text-primary transition-colors">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex items-center mb-2">
+<span class="text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">Buddhism</span>
+</div>
+<h3 class="font-bold text-gray-900 line-clamp-1">Mindfulness in Plain English</h3>
+<p class="text-sm text-gray-600 mt-1">Bhante Henepola Gunaratana</p>
+<p class="text-sm text-gray-700 mt-2 line-clamp-2">A clear and practical guide to Buddhist meditation practices for everyday life.</p>
+<p class="text-primary font-medium mt-3">$16.75</p>
+<button class="mt-3 w-full bg-primary text-white hover:bg-primary/90 py-2 text-sm font-medium !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center">
+<button class="bg-white border border-gray-300 text-gray-700 hover:border-gray-400 px-6 py-2 rounded-button text-sm font-medium whitespace-nowrap">Load More</button>
+</div>
+</section>
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Filter dropdown toggle
+const headerFilterBtn = document.getElementById('headerFilterBtn');
+const quickPreviewButtons = document.querySelectorAll('button:not(#previewBtn)');
+const newReleasePreviewModal = document.getElementById('newReleasePreviewModal');
+const closeNewReleasePreviewModal = document.getElementById('closeNewReleasePreviewModal');
+const prevNewReleasePage = document.getElementById('prevNewReleasePage');
+const nextNewReleasePage = document.getElementById('nextNewReleasePage');
+const currentNewReleasePage = document.getElementById('currentNewReleasePage');
+const newReleasePreviewPages = document.querySelectorAll('#newReleasePreviewPages .preview-page');
+const previewBookTitle = document.getElementById('previewBookTitle');
+const previewBookAuthor = document.getElementById('previewBookAuthor');
+const addNewReleaseToWishlist = document.getElementById('addNewReleaseToWishlist');
+let currentNewReleasePageNum = 1;
+let isNewReleaseWishlisted = false;
+quickPreviewButtons.forEach(button => {
+if (button.textContent.trim() === 'Quick Preview') {
+button.addEventListener('click', () => {
+const bookCard = button.closest('.bg-white');
+const title = bookCard.querySelector('h3').textContent;
+const author = bookCard.querySelector('p').textContent;
+previewBookTitle.textContent = title;
+previewBookAuthor.textContent = author;
+newReleasePreviewModal.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+currentNewReleasePageNum = 1;
+updateNewReleasePage(1);
+});
+}
+});
+closeNewReleasePreviewModal.addEventListener('click', () => {
+newReleasePreviewModal.classList.add('hidden');
+document.body.style.overflow = '';
+});
+newReleasePreviewModal.addEventListener('click', (e) => {
+if (e.target === newReleasePreviewModal) {
+newReleasePreviewModal.classList.add('hidden');
+document.body.style.overflow = '';
+}
+});
+function updateNewReleasePage(pageNum) {
+newReleasePreviewPages.forEach(page => page.classList.add('hidden'));
+newReleasePreviewPages[pageNum - 1].classList.remove('hidden');
+currentNewReleasePage.textContent = pageNum;
+prevNewReleasePage.disabled = pageNum === 1;
+nextNewReleasePage.disabled = pageNum === newReleasePreviewPages.length;
+}
+prevNewReleasePage.addEventListener('click', () => {
+if (currentNewReleasePageNum > 1) {
+currentNewReleasePageNum--;
+updateNewReleasePage(currentNewReleasePageNum);
+}
+});
+nextNewReleasePage.addEventListener('click', () => {
+if (currentNewReleasePageNum < newReleasePreviewPages.length) {
+currentNewReleasePageNum++;
+updateNewReleasePage(currentNewReleasePageNum);
+}
+});
+addNewReleaseToWishlist.addEventListener('click', () => {
+isNewReleaseWishlisted = !isNewReleaseWishlisted;
+const icon = addNewReleaseToWishlist.querySelector('i');
+icon.className = isNewReleaseWishlisted ? 'ri-heart-fill' : 'ri-heart-line';
+addNewReleaseToWishlist.classList.toggle('text-primary');
+});
+const filterBtn = document.getElementById('filterBtn');
+const filterDropdown = document.getElementById('filterDropdown');
+filterBtn.addEventListener('click', function() {
+filterDropdown.classList.toggle('hidden');
+sortDropdown.classList.add('hidden');
+});
+// Sort dropdown toggle
+const sortBtn = document.getElementById('sortBtn');
+const sortDropdown = document.getElementById('sortDropdown');
+sortBtn.addEventListener('click', function() {
+sortDropdown.classList.toggle('hidden');
+filterDropdown.classList.add('hidden');
+});
+// Header filter button functionality
+headerFilterBtn.addEventListener('click', function() {
+filterDropdown.classList.toggle('hidden');
+sortDropdown.classList.add('hidden');
+});
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(event) {
+if (!filterBtn.contains(event.target) && !filterDropdown.contains(event.target) && !headerFilterBtn.contains(event.target)) {
+filterDropdown.classList.add('hidden');
+}
+if (!sortBtn.contains(event.target) && !sortDropdown.contains(event.target)) {
+sortDropdown.classList.add('hidden');
+}
+});
+// Custom checkbox functionality
+const checkboxes = document.querySelectorAll('.custom-checkbox');
+checkboxes.forEach(checkbox => {
+if (checkbox.getAttribute('data-checked') === 'true') {
+checkbox.classList.add('checked');
+}
+checkbox.addEventListener('click', function() {
+this.classList.toggle('checked');
+});
+});
+// Custom radio functionality
+const radios = document.querySelectorAll('.custom-radio');
+radios.forEach(radio => {
+if (radio.getAttribute('data-checked') === 'true') {
+radio.classList.add('checked');
+}
+radio.addEventListener('click', function() {
+radios.forEach(r => r.classList.remove('checked'));
+this.classList.add('checked');
+});
+});
+// Custom switch functionality
+const switches = document.querySelectorAll('.custom-switch');
+switches.forEach(switchEl => {
+if (switchEl.getAttribute('data-checked') === 'true') {
+switchEl.classList.add('checked');
+}
+switchEl.addEventListener('click', function() {
+this.classList.toggle('checked');
+});
+});
+});
+</script>
+<div id="previewModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+<div class="bg-white w-[90%] max-w-4xl rounded-lg shadow-xl flex flex-col max-h-[90vh]">
+<div class="p-4 border-b flex items-center justify-between">
+<div>
+<h3 class="text-xl font-bold text-gray-900">The Sacred Path</h3>
+<p class="text-sm text-gray-600">By Sarah Richardson</p>
+</div>
+<button id="closePreviewModal" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<div class="p-6">
+<div class="flex gap-6 mb-8">
+<div class="w-1/4">
+<h4 class="font-medium text-gray-900 mb-3">Table of Contents</h4>
+<ul class="text-sm space-y-2">
+<li class="text-primary cursor-pointer">Introduction</li>
+<li class="text-gray-600 hover:text-primary cursor-pointer">Chapter 1: The Beginning</li>
+<li class="text-gray-600 hover:text-primary cursor-pointer">Chapter 2: The Journey</li>
+<li class="text-gray-600 hover:text-primary cursor-pointer">Chapter 3: Discovery</li>
+</ul>
+</div>
+<div class="w-3/4">
+<div class="flex items-center justify-between mb-4">
+<button id="prevPage" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary disabled:opacity-50">
+<i class="ri-arrow-left-line ri-lg"></i>
+</button>
+<span class="text-sm text-gray-600">Page <span id="currentPage">1</span> of 3</span>
+<button id="nextPage" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary">
+<i class="ri-arrow-right-line ri-lg"></i>
+</button>
+</div>
+<div id="previewPages" class="bg-gray-50 rounded-lg p-8">
+<div class="preview-page" data-page="1">
+<h2 class="text-2xl font-bold mb-4">Introduction</h2>
+<p class="text-gray-700 mb-4">In this groundbreaking exploration of spiritual awakening, we delve into the universal truths that connect all religious traditions. The journey begins with understanding the fundamental nature of consciousness and its role in spiritual growth.</p>
+<p class="text-gray-700">Through careful examination of ancient wisdom and modern insights, this book provides a comprehensive guide to navigating the sacred path of spiritual development.</p>
+</div>
+<div class="preview-page hidden" data-page="2">
+<h2 class="text-2xl font-bold mb-4">Chapter 1: The Beginning</h2>
+<p class="text-gray-700 mb-4">Every journey begins with a single step. In this chapter, we explore the initial stages of spiritual awakening and the common challenges faced by seekers on the path.</p>
+<blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 my-4">
+"The journey of a thousand miles begins with one step." - Lao Tzu
+</blockquote>
+</div>
+<div class="preview-page hidden" data-page="3">
+<h2 class="text-2xl font-bold mb-4">Chapter 2: The Journey</h2>
+<p class="text-gray-700 mb-4">As we progress along the spiritual path, we encounter various teachings and practices that help us deepen our understanding. This chapter examines the tools and techniques that facilitate spiritual growth.</p>
+<div class="bg-primary/5 border-l-4 border-primary p-4 rounded my-4">
+<h4 class="font-medium text-gray-900 mb-2">Key Insights</h4>
+<ul class="text-sm text-gray-700 list-disc list-inside">
+<li>Understanding the nature of consciousness</li>
+<li>Developing mindfulness practices</li>
+<li>Integrating spiritual wisdom into daily life</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 border-t flex items-center justify-between">
+<button id="addToWishlist" class="flex items-center gap-2 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+<span class="text-sm">Add to Wishlist</span>
+</button>
+<button class="bg-primary text-white px-6 py-2 text-sm font-medium !rounded-button hover:bg-primary/90 whitespace-nowrap">
+Buy Now $24.99
+</button>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const previewModal = document.getElementById('previewModal');
+const closePreviewModal = document.getElementById('closePreviewModal');
+const prevPage = document.getElementById('prevPage');
+const nextPage = document.getElementById('nextPage');
+const currentPage = document.getElementById('currentPage');
+const previewPages = document.querySelectorAll('#previewPages .preview-page');
+const addToWishlist = document.getElementById('addToWishlist');
+const previewTitle = document.getElementById('previewModal').querySelector('h3');
+const previewAuthor = document.getElementById('previewModal').querySelector('p');
+let currentPageNum = 1;
+const previewButtons = document.querySelectorAll('.preview-btn');
+previewButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const bookCard = button.closest('.bg-white');
+        const title = bookCard.querySelector('h3').textContent;
+        const author = bookCard.querySelector('p').textContent;
+        
+        previewTitle.textContent = title;
+        previewAuthor.textContent = author;
+        
+        previewModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        currentPageNum = 1;
+        updatePage(1);
+        
+        const progressBar = document.querySelector('#previewPages .progress-bar');
+        if (progressBar) progressBar.remove();
+    });
+});
+closePreviewModal.addEventListener('click', () => {
+    previewModal.classList.add('hidden');
+    document.body.style.overflow = '';
+    const progressBar = document.querySelector('#previewPages .progress-bar');
+    if (progressBar) progressBar.remove();
+});
+previewModal.addEventListener('click', (e) => {
+    if (e.target === previewModal) {
+        previewModal.classList.add('hidden');
+        document.body.style.overflow = '';
+        const progressBar = document.querySelector('#previewPages .progress-bar');
+        if (progressBar) progressBar.remove();
+    }
+});
+function updatePage(pageNum) {
+    previewPages.forEach(page => page.classList.add('hidden'));
+    previewPages[pageNum - 1].classList.remove('hidden');
+    currentPage.textContent = pageNum;
+    prevPage.disabled = pageNum === 1;
+    nextPage.disabled = pageNum === previewPages.length;
+    const oldProgressBar = document.querySelector('#previewPages .progress-bar');
+    if (oldProgressBar) oldProgressBar.remove();
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar absolute bottom-0 left-0 h-1 bg-primary transition-all duration-300';
+    progressBar.style.width = `${(pageNum / previewPages.length) * 100}%`;
+    document.getElementById('previewPages').appendChild(progressBar);
+}
+prevPage.addEventListener('click', () => {
+if (currentPageNum > 1) {
+currentPageNum--;
+updatePage(currentPageNum);
+}
+});
+nextPage.addEventListener('click', () => {
+if (currentPageNum < previewPages.length) {
+currentPageNum++;
+updatePage(currentPageNum);
+}
+});
+let isWishlisted = false;
+addToWishlist.addEventListener('click', () => {
+isWishlisted = !isWishlisted;
+const icon = addToWishlist.querySelector('i');
+icon.className = isWishlisted ? 'ri-heart-fill' : 'ri-heart-line';
+addToWishlist.classList.toggle('text-primary');
+const notification = document.createElement('div');
+notification.className = 'fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-0 opacity-100 transition-all duration-300';
+notification.textContent = isWishlisted ? 'Added to wishlist' : 'Removed from wishlist';
+document.body.appendChild(notification);
+setTimeout(() => {
+notification.style.transform = 'translateY(100%)';
+notification.style.opacity = '0';
+setTimeout(() => notification.remove(), 300);
+}, 2000);
+});
+});
+</script>
+</body>
+</html>

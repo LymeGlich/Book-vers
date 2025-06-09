@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config={
+            theme:{
+                extend:{
+                    colors:{
+                        primary:'#4f46e5',
+                        secondary:'#6366f1'
+                    },
+                    borderRadius:{
+                        'none':'0px',
+                        'sm':'4px',
+                        DEFAULT:'8px',
+                        'md':'12px',
+                        'lg':'16px',
+                        'xl':'20px',
+                        '2xl':'24px',
+                        '3xl':'32px',
+                        'full':'9999px',
+                        'button':'8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .date-picker::-webkit-calendar-picker-indicator {
+            opacity: 0;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid #d1d5db;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+        .custom-checkbox.checked {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .custom-checkbox.checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <button class="p-2 rounded-button hover:bg-gray-100 flex items-center justify-center !rounded-button" aria-label="Go back">
+                        <i class="ri-arrow-left-line ri-lg"></i>
+                    </button>
+                    <h1 class="ml-4 text-xl font-semibold text-gray-900">My Orders</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full hover:bg-gray-100 flex items-center justify-center" aria-label="Search">
+                        <i class="ri-search-line ri-lg"></i>
+                    </button>
+                    <button class="p-2 rounded-full hover:bg-gray-100 flex items-center justify-center" aria-label="Shopping cart">
+                        <i class="ri-shopping-cart-2-line ri-lg"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                            <span class="text-sm font-medium text-gray-700">JD</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Filters Section -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+                <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div class="relative">
+                        <div class="flex items-center">
+                            <input type="date" class="date-picker pl-10 pr-4 py-2 border border-gray-300 rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Start date">
+                            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                                <i class="ri-calendar-line text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="hidden sm:inline text-gray-500">to</span>
+                    <div class="relative">
+                        <div class="flex items-center">
+                            <input type="date" class="date-picker pl-10 pr-4 py-2 border border-gray-300 rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" placeholder="End date">
+                            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                                <i class="ri-calendar-line text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="flex items-center">
+                            <select class="pl-10 pr-8 py-2 border border-gray-300 rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary appearance-none bg-white w-full">
+                                <option value="all">All Status</option>
+                                <option value="processing">Processing</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                                <i class="ri-filter-3-line text-gray-500"></i>
+                            </div>
+                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
+                                <i class="ri-arrow-down-s-line text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative flex-grow md:max-w-xs">
+                        <input type="text" placeholder="Search orders" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                            <i class="ri-search-line text-gray-500"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center bg-gray-100 rounded-full p-1">
+                        <button class="p-1.5 rounded-full bg-white shadow-sm flex items-center justify-center w-8 h-8">
+                            <i class="ri-list-unordered ri-lg text-gray-700"></i>
+                        </button>
+                        <button class="p-1.5 rounded-full flex items-center justify-center w-8 h-8">
+                            <i class="ri-grid-line ri-lg text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders List -->
+        <div class="space-y-4">
+            <!-- Order Item 1 -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Order #ORD-5782941</h3>
+                            <p class="text-sm text-gray-500">May 18, 2025</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                Processing
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <img src="https://readdy.ai/api/search-image?query=modern%20minimalist%20wireless%20earbuds%20with%20charging%20case%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=1&orientation=squarish" alt="Wireless Earbuds" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                                <img src="https://readdy.ai/api/search-image?query=minimalist%20smart%20watch%20with%20black%20band%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=2&orientation=squarish" alt="Smart Watch" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                            </div>
+                            <span class="text-sm text-gray-500">2 items</span>
+                        </div>
+                        <div class="text-right sm:text-left">
+                            <p class="text-sm font-medium text-gray-900">$249.98</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1.5 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-truck-line mr-1.5"></i> Track
+                            </button>
+                            <button class="px-3 py-1.5 bg-primary border border-primary rounded-button text-sm font-medium text-white hover:bg-primary/90 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-refresh-line mr-1.5"></i> Reorder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 px-4 py-5 sm:p-6 bg-gray-50">
+                    <div class="sm:flex sm:items-start sm:justify-between">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 mb-3">Order Items</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-4">
+                                    <img src="https://readdy.ai/api/search-image?query=modern%20minimalist%20wireless%20earbuds%20with%20charging%20case%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=1&orientation=squarish" alt="Wireless Earbuds" class="w-16 h-16 rounded-md object-cover object-top border border-gray-200">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900">SoundCore Pro Wireless Earbuds</h5>
+                                        <p class="text-sm text-gray-500">Color: Black | Qty: 1</p>
+                                        <p class="text-sm font-medium text-gray-900 mt-1">$129.99</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <img src="https://readdy.ai/api/search-image?query=minimalist%20smart%20watch%20with%20black%20band%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=2&orientation=squarish" alt="Smart Watch" class="w-16 h-16 rounded-md object-cover object-top border border-gray-200">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900">FitPro Smart Watch Series 5</h5>
+                                        <p class="text-sm text-gray-500">Color: Space Gray | Qty: 1</p>
+                                        <p class="text-sm font-medium text-gray-900 mt-1">$119.99</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 max-w-xs">
+                                <h4 class="text-sm font-medium text-gray-900 mb-3">Shipping Details</h4>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-500">James Wilson</p>
+                                    <p class="text-sm text-gray-500">1234 Market Street, Apt 4B</p>
+                                    <p class="text-sm text-gray-500">San Francisco, CA 94103</p>
+                                    <p class="text-sm text-gray-500">United States</p>
+                                </div>
+                                <h4 class="text-sm font-medium text-gray-900 mt-4 mb-3">Payment Method</h4>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-md">
+                                        <i class="ri-visa-fill text-blue-700"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-500">Visa ending in 4242</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="text-sm font-medium text-gray-900 mb-3">Order Timeline</h4>
+                        <div class="relative">
+                            <div class="absolute top-0 left-4 h-full w-0.5 bg-gray-200"></div>
+                            <div class="space-y-6 relative">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center relative z-10">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900">Order Placed</h5>
+                                        <p class="text-xs text-gray-500">May 18, 2025 at 10:23 AM</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center relative z-10">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900">Payment Confirmed</h5>
+                                        <p class="text-xs text-gray-500">May 18, 2025 at 10:25 AM</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center relative z-10">
+                                        <i class="ri-time-line text-blue-500"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900">Processing Order</h5>
+                                        <p class="text-xs text-gray-500">Estimated completion: May 20, 2025</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center relative z-10">
+                                        <i class="ri-truck-line text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-400">Shipped</h5>
+                                        <p class="text-xs text-gray-500">Estimated delivery: May 22-24, 2025</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center relative z-10">
+                                        <i class="ri-home-3-line text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-400">Delivered</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-end">
+                        <button class="px-3 py-1.5 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap !rounded-button">
+                            <i class="ri-download-line mr-1.5"></i> Download Invoice
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 2 -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Order #ORD-5782654</h3>
+                            <p class="text-sm text-gray-500">May 10, 2025</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Delivered
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <img src="https://readdy.ai/api/search-image?query=minimalist%20coffee%20maker%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=3&orientation=squarish" alt="Coffee Maker" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                            </div>
+                            <span class="text-sm text-gray-500">1 item</span>
+                        </div>
+                        <div class="text-right sm:text-left">
+                            <p class="text-sm font-medium text-gray-900">$89.99</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1.5 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-star-line mr-1.5"></i> Review
+                            </button>
+                            <button class="px-3 py-1.5 bg-primary border border-primary rounded-button text-sm font-medium text-white hover:bg-primary/90 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-refresh-line mr-1.5"></i> Reorder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 3 -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Order #ORD-5781987</h3>
+                            <p class="text-sm text-gray-500">April 25, 2025</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Delivered
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <img src="https://readdy.ai/api/search-image?query=minimalist%20wireless%20headphones%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=4&orientation=squarish" alt="Headphones" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                                <img src="https://readdy.ai/api/search-image?query=minimalist%20bluetooth%20speaker%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=5&orientation=squarish" alt="Speaker" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                                <div class="w-10 h-10 rounded-md bg-gray-100 border border-gray-200 flex items-center justify-center">
+                                    <span class="text-xs font-medium text-gray-500">+1</span>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">3 items</span>
+                        </div>
+                        <div class="text-right sm:text-left">
+                            <p class="text-sm font-medium text-gray-900">$359.97</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1.5 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-star-line mr-1.5"></i> Review
+                            </button>
+                            <button class="px-3 py-1.5 bg-primary border border-primary rounded-button text-sm font-medium text-white hover:bg-primary/90 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-refresh-line mr-1.5"></i> Reorder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 4 -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Order #ORD-5781456</h3>
+                            <p class="text-sm text-gray-500">April 12, 2025</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                Cancelled
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <img src="https://readdy.ai/api/search-image?query=minimalist%20tablet%20device%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=6&orientation=squarish" alt="Tablet" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                            </div>
+                            <span class="text-sm text-gray-500">1 item</span>
+                        </div>
+                        <div class="text-right sm:text-left">
+                            <p class="text-sm font-medium text-gray-900">$499.99</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1.5 bg-primary border border-primary rounded-button text-sm font-medium text-white hover:bg-primary/90 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-refresh-line mr-1.5"></i> Reorder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 5 -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Order #ORD-5780932</h3>
+                            <p class="text-sm text-gray-500">March 28, 2025</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Delivered
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <img src="https://readdy.ai/api/search-image?query=minimalist%20smart%20home%20device%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=7&orientation=squarish" alt="Smart Home Device" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                                <img src="https://readdy.ai/api/search-image?query=minimalist%20smart%20light%20bulb%20on%20plain%20white%20background%2C%20product%20photography&width=80&height=80&seq=8&orientation=squarish" alt="Smart Light Bulb" class="w-10 h-10 rounded-md object-cover object-top border border-gray-200">
+                            </div>
+                            <span class="text-sm text-gray-500">2 items</span>
+                        </div>
+                        <div class="text-right sm:text-left">
+                            <p class="text-sm font-medium text-gray-900">$129.98</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1.5 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-star-line mr-1.5"></i> Review
+                            </button>
+                            <button class="px-3 py-1.5 bg-primary border border-primary rounded-button text-sm font-medium text-white hover:bg-primary/90 flex items-center whitespace-nowrap !rounded-button">
+                                <i class="ri-refresh-line mr-1.5"></i> Reorder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-8 flex items-center justify-between">
+            <div class="flex-1 flex justify-between sm:hidden">
+                <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-button text-gray-700 bg-white hover:bg-gray-50 whitespace-nowrap !rounded-button">
+                    Previous
+                </button>
+                <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-button text-gray-700 bg-white hover:bg-gray-50 whitespace-nowrap !rounded-button">
+                    Next
+                </button>
+            </div>
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm text-gray-700">
+                        Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span class="font-medium">12</span> results
+                    </p>
+                </div>
+                <div>
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <button class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <span class="sr-only">Previous</span>
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-primary text-sm font-medium text-white hover:bg-primary/90">
+                            1
+                        </button>
+                        <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            2
+                        </button>
+                        <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            3
+                        </button>
+                        <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                            ...
+                        </span>
+                        <button class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <span class="sr-only">Next</span>
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle order details
+            const orderItems = document.querySelectorAll('.bg-white.rounded-lg.shadow-sm.overflow-hidden');
+            
+            orderItems.forEach((item, index) => {
+                if (index === 0) return; // Skip the first one as it's already expanded
+                
+                const header = item.querySelector('.p-4.sm\\:p-6');
+                
+                header.addEventListener('click', function() {
+                    const details = item.querySelector('.border-t');
+                    
+                    if (details) {
+                        // If details section exists, toggle it
+                        if (details.classList.contains('hidden')) {
+                            details.classList.remove('hidden');
+                        } else {
+                            details.classList.add('hidden');
+                        }
+                    } else {
+                        // If details don't exist, create them (simplified version)
+                        const detailsSection = document.createElement('div');
+                        detailsSection.className = 'border-t border-gray-200 px-4 py-5 sm:p-6 bg-gray-50';
+                        detailsSection.innerHTML = `
+                            <div class="flex justify-center items-center py-4">
+                                <p class="text-gray-500">Loading order details...</p>
+                            </div>
+                        `;
+                        item.appendChild(detailsSection);
+                        
+                        // Simulate loading (in a real app, you'd fetch data here)
+                        setTimeout(() => {
+                            detailsSection.innerHTML = `
+                                <div class="sm:flex sm:items-start sm:justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900 mb-3">Order Items</h4>
+                                        <div class="space-y-4">
+                                            <div class="flex items-start space-x-4">
+                                                <img src="${item.querySelector('img').src}" alt="Product" class="w-16 h-16 rounded-md object-cover object-top border border-gray-200">
+                                                <div>
+                                                    <h5 class="text-sm font-medium text-gray-900">Product Name</h5>
+                                                    <p class="text-sm text-gray-500">Color: Black | Qty: 1</p>
+                                                    <p class="text-sm font-medium text-gray-900 mt-1">${item.querySelector('.text-sm.font-medium.text-gray-900').textContent}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 max-w-xs">
+                                            <h4 class="text-sm font-medium text-gray-900 mb-3">Shipping Details</h4>
+                                            <div class="space-y-2">
+                                                <p class="text-sm text-gray-500">James Wilson</p>
+                                                <p class="text-sm text-gray-500">1234 Market Street, Apt 4B</p>
+                                                <p class="text-sm text-gray-500">San Francisco, CA 94103</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-end">
+                                    <button class="px-3 py-1.5 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap !rounded-button">
+                                        <i class="ri-download-line mr-1.5"></i> Download Invoice
+                                    </button>
+                                </div>
+                            `;
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Custom checkbox functionality
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    this.classList.toggle('checked');
+                    const input = this.previousElementSibling;
+                    if (input && input.type === 'checkbox') {
+                        input.checked = !input.checked;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

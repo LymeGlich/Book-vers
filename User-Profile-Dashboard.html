@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile | BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4361ee',secondary:'#3f37c9'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Inter', sans-serif;
+    color: #1f2937;
+    background-color: #f9fafb;
+}
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+    outline: none;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.2s;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+    border-color: #4361ee;
+    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.1);
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e5e7eb;
+    transition: .4s;
+    border-radius: 24px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #4361ee;
+}
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+.custom-checkbox {
+    appearance: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.custom-checkbox:checked {
+    background-color: #4361ee;
+    border-color: #4361ee;
+}
+.custom-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    width: 0.4rem;
+    height: 0.7rem;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%) rotate(45deg);
+}
+.nav-item {
+    transition: all 0.2s;
+}
+.nav-item:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+}
+.nav-item.active {
+    background-color: rgba(67, 97, 238, 0.1);
+    color: #4361ee;
+    font-weight: 500;
+}
+.nav-item.active i {
+    color: #4361ee;
+}
+.profile-section {
+    transition: all 0.3s;
+}
+.profile-section:not(.active) {
+    display: none;
+}
+.badge {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+}
+.badge-primary {
+    background-color: #e0e7ff;
+    color: #4361ee;
+}
+.badge-success {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+.badge-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+.badge-info {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+.avatar-upload {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+.avatar-upload .avatar-edit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+.avatar-upload .avatar-edit input {
+    display: none;
+}
+.avatar-upload .avatar-edit label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #4361ee;
+    color: white;
+    cursor: pointer;
+}
+.avatar-upload .avatar-preview {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.avatar-upload .avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.order-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.genre-pill {
+    transition: all 0.2s;
+}
+.genre-pill:hover {
+    background-color: #4361ee;
+    color: white;
+}
+.author-pill {
+    transition: all 0.2s;
+}
+.author-pill:hover {
+    background-color: #4361ee;
+    color: white;
+}
+</style>
+</head>
+<body>
+<!-- Fixed Header -->
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-8">
+            <a href="#" class="font-['Pacifico'] text-2xl text-primary">BookVerse</a>
+            <div class="relative w-64">
+                <input type="text" placeholder="Search books..." class="w-full px-4 py-2 pl-10 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+                    <i class="ri-search-line"></i>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-5">
+            <a href="#" class="!rounded-button flex items-center gap-1 text-sm text-gray-600 hover:text-primary whitespace-nowrap">
+                <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-heart-line"></i>
+                </div>
+                <span>Wishlist</span>
+            </a>
+            <a href="#" class="!rounded-button flex items-center gap-1 text-sm text-gray-600 hover:text-primary whitespace-nowrap">
+                <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-shopping-cart-line"></i>
+                </div>
+                <span>Cart</span>
+            </a>
+            <div class="h-6 w-px bg-gray-200"></div>
+            <div class="relative">
+                <button id="userMenuButton" class="!rounded-button w-9 h-9 flex items-center justify-center bg-primary rounded-full hover:bg-primary/90">
+                    <div class="w-5 h-5 flex items-center justify-center text-white">
+                        <i class="ri-user-line"></i>
+                    </div>
+                </button>
+                <div id="userDropdown" class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden">
+                    <a href="https://readdy.ai/home/1046d091-d5d2-4747-ae92-bff659d8b9e1/216e6943-9f08-4947-b230-fe6f9cd72d28" data-readdy="true" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        <i class="ri-user-settings-line"></i>
+                        <span>My Profile</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        <i class="ri-shopping-bag-line"></i>
+                        <span>My Orders</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        <i class="ri-heart-line"></i>
+                        <span>Wishlist</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        <i class="ri-settings-3-line"></i>
+                        <span>Settings</span>
+                    </a>
+                    <div class="h-px bg-gray-200 my-2"></div>
+                    <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        <i class="ri-logout-box-line"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="pt-16 pb-12">
+    <div class="container mx-auto px-4">
+        <!-- Profile Header -->
+        <div class="relative w-full h-48 bg-gradient-to-r from-primary/10 to-primary/30 rounded-lg mb-16 overflow-hidden">
+            <img src="https://readdy.ai/api/search-image?query=Abstract%2520background%2520with%2520books%2520and%2520reading%2520theme%252C%2520soft%2520blue%2520gradient%2520with%2520subtle%2520patterns%2520of%2520book%2520pages%2520and%2520literary%2520elements%252C%2520modern%2520minimalist%2520design%2520suitable%2520for%2520a%2520profile%2520header&width=1280&height=300&seq=1&orientation=landscape" alt="Profile Cover" class="w-full h-full object-cover">
+            <div class="absolute left-8 -bottom-12">
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+                        <label for="imageUpload">
+                            <i class="ri-camera-line"></i>
+                        </label>
+                    </div>
+                    <div class="avatar-preview">
+                        <img src="https://readdy.ai/api/search-image?query=Professional%2520headshot%2520of%2520a%2520young%2520adult%2520with%2520a%2520friendly%2520smile%252C%2520neutral%2520background%252C%2520high%2520quality%2520portrait%2520photo&width=200&height=200&seq=2&orientation=squarish" alt="Profile Picture">
+                    </div>
+                </div>
+            </div>
+            <div class="absolute right-4 bottom-4">
+                <button class="!rounded-button bg-white text-gray-700 px-3 py-1.5 text-sm font-medium hover:bg-gray-50 shadow-sm flex items-center gap-1 whitespace-nowrap">
+                    <i class="ri-image-edit-line"></i>
+                    <span>Change Cover</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Left Sidebar -->
+            <div class="w-full md:w-64 flex-shrink-0">
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+                    <div class="mb-4 pl-2">
+                        <h2 class="font-semibold text-lg">Alexander Mitchell</h2>
+                        <p class="text-gray-500 text-sm">alex.mitchell@example.com</p>
+                    </div>
+                    <nav>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#overview" class="nav-item active flex items-center gap-3 px-3 py-2 rounded-lg text-sm">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-dashboard-line"></i>
+                                    </div>
+                                    <span>Overview</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#personal-info" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-user-3-line"></i>
+                                    </div>
+                                    <span>Personal Information</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#reading-preferences" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-book-open-line"></i>
+                                    </div>
+                                    <span>Reading Preferences</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#order-history" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-shopping-bag-line"></i>
+                                    </div>
+                                    <span>Order History</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#settings" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-settings-3-line"></i>
+                                    </div>
+                                    <span>Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://readdy.ai/home/1046d091-d5d2-4747-ae92-bff659d8b9e1/216e6943-9f08-4947-b230-fe6f9cd72d28" data-readdy="true" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-arrow-left-line"></i>
+                                    </div>
+                                    <span>Back to Original Page</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <h3 class="font-semibold text-sm text-gray-500 uppercase mb-3">Account Status</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                                    <i class="ri-vip-crown-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Premium Member</p>
+                                    <p class="text-xs text-gray-500">Until Dec 15, 2025</p>
+                                </div>
+                            </div>
+                            <span class="badge badge-primary">Active</span>
+                        </div>
+                        <div class="h-px bg-gray-100"></div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 flex items-center justify-center bg-green-100 rounded-full text-green-600">
+                                    <i class="ri-book-mark-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Reading Streak</p>
+                                    <p class="text-xs text-gray-500">28 days</p>
+                                </div>
+                            </div>
+                            <button class="text-xs text-primary font-medium">View</button>
+                        </div>
+                        <div class="h-px bg-gray-100"></div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 flex items-center justify-center bg-amber-100 rounded-full text-amber-600">
+                                    <i class="ri-coupon-3-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Reward Points</p>
+                                    <p class="text-xs text-gray-500">1,245 points</p>
+                                </div>
+                            </div>
+                            <button class="text-xs text-primary font-medium">Redeem</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Content Area -->
+            <div class="flex-grow">
+                <!-- Overview Section -->
+                <div id="overview-section" class="profile-section active space-y-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold">Profile Overview</h2>
+                            <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-sm font-medium hover:bg-gray-50 whitespace-nowrap">
+                                <i class="ri-edit-line mr-1"></i> Edit Profile
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500 mb-3">Personal Information</h3>
+                                <div class="space-y-3">
+                                    <div class="flex">
+                                        <span class="text-sm font-medium w-32">Full Name:</span>
+                                        <span class="text-sm">Alexander Mitchell</span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="text-sm font-medium w-32">Email:</span>
+                                        <span class="text-sm">alex.mitchell@example.com</span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="text-sm font-medium w-32">Phone:</span>
+                                        <span class="text-sm">+1 (555) 123-4567</span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="text-sm font-medium w-32">Location:</span>
+                                        <span class="text-sm">San Francisco, CA</span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="text-sm font-medium w-32">Member Since:</span>
+                                        <span class="text-sm">June 12, 2023</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500 mb-3">Reading Preferences</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-sm font-medium mb-2">Favorite Genres</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="genre-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Science Fiction</span>
+                                            <span class="genre-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Mystery</span>
+                                            <span class="genre-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Biography</span>
+                                            <span class="genre-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Science</span>
+                                            <span class="genre-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">History</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium mb-2">Favorite Authors</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="author-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Neil Gaiman</span>
+                                            <span class="author-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Agatha Christie</span>
+                                            <span class="author-pill bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Walter Isaacson</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold">Recent Orders</h2>
+                            <a href="#order-history" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+                                <span>View all orders</span>
+                                <div class="w-4 h-4 flex items-center justify-center">
+                                    <i class="ri-arrow-right-line"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="order-card flex items-center p-4 border border-gray-100 rounded-lg">
+                                <div class="flex-shrink-0 w-12 h-16 mr-4">
+                                    <img src="https://readdy.ai/api/search-image?query=A%2520brief%2520history%2520of%2520time%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=3&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                </div>
+                                <div class="flex-grow mr-4">
+                                    <h3 class="font-semibold text-gray-900 mb-1">Order #ORD-7829</h3>
+                                    <p class="text-sm text-gray-500 mb-1">May 18, 2025</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="badge badge-success">Delivered</span>
+                                        <span class="text-xs text-gray-500">3 items</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-primary font-medium mb-1">$54.97</span>
+                                    <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">View Details</button>
+                                </div>
+                            </div>
+                            <div class="order-card flex items-center p-4 border border-gray-100 rounded-lg">
+                                <div class="flex-shrink-0 w-12 h-16 mr-4">
+                                    <img src="https://readdy.ai/api/search-image?query=Sapiens%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=4&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                </div>
+                                <div class="flex-grow mr-4">
+                                    <h3 class="font-semibold text-gray-900 mb-1">Order #ORD-7645</h3>
+                                    <p class="text-sm text-gray-500 mb-1">April 29, 2025</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="badge badge-success">Delivered</span>
+                                        <span class="text-xs text-gray-500">2 items</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-primary font-medium mb-1">$42.50</span>
+                                    <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">View Details</button>
+                                </div>
+                            </div>
+                            <div class="order-card flex items-center p-4 border border-gray-100 rounded-lg">
+                                <div class="flex-shrink-0 w-12 h-16 mr-4">
+                                    <img src="https://readdy.ai/api/search-image?query=Cosmos%2520book%2520cover%2520by%2520Carl%2520Sagan%252C%2520professional%2520academic%2520style&width=200&height=300&seq=5&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                </div>
+                                <div class="flex-grow mr-4">
+                                    <h3 class="font-semibold text-gray-900 mb-1">Order #ORD-7512</h3>
+                                    <p class="text-sm text-gray-500 mb-1">April 10, 2025</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="badge badge-success">Delivered</span>
+                                        <span class="text-xs text-gray-500">1 item</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-primary font-medium mb-1">$22.99</span>
+                                    <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold">Reading Activity</h2>
+                            <div class="flex items-center gap-2">
+                                <select class="text-sm border-none bg-gray-100 rounded-lg px-3 py-1.5">
+                                    <option value="last30days">Last 30 Days</option>
+                                    <option value="last3months">Last 3 Months</option>
+                                    <option value="last6months">Last 6 Months</option>
+                                    <option value="lastyear">Last Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="readingChart" class="w-full h-64"></div>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div id="personal-info-section" class="profile-section space-y-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-semibold">Personal Information</h2>
+                            <button id="savePersonalInfo" class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">
+                                Save Changes
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <input type="text" value="Alexander" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <input type="text" value="Mitchell" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" value="alex.mitchell@example.com" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="text" value="+1 (555) 123-4567" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                                <input type="text" value="05/12/1988" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                                <select class="w-full">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-semibold">Address Information</h2>
+                            <button id="saveAddressInfo" class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">
+                                Save Changes
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                                <input type="text" value="123 Market Street, Apt 4B" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <input type="text" value="San Francisco" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">State/Province</label>
+                                <input type="text" value="California" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
+                                <input type="text" value="94105" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                                <select class="w-full">
+                                    <option value="us">United States</option>
+                                    <option value="ca">Canada</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="au">Australia</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reading Preferences Section -->
+                <div id="reading-preferences-section" class="profile-section space-y-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-semibold">Reading Preferences</h2>
+                            <button id="saveReadingPrefs" class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">
+                                Save Changes
+                            </button>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-700 mb-3">Favorite Genres</h3>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-fiction" class="custom-checkbox mr-2" checked>
+                                        <label for="genre-fiction" class="text-sm">Fiction</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-scifi" class="custom-checkbox mr-2" checked>
+                                        <label for="genre-scifi" class="text-sm">Science Fiction</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-mystery" class="custom-checkbox mr-2" checked>
+                                        <label for="genre-mystery" class="text-sm">Mystery</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-thriller" class="custom-checkbox mr-2">
+                                        <label for="genre-thriller" class="text-sm">Thriller</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-fantasy" class="custom-checkbox mr-2">
+                                        <label for="genre-fantasy" class="text-sm">Fantasy</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-romance" class="custom-checkbox mr-2">
+                                        <label for="genre-romance" class="text-sm">Romance</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-biography" class="custom-checkbox mr-2" checked>
+                                        <label for="genre-biography" class="text-sm">Biography</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-history" class="custom-checkbox mr-2" checked>
+                                        <label for="genre-history" class="text-sm">History</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-science" class="custom-checkbox mr-2" checked>
+                                        <label for="genre-science" class="text-sm">Science</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-selfhelp" class="custom-checkbox mr-2">
+                                        <label for="genre-selfhelp" class="text-sm">Self-help</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-business" class="custom-checkbox mr-2">
+                                        <label for="genre-business" class="text-sm">Business</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="genre-poetry" class="custom-checkbox mr-2">
+                                        <label for="genre-poetry" class="text-sm">Poetry</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-px bg-gray-100"></div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-700 mb-3">Favorite Authors</h3>
+                                <div class="mb-4">
+                                    <div class="flex flex-wrap gap-2 mb-2">
+                                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                                            Neil Gaiman
+                                            <button class="w-4 h-4 flex items-center justify-center text-gray-500 hover:text-gray-700">
+                                                <i class="ri-close-line"></i>
+                                            </button>
+                                        </span>
+                                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                                            Agatha Christie
+                                            <button class="w-4 h-4 flex items-center justify-center text-gray-500 hover:text-gray-700">
+                                                <i class="ri-close-line"></i>
+                                            </button>
+                                        </span>
+                                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                                            Walter Isaacson
+                                            <button class="w-4 h-4 flex items-center justify-center text-gray-500 hover:text-gray-700">
+                                                <i class="ri-close-line"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="flex">
+                                        <input type="text" placeholder="Add an author..." class="w-full rounded-l-lg rounded-r-none">
+                                        <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 rounded-l-none whitespace-nowrap">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-px bg-gray-100"></div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-700 mb-3">Reading Preferences</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm mb-2">Preferred Format</label>
+                                        <div class="flex items-center gap-4">
+                                            <div class="flex items-center">
+                                                <input type="radio" id="format-physical" name="format" class="mr-2" checked>
+                                                <label for="format-physical" class="text-sm">Physical Books</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" id="format-ebook" name="format" class="mr-2">
+                                                <label for="format-ebook" class="text-sm">E-books</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" id="format-audiobook" name="format" class="mr-2">
+                                                <label for="format-audiobook" class="text-sm">Audiobooks</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" id="format-all" name="format" class="mr-2">
+                                                <label for="format-all" class="text-sm">All Formats</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm mb-2">Reading Pace (books per month)</label>
+                                        <input type="range" min="1" max="10" value="4" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>1</span>
+                                            <span>5</span>
+                                            <span>10+</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm mb-2">Preferred Language</label>
+                                        <select class="w-full">
+                                            <option value="en">English</option>
+                                            <option value="es">Spanish</option>
+                                            <option value="fr">French</option>
+                                            <option value="de">German</option>
+                                            <option value="zh">Chinese</option>
+                                            <option value="ja">Japanese</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order History Section -->
+                <div id="order-history-section" class="profile-section space-y-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-semibold">Order History</h2>
+                            <div class="flex items-center gap-2">
+                                <div class="relative">
+                                    <input type="text" placeholder="Search orders..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm">
+                                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center text-gray-400">
+                                        <i class="ri-search-line"></i>
+                                    </div>
+                                </div>
+                                <select class="text-sm border border-gray-200 rounded-lg px-3 py-2">
+                                    <option value="all">All Orders</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="order-card p-4 border border-gray-100 rounded-lg">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Order #ORD-7829</h3>
+                                        <p class="text-sm text-gray-500">Placed on May 18, 2025</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="badge badge-success">Delivered</span>
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            Track Order
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="h-px bg-gray-100 mb-3"></div>
+                                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=A%2520brief%2520history%2520of%2520time%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=6&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">A Brief History of Time</h4>
+                                            <p class="text-xs text-gray-500">By Stephen Hawking</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=The%2520Selfish%2520Gene%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=7&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">The Selfish Gene</h4>
+                                            <p class="text-xs text-gray-500">By Richard Dawkins</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=Cosmos%2520book%2520cover%2520by%2520Carl%2520Sagan%252C%2520professional%2520academic%2520style&width=200&height=300&seq=8&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">Cosmos</h4>
+                                            <p class="text-xs text-gray-500">By Carl Sagan</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-3 border-t border-gray-100">
+                                    <div class="flex items-center gap-4">
+                                        <div>
+                                            <span class="text-xs text-gray-500">Items:</span>
+                                            <span class="text-sm font-medium">3</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Total:</span>
+                                            <span class="text-sm font-medium text-primary">$54.97</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Payment:</span>
+                                            <span class="text-sm font-medium">Credit Card</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 mt-3 md:mt-0">
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            View Invoice
+                                        </button>
+                                        <button class="!rounded-button bg-white border border-primary text-primary px-3 py-1.5 text-xs font-medium hover:bg-primary/5 whitespace-nowrap">
+                                            Buy Again
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-card p-4 border border-gray-100 rounded-lg">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Order #ORD-7645</h3>
+                                        <p class="text-sm text-gray-500">Placed on April 29, 2025</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="badge badge-success">Delivered</span>
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            Track Order
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="h-px bg-gray-100 mb-3"></div>
+                                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=Sapiens%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=9&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">Sapiens: A Brief History of Humankind</h4>
+                                            <p class="text-xs text-gray-500">By Yuval Noah Harari</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=Thinking%2520Fast%2520and%2520Slow%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=10&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">Thinking, Fast and Slow</h4>
+                                            <p class="text-xs text-gray-500">By Daniel Kahneman</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-3 border-t border-gray-100">
+                                    <div class="flex items-center gap-4">
+                                        <div>
+                                            <span class="text-xs text-gray-500">Items:</span>
+                                            <span class="text-sm font-medium">2</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Total:</span>
+                                            <span class="text-sm font-medium text-primary">$42.50</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Payment:</span>
+                                            <span class="text-sm font-medium">PayPal</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 mt-3 md:mt-0">
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            View Invoice
+                                        </button>
+                                        <button class="!rounded-button bg-white border border-primary text-primary px-3 py-1.5 text-xs font-medium hover:bg-primary/5 whitespace-nowrap">
+                                            Buy Again
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-card p-4 border border-gray-100 rounded-lg">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Order #ORD-7512</h3>
+                                        <p class="text-sm text-gray-500">Placed on April 10, 2025</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="badge badge-success">Delivered</span>
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            Track Order
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="h-px bg-gray-100 mb-3"></div>
+                                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=Silent%2520Spring%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=11&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">Silent Spring</h4>
+                                            <p class="text-xs text-gray-500">By Rachel Carson</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-3 border-t border-gray-100">
+                                    <div class="flex items-center gap-4">
+                                        <div>
+                                            <span class="text-xs text-gray-500">Items:</span>
+                                            <span class="text-sm font-medium">1</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Total:</span>
+                                            <span class="text-sm font-medium text-primary">$22.99</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Payment:</span>
+                                            <span class="text-sm font-medium">Credit Card</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 mt-3 md:mt-0">
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            View Invoice
+                                        </button>
+                                        <button class="!rounded-button bg-white border border-primary text-primary px-3 py-1.5 text-xs font-medium hover:bg-primary/5 whitespace-nowrap">
+                                            Buy Again
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-card p-4 border border-gray-100 rounded-lg">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Order #ORD-7398</h3>
+                                        <p class="text-sm text-gray-500">Placed on March 22, 2025</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="badge badge-success">Delivered</span>
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            Track Order
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="h-px bg-gray-100 mb-3"></div>
+                                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=The%2520Origin%2520of%2520Species%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=12&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">The Origin of Species</h4>
+                                            <p class="text-xs text-gray-500">By Charles Darwin</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-shrink-0 w-12 h-16">
+                                            <img src="https://readdy.ai/api/search-image?query=The%2520Double%2520Helix%2520book%2520cover%252C%2520professional%2520academic%2520style&width=200&height=300&seq=13&orientation=portrait" alt="Book Cover" class="w-full h-full object-cover object-top rounded">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-sm">The Double Helix</h4>
+                                            <p class="text-xs text-gray-500">By James D. Watson</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-3 border-t border-gray-100">
+                                    <div class="flex items-center gap-4">
+                                        <div>
+                                            <span class="text-xs text-gray-500">Items:</span>
+                                            <span class="text-sm font-medium">2</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Total:</span>
+                                            <span class="text-sm font-medium text-primary">$38.75</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs text-gray-500">Payment:</span>
+                                            <span class="text-sm font-medium">Credit Card</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 mt-3 md:mt-0">
+                                        <button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-xs font-medium hover:bg-gray-50 whitespace-nowrap">
+                                            View Invoice
+                                        </button>
+                                        <button class="!rounded-button bg-white border border-primary text-primary px-3 py-1.5 text-xs font-medium hover:bg-primary/5 whitespace-nowrap">
+                                            Buy Again
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center mt-6">
+                            <nav class="flex items-center gap-1">
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-gray-50">
+                                    <i class="ri-arrow-left-s-line"></i>
+                                </button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-primary bg-primary text-white">1</button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-700 hover:bg-gray-50">2</button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-700 hover:bg-gray-50">3</button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-gray-50">
+                                    <i class="ri-arrow-right-s-line"></i>
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings-section" class="profile-section space-y-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-semibold">Account Settings</h2>
+                            <button id="saveSettings" class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">
+                                Save Changes
+                            </button>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-700 mb-3">Email Notifications</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Order Updates</p>
+                                            <p class="text-xs text-gray-500">Receive notifications about your order status</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">New Releases</p>
+                                            <p class="text-xs text-gray-500">Get notified about new book releases from your favorite authors</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Promotions and Discounts</p>
+                                            <p class="text-xs text-gray-500">Receive special offers and discount codes</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Reading Recommendations</p>
+                                            <p class="text-xs text-gray-500">Get personalized book recommendations</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Newsletter</p>
+                                            <p class="text-xs text-gray-500">Receive our weekly newsletter with literary news</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-px bg-gray-100"></div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-700 mb-3">Privacy Settings</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Profile Visibility</p>
+                                            <p class="text-xs text-gray-500">Allow other users to see your reading activity</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Reading History</p>
+                                            <p class="text-xs text-gray-500">Store your reading history for personalized recommendations</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Data Collection</p>
+                                            <p class="text-xs text-gray-500">Allow us to collect usage data to improve our services</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-px bg-gray-100"></div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-700 mb-3">Account Security</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Change Password</label>
+                                        <input type="password" placeholder="Current password" class="w-full mb-2">
+                                        <input type="password" placeholder="New password" class="w-full mb-2">
+                                        <input type="password" placeholder="Confirm new password" class="w-full">
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Two-Factor Authentication</p>
+                                            <p class="text-xs text-gray-500">Add an extra layer of security to your account</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium">Login Notifications</p>
+                                            <p class="text-xs text-gray-500">Get notified when someone logs into your account</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-px bg-gray-100"></div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-700 mb-3">Danger Zone</h3>
+                                <div class="p-4 bg-red-50 border border-red-100 rounded-lg">
+                                    <h4 class="text-sm font-medium text-red-700 mb-2">Delete Account</h4>
+                                    <p class="text-xs text-red-600 mb-3">This action is permanent and cannot be undone. All your data will be permanently removed.</p>
+                                    <button class="!rounded-button bg-white border border-red-500 text-red-600 px-3 py-1.5 text-sm font-medium hover:bg-red-50 whitespace-nowrap">
+                                        Delete My Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <div>
+                <h3 class="font-['Pacifico'] text-2xl mb-4">BookVerse</h3>
+                <p class="text-gray-400 text-sm mb-4">Your gateway to the universe of knowledge. Discover, learn, and explore the wonders of literature through our curated collection of books.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                        <i class="ri-twitter-x-fill"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                        <i class="ri-instagram-fill"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                        <i class="ri-youtube-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold text-lg mb-4">Categories</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Fiction</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Non-Fiction</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Science</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">History</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Biography</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Business</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Children's Books</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Home</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Bestsellers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">New Releases</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Authors</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Contact</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-lg mb-4">Newsletter</h4>
+                <p class="text-gray-400 text-sm mb-4">Subscribe to receive updates on new books and exclusive offers.</p>
+                <div class="flex mb-4">
+                    <input type="email" placeholder="Your email address" class="flex-grow px-4 py-2 bg-gray-800 border-none rounded-l text-sm focus:outline-none">
+                    <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 rounded-l-none whitespace-nowrap">Subscribe</button>
+                </div>
+                <p class="text-gray-500 text-xs">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+            </div>
+        </div>
+        <div class="pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-gray-500 hover:text-white text-xs">Privacy Policy</a>
+                <a href="#" class="text-gray-500 hover:text-white text-xs">Terms of Service</a>
+                <a href="#" class="text-gray-500 hover:text-white text-xs">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // User dropdown toggle
+    const userMenuButton = document.getElementById('userMenuButton');
+    const userDropdown = document.getElementById('userDropdown');
+    let isDropdownOpen = false;
+
+    userMenuButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        isDropdownOpen = !isDropdownOpen;
+        if (isDropdownOpen) {
+            userDropdown.classList.remove('hidden');
+        } else {
+            userDropdown.classList.add('hidden');
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!userDropdown.contains(e.target) && isDropdownOpen) {
+            userDropdown.classList.add('hidden');
+            isDropdownOpen = false;
+        }
+    });
+
+    // Navigation tabs
+    const navItems = document.querySelectorAll('.nav-item');
+    const profileSections = document.querySelectorAll('.profile-section');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            
+            // Update active nav item
+            navItems.forEach(navItem => navItem.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show the corresponding section
+            profileSections.forEach(section => section.classList.remove('active'));
+            document.getElementById(`${targetId}-section`).classList.add('active');
+        });
+    });
+
+    // Initialize reading chart
+    const chartDom = document.getElementById('readingChart');
+    const myChart = echarts.init(chartDom);
+    
+    const option = {
+        animation: false,
+        tooltip: {
+            trigger: 'axis',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            borderColor: '#e5e7eb',
+            borderWidth: 1,
+            textStyle: {
+                color: '#1f2937'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+            axisLine: {
+                lineStyle: {
+                    color: '#e5e7eb'
+                }
+            },
+            axisLabel: {
+                color: '#6b7280'
+            }
+        },
+        yAxis: {
+            type: 'value',
+            axisLine: {
+                show: false
+            },
+            axisLabel: {
+                color: '#6b7280'
+            },
+            splitLine: {
+                lineStyle: {
+                    color: '#f3f4f6'
+                }
+            }
+        },
+        series: [
+            {
+                name: 'Pages Read',
+                type: 'line',
+                smooth: true,
+                lineStyle: {
+                    width: 3,
+                    color: 'rgba(87, 181, 231, 1)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                            offset: 0,
+                            color: 'rgba(87, 181, 231, 0.3)'
+                        },
+                        {
+                            offset: 1,
+                            color: 'rgba(87, 181, 231, 0.1)'
+                        }
+                    ])
+                },
+                data: [120, 132, 101, 134, 90, 230, 210, 182],
+                showSymbol: false
+            },
+            {
+                name: 'Books Completed',
+                type: 'line',
+                smooth: true,
+                lineStyle: {
+                    width: 3,
+                    color: 'rgba(141, 211, 199, 1)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                            offset: 0,
+                            color: 'rgba(141, 211, 199, 0.3)'
+                        },
+                        {
+                            offset: 1,
+                            color: 'rgba(141, 211, 199, 0.1)'
+                        }
+                    ])
+                },
+                data: [1, 2, 1, 2, 1, 3, 2, 2],
+                showSymbol: false
+            }
+        ]
+    };
+    
+    myChart.setOption(option);
+    
+    // Responsive chart
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+
+    // Save buttons functionality
+    document.getElementById('savePersonalInfo').addEventListener('click', function() {
+        showSaveNotification('Personal information updated successfully!');
+    });
+
+    document.getElementById('saveAddressInfo').addEventListener('click', function() {
+        showSaveNotification('Address information updated successfully!');
+    });
+
+    document.getElementById('saveReadingPrefs').addEventListener('click', function() {
+        showSaveNotification('Reading preferences updated successfully!');
+    });
+
+    document.getElementById('saveSettings').addEventListener('click', function() {
+        showSaveNotification('Account settings updated successfully!');
+    });
+
+    function showSaveNotification(message) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 z-50';
+        notification.innerHTML = `
+            <i class="ri-check-line"></i>
+            <span>${message}</span>
+        `;
+        
+        // Add to DOM
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.classList.add('opacity-0');
+            notification.style.transition = 'opacity 0.5s';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 500);
+        }, 3000);
+    }
+});
+</script>
+</body>
+</html>

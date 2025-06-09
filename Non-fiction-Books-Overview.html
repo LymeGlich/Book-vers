@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Non-fiction Books | BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4361ee',secondary:'#3f72af'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.range-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+background: #4361ee;
+border-radius: 50%;
+cursor: pointer;
+}
+.range-slider::-moz-range-thumb {
+width: 18px;
+height: 18px;
+background: #4361ee;
+border-radius: 50%;
+cursor: pointer;
+border: none;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 18px;
+width: 18px;
+background-color: #fff;
+border: 1px solid #d1d5db;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+background-color: #f3f4f6;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #4361ee;
+border-color: #4361ee;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-radio {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+user-select: none;
+}
+.custom-radio input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.radio-mark {
+position: absolute;
+top: 0;
+left: 0;
+height: 18px;
+width: 18px;
+background-color: #fff;
+border: 1px solid #d1d5db;
+border-radius: 50%;
+}
+.custom-radio:hover input ~ .radio-mark {
+background-color: #f3f4f6;
+}
+.custom-radio input:checked ~ .radio-mark {
+background-color: #fff;
+border-color: #4361ee;
+}
+.radio-mark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-radio input:checked ~ .radio-mark:after {
+display: block;
+}
+.custom-radio .radio-mark:after {
+top: 4px;
+left: 4px;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: #4361ee;
+}
+.switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 24px;
+}
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .3s;
+border-radius: 24px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .3s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #4361ee;
+}
+input:checked + .slider:before {
+transform: translateX(20px);
+}
+.custom-select {
+position: relative;
+display: inline-block;
+}
+.custom-select select {
+display: none;
+}
+.select-selected {
+background-color: white;
+border: 1px solid #e5e7eb;
+border-radius: 8px;
+padding: 8px 16px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.select-items {
+position: absolute;
+background-color: white;
+top: 100%;
+left: 0;
+right: 0;
+z-index: 99;
+border: 1px solid #e5e7eb;
+border-radius: 8px;
+margin-top: 4px;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+max-height: 200px;
+overflow-y: auto;
+}
+.select-hide {
+display: none;
+}
+.select-items div {
+padding: 8px 16px;
+cursor: pointer;
+}
+.select-items div:hover {
+background-color: #f3f4f6;
+}
+.same-as-selected {
+background-color: #f3f4f6;
+}
+.book-card {
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.book-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header Navigation -->
+<header class="bg-white shadow-sm">
+<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<div class="flex items-center">
+<a href="#" class="text-2xl font-['Pacifico'] text-primary mr-8">BookVerse</a>
+<nav class="hidden md:flex space-x-6">
+<a href="#" class="text-gray-600 hover:text-primary">Home</a>
+<a href="#" class="text-gray-600 hover:text-primary">Categories</a>
+<a href="#" class="text-gray-600 hover:text-primary">Bestsellers</a>
+<a href="#" class="text-gray-600 hover:text-primary">New Releases</a>
+<a href="#" class="text-gray-600 hover:text-primary">Deals</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative hidden md:block">
+<input type="text" placeholder="Search books..." class="w-64 pl-10 pr-4 py-2 rounded-full text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">
+<i class="ri-heart-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 relative">
+<i class="ri-shopping-cart-line"></i>
+<span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-primary text-white text-xs rounded-full">3</span>
+</div>
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">
+<i class="ri-user-line"></i>
+</div>
+<button class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-600">
+<i class="ri-menu-line"></i>
+</button>
+</div>
+</div>
+</header>
+<!-- Breadcrumb -->
+<div class="bg-white border-b border-gray-200">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center text-sm text-gray-500">
+<a href="#" class="hover:text-primary">Home</a>
+<div class="mx-2">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<a href="#" class="hover:text-primary">Categories</a>
+<div class="mx-2">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<span class="text-gray-900 font-medium">Non-fiction</span>
+</div>
+</div>
+</div>
+<!-- Category Header -->
+<div class="bg-white border-b border-gray-200 py-8">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl">
+<h1 class="text-3xl font-bold text-gray-900 mb-2">Non-fiction Books</h1>
+<p class="text-gray-600 mb-4">Explore our collection of thought-provoking non-fiction books, from biographies and memoirs to science, history, and self-improvement.</p>
+<div class="flex items-center text-sm text-gray-500">
+<span class="font-medium text-gray-900">1,247 books available</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="bg-white border-b border-gray-200 py-4 sticky top-0 z-10 shadow-sm">
+<div class="container mx-auto px-4">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center space-x-3">
+<button id="bestsellersBtn" class="px-4 py-2 bg-primary/10 text-primary font-medium rounded-button !rounded-button flex items-center whitespace-nowrap">
+<i class="ri-fire-line mr-2"></i>
+Bestsellers
+</button>
+<button id="newReleasesBtn" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-button !rounded-button flex items-center whitespace-nowrap hover:bg-gray-200">
+<i class="ri-book-line mr-2"></i>
+New Releases
+</button>
+<div class="relative hidden md:block">
+<button class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-button !rounded-button flex items-center whitespace-nowrap hover:bg-gray-200">
+<span>Topics</span>
+<i class="ri-arrow-down-s-line ml-2"></i>
+</button>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="relative">
+<button class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-button !rounded-button flex items-center whitespace-nowrap hover:bg-gray-200">
+<span>Sort by: Relevance</span>
+<i class="ri-arrow-down-s-line ml-2"></i>
+</button>
+</div>
+<div class="hidden md:flex border border-gray-200 rounded-button !rounded-button overflow-hidden">
+<button class="px-3 py-2 bg-primary text-white flex items-center justify-center">
+<i class="ri-layout-grid-line"></i>
+</button>
+<button class="px-3 py-2 bg-white text-gray-500 flex items-center justify-center hover:bg-gray-100">
+<i class="ri-list-check"></i>
+</button>
+</div>
+<button class="md:hidden px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-button !rounded-button flex items-center whitespace-nowrap hover:bg-gray-200">
+<i class="ri-filter-3-line mr-2"></i>
+Filters
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="container mx-auto px-4 py-8">
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Sidebar Filters (Desktop) -->
+<div class="hidden md:block w-64 flex-shrink-0">
+<div class="bg-white rounded-lg shadow-sm p-6 sticky top-24">
+<div class="mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Price Range</h3>
+<div class="mb-4">
+<input type="range" min="0" max="100" value="75" class="range-slider w-full h-2 bg-gray-200 rounded-full appearance-none">
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-600">$0</span>
+<span class="text-sm font-medium text-gray-900">Up to $75</span>
+<span class="text-sm text-gray-600">$100</span>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-6 mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Publication Date</h3>
+<div class="space-y-2">
+<label class="custom-radio flex items-center text-sm">
+<input type="radio" name="publication" checked>
+<span class="radio-mark"></span>
+<span class="ml-2">All time</span>
+</label>
+<label class="custom-radio flex items-center text-sm">
+<input type="radio" name="publication">
+<span class="radio-mark"></span>
+<span class="ml-2">Last 30 days</span>
+</label>
+<label class="custom-radio flex items-center text-sm">
+<input type="radio" name="publication">
+<span class="radio-mark"></span>
+<span class="ml-2">Last 90 days</span>
+</label>
+<label class="custom-radio flex items-center text-sm">
+<input type="radio" name="publication">
+<span class="radio-mark"></span>
+<span class="ml-2">Last year</span>
+</label>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-6 mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Language</h3>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="ml-2">English</span>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-2">Spanish</span>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-2">French</span>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-2">German</span>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-2">Chinese</span>
+</label>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-6 mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Format</h3>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="ml-2">Hardcover</span>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="ml-2">Paperback</span>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="ml-2">eBook</span>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-2">Audiobook</span>
+</label>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-6 mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Rating</h3>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-2 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="ml-2 text-gray-600">& up</span>
+</div>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<div class="ml-2 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-2 text-gray-600">& up</span>
+</div>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-2 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-2 text-gray-600">& up</span>
+</div>
+</label>
+<label class="custom-checkbox flex items-center text-sm">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-2 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-2 text-gray-600">& up</span>
+</div>
+</label>
+</div>
+</div>
+<button class="w-full py-2 text-gray-600 text-sm font-medium border border-gray-300 rounded-button !rounded-button hover:bg-gray-50 whitespace-nowrap">
+Clear all filters
+</button>
+</div>
+</div>
+<!-- Book Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20atomic%20habits%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=1&orientation=portrait" alt="Atomic Habits" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Atomic Habits</h3>
+<p class="text-sm text-gray-600 mb-2">James Clear</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(4,821)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">An easy and proven way to build good habits and break bad ones. Tiny changes, remarkable results.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$18.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20thinking%20fast%20and%20slow%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=2&orientation=portrait" alt="Thinking, Fast and Slow" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Thinking, Fast and Slow</h3>
+<p class="text-sm text-gray-600 mb-2">Daniel Kahneman</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(3,549)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A groundbreaking tour of the mind and explains the two systems that drive the way we think and make choices.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$22.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20sapiens%20a%20brief%20history%20of%20humankind%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=3&orientation=portrait" alt="Sapiens" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-primary">
+<i class="ri-heart-fill"></i>
+</div>
+<div class="absolute top-2 left-2 px-2 py-1 bg-primary/90 text-white text-xs font-medium rounded">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Sapiens: A Brief History of Humankind</h3>
+<p class="text-sm text-gray-600 mb-2">Yuval Noah Harari</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(9,127)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A bold, wide-ranging and provocative history of humans from the Stone Age to the present.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$24.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20educated%20a%20memoir%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=4&orientation=portrait" alt="Educated" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Educated: A Memoir</h3>
+<p class="text-sm text-gray-600 mb-2">Tara Westover</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(5,732)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">An unforgettable memoir about a young girl who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$17.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20becoming%20michelle%20obama%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=5&orientation=portrait" alt="Becoming" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+<div class="absolute top-2 left-2 px-2 py-1 bg-primary/90 text-white text-xs font-medium rounded">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Becoming</h3>
+<p class="text-sm text-gray-600 mb-2">Michelle Obama</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(11,453)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">In her memoir, Michelle Obama invites readers into her world, chronicling the experiences that have shaped her.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$19.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20the%20power%20of%20habit%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=6&orientation=portrait" alt="The Power of Habit" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">The Power of Habit</h3>
+<p class="text-sm text-gray-600 mb-2">Charles Duhigg</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(4,129)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Why we do what we do in life and business. A fascinating exploration of the science of habit formation and change.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$16.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20a%20brief%20history%20of%20time%20stephen%20hawking%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=7&orientation=portrait" alt="A Brief History of Time" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-primary">
+<i class="ri-heart-fill"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">A Brief History of Time</h3>
+<p class="text-sm text-gray-600 mb-2">Stephen Hawking</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(7,843)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A landmark volume in science writing by one of the great minds of our time, explaining complex concepts to the general reader.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$15.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20outliers%20malcolm%20gladwell%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=8&orientation=portrait" alt="Outliers" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+<div class="absolute top-2 left-2 px-2 py-1 bg-green-500/90 text-white text-xs font-medium rounded">New Release</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Outliers: The Story of Success</h3>
+<p class="text-sm text-gray-600 mb-2">Malcolm Gladwell</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(5,289)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Malcolm Gladwell takes us on an intellectual journey through the world of "outliers"—the best and the brightest, the most famous and the most successful.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$18.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 9 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20the%20immortal%20life%20of%20henrietta%20lacks%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=9&orientation=portrait" alt="The Immortal Life of Henrietta Lacks" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">The Immortal Life of Henrietta Lacks</h3>
+<p class="text-sm text-gray-600 mb-2">Rebecca Skloot</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(3,912)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">The story of Henrietta Lacks, whose cells became one of the most important tools in medicine, and the impact on her family.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$16.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 10 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20quiet%20the%20power%20of%20introverts%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=10&orientation=portrait" alt="Quiet" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Quiet: The Power of Introverts</h3>
+<p class="text-sm text-gray-600 mb-2">Susan Cain</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(4,567)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A book that shows how dramatically our culture undervalues introverts, and how much we lose in doing so.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$17.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 11 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20the%20four%20agreements%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=11&orientation=portrait" alt="The Four Agreements" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-gray-600 hover:text-primary">
+<i class="ri-heart-line"></i>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">The Four Agreements</h3>
+<p class="text-sm text-gray-600 mb-2">Don Miguel Ruiz</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(8,742)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A practical guide to personal freedom. The Four Agreements reveal the source of self-limiting beliefs that rob us of joy.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$12.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 12 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-56 relative overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20photography%20of%20a%20non-fiction%20book%20cover%20about%20mans%20search%20for%20meaning%20with%20minimal%20design%2C%20clean%20typography%2C%20on%20plain%20background%2C%20high%20quality%20book%20cover&width=300&height=400&seq=12&orientation=portrait" alt="Man's Search for Meaning" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 text-primary">
+<i class="ri-heart-fill"></i>
+</div>
+<div class="absolute top-2 left-2 px-2 py-1 bg-primary/90 text-white text-xs font-medium rounded">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Man's Search for Meaning</h3>
+<p class="text-sm text-gray-600 mb-2">Viktor E. Frankl</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(12,387)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A book about finding meaning in difficult times. Frankl's memoir has riveted generations with its descriptions of life in Nazi death camps.</p>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-gray-900">$14.99</span>
+<button class="px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-button !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex flex-col sm:flex-row items-center justify-between">
+<div class="mb-4 sm:mb-0 text-sm text-gray-600">
+Showing <span class="font-medium">1-12</span> of <span class="font-medium">1,247</span> books
+</div>
+<div class="flex items-center">
+<div class="mr-4">
+<div class="custom-select w-32">
+<button class="select-selected text-sm">
+<span>12 per page</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div class="select-items select-hide">
+<div class="text-sm">12 per page</div>
+<div class="text-sm">24 per page</div>
+<div class="text-sm">48 per page</div>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 text-gray-400">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-primary text-white">1</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-700">2</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-700">3</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-700">4</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-700">5</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-700">...</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-700">104</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-white border-t border-gray-200 mt-16">
+<div class="container mx-auto px-4 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<a href="#" class="text-2xl font-['Pacifico'] text-primary mb-4 inline-block">BookVerse</a>
+<p class="text-gray-600 mb-4">Your ultimate destination for books of all genres. Discover, explore, and get lost in the world of literature.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white">
+<i class="ri-twitter-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white">
+<i class="ri-instagram-line"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white">
+<i class="ri-pinterest-line"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-gray-900 font-semibold mb-4">Explore</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Bestsellers</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">New Releases</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Fiction</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Non-Fiction</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Children's Books</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Textbooks</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-gray-900 font-semibold mb-4">Customer Service</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Help Center</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Order Status</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Shipping & Delivery</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Returns & Refunds</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Payment Methods</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-gray-900 font-semibold mb-4">Subscribe</h3>
+<p class="text-gray-600 mb-4">Stay updated with our latest releases and promotions.</p>
+<div class="flex mb-4">
+<input type="email" placeholder="Your email address" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-button !rounded-l-button text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<button class="px-4 py-2 bg-primary text-white font-medium rounded-r-button !rounded-r-button whitespace-nowrap">Subscribe</button>
+</div>
+<div class="flex items-center space-x-4">
+<div class="w-8 h-5 flex items-center justify-center">
+<i class="ri-visa-fill text-xl text-blue-700"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center">
+<i class="ri-mastercard-fill text-xl text-orange-500"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center">
+<i class="ri-paypal-fill text-xl text-blue-600"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center">
+<i class="ri-apple-fill text-xl"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-600 text-sm mb-4 md:mb-0">&copy; 2025 BookVerse. All rights reserved.</p>
+<div class="flex space-x-6">
+<a href="#" class="text-gray-600 hover:text-primary text-sm">Privacy Policy</a>
+<a href="#" class="text-gray-600 hover:text-primary text-sm">Terms of Service</a>
+<a href="#" class="text-gray-600 hover:text-primary text-sm">Accessibility</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const newReleasesBtn = document.getElementById('newReleasesBtn');
+const bestsellersBtn = document.getElementById('bestsellersBtn');
+const bookGrid = document.querySelector('.grid');
+function toggleButtonStates(activeBtn, inactiveBtn) {
+    activeBtn.className = 'px-4 py-2 bg-primary/10 text-primary font-medium rounded-button !rounded-button flex items-center whitespace-nowrap';
+    inactiveBtn.className = 'px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-button !rounded-button flex items-center whitespace-nowrap hover:bg-gray-200';
+}
+newReleasesBtn.addEventListener('click', function() {
+    toggleButtonStates(newReleasesBtn, bestsellersBtn);
+    
+    const bookCards = bookGrid.querySelectorAll('.book-card');
+    bookCards.forEach(card => {
+        const hasNewTag = Math.random() < 0.3;
+        const existingTag = card.querySelector('.absolute.top-2.left-2');
+        
+        if (existingTag) {
+            existingTag.remove();
+        }
+        
+        if (hasNewTag) {
+            const newTag = document.createElement('div');
+            newTag.className = 'absolute top-2 left-2 px-2 py-1 bg-green-500/90 text-white text-xs font-medium rounded';
+            newTag.textContent = 'New Release';
+            card.querySelector('.relative').appendChild(newTag);
+        }
+        
+        const dateSpan = document.createElement('span');
+        dateSpan.className = 'text-xs text-gray-500 ml-2';
+        dateSpan.textContent = `(${Math.floor(Math.random() * 30) + 1} days ago)`;
+        
+        const authorElement = card.querySelector('.text-sm.text-gray-600.mb-2');
+        authorElement.appendChild(dateSpan);
+    });
+});
+bestsellersBtn.addEventListener('click', function() {
+    toggleButtonStates(bestsellersBtn, newReleasesBtn);
+    
+    const bookCards = bookGrid.querySelectorAll('.book-card');
+    bookCards.forEach(card => {
+        const hasBestsellerTag = Math.random() < 0.3;
+        const existingTag = card.querySelector('.absolute.top-2.left-2');
+        const dateSpan = card.querySelector('.text-xs.text-gray-500.ml-2');
+        
+        if (existingTag) {
+            existingTag.remove();
+        }
+        
+        if (dateSpan) {
+            dateSpan.remove();
+        }
+        
+        if (hasBestsellerTag) {
+            const bestsellerTag = document.createElement('div');
+            bestsellerTag.className = 'absolute top-2 left-2 px-2 py-1 bg-primary/90 text-white text-xs font-medium rounded';
+            bestsellerTag.textContent = 'Bestseller';
+            card.querySelector('.relative').appendChild(bestsellerTag);
+        }
+    });
+});
+// Custom Select
+var customSelects = document.getElementsByClassName("custom-select");
+for (let i = 0; i < customSelects.length; i++) {
+let selectSelected = customSelects[i].getElementsByClassName("select-selected")[0];
+let selectItems = customSelects[i].getElementsByClassName("select-items")[0];
+selectSelected.addEventListener("click", function(e) {
+e.stopPropagation();
+closeAllSelect(this);
+selectItems.classList.toggle("select-hide");
+this.classList.toggle("select-arrow-active");
+});
+let selectOptions = selectItems.getElementsByTagName("div");
+for (let j = 0; j < selectOptions.length; j++) {
+selectOptions[j].addEventListener("click", function() {
+let selectSelected = this.parentNode.previousSibling.previousSibling;
+selectSelected.getElementsByTagName("span")[0].innerHTML = this.innerHTML;
+selectItems.classList.add("select-hide");
+});
+}
+}
+function closeAllSelect(elmnt) {
+var selectItems = document.getElementsByClassName("select-items");
+var selectSelected = document.getElementsByClassName("select-selected");
+for (let i = 0; i < selectSelected.length; i++) {
+if (elmnt != selectSelected[i]) {
+selectSelected[i].classList.remove("select-arrow-active");
+}
+}
+for (let i = 0; i < selectItems.length; i++) {
+if (elmnt != selectSelected[i]) {
+selectItems[i].classList.add("select-hide");
+}
+}
+}
+document.addEventListener("click", closeAllSelect);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join as a Publisher - BookVerse</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#8b5cf6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .custom-file-upload input[type="file"] {
+            display: none;
+        }
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .custom-checkbox.checked {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .custom-checkbox.checked::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 6px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-radio {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        .custom-radio.checked {
+            border-color: #4f46e5;
+        }
+        .custom-radio.checked::after {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #4f46e5;
+        }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .switch-slider {
+            background-color: #4f46e5;
+        }
+        input:checked + .switch-slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="w-full bg-white shadow-sm py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-['Pacifico'] text-primary">BookVerse</a>
+            <a href="#" class="text-gray-600 hover:text-primary flex items-center gap-1 transition-colors">
+                <span class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-arrow-left-line"></i>
+                </span>
+                <span>Back to Home</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto p-6 mt-8">
+        <!-- Progress Indicator -->
+        <div class="mb-12">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-building-line"></i>
+                        </span>
+                    </div>
+                    <span class="mt-2 text-sm font-medium text-primary">Company Details</span>
+                </div>
+                <div class="flex-1 h-1 mx-4 bg-gray-200 relative">
+                    <div class="absolute inset-0 bg-primary" style="width: 0%"></div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-contacts-line"></i>
+                        </span>
+                    </div>
+                    <span class="mt-2 text-sm font-medium text-gray-500">Contact Info</span>
+                </div>
+                <div class="flex-1 h-1 mx-4 bg-gray-200"></div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-book-open-line"></i>
+                        </span>
+                    </div>
+                    <span class="mt-2 text-sm font-medium text-gray-500">Publishing Details</span>
+                </div>
+                <div class="flex-1 h-1 mx-4 bg-gray-200"></div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-check-line"></i>
+                        </span>
+                    </div>
+                    <span class="mt-2 text-sm font-medium text-gray-500">Review & Submit</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Main Form Section -->
+            <div class="w-full md:w-2/3">
+                <div class="bg-white rounded-lg shadow-sm p-8">
+                    <h1 class="text-2xl font-semibold mb-8">Join BookVerse as a Publisher</h1>
+                    
+                    <form id="publisherForm">
+                        <!-- Step 1: Company Details -->
+                        <div class="form-step active" id="step1">
+                            <h2 class="text-xl font-medium mb-6">Company Details</h2>
+                            
+                            <div class="mb-6">
+                                <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">Company/Library Name <span class="text-red-500">*</span></label>
+                                <input type="text" id="companyName" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Company Logo <span class="text-red-500">*</span></label>
+                                <div class="custom-file-upload">
+                                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition">
+                                        <span class="w-12 h-12 mx-auto flex items-center justify-center text-gray-400">
+                                            <i class="ri-upload-cloud-line ri-2x"></i>
+                                        </span>
+                                        <p class="mt-2 text-sm text-gray-600">Drag and drop your logo here, or <span class="text-primary">browse</span></p>
+                                        <p class="mt-1 text-xs text-gray-500">PNG, JPG or SVG (max. 2MB)</p>
+                                        <input type="file" id="logoUpload" accept="image/*" class="hidden">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="companyDescription" class="block text-sm font-medium text-gray-700 mb-1">Company Description <span class="text-red-500">*</span></label>
+                                <textarea id="companyDescription" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required></textarea>
+                                <p class="mt-1 text-xs text-gray-500">Briefly describe your company and publishing focus (max 500 characters)</p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Business Type <span class="text-red-500">*</span></label>
+                                <div class="space-y-3">
+                                    <div class="flex items-center">
+                                        <div class="custom-radio checked" data-value="publisher"></div>
+                                        <input type="radio" name="businessType" value="publisher" class="hidden" checked>
+                                        <label class="ml-2 text-sm text-gray-700">Publisher</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-radio" data-value="library"></div>
+                                        <input type="radio" name="businessType" value="library" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Library</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-radio" data-value="independent"></div>
+                                        <input type="radio" name="businessType" value="independent" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Independent Author/Publisher</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Contact Information -->
+                        <div class="form-step" id="step2">
+                            <h2 class="text-xl font-medium mb-6">Contact Information</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="contactName" class="block text-sm font-medium text-gray-700 mb-1">Primary Contact Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="contactName" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                </div>
+                                <div>
+                                    <label for="contactEmail" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                                    <input type="email" id="contactEmail" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="contactPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+                                <input type="tel" id="contactPhone" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Physical Address <span class="text-red-500">*</span></label>
+                                <input type="text" id="address" placeholder="Street Address" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition mb-3" required>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <input type="text" id="city" placeholder="City" class="h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                    <input type="text" id="state" placeholder="State/Province" class="h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                                    <input type="text" id="zipCode" placeholder="ZIP/Postal Code" class="h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                    <div class="relative">
+                                        <select id="country" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition appearance-none pr-8" required>
+                                            <option value="" disabled selected>Select Country</option>
+                                            <option value="us">United States</option>
+                                            <option value="ca">Canada</option>
+                                            <option value="uk">United Kingdom</option>
+                                            <option value="au">Australia</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                            <span class="w-5 h-5 flex items-center justify-center text-gray-400">
+                                                <i class="ri-arrow-down-s-line"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="website" class="block text-sm font-medium text-gray-700 mb-1">Website URL</label>
+                                <input type="url" id="website" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                                <p class="mt-1 text-xs text-gray-500">Optional, but recommended</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3: Publishing Details -->
+                        <div class="form-step" id="step3">
+                            <h2 class="text-xl font-medium mb-6">Publishing Details</h2>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Publishing Categories <span class="text-red-500">*</span></label>
+                                <p class="text-xs text-gray-500 mb-3">Select all that apply</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="fiction"></div>
+                                        <input type="checkbox" name="categories" value="fiction" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Fiction</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="non-fiction"></div>
+                                        <input type="checkbox" name="categories" value="non-fiction" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Non-Fiction</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="children"></div>
+                                        <input type="checkbox" name="categories" value="children" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Children's Books</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="academic"></div>
+                                        <input type="checkbox" name="categories" value="academic" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Academic/Educational</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="poetry"></div>
+                                        <input type="checkbox" name="categories" value="poetry" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Poetry</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="comics"></div>
+                                        <input type="checkbox" name="categories" value="comics" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Comics/Graphic Novels</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Social Media Links</label>
+                                <p class="text-xs text-gray-500 mb-3">Optional, but helps with promotion</p>
+                                
+                                <div class="space-y-3">
+                                    <div class="flex items-center">
+                                        <span class="w-10 h-10 flex items-center justify-center text-gray-500 bg-gray-100 rounded-l border border-r-0 border-gray-300">
+                                            <i class="ri-facebook-fill"></i>
+                                        </span>
+                                        <input type="url" placeholder="Facebook URL" class="flex-1 h-10 px-4 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="w-10 h-10 flex items-center justify-center text-gray-500 bg-gray-100 rounded-l border border-r-0 border-gray-300">
+                                            <i class="ri-twitter-x-fill"></i>
+                                        </span>
+                                        <input type="url" placeholder="Twitter URL" class="flex-1 h-10 px-4 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="w-10 h-10 flex items-center justify-center text-gray-500 bg-gray-100 rounded-l border border-r-0 border-gray-300">
+                                            <i class="ri-instagram-fill"></i>
+                                        </span>
+                                        <input type="url" placeholder="Instagram URL" class="flex-1 h-10 px-4 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="publicationVolume" class="block text-sm font-medium text-gray-700 mb-1">Expected Publication Volume <span class="text-red-500">*</span></label>
+                                <div class="relative">
+                                    <select id="publicationVolume" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition appearance-none pr-8" required>
+                                        <option value="" disabled selected>Select Volume</option>
+                                        <option value="1-5">1-5 titles per year</option>
+                                        <option value="6-20">6-20 titles per year</option>
+                                        <option value="21-50">21-50 titles per year</option>
+                                        <option value="50+">50+ titles per year</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                        <span class="w-5 h-5 flex items-center justify-center text-gray-400">
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Target Audience <span class="text-red-500">*</span></label>
+                                <div class="space-y-3">
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="children"></div>
+                                        <input type="checkbox" name="audience" value="children" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Children (0-12)</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="young-adult"></div>
+                                        <input type="checkbox" name="audience" value="young-adult" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Young Adult (13-18)</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="adult"></div>
+                                        <input type="checkbox" name="audience" value="adult" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Adult (18+)</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="custom-checkbox" data-value="academic"></div>
+                                        <input type="checkbox" name="audience" value="academic" class="hidden">
+                                        <label class="ml-2 text-sm text-gray-700">Academic/Professional</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4: Review & Submit -->
+                        <div class="form-step" id="step4">
+                            <h2 class="text-xl font-medium mb-6">Review & Submit</h2>
+                            
+                            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                                <h3 class="text-lg font-medium mb-4">Summary</h3>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-700">Company Details</h4>
+                                        <div class="mt-2 pl-4 border-l-2 border-gray-200">
+                                            <p class="text-sm"><span class="font-medium">Company Name:</span> <span id="summary-company-name">Oxford Publishing House</span></p>
+                                            <p class="text-sm"><span class="font-medium">Business Type:</span> <span id="summary-business-type">Publisher</span></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-700">Contact Information</h4>
+                                        <div class="mt-2 pl-4 border-l-2 border-gray-200">
+                                            <p class="text-sm"><span class="font-medium">Contact:</span> <span id="summary-contact-name">Jonathan Blackwell</span></p>
+                                            <p class="text-sm"><span class="font-medium">Email:</span> <span id="summary-email">j.blackwell@oxfordpublishing.com</span></p>
+                                            <p class="text-sm"><span class="font-medium">Phone:</span> <span id="summary-phone">+44 20 7123 4567</span></p>
+                                            <p class="text-sm"><span class="font-medium">Address:</span> <span id="summary-address">42 Park Street, London, SW1A 1AA, United Kingdom</span></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-700">Publishing Details</h4>
+                                        <div class="mt-2 pl-4 border-l-2 border-gray-200">
+                                            <p class="text-sm"><span class="font-medium">Categories:</span> <span id="summary-categories">Fiction, Non-Fiction, Academic/Educational</span></p>
+                                            <p class="text-sm"><span class="font-medium">Publication Volume:</span> <span id="summary-volume">21-50 titles per year</span></p>
+                                            <p class="text-sm"><span class="font-medium">Target Audience:</span> <span id="summary-audience">Young Adult (13-18), Adult (18+), Academic/Professional</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h3 class="text-lg font-medium mb-4">Account Setup</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username <span class="text-red-500">*</span></label>
+                                        <input type="text" id="username" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                    </div>
+                                    <div>
+                                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password <span class="text-red-500">*</span></label>
+                                        <input type="password" id="password" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                        <p class="mt-1 text-xs text-gray-500">Must be at least 8 characters with letters, numbers, and special characters</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password <span class="text-red-500">*</span></label>
+                                    <input type="password" id="confirmPassword" class="w-full h-11 px-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <div class="flex items-start mb-4">
+                                    <div class="flex items-center h-5">
+                                        <div class="custom-checkbox" data-value="terms"></div>
+                                        <input type="checkbox" name="terms" value="1" class="hidden" required>
+                                    </div>
+                                    <label class="ml-2 text-sm text-gray-700">I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a> <span class="text-red-500">*</span></label>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex items-center h-5">
+                                        <div class="custom-checkbox" data-value="newsletter"></div>
+                                        <input type="checkbox" name="newsletter" value="1" class="hidden">
+                                    </div>
+                                    <label class="ml-2 text-sm text-gray-700">Subscribe to our newsletter for publisher updates and opportunities</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Navigation -->
+                        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
+                            <button type="button" id="prevBtn" class="hidden px-6 py-2.5 border border-gray-300 rounded-button text-gray-700 font-medium hover:bg-gray-50 transition whitespace-nowrap">Previous</button>
+                            <button type="button" id="saveBtn" class="px-6 py-2.5 text-primary font-medium hover:bg-gray-50 rounded-button transition whitespace-nowrap">Save as Draft</button>
+                            <button type="button" id="nextBtn" class="px-6 py-2.5 bg-primary text-white font-medium rounded-button hover:bg-primary/90 transition whitespace-nowrap">Next</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Benefits Sidebar -->
+            <div class="w-full md:w-1/3">
+                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-6">
+                    <h2 class="text-xl font-semibold mb-6">Publisher Benefits</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                                <span class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-global-line"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">Global Reach</h3>
+                                <p class="text-sm text-gray-600 mt-1">Connect with readers in over 190 countries and expand your market presence worldwide.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                                <span class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-megaphone-line"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">Marketing Tools</h3>
+                                <p class="text-sm text-gray-600 mt-1">Access powerful promotion tools to increase visibility and drive sales for your titles.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                                <span class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-line-chart-line"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">Analytics Dashboard</h3>
+                                <p class="text-sm text-gray-600 mt-1">Track performance with real-time data on sales, reader engagement, and market trends.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                                <span class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-money-dollar-circle-line"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">Revenue Potential</h3>
+                                <p class="text-sm text-gray-600 mt-1">Maximize earnings with competitive royalty rates and multiple monetization channels.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                                <span class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-customer-service-2-line"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">Support Services</h3>
+                                <p class="text-sm text-gray-600 mt-1">Get dedicated assistance from our publisher support team and access to exclusive resources.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-information-line"></i>
+                                </span>
+                                <h3 class="font-medium text-gray-900">Did you know?</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">Publishers on BookVerse see an average of 34% increase in digital sales within the first year of joining our platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentStep = 1;
+            const totalSteps = 4;
+            
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            // Custom radio buttons
+            const radioButtons = document.querySelectorAll('.custom-radio');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    const radioInput = document.querySelector(`input[type="radio"][value="${value}"]`);
+                    
+                    // Uncheck all radio buttons
+                    document.querySelectorAll('.custom-radio').forEach(r => {
+                        r.classList.remove('checked');
+                    });
+                    
+                    // Check the clicked one
+                    this.classList.add('checked');
+                    radioInput.checked = true;
+                });
+            });
+            
+            // Custom checkboxes
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    const checkboxInput = document.querySelector(`input[type="checkbox"][value="${value}"]`);
+                    
+                    this.classList.toggle('checked');
+                    checkboxInput.checked = !checkboxInput.checked;
+                });
+            });
+            
+            // File upload
+            const fileUploadArea = document.querySelector('.custom-file-upload > div');
+            const fileInput = document.getElementById('logoUpload');
+            
+            fileUploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('border-primary');
+            });
+            
+            fileUploadArea.addEventListener('dragleave', function() {
+                this.classList.remove('border-primary');
+            });
+            
+            fileUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('border-primary');
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileUpload(e.dataTransfer.files[0]);
+                }
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files.length) {
+                    handleFileUpload(this.files[0]);
+                }
+            });
+            
+            function handleFileUpload(file) {
+                // Display preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.createElement('div');
+                    preview.className = 'mt-4 flex items-center';
+                    preview.innerHTML = `
+                        <div class="w-12 h-12 rounded bg-gray-100 mr-3 overflow-hidden">
+                            <img src="${e.target.result}" class="w-full h-full object-cover" alt="Logo preview">
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">${file.name}</p>
+                            <p class="text-xs text-gray-500">${(file.size / 1024).toFixed(1)} KB</p>
+                        </div>
+                        <button type="button" class="ml-auto text-gray-400 hover:text-red-500" id="removeFile">
+                            <span class="w-5 h-5 flex items-center justify-center">
+                                <i class="ri-close-line"></i>
+                            </span>
+                        </button>
+                    `;
+                    
+                    const existingPreview = fileUploadArea.nextElementSibling;
+                    if (existingPreview && existingPreview.classList.contains('mt-4')) {
+                        existingPreview.remove();
+                    }
+                    
+                    fileUploadArea.parentNode.appendChild(preview);
+                    
+                    document.getElementById('removeFile').addEventListener('click', function() {
+                        preview.remove();
+                        fileInput.value = '';
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            // Navigation between steps
+            function showStep(step) {
+                // Hide all steps
+                document.querySelectorAll('.form-step').forEach(s => {
+                    s.classList.remove('active');
+                });
+                
+                // Show current step
+                document.getElementById(`step${step}`).classList.add('active');
+                
+                // Update progress bar
+                const progressBar = document.querySelector('.bg-primary');
+                progressBar.style.width = `${((step - 1) / (totalSteps - 1)) * 100}%`;
+                
+                // Update step indicators
+                document.querySelectorAll('.flex.flex-col.items-center').forEach((indicator, index) => {
+                    const stepNum = index + 1;
+                    const indicatorCircle = indicator.querySelector('div:first-child');
+                    const indicatorText = indicator.querySelector('span');
+                    
+                    if (stepNum < step) {
+                        // Completed step
+                        indicatorCircle.classList.remove('bg-gray-200', 'text-gray-500');
+                        indicatorCircle.classList.add('bg-primary', 'text-white');
+                        indicatorText.classList.remove('text-gray-500');
+                        indicatorText.classList.add('text-primary');
+                    } else if (stepNum === step) {
+                        // Current step
+                        indicatorCircle.classList.remove('bg-gray-200', 'text-gray-500');
+                        indicatorCircle.classList.add('bg-primary', 'text-white');
+                        indicatorText.classList.remove('text-gray-500');
+                        indicatorText.classList.add('text-primary');
+                    } else {
+                        // Future step
+                        indicatorCircle.classList.remove('bg-primary', 'text-white');
+                        indicatorCircle.classList.add('bg-gray-200', 'text-gray-500');
+                        indicatorText.classList.remove('text-primary');
+                        indicatorText.classList.add('text-gray-500');
+                    }
+                });
+                
+                // Show/hide navigation buttons
+                if (step === 1) {
+                    prevBtn.classList.add('hidden');
+                } else {
+                    prevBtn.classList.remove('hidden');
+                }
+                
+                if (step === totalSteps) {
+                    nextBtn.textContent = 'Submit Application';
+                } else {
+                    nextBtn.textContent = 'Next';
+                }
+            }
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                } else {
+                    // Submit form
+                    alert('Form submitted successfully! We will review your application and get back to you soon.');
+                }
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+            
+            saveBtn.addEventListener('click', function() {
+                alert('Your application has been saved as a draft. You can continue later.');
+            });
+            
+            // Initialize first step
+            showStep(currentStep);
+        });
+    </script>
+</body>
+</html>

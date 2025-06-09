@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Books - BookVerse</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#8b5cf6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .custom-checkbox {
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #fff;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+        }
+        .custom-checkbox:hover input ~ .checkmark {
+            border-color: #4f46e5;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .custom-checkbox .checkmark:after {
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4f46e5;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        .custom-radio {
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .custom-radio input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .radio-mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #fff;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+        }
+        .custom-radio:hover input ~ .radio-mark {
+            border-color: #4f46e5;
+        }
+        .custom-radio input:checked ~ .radio-mark {
+            border-color: #4f46e5;
+        }
+        .radio-mark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .custom-radio input:checked ~ .radio-mark:after {
+            display: block;
+        }
+        .custom-radio .radio-mark:after {
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4f46e5;
+        }
+        .star-rating {
+            display: inline-flex;
+            font-size: 1rem;
+            color: #fbbf24;
+        }
+        .filter-panel {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .filter-panel.active {
+            transform: translateX(0);
+        }
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="#" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <i class="ri-arrow-left-s-line ri-lg text-gray-700"></i>
+                </a>
+                <a href="#" class="font-['Pacifico'] text-2xl text-primary">BookVerse</a>
+            </div>
+            
+            <div class="relative flex-1 max-w-xl mx-6">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="ri-search-line text-gray-400"></i>
+                </div>
+                <input type="text" class="w-full py-2 pl-10 pr-4 text-sm text-gray-700 bg-gray-100 rounded-full border-none focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Search educational books...">
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button id="filterToggle" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <i class="ri-filter-3-line text-gray-700"></i>
+                </button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <i class="ri-user-line text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Subject Navigation Tabs -->
+        <div class="border-t border-gray-200 overflow-x-auto whitespace-nowrap">
+            <div class="container mx-auto px-4">
+                <div class="flex space-x-8 py-3">
+                    <a href="#" class="text-primary font-medium border-b-2 border-primary pb-3 px-1">All</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium pb-3 px-1">Math</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium pb-3 px-1">Science</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium pb-3 px-1">Language</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium pb-3 px-1">History</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium pb-3 px-1">Art</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium pb-3 px-1">Geography</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium pb-3 px-1">Music</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <!-- Educational Banner -->
+        <section class="relative rounded-lg overflow-hidden mb-8">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/80 z-10"></div>
+            <div style="background-image: url('https://readdy.ai/api/search-image?query=children%20reading%20books%20in%20a%20colorful%20library%20setting%2C%20with%20educational%20posters%20and%20learning%20materials%20visible%2C%20bright%20and%20cheerful%20atmosphere%2C%20showing%20diverse%20group%20of%20children%20engaged%20in%20reading%20and%20learning%20activities&width=1200&height=400&seq=123&orientation=landscape'); background-size: cover; background-position: center;" class="w-full h-64"></div>
+            <div class="absolute inset-0 z-20 flex flex-col justify-center p-8 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold mb-3">Discover the Joy of Learning</h1>
+                <p class="text-lg md:text-xl mb-6 max-w-2xl">Explore our collection of educational books that make learning fun and engaging for children of all ages.</p>
+                <div>
+                    <button class="bg-white text-primary hover:bg-gray-100 px-6 py-3 font-medium rounded-button shadow-lg transition-colors whitespace-nowrap">Explore Books</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Age Group Filter -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">Browse by Age</h2>
+                <a href="#" class="text-primary font-medium hover:underline">View All</a>
+            </div>
+            <div class="flex overflow-x-auto pb-2 space-x-4">
+                <button class="bg-primary text-white px-5 py-2.5 rounded-full font-medium whitespace-nowrap">All Ages</button>
+                <button class="bg-white text-gray-700 hover:bg-gray-100 px-5 py-2.5 rounded-full font-medium whitespace-nowrap shadow-sm border border-gray-200">Ages 0-3</button>
+                <button class="bg-white text-gray-700 hover:bg-gray-100 px-5 py-2.5 rounded-full font-medium whitespace-nowrap shadow-sm border border-gray-200">Ages 4-7</button>
+                <button class="bg-white text-gray-700 hover:bg-gray-100 px-5 py-2.5 rounded-full font-medium whitespace-nowrap shadow-sm border border-gray-200">Ages 8-12</button>
+                <button class="bg-white text-gray-700 hover:bg-gray-100 px-5 py-2.5 rounded-full font-medium whitespace-nowrap shadow-sm border border-gray-200">Young Adult</button>
+            </div>
+        </section>
+
+        <!-- Book Grid Layout -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-semibold text-gray-800">Educational Books</h2>
+                <div class="flex items-center gap-2 text-sm text-gray-600">
+                    <span>Sort by:</span>
+                    <div class="relative">
+                        <button class="flex items-center bg-white border border-gray-300 rounded-button px-3 py-1.5 whitespace-nowrap">
+                            <span>Popularity</span>
+                            <i class="ri-arrow-down-s-line ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Book 1 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=colorful%20illustrated%20childrens%20math%20book%20cover%20with%20numbers%2C%20shapes%2C%20and%20playful%20characters%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20math%20symbols&width=400&height=560&seq=1&orientation=portrait" alt="Math Adventures" class="w-full h-full object-cover object-top">
+                        <div class="absolute top-2 right-2 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Bestseller</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Math</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Ages 4-7</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Math Adventures with Counting Critters</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Emily Thompson</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">4.5 (128)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900">$18.99</span>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=illustrated%20childrens%20science%20book%20cover%20with%20planets%2C%20microscope%2C%20and%20science%20experiments%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20science%20theme&width=400&height=560&seq=2&orientation=portrait" alt="Science Explorers" class="w-full h-full object-cover object-top">
+                        <div class="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">New</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Science</span>
+                            <span class="inline-block bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Ages 8-12</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Science Explorers: Backyard Discoveries</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Dr. James Wilson</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">4.0 (95)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900">$22.50</span>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 3 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=illustrated%20childrens%20language%20book%20cover%20with%20alphabet%20letters%2C%20words%2C%20and%20reading%20characters%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20language%20learning%20theme&width=400&height=560&seq=3&orientation=portrait" alt="Word Wizards" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded-full">Language</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Ages 4-7</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Word Wizards: Phonics Fun</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Sarah Johnson</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">5.0 (156)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900">$16.99</span>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 4 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=illustrated%20childrens%20history%20book%20cover%20with%20historical%20figures%2C%20timelines%2C%20and%20historical%20scenes%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20history%20learning%20theme&width=400&height=560&seq=4&orientation=portrait" alt="Time Travelers" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">History</span>
+                            <span class="inline-block bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Ages 8-12</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Time Travelers: Ancient Civilizations</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Professor Alex Martin</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">4.7 (112)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900">$24.99</span>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 5 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=illustrated%20childrens%20science%20book%20cover%20with%20animals%2C%20nature%2C%20and%20environmental%20themes%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20biology%20learning%20theme&width=400&height=560&seq=5&orientation=portrait" alt="Nature Explorers" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Science</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Ages 4-7</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Nature Explorers: Animal Kingdom</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Dr. Olivia Chen</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">4.2 (87)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900">$19.50</span>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 6 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=illustrated%20childrens%20art%20book%20cover%20with%20paint%20brushes%2C%20colors%2C%20and%20creative%20activities%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20art%20learning%20theme&width=400&height=560&seq=6&orientation=portrait" alt="Creative Kids" class="w-full h-full object-cover object-top">
+                        <div class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">Sale</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Art</span>
+                            <span class="inline-block bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Ages 8-12</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Creative Kids: Art Techniques</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Isabella Rodriguez</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">3.5 (64)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-gray-900">$15.99</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">$21.99</span>
+                            </div>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 7 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=illustrated%20childrens%20geography%20book%20cover%20with%20maps%2C%20globes%2C%20and%20world%20landmarks%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20geography%20learning%20theme&width=400&height=560&seq=7&orientation=portrait" alt="World Explorers" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-full">Geography</span>
+                            <span class="inline-block bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Ages 8-12</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">World Explorers: Continents & Cultures</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Michael Anderson</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">4.1 (92)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900">$23.50</span>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 8 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=illustrated%20childrens%20music%20book%20cover%20with%20musical%20notes%2C%20instruments%2C%20and%20musical%20characters%2C%20professional%20educational%20book%20design%2C%20bright%20colors%2C%20music%20learning%20theme&width=400&height=560&seq=8&orientation=portrait" alt="Musical Journey" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full">Music</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Ages 4-7</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Musical Journey: Notes & Rhythms</h3>
+                        <p class="text-gray-600 text-sm mb-2">by Sophia Williams</p>
+                        <div class="flex items-center mb-3">
+                            <div class="star-rating mr-1">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">4.6 (103)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900">$17.99</span>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 rounded-button whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-center">
+                <button class="bg-white border border-gray-300 hover:bg-gray-50 text-primary font-medium px-6 py-3 rounded-button shadow-sm whitespace-nowrap">Load More Books</button>
+            </div>
+        </section>
+
+        <!-- Featured Collections -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Featured Collections</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg overflow-hidden relative h-48">
+                    <div class="absolute inset-0 flex flex-col justify-center p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">STEM Learning</h3>
+                        <p class="mb-4">Discover books that make science, technology, engineering, and math exciting!</p>
+                        <button class="bg-white text-blue-600 hover:bg-gray-100 px-4 py-2 rounded-button font-medium inline-block whitespace-nowrap">Explore Collection</button>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg overflow-hidden relative h-48">
+                    <div class="absolute inset-0 flex flex-col justify-center p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">Language Development</h3>
+                        <p class="mb-4">Books that help children develop strong language and literacy skills.</p>
+                        <button class="bg-white text-purple-600 hover:bg-gray-100 px-4 py-2 rounded-button font-medium inline-block whitespace-nowrap">Explore Collection</button>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-green-500 to-green-700 rounded-lg overflow-hidden relative h-48">
+                    <div class="absolute inset-0 flex flex-col justify-center p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">Social Skills</h3>
+                        <p class="mb-4">Help children develop empathy, friendship skills, and emotional intelligence.</p>
+                        <button class="bg-white text-green-600 hover:bg-gray-100 px-4 py-2 rounded-button font-medium inline-block whitespace-nowrap">Explore Collection</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Filter Panel -->
+    <div id="overlay" class="overlay fixed inset-0 bg-black/50 z-50"></div>
+    <div id="filterPanel" class="filter-panel fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-xl z-50 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-gray-800">Filters</h3>
+                <button id="closeFilter" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+                    <i class="ri-close-line text-gray-700"></i>
+                </button>
+            </div>
+            
+            <!-- Price Range -->
+            <div class="mb-6">
+                <h4 class="font-medium text-gray-800 mb-3">Price Range</h4>
+                <div class="mb-4">
+                    <input type="range" min="0" max="50" value="30" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                        <input type="number" value="0" min="0" class="w-24 pl-8 pr-2 py-2 border border-gray-300 rounded text-sm">
+                    </div>
+                    <span class="text-gray-500">to</span>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                        <input type="number" value="30" min="0" class="w-24 pl-8 pr-2 py-2 border border-gray-300 rounded text-sm">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Subject Categories -->
+            <div class="mb-6">
+                <h4 class="font-medium text-gray-800 mb-3">Subject</h4>
+                <div class="space-y-2">
+                    <label class="custom-checkbox block">Math
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Science
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Language
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">History
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Art
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Geography
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Music
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Age Groups -->
+            <div class="mb-6">
+                <h4 class="font-medium text-gray-800 mb-3">Age Group</h4>
+                <div class="space-y-2">
+                    <label class="custom-checkbox block">Ages 0-3
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Ages 4-7
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Ages 8-12
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Young Adult
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Difficulty Levels -->
+            <div class="mb-6">
+                <h4 class="font-medium text-gray-800 mb-3">Difficulty Level</h4>
+                <div class="space-y-2">
+                    <label class="custom-radio block">Beginner
+                        <input type="radio" name="difficulty" checked>
+                        <span class="radio-mark"></span>
+                    </label>
+                    <label class="custom-radio block">Intermediate
+                        <input type="radio" name="difficulty">
+                        <span class="radio-mark"></span>
+                    </label>
+                    <label class="custom-radio block">Advanced
+                        <input type="radio" name="difficulty">
+                        <span class="radio-mark"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Format -->
+            <div class="mb-6">
+                <h4 class="font-medium text-gray-800 mb-3">Format</h4>
+                <div class="space-y-2">
+                    <label class="custom-checkbox block">Hardcover
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Paperback
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">eBook
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom-checkbox block">Audio Book
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Rating -->
+            <div class="mb-6">
+                <h4 class="font-medium text-gray-800 mb-3">Minimum Rating</h4>
+                <div class="flex items-center space-x-4">
+                    <div class="star-rating">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                    <span class="text-sm text-gray-600">& Up</span>
+                </div>
+            </div>
+            
+            <!-- Special Features -->
+            <div class="mb-6">
+                <h4 class="font-medium text-gray-800 mb-3">Special Features</h4>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700">Interactive Elements</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700">Award Winners</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700">Bestsellers Only</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex space-x-4">
+                <button class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-button whitespace-nowrap">Reset</button>
+                <button class="flex-1 bg-primary hover:bg-primary/90 text-white font-medium py-3 rounded-button whitespace-nowrap">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterToggle = document.getElementById('filterToggle');
+            const closeFilter = document.getElementById('closeFilter');
+            const filterPanel = document.getElementById('filterPanel');
+            const overlay = document.getElementById('overlay');
+            
+            filterToggle.addEventListener('click', function() {
+                filterPanel.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeFilter.addEventListener('click', function() {
+                filterPanel.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            overlay.addEventListener('click', function() {
+                filterPanel.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+</body>
+</html>

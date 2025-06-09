@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About BookVerse - Your Digital Reading Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4361ee',secondary:'#3f37c9'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.hero-section {
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('https://readdy.ai/api/search-image?query=modern%20library%20interior%20with%20bookshelves%2C%20comfortable%20reading%20areas%2C%20natural%20light%20streaming%20through%20large%20windows%2C%20people%20reading%20books%2C%20digital%20tablets%20visible%2C%20warm%20and%20inviting%20atmosphere%2C%20knowledge%20center&width=1920&height=800&seq=1&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+.stat-card {
+backdrop-filter: blur(8px);
+background-color: rgba(255, 255, 255, 0.1);
+}
+.feature-card:hover {
+transform: translateY(-5px);
+}
+.pricing-card.popular {
+transform: scale(1.05);
+}
+.team-card:hover .team-overlay {
+opacity: 1;
+}
+.faq-item:not(.active) .faq-answer {
+display: none;
+}
+.faq-item.active .faq-icon {
+transform: rotate(180deg);
+}
+input[type="checkbox"] {
+appearance: none;
+-webkit-appearance: none;
+}
+.pricing-toggle-checkbox:checked + .pricing-toggle-label .pricing-toggle-switch {
+transform: translateX(1.5rem);
+}
+.back-to-top {
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s, visibility 0.3s;
+}
+.back-to-top.visible {
+opacity: 1;
+visibility: visible;
+}
+.header {
+transition: background-color 0.3s ease;
+}
+.header.scrolled {
+background-color: white;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="header fixed w-full top-0 z-50 bg-white bg-opacity-95">
+<div class="container mx-auto px-6 py-4 flex items-center justify-between">
+<a href="/" class="flex items-center">
+<span class="text-2xl font-['Pacifico'] text-primary">BookVerse</span>
+</a>
+<nav class="hidden md:flex items-center space-x-8">
+<a href="#" class="text-gray-700 hover:text-primary font-medium">Home</a>
+<a href="#features" class="text-gray-700 hover:text-primary font-medium">Features</a>
+<a href="#" class="text-gray-700 hover:text-primary font-medium">For Publishers</a>
+<a href="#" class="text-gray-700 hover:text-primary font-medium">Categories</a>
+<a href="#why" class="text-gray-700 hover:text-primary font-medium">Why BookVerse</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="text-primary font-medium hover:text-primary/80 whitespace-nowrap !rounded-button">Sign In</button>
+<button class="bg-primary text-white px-5 py-2 font-medium hover:bg-primary/90 whitespace-nowrap !rounded-button">Get Started</button>
+</div>
+<button class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700">
+<i class="ri-menu-line ri-lg"></i>
+</button>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="hero-section pt-32 pb-20 text-white" id="hero">
+<div class="container mx-auto px-6 w-full">
+<h1 class="text-4xl md:text-5xl font-bold mb-8 max-w-3xl">About BookVerse</h1>
+<div class="flex flex-col md:flex-row gap-12 items-center">
+<div class="md:w-1/2">
+<p class="text-xl leading-relaxed mb-8">
+BookVerse is revolutionizing the way people discover, access, and enjoy books in the digital age. Founded in 2020, we've built a platform that connects readers with millions of titles while helping publishers reach new audiences.
+</p>
+<p class="text-lg mb-8">
+Our mission is simple: make reading more accessible, enjoyable, and connected for everyone, everywhere.
+</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-white text-primary px-6 py-3 font-medium hover:bg-gray-100 whitespace-nowrap !rounded-button">Explore Our Story</button>
+<button class="bg-transparent border border-white text-white px-6 py-3 font-medium hover:bg-white/10 whitespace-nowrap !rounded-button">Watch Video</button>
+</div>
+</div>
+<div class="md:w-1/2 grid grid-cols-2 gap-4">
+<div class="stat-card p-6 rounded-lg">
+<p class="text-4xl font-bold mb-2">5M+</p>
+<p class="text-gray-200">Active Users</p>
+</div>
+<div class="stat-card p-6 rounded-lg">
+<p class="text-4xl font-bold mb-2">10M+</p>
+<p class="text-gray-200">Books Available</p>
+</div>
+<div class="stat-card p-6 rounded-lg">
+<p class="text-4xl font-bold mb-2">1000+</p>
+<p class="text-gray-200">Publisher Partners</p>
+</div>
+<div class="stat-card p-6 rounded-lg">
+<p class="text-4xl font-bold mb-2">120+</p>
+<p class="text-gray-200">Countries Served</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Story Section -->
+<section class="py-20 bg-white" id="story">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold mb-4">Our Story</h2>
+<p class="text-gray-600 max-w-3xl mx-auto">From a small startup to a global reading platform, our journey has been driven by a passion for books and technology.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+<div class="bg-gray-50 p-8 rounded-lg">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-book-open-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Our Mission</h3>
+<p class="text-gray-600">To democratize access to knowledge and stories by creating the most accessible digital reading platform in the world.</p>
+</div>
+<div class="bg-gray-50 p-8 rounded-lg">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-eye-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Our Vision</h3>
+<p class="text-gray-600">A world where everyone has instant access to any book they want, in any format they prefer, without barriers.</p>
+</div>
+<div class="bg-gray-50 p-8 rounded-lg">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-heart-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Our Values</h3>
+<p class="text-gray-600">Accessibility, innovation, community, and a deep respect for authors, publishers, and the written word guide everything we do.</p>
+</div>
+</div>
+<div class="mb-20">
+<h3 class="text-2xl font-bold mb-8 text-center">Our Journey</h3>
+<div class="relative">
+<div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-200"></div>
+<div class="relative z-10">
+<div class="flex flex-col md:flex-row items-center mb-12">
+<div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+<h4 class="text-xl font-semibold mb-2">2020</h4>
+<p class="text-gray-600">BookVerse founded by three book-loving technologists in San Francisco.</p>
+</div>
+<div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center">
+<i class="ri-flag-line text-white"></i>
+</div>
+<div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
+<div class="bg-gray-50 p-4 rounded-lg">
+<p class="text-gray-600">Initial seed funding of $2.5M secured</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center mb-12">
+<div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+<div class="bg-gray-50 p-4 rounded-lg">
+<p class="text-gray-600">First 100,000 users milestone reached</p>
+</div>
+</div>
+<div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center">
+<i class="ri-user-line text-white"></i>
+</div>
+<div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
+<h4 class="text-xl font-semibold mb-2">2021</h4>
+<p class="text-gray-600">Platform expansion and partnerships with major publishers.</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center mb-12">
+<div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+<h4 class="text-xl font-semibold mb-2">2022</h4>
+<p class="text-gray-600">International expansion to Europe and Asia.</p>
+</div>
+<div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center">
+<i class="ri-global-line text-white"></i>
+</div>
+<div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
+<div class="bg-gray-50 p-4 rounded-lg">
+<p class="text-gray-600">Series B funding of $30M</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+<div class="bg-gray-50 p-4 rounded-lg">
+<p class="text-gray-600">5 million active users worldwide</p>
+</div>
+</div>
+<div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center">
+<i class="ri-award-line text-white"></i>
+</div>
+<div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
+<h4 class="text-xl font-semibold mb-2">Today</h4>
+<p class="text-gray-600">Leading digital reading platform with global presence.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-8 text-center">Meet Our Founders</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="text-center">
+<div class="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20diverse%20woman%20in%20her%2030s%20with%20shoulder-length%20dark%20hair%2C%20wearing%20business%20casual%20attire%2C%20neutral%20background%2C%20warm%20smile%2C%20confident%20pose%2C%20high%20quality%20portrait&width=300&height=300&seq=2&orientation=squarish" alt="Emily Chen" class="w-full h-full object-cover object-top">
+</div>
+<h4 class="text-xl font-semibold mb-1">Emily Chen</h4>
+<p class="text-gray-600 mb-3">CEO & Co-Founder</p>
+<p class="text-gray-600 text-sm">Former publishing executive with 15 years in the industry. Emily leads our vision and strategy.</p>
+</div>
+<div class="text-center">
+<div class="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20man%20in%20his%2040s%20with%20short%20dark%20hair%20and%20glasses%2C%20wearing%20a%20blue%20button-up%20shirt%2C%20neutral%20background%2C%20friendly%20smile%2C%20confident%20pose%2C%20high%20quality%20portrait&width=300&height=300&seq=3&orientation=squarish" alt="David Patel" class="w-full h-full object-cover object-top">
+</div>
+<h4 class="text-xl font-semibold mb-1">David Patel</h4>
+<p class="text-gray-600 mb-3">CTO & Co-Founder</p>
+<p class="text-gray-600 text-sm">Tech innovator with background at Google and Amazon. David leads our technology development.</p>
+</div>
+<div class="text-center">
+<div class="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20man%20in%20his%2030s%20with%20light%20brown%20hair%2C%20wearing%20a%20casual%20blazer%20over%20t-shirt%2C%20neutral%20background%2C%20approachable%20smile%2C%20relaxed%20pose%2C%20high%20quality%20portrait&width=300&height=300&seq=4&orientation=squarish" alt="Michael Rodriguez" class="w-full h-full object-cover object-top">
+</div>
+<h4 class="text-xl font-semibold mb-1">Michael Rodriguez</h4>
+<p class="text-gray-600 mb-3">COO & Co-Founder</p>
+<p class="text-gray-600 text-sm">Business strategist with experience scaling startups. Michael oversees our operations and growth.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Core Features Section -->
+<section class="py-20 bg-gray-50" id="features">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold mb-4">Core Features</h2>
+<p class="text-gray-600 max-w-3xl mx-auto">Discover the powerful features that make BookVerse the preferred platform for millions of readers worldwide.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm transition-all duration-300 feature-card">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-book-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Vast Library</h3>
+<p class="text-gray-600 mb-6">Access over 10 million books across all genres, from bestsellers to rare finds and academic texts.</p>
+<div class="mt-auto">
+<button class="text-primary font-medium flex items-center whitespace-nowrap !rounded-button">
+Learn More <i class="ri-arrow-right-line ml-2"></i>
+</button>
+</div>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm transition-all duration-300 feature-card">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-device-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Multi-Device Sync</h3>
+<p class="text-gray-600 mb-6">Seamlessly switch between devices while keeping your place, notes, and highlights synchronized.</p>
+<div class="mt-auto">
+<button class="text-primary font-medium flex items-center whitespace-nowrap !rounded-button">
+Learn More <i class="ri-arrow-right-line ml-2"></i>
+</button>
+</div>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm transition-all duration-300 feature-card">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-ai-generate ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">AI Recommendations</h3>
+<p class="text-gray-600 mb-6">Our advanced AI analyzes your reading habits to suggest books you'll love, expanding your literary horizons.</p>
+<div class="mt-auto">
+<button class="text-primary font-medium flex items-center whitespace-nowrap !rounded-button">
+Learn More <i class="ri-arrow-right-line ml-2"></i>
+</button>
+</div>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm transition-all duration-300 feature-card">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-group-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Reading Communities</h3>
+<p class="text-gray-600 mb-6">Join book clubs, discussion forums, and reading challenges to connect with fellow book lovers worldwide.</p>
+<div class="mt-auto">
+<button class="text-primary font-medium flex items-center whitespace-nowrap !rounded-button">
+Learn More <i class="ri-arrow-right-line ml-2"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-20">
+<div class="bg-white p-8 rounded-lg shadow-sm">
+<div class="flex flex-col md:flex-row gap-12 items-center">
+<div class="md:w-1/2">
+<h3 class="text-2xl font-bold mb-6">Advanced Reading Experience</h3>
+<ul class="space-y-4">
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Customizable Reading Interface</h4>
+<p class="text-gray-600">Adjust font, size, spacing, and background to create your perfect reading environment.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Advanced Note-Taking</h4>
+<p class="text-gray-600">Highlight, annotate, and organize your thoughts with our powerful note system.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Offline Reading</h4>
+<p class="text-gray-600">Download books for access anywhere, even without an internet connection.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Text-to-Speech</h4>
+<p class="text-gray-600">Convert any text to natural-sounding audio with our advanced TTS technology.</p>
+</div>
+</li>
+</ul>
+<button class="mt-8 bg-primary text-white px-6 py-3 font-medium hover:bg-primary/90 whitespace-nowrap !rounded-button">Explore All Features</button>
+</div>
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=modern%20e-reader%20interface%20showing%20a%20book%20page%20with%20highlighted%20text%20and%20margin%20notes%2C%20clean%20design%20with%20customizable%20reading%20settings%20visible%2C%20dark%20mode%20option%2C%20bookmark%20feature%2C%20progress%20indicator%2C%20high%20quality%20digital%20reading%20experience%20visualization&width=600&height=400&seq=5&orientation=landscape" alt="Advanced Reading Features" class="w-full h-auto rounded-lg shadow-md">
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-20 bg-white" id="pricing">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold mb-4">Transparent Pricing</h2>
+<p class="text-gray-600 max-w-3xl mx-auto">Choose the plan that works best for your reading habits. All plans include our core features.</p>
+<div class="flex items-center justify-center mt-8">
+<span class="text-gray-600 mr-3">Monthly</span>
+<div class="relative">
+<input type="checkbox" id="pricingToggle" class="pricing-toggle-checkbox sr-only">
+<label for="pricingToggle" class="pricing-toggle-label flex items-center w-14 h-7 bg-gray-300 rounded-full p-1 cursor-pointer">
+<span class="pricing-toggle-switch bg-white w-5 h-5 rounded-full shadow-md transform duration-300 ease-in-out"></span>
+</label>
+</div>
+<span class="text-gray-600 ml-3">Annual <span class="text-primary text-sm font-medium">Save 20%</span></span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-gray-50 rounded-lg overflow-hidden transition-all duration-300">
+<div class="p-8">
+<h3 class="text-xl font-bold mb-4">Free</h3>
+<div class="mb-6">
+<span class="text-4xl font-bold">$0</span>
+<span class="text-gray-600">/month</span>
+</div>
+<p class="text-gray-600 mb-8">Perfect for casual readers who want to explore our platform.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Access to 10,000+ free books</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Basic reading features</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Ad-supported experience</span>
+</li>
+<li class="flex items-center text-gray-400">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-close-line"></i>
+</div>
+<span>Offline reading</span>
+</li>
+<li class="flex items-center text-gray-400">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-close-line"></i>
+</div>
+<span>Premium titles</span>
+</li>
+</ul>
+<button class="w-full bg-white border border-primary text-primary px-6 py-3 font-medium hover:bg-primary/5 whitespace-nowrap !rounded-button">Get Started</button>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-lg pricing-card popular transition-all duration-300 border-2 border-primary">
+<div class="bg-primary text-white text-center py-2">
+<span class="text-sm font-medium">Most Popular</span>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-bold mb-4">Premium</h3>
+<div class="mb-6">
+<span class="text-4xl font-bold">$9.99</span>
+<span class="text-gray-600">/month</span>
+</div>
+<p class="text-gray-600 mb-8">For dedicated readers who want full access to our library.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Full library access (8M+ books)</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Advanced reading features</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Ad-free experience</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Unlimited offline reading</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">One premium title per month</span>
+</li>
+</ul>
+<button class="w-full bg-primary text-white px-6 py-3 font-medium hover:bg-primary/90 whitespace-nowrap !rounded-button">Start 7-Day Free Trial</button>
+</div>
+</div>
+<div class="bg-gray-50 rounded-lg overflow-hidden transition-all duration-300">
+<div class="p-8">
+<h3 class="text-xl font-bold mb-4">Family</h3>
+<div class="mb-6">
+<span class="text-4xl font-bold">$14.99</span>
+<span class="text-gray-600">/month</span>
+</div>
+<p class="text-gray-600 mb-8">Share the joy of reading with up to 5 family members.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">All Premium features</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Up to 5 user profiles</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Family sharing features</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Parental controls</span>
+</li>
+<li class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">Two premium titles per month</span>
+</li>
+</ul>
+<button class="w-full bg-white border border-primary text-primary px-6 py-3 font-medium hover:bg-primary/5 whitespace-nowrap !rounded-button">Start 7-Day Free Trial</button>
+</div>
+</div>
+</div>
+<div class="mt-16">
+<h3 class="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h3>
+<div class="max-w-3xl mx-auto">
+<div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+<button class="faq-question w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+<span class="font-medium">Can I cancel my subscription anytime?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer p-5 bg-gray-50 border-t border-gray-200">
+<p class="text-gray-600">Yes, you can cancel your subscription at any time. If you cancel, you'll continue to have access to your subscription benefits until the end of your current billing period.</p>
+</div>
+</div>
+<div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+<button class="faq-question w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+<span class="font-medium">How does the free trial work?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer p-5 bg-gray-50 border-t border-gray-200">
+<p class="text-gray-600">Our 7-day free trial gives you full access to all Premium features. You won't be charged until the trial period ends, and you can cancel anytime before then to avoid any charges.</p>
+</div>
+</div>
+<div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+<button class="faq-question w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+<span class="font-medium">What are premium titles?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer p-5 bg-gray-50 border-t border-gray-200">
+<p class="text-gray-600">Premium titles are the newest bestsellers and special editions that are available outside our standard subscription library. Premium and Family subscribers get a monthly allowance of these titles included in their subscription.</p></div>
+</div>
+<div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+<button class="faq-question w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+<span class="font-medium">Can I share my account with others?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer p-5 bg-gray-50 border-t border-gray-200">
+<p class="text-gray-600">Individual accounts are for personal use only. If you want to share with family members, our Family plan allows up to 5 users with separate profiles, reading histories, and recommendations.</p>
+</div>
+</div>
+</div>
+<div class="text-center mt-8">
+<button class="text-primary font-medium flex items-center mx-auto whitespace-nowrap !rounded-button">
+View All FAQs <i class="ri-arrow-right-line ml-2"></i>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="py-20 bg-gray-50" id="team">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold mb-4">Our Leadership Team</h2>
+<p class="text-gray-600 max-w-3xl mx-auto">Meet the passionate individuals who are shaping the future of digital reading.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white rounded-lg overflow-hidden shadow-sm team-card">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20diverse%20woman%20in%20her%2030s%20with%20shoulder-length%20dark%20hair%2C%20wearing%20business%20casual%20attire%2C%20neutral%20background%2C%20warm%20smile%2C%20confident%20pose%2C%20high%20quality%20portrait&width=400&height=400&seq=6&orientation=squarish" alt="Emily Chen" class="w-full h-64 object-cover object-top">
+<div class="team-overlay absolute inset-0 bg-primary bg-opacity-80 flex flex-col items-center justify-center text-white p-6 opacity-0 transition-opacity duration-300">
+<p class="text-sm mb-4">Emily leads our overall strategy and vision, bringing her extensive publishing industry experience to BookVerse.</p>
+<div class="flex space-x-3">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-linkedin-fill text-white"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-twitter-fill text-white"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-1">Emily Chen</h3>
+<p class="text-gray-600">Chief Executive Officer</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm team-card">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20man%20in%20his%2040s%20with%20short%20dark%20hair%20and%20glasses%2C%20wearing%20a%20blue%20button-up%20shirt%2C%20neutral%20background%2C%20friendly%20smile%2C%20confident%20pose%2C%20high%20quality%20portrait&width=400&height=400&seq=7&orientation=squarish" alt="David Patel" class="w-full h-64 object-cover object-top">
+<div class="team-overlay absolute inset-0 bg-primary bg-opacity-80 flex flex-col items-center justify-center text-white p-6 opacity-0 transition-opacity duration-300">
+<p class="text-sm mb-4">David oversees all technical aspects of BookVerse, from platform architecture to new feature development.</p>
+<div class="flex space-x-3">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-linkedin-fill text-white"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-github-fill text-white"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-1">David Patel</h3>
+<p class="text-gray-600">Chief Technology Officer</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm team-card">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20man%20in%20his%2030s%20with%20light%20brown%20hair%2C%20wearing%20a%20casual%20blazer%20over%20t-shirt%2C%20neutral%20background%2C%20approachable%20smile%2C%20relaxed%20pose%2C%20high%20quality%20portrait&width=400&height=400&seq=8&orientation=squarish" alt="Michael Rodriguez" class="w-full h-64 object-cover object-top">
+<div class="team-overlay absolute inset-0 bg-primary bg-opacity-80 flex flex-col items-center justify-center text-white p-6 opacity-0 transition-opacity duration-300">
+<p class="text-sm mb-4">Michael manages our day-to-day operations, growth strategy, and business development initiatives.</p>
+<div class="flex space-x-3">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-linkedin-fill text-white"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-twitter-fill text-white"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-1">Michael Rodriguez</h3>
+<p class="text-gray-600">Chief Operating Officer</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm team-card">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20woman%20in%20her%2040s%20with%20curly%20hair%2C%20wearing%20professional%20business%20attire%2C%20neutral%20background%2C%20confident%20pose%2C%20warm%20smile%2C%20high%20quality%20portrait&width=400&height=400&seq=9&orientation=squarish" alt="Sarah Johnson" class="w-full h-64 object-cover object-top">
+<div class="team-overlay absolute inset-0 bg-primary bg-opacity-80 flex flex-col items-center justify-center text-white p-6 opacity-0 transition-opacity duration-300">
+<p class="text-sm mb-4">Sarah leads our publisher relationships, content acquisition, and author services programs.</p>
+<div class="flex space-x-3">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-linkedin-fill text-white"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30">
+<i class="ri-instagram-fill text-white"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-1">Sarah Johnson</h3>
+<p class="text-gray-600">Chief Content Officer</p>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<button class="bg-white border border-primary text-primary px-6 py-3 font-medium hover:bg-primary/5 whitespace-nowrap !rounded-button">View Full Team</button>
+</div>
+</div>
+</section>
+<!-- Success Stories Section -->
+<section class="py-20 bg-white" id="success">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold mb-4">Success Stories</h2>
+<p class="text-gray-600 max-w-3xl mx-auto">See how BookVerse is transforming the reading experience for users and publishers alike.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+<div class="bg-gray-50 rounded-lg p-8">
+<div class="flex items-start mb-6">
+<div class="w-16 h-16 mr-4 rounded-full overflow-hidden flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20woman%20in%20her%2030s%20with%20blonde%20hair%2C%20casual%20professional%20attire%2C%20neutral%20background%2C%20natural%20smile%2C%20high%20quality%20portrait&width=200&height=200&seq=10&orientation=squarish" alt="Jessica Williams" class="w-full h-full object-cover object-top">
+</div>
+<div>
+<h3 class="text-xl font-semibold mb-1">Jessica Williams</h3>
+<p class="text-gray-600 text-sm">Avid Reader, New York</p>
+</div>
+</div>
+<p class="text-gray-600 mb-6">
+"BookVerse has completely transformed how I read. I travel frequently for work, and having my entire library in my pocket has been life-changing. The personalized recommendations have introduced me to authors I never would have discovered otherwise."
+</p>
+<div class="flex">
+<div class="text-primary">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 rounded-lg p-8">
+<div class="flex items-start mb-6">
+<div class="w-16 h-16 mr-4 rounded-full overflow-hidden flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20man%20in%20his%2050s%20with%20gray%20hair%20and%20glasses%2C%20business%20casual%20attire%2C%20neutral%20background%2C%20friendly%20confident%20expression%2C%20high%20quality%20portrait&width=200&height=200&seq=11&orientation=squarish" alt="Robert Thompson" class="w-full h-full object-cover object-top">
+</div>
+<div>
+<h3 class="text-xl font-semibold mb-1">Robert Thompson</h3>
+<p class="text-gray-600 text-sm">Independent Publisher, London</p>
+</div>
+</div>
+<p class="text-gray-600 mb-6">
+"As a small independent publisher, BookVerse has given us access to readers we could never reach through traditional channels. The analytics and reader insights have been invaluable for our editorial decisions. Our digital sales have increased by 300% since joining."
+</p>
+<div class="flex">
+<div class="text-primary">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 rounded-lg p-8 mb-16">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-1/2">
+<h3 class="text-2xl font-bold mb-6">Case Study: Riverdale Press</h3>
+<p class="text-gray-600 mb-6">
+Riverdale Press, a mid-sized publisher specializing in literary fiction, faced declining print sales and distribution challenges. After partnering with BookVerse in 2022, they've experienced:
+</p>
+<ul class="space-y-4 mb-8">
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">250% increase in digital revenue</h4>
+<p class="text-gray-600">Direct access to millions of readers globally</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">40% reduction in marketing costs</h4>
+<p class="text-gray-600">Targeted promotions based on reader data</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-3 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">5 new bestselling authors discovered</h4>
+<p class="text-gray-600">Through BookVerse's recommendation engine</p>
+</div>
+</li>
+</ul>
+<button class="bg-primary text-white px-6 py-3 font-medium hover:bg-primary/90 whitespace-nowrap !rounded-button">Read Full Case Study</button>
+</div>
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=modern%20publishing%20office%20with%20team%20working%20on%20digital%20content%2C%20multiple%20computer%20screens%20showing%20book%20analytics%20and%20sales%20data%2C%20professional%20environment%2C%20people%20reviewing%20digital%20manuscripts%2C%20publishing%20industry%20visualization&width=600&height=400&seq=12&orientation=landscape" alt="Riverdale Press Case Study" class="w-full h-auto rounded-lg">
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-8 text-center">By The Numbers</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">5M+</div>
+<p class="text-gray-600">Active Monthly Users</p>
+</div>
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">10M+</div>
+<p class="text-gray-600">Books Available</p>
+</div>
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">1000+</div>
+<p class="text-gray-600">Publisher Partners</p>
+</div>
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">120+</div>
+<p class="text-gray-600">Countries Served</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-20 bg-gray-50" id="faq">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+<p class="text-gray-600 max-w-3xl mx-auto">Find answers to common questions about BookVerse, our platform, and services.</p>
+</div>
+<div class="max-w-4xl mx-auto">
+<div class="bg-white rounded-lg overflow-hidden shadow-sm mb-16">
+<div class="p-6 border-b border-gray-200">
+<div class="relative">
+<input type="text" placeholder="Search for answers..." class="w-full pl-10 pr-4 py-3 rounded-lg border-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary/50">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+<div class="p-6">
+<h3 class="font-semibold mb-4">Categories</h3>
+<ul class="space-y-2">
+<li>
+<button class="text-primary font-medium">General Questions</button>
+</li>
+<li>
+<button class="text-gray-600 hover:text-primary">Account & Billing</button>
+</li>
+<li>
+<button class="text-gray-600 hover:text-primary">Reading Experience</button>
+</li>
+<li>
+<button class="text-gray-600 hover:text-primary">For Publishers</button>
+</li>
+<li>
+<button class="text-gray-600 hover:text-primary">Privacy & Security</button>
+</li>
+<li>
+<button class="text-gray-600 hover:text-primary">Technical Support</button>
+</li>
+</ul>
+</div>
+<div class="p-6">
+<div class="faq-item mb-6 active">
+<button class="faq-question w-full flex justify-between items-center text-left focus:outline-none mb-2">
+<span class="font-medium">What is BookVerse?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer text-gray-600">
+<p>BookVerse is a digital reading platform that gives you access to millions of books across all genres. We offer both subscription-based and individual purchase options, allowing readers to enjoy content on any device, anytime, anywhere.</p>
+</div>
+</div>
+<div class="faq-item mb-6">
+<button class="faq-question w-full flex justify-between items-center text-left focus:outline-none mb-2">
+<span class="font-medium">How does the subscription work?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer text-gray-600">
+<p>Our subscription plans give you unlimited access to our library of over 8 million titles. You can choose between monthly or annual billing, with discounts for annual commitments. Premium subscribers also get one premium title (newest bestsellers) per month included in their subscription.</p>
+</div>
+</div>
+<div class="faq-item mb-6">
+<button class="faq-question w-full flex justify-between items-center text-left focus:outline-none mb-2">
+<span class="font-medium">What devices can I use?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer text-gray-600">
+<p>BookVerse works on virtually any device with a web browser. We also offer dedicated apps for iOS, Android, Kindle Fire, and Windows. Your reading progress syncs automatically across all your devices.</p>
+</div>
+</div>
+<div class="faq-item mb-6">
+<button class="faq-question w-full flex justify-between items-center text-left focus:outline-none mb-2">
+<span class="font-medium">Can I read offline?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer text-gray-600">
+<p>Yes, Premium and Family subscribers can download books for offline reading on our mobile apps. Free users have access to online reading only.</p>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question w-full flex justify-between items-center text-left focus:outline-none mb-2">
+<span class="font-medium">How do I become a publisher partner?</span>
+<i class="ri-arrow-down-s-line faq-icon transition-transform duration-300"></i>
+</button>
+<div class="faq-answer text-gray-600">
+<p>Publishers of all sizes can apply to join our platform through our Publisher Portal. We offer flexible compensation models, detailed analytics, and marketing tools to help you reach new readers and maximize your digital revenue.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center">
+<p class="text-gray-600 mb-6">Still have questions? We're here to help.</p>
+<div class="flex flex-wrap justify-center gap-4">
+<a href="#" class="flex items-center px-6 py-3 bg-white rounded-lg shadow-sm hover:shadow">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-customer-service-2-line ri-lg"></i>
+</div>
+<div class="text-left">
+<h4 class="font-medium">Contact Support</h4>
+<p class="text-gray-600 text-sm">Get help from our team</p>
+</div>
+</a>
+<a href="#" class="flex items-center px-6 py-3 bg-white rounded-lg shadow-sm hover:shadow">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<div class="text-left">
+<h4 class="font-medium">Knowledge Base</h4>
+<p class="text-gray-600 text-sm">Browse help articles</p>
+</div>
+</a>
+<a href="#" class="flex items-center px-6 py-3 bg-white rounded-lg shadow-sm hover:shadow">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-community-line ri-lg"></i>
+</div>
+<div class="text-left">
+<h4 class="font-medium">Community Forum</h4>
+<p class="text-gray-600 text-sm">Connect with other users</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-20 bg-primary text-white" id="cta">
+<div class="container mx-auto px-6 text-center">
+<h2 class="text-3xl font-bold mb-6">Ready to Transform Your Reading Experience?</h2>
+<p class="text-white/80 max-w-2xl mx-auto mb-8">Join millions of readers who have discovered a better way to enjoy books. Start your free trial today and see why BookVerse is the future of reading.</p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="bg-white text-primary px-8 py-3 font-medium hover:bg-gray-100 whitespace-nowrap !rounded-button">Start Free Trial</button>
+<button class="bg-transparent border border-white text-white px-8 py-3 font-medium hover:bg-white/10 whitespace-nowrap !rounded-button">Learn More</button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+<div>
+<a href="/" class="inline-block mb-6">
+<span class="text-2xl font-['Pacifico'] text-white">BookVerse</span>
+</a>
+<p class="text-gray-400 mb-6">Transforming the way the world reads, one page at a time.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+<i class="ri-facebook-fill text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+<i class="ri-twitter-fill text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+<i class="ri-instagram-fill text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+<i class="ri-linkedin-fill text-white"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-6">Quick Links</h3>
+<ul class="space-y-3">
+<li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+<li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+<li><a href="#pricing" class="text-gray-400 hover:text-white">Pricing</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">For Publishers</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Categories</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Gift Cards</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-6">Company</h3>
+<ul class="space-y-3">
+<li><a href="#story" class="text-gray-400 hover:text-white">About Us</a></li>
+<li><a href="#team" class="text-gray-400 hover:text-white">Team</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-6">Stay Updated</h3>
+<p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and offers.</p>
+<form class="mb-4">
+<div class="flex">
+<input type="email" placeholder="Your email address" class="w-full px-4 py-2 rounded-l-lg border-none focus:outline-none text-gray-900">
+<button type="submit" class="bg-primary px-4 py-2 rounded-r-lg hover:bg-primary/90 whitespace-nowrap">Subscribe</button>
+</div>
+</form>
+<p class="text-gray-400 text-sm">By subscribing, you agree to our Privacy Policy.</p>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+<div class="text-gray-400 text-sm mb-4 md:mb-0">
+&copy; 2025 BookVerse. All rights reserved.
+</div>
+<div class="flex flex-wrap gap-4 text-sm text-gray-400">
+<a href="#" class="hover:text-white">Terms of Service</a>
+<a href="#" class="hover:text-white">Privacy Policy</a>
+<a href="#" class="hover:text-white">Cookie Policy</a>
+<a href="#" class="hover:text-white">Accessibility</a>
+</div>
+<div class="flex items-center mt-4 md:mt-0">
+<span class="text-gray-400 text-sm mr-4">Payment Methods:</span>
+<div class="flex space-x-3">
+<i class="ri-visa-fill text-gray-400 text-xl"></i>
+<i class="ri-mastercard-fill text-gray-400 text-xl"></i>
+<i class="ri-paypal-fill text-gray-400 text-xl"></i>
+<i class="ri-apple-fill text-gray-400 text-xl"></i>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- Back to Top Button -->
+<button class="back-to-top fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:bg-primary/90 focus:outline-none">
+<i class="ri-arrow-up-line ri-lg"></i>
+</button>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Header scroll effect
+const header = document.querySelector('.header');
+window.addEventListener('scroll', function() {
+if (window.scrollY > 50) {
+header.classList.add('scrolled');
+} else {
+header.classList.remove('scrolled');
+}
+});
+// Back to top button
+const backToTopButton = document.querySelector('.back-to-top');
+window.addEventListener('scroll', function() {
+if (window.scrollY > 300) {
+backToTopButton.classList.add('visible');
+} else {
+backToTopButton.classList.remove('visible');
+}
+});
+backToTopButton.addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+// FAQ toggles
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(question => {
+question.addEventListener('click', function() {
+const faqItem = this.closest('.faq-item');
+faqItem.classList.toggle('active');
+});
+});
+// Pricing toggle
+const pricingToggle = document.getElementById('pricingToggle');
+pricingToggle.addEventListener('change', function() {
+// Here you would toggle between monthly and annual pricing
+// For demo purposes, we're just logging the change
+console.log('Pricing toggle changed:', this.checked ? 'Annual' : 'Monthly');
+});
+});
+</script>
+</body>
+</html>

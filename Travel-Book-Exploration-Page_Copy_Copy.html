@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Books - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#f97316'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #fafafa;
+}
+.book-card {
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.book-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+border: none;
+}
+.custom-checkbox {
+display: flex;
+align-items: center;
+cursor: pointer;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.checkmark {
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #e5e7eb;
+border-radius: 4px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.checkmark:after {
+content: "";
+display: none;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-radio {
+display: flex;
+align-items: center;
+cursor: pointer;
+}
+.custom-radio input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.radiomark {
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #e5e7eb;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.custom-radio input:checked ~ .radiomark {
+border-color: #4f46e5;
+}
+.radiomark:after {
+content: "";
+display: none;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: #4f46e5;
+}
+.custom-radio input:checked ~ .radiomark:after {
+display: block;
+}
+.toggle-switch {
+position: relative;
+display: inline-block;
+width: 48px;
+height: 24px;
+}
+.toggle-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.toggle-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 24px;
+}
+.toggle-slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .toggle-slider {
+background-color: #4f46e5;
+}
+input:checked + .toggle-slider:before {
+transform: translateX(24px);
+}
+.star-rating {
+display: inline-flex;
+flex-direction: row-reverse;
+}
+.star-rating input {
+display: none;
+}
+.star-rating label {
+cursor: pointer;
+width: 24px;
+height: 24px;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d1d5db'%3E%3Cpath d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
+}
+.star-rating input:checked ~ label {
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fbbf24'%3E%3Cpath d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type="number"] {
+-moz-appearance: textfield;
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<a href="#" class="flex items-center justify-center w-10 h-10 text-gray-700 hover:text-primary transition-colors">
+<i class="ri-arrow-left-line ri-lg"></i>
+</a>
+</div>
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">book vers</a>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors" id="searchToggle">
+<i class="ri-search-line ri-lg"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors" id="filterToggle">
+<i class="ri-filter-3-line ri-lg"></i>
+</button>
+</div>
+</div>
+<div id="searchBar" class="hidden bg-white border-t border-gray-100 py-3 px-4">
+<div class="container mx-auto">
+<div class="relative">
+<input type="text" placeholder="Search travel books..." class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative h-64 md:h-80 overflow-hidden">
+<div style="background-image: url('https://readdy.ai/api/search-image?query=Beautiful%20travel%20destinations%20with%20mountains%2C%20beaches%2C%20and%20ancient%20architecture%2C%20panoramic%20view%20of%20scenic%20landscapes%20around%20the%20world%2C%20vibrant%20colors%2C%20dramatic%20lighting%2C%20professional%20travel%20photography%20style%2C%20inspirational%20wanderlust%20scene&width=1280&height=480&seq=1&orientation=landscape');" class="absolute inset-0 bg-cover bg-center"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-gray-900/30"></div>
+<div class="container mx-auto px-4 h-full flex flex-col justify-center relative z-10">
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Travel Books</h1>
+<p class="text-white/90 text-lg mb-4 max-w-xl">Explore the world through our curated collection of travel literature</p>
+<div class="flex items-center gap-2 text-white/80 text-sm">
+<i class="ri-book-open-line"></i>
+<span>1,247 Books</span>
+</div>
+</div>
+</section>
+<!-- Quick Filters -->
+<div class="bg-white sticky top-16 z-40 shadow-sm">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-hide">
+<button class="px-4 py-2 bg-primary text-white rounded-full text-sm whitespace-nowrap !rounded-button flex items-center gap-2">
+<i class="ri-equalizer-line"></i>
+<span>All Filters</span>
+</button>
+<button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full text-sm whitespace-nowrap !rounded-button">Regions</button>
+<button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full text-sm whitespace-nowrap !rounded-button">Book Format</button>
+<button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full text-sm whitespace-nowrap !rounded-button">Price Range</button>
+<button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full text-sm whitespace-nowrap !rounded-button">Rating</button>
+<button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full text-sm whitespace-nowrap !rounded-button">Publication Date</button>
+</div>
+</div>
+</div>
+<!-- Filter Panel -->
+<div id="filterPanel" class="hidden bg-white border-t border-b border-gray-200">
+<div class="container mx-auto px-4 py-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Regions -->
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Regions</h3>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="text-sm">Asia (342)</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-sm">Europe (487)</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-sm">Americas (296)</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-sm">Africa (154)</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-sm">Oceania (89)</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-sm">Antarctica (12)</span>
+</label>
+</div>
+</div>
+<!-- Book Format & Price Range -->
+<div class="space-y-6">
+<!-- Book Format -->
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Book Format</h3>
+<div class="space-y-2">
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="format" checked>
+<span class="radiomark"></span>
+<span class="text-sm">All Formats</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="format">
+<span class="radiomark"></span>
+<span class="text-sm">Hardcover</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="format">
+<span class="radiomark"></span>
+<span class="text-sm">Paperback</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="format">
+<span class="radiomark"></span>
+<span class="text-sm">eBook</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="format">
+<span class="radiomark"></span>
+<span class="text-sm">Audiobook</span>
+</label>
+</div>
+</div>
+<!-- Price Range -->
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Price Range</h3>
+<div class="px-1">
+<input type="range" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-full appearance-none">
+<div class="flex justify-between mt-2">
+<span class="text-xs text-gray-600">$0</span>
+<span class="text-xs text-gray-600">$100</span>
+</div>
+<div class="flex items-center gap-2 mt-3">
+<div class="relative flex-1">
+<input type="number" value="0" min="0" max="100" class="w-full pl-6 pr-2 py-1.5 border border-gray-200 rounded text-sm">
+<span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+</div>
+<span class="text-gray-400">-</span>
+<div class="relative flex-1">
+<input type="number" value="50" min="0" max="100" class="w-full pl-6 pr-2 py-1.5 border border-gray-200 rounded text-sm">
+<span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Rating & Publication Date -->
+<div class="space-y-6">
+<!-- Rating -->
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Rating</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2">
+<div class="star-rating">
+<input type="radio" id="star5" name="rating" value="5">
+<label for="star5"></label>
+<input type="radio" id="star4" name="rating" value="4">
+<label for="star4"></label>
+<input type="radio" id="star3" name="rating" value="3">
+<label for="star3"></label>
+<input type="radio" id="star2" name="rating" value="2">
+<label for="star2"></label>
+<input type="radio" id="star1" name="rating" value="1">
+<label for="star1"></label>
+</div>
+<span class="text-sm">& Up</span>
+</label>
+</div>
+</div>
+<!-- Publication Date -->
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Publication Date</h3>
+<div class="space-y-2">
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="pubDate" checked>
+<span class="radiomark"></span>
+<span class="text-sm">Any time</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="pubDate">
+<span class="radiomark"></span>
+<span class="text-sm">Last 30 days</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="pubDate">
+<span class="radiomark"></span>
+<span class="text-sm">Last 90 days</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="pubDate">
+<span class="radiomark"></span>
+<span class="text-sm">Last year</span>
+</label>
+<label class="custom-radio flex items-center gap-2">
+<input type="radio" name="pubDate">
+<span class="radiomark"></span>
+<span class="text-sm">Custom</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-end mt-6 gap-3">
+<button class="px-4 py-2 border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Clear All</button>
+<button class="px-4 py-2 bg-primary text-white rounded text-sm hover:bg-primary/90 !rounded-button whitespace-nowrap">Apply Filters</button>
+</div>
+</div>
+</div>
+<main class="container mx-auto px-4 py-8">
+<!-- Featured Travel Books -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-semibold text-gray-900">Featured Travel Books</h2>
+<a href="#" class="text-primary text-sm font-medium hover:underline">View All</a>
+</div>
+<div class="relative">
+<div class="flex overflow-x-auto gap-4 pb-4 scrollbar-hide">
+<div class="book-card min-w-[180px] w-[180px] bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Wanderlust:%20A%20Travelers%20Guide%20to%20the%20Worlds%20Most%20Beautiful%20Places%20with%20stunning%20landscape%20photography%2C%20professional%20travel%20book%20cover%20design%2C%20clean%20typography%2C%20vibrant%20colors%2C%20mountains%20and%20ocean%20scene&width=360&height=480&seq=2&orientation=portrait" alt="Wanderlust" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Wanderlust: A Traveler's Guide</h3>
+<p class="text-sm text-gray-600 mb-1">Isabella Morgan</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-half-fill ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.5</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$24.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="book-card min-w-[180px] w-[180px] bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20The%20Atlas%20of%20Hidden%20Wonders%20with%20mysterious%20ancient%20ruins%20and%20secret%20locations%2C%20professional%20travel%20book%20cover%20design%2C%20dark%20blue%20and%20gold%20color%20scheme%2C%20intriguing%20imagery%2C%20treasure%20map%20elements&width=360&height=480&seq=3&orientation=portrait" alt="The Atlas of Hidden Wonders" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">The Atlas of Hidden Wonders</h3>
+<p class="text-sm text-gray-600 mb-1">Jonathan Harker</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.1</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$29.95</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="book-card min-w-[180px] w-[180px] bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Eat%2C%20Pray%2C%20Journey:%20A%20Culinary%20Adventure%20with%20vibrant%20food%20photography%20from%20around%20the%20world%2C%20professional%20travel%20cookbook%20cover%20design%2C%20warm%20colors%2C%20appetizing%20dishes%20from%20different%20cultures&width=360&height=480&seq=4&orientation=portrait" alt="Eat, Pray, Journey" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Eat, Pray, Journey: A Culinary Adventure</h3>
+<p class="text-sm text-gray-600 mb-1">Sophia Chen</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.8</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$22.50</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="book-card min-w-[180px] w-[180px] bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Backpacking%20Through%20Europe:%20A%20Solo%20Travelers%20Guide%20with%20European%20landmarks%20and%20backpacking%20gear%2C%20professional%20travel%20guide%20cover%20design%2C%20practical%20and%20inspiring%2C%20map%20elements%2C%20young%20traveler%20silhouette&width=360&height=480&seq=5&orientation=portrait" alt="Backpacking Through Europe" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Backpacking Through Europe</h3>
+<p class="text-sm text-gray-600 mb-1">Marcus Reynolds</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.2</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$19.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="book-card min-w-[180px] w-[180px] bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Sacred%20Journeys:%20Pilgrimages%20Around%20the%20World%20with%20spiritual%20sites%20and%20ancient%20temples%2C%20professional%20travel%20book%20cover%20design%2C%20mystical%20atmosphere%2C%20golden%20light%2C%20serene%20and%20contemplative%20mood&width=360&height=480&seq=6&orientation=portrait" alt="Sacred Journeys" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Sacred Journeys: Pilgrimages Around the World</h3>
+<p class="text-sm text-gray-600 mb-1">Amara Singh</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-half-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">3.6</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$26.95</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 rounded-full shadow-md p-2 backdrop-blur-sm">
+<button class="w-8 h-8 flex items-center justify-center text-gray-700">
+<i class="ri-arrow-right-s-line ri-lg"></i>
+</button>
+</div>
+</div>
+</section>
+<!-- Travel Book Categories -->
+<section class="mb-12">
+<h2 class="text-xl font-semibold text-gray-900 mb-4">Travel Book Categories</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<a href="https://readdy.ai/home/dfa3d691-21f8-4881-8942-deff119c730e/26ef859a-b647-454d-83e8-37b9835449aa" data-readdy="true" class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-map-pin-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-medium text-gray-900">Travel Guides</h3>
+<p class="text-sm text-gray-500">428 books</p>
+</div>
+</a>
+<a href="#" class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-book-read-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-medium text-gray-900">Travelogues</h3>
+<p class="text-sm text-gray-500">316 books</p>
+</div>
+</a>
+<a href="#" class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-compass-3-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-medium text-gray-900">Adventure Stories</h3>
+<p class="text-sm text-gray-500">245 books</p>
+</div>
+</a>
+<a href="#" class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-global-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-medium text-gray-900">Cultural Travel</h3>
+<p class="text-sm text-gray-500">189 books</p>
+</div>
+</a>
+<a href="#" class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-camera-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-medium text-gray-900">Photography Books</h3>
+<p class="text-sm text-gray-500">134 books</p>
+</div>
+</a>
+<a href="#" class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-restaurant-line ri-lg"></i>
+</div>
+<div>
+<h3 class="font-medium text-gray-900">Food & Travel</h3>
+<p class="text-sm text-gray-500">98 books</p>
+</div>
+</a>
+</div>
+</section>
+<!-- New Releases -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-semibold text-gray-900">New Releases</h2>
+<a href="#" class="text-primary text-sm font-medium hover:underline">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden relative">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Tokyo%20After%20Dark:%20A%20Night%20Explorers%20Guide%20with%20neon-lit%20Tokyo%20streets%20at%20night%2C%20professional%20travel%20guide%20cover%20design%2C%20vibrant%20colors%2C%20urban%20nightlife%20photography%2C%20modern%20and%20trendy&width=360&height=480&seq=7&orientation=portrait" alt="Tokyo After Dark" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">New</div>
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Tokyo After Dark: A Night Explorer's Guide</h3>
+<p class="text-sm text-gray-600 mb-1">Kenji Yamamoto</p>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs text-gray-500">May 15, 2025</span>
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-half-fill ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.5</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$21.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden relative">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Hiking%20the%20Inca%20Trail:%20A%20Complete%20Guide%20with%20majestic%20Machu%20Picchu%20and%20mountain%20trails%2C%20professional%20travel%20guide%20cover%20design%2C%20earthy%20colors%2C%20practical%20hiking%20information%2C%20ancient%20ruins&width=360&height=480&seq=8&orientation=portrait" alt="Hiking the Inca Trail" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">New</div>
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Hiking the Inca Trail: A Complete Guide</h3>
+<p class="text-sm text-gray-600 mb-1">Carlos Mendoza</p>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs text-gray-500">May 2, 2025</span>
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.0</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$24.95</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden relative">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Mediterranean%20Escapes:%20Island%20Hopping%20Adventures%20with%20beautiful%20Greek%20islands%20and%20azure%20waters%2C%20professional%20travel%20guide%20cover%20design%2C%20white%20and%20blue%20color%20scheme%2C%20relaxing%20beach%20scenes%2C%20sailing%20boats&width=360&height=480&seq=9&orientation=portrait" alt="Mediterranean Escapes" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">New</div>
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Mediterranean Escapes: Island Hopping Adventures</h3>
+<p class="text-sm text-gray-600 mb-1">Elena Papadopoulos</p>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs text-gray-500">April 28, 2025</span>
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.2</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$22.50</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="h-[240px] bg-gray-200 overflow-hidden relative">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Safari%20Dreams:%20Wildlife%20Photography%20in%20Africa%20with%20stunning%20wildlife%20photography%20from%20African%20safaris%2C%20professional%20travel%20photography%20book%20cover%20design%2C%20dramatic%20animal%20portraits%2C%20savanna%20landscapes%20at%20sunset&width=360&height=480&seq=10&orientation=portrait" alt="Safari Dreams" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">New</div>
+</div>
+<div class="p-3">
+<h3 class="font-medium text-gray-900 line-clamp-2 h-12">Safari Dreams: Wildlife Photography in Africa</h3>
+<p class="text-sm text-gray-600 mb-1">David Okonkwo</p>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs text-gray-500">April 15, 2025</span>
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.9</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-medium text-gray-900">$34.99</span>
+<button class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full hover:bg-primary/20 !rounded-full">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bestsellers -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-semibold text-gray-900">Bestsellers</h2>
+<a href="#" class="text-primary text-sm font-medium hover:underline">View All</a>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4">
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-medium">1</div>
+<div class="flex-shrink-0 w-16 h-20 bg-gray-200 overflow-hidden rounded">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Lost%20Cities%20of%20the%20World:%20Archaeological%20Wonders%20with%20ancient%20ruins%20and%20archaeological%20sites%2C%20professional%20travel%20book%20cover%20design%2C%20mysterious%20and%20academic%2C%20earthy%20tones%2C%20historical%20artifacts&width=120&height=160&seq=11&orientation=portrait" alt="Lost Cities of the World" class="w-full h-full object-cover object-top">
+</div>
+<div class="flex-grow min-w-0">
+<h3 class="font-medium text-gray-900 truncate">Lost Cities of the World: Archaeological Wonders</h3>
+<p class="text-sm text-gray-600">Dr. Alexandra Rivera</p>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-half-fill ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.7</span>
+</div>
+<span class="text-xs text-gray-500">25,478 sold</span>
+</div>
+</div>
+<div class="flex-shrink-0 text-right">
+<span class="font-medium text-gray-900">$29.99</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-medium">2</div>
+<div class="flex-shrink-0 w-16 h-20 bg-gray-200 overflow-hidden rounded">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Lonely%20Planet:%20Japan%20with%20traditional%20Japanese%20architecture%20and%20modern%20Tokyo%20skyline%2C%20professional%20travel%20guide%20cover%20design%2C%20clean%20layout%2C%20iconic%20Japanese%20imagery%2C%20cherry%20blossoms&width=120&height=160&seq=12&orientation=portrait" alt="Lonely Planet: Japan" class="w-full h-full object-cover object-top">
+</div>
+<div class="flex-grow min-w-0">
+<h3 class="font-medium text-gray-900 truncate">Lonely Planet: Japan</h3>
+<p class="text-sm text-gray-600">Lonely Planet</p>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.9</span>
+</div>
+<span class="text-xs text-gray-500">22,145 sold</span>
+</div>
+</div>
+<div class="flex-shrink-0 text-right">
+<span class="font-medium text-gray-900">$24.99</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-medium">3</div>
+<div class="flex-shrink-0 w-16 h-20 bg-gray-200 overflow-hidden rounded">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20Into%20Thin%20Air:%20A%20Personal%20Account%20of%20the%20Mt.%20Everest%20Disaster%20with%20snow-covered%20mountain%20peaks%20and%20climbers%2C%20professional%20adventure%20book%20cover%20design%2C%20dramatic%20and%20intense%2C%20mountain%20climbing%20expedition%2C%20survival%20story&width=120&height=160&seq=13&orientation=portrait" alt="Into Thin Air" class="w-full h-full object-cover object-top">
+</div>
+<div class="flex-grow min-w-0">
+<h3 class="font-medium text-gray-900 truncate">Into Thin Air: A Personal Account of the Mt. Everest Disaster</h3>
+<p class="text-sm text-gray-600">Jon Krakauer</p>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.2</span>
+</div>
+<span class="text-xs text-gray-500">19,876 sold</span>
+</div>
+</div>
+<div class="flex-shrink-0 text-right">
+<span class="font-medium text-gray-900">$18.50</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-medium">4</div>
+<div class="flex-shrink-0 w-16 h-20 bg-gray-200 overflow-hidden rounded">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20A%20Year%20in%20Provence%20with%20French%20countryside%20and%20lavender%20fields%2C%20professional%20travel%20memoir%20cover%20design%2C%20warm%20and%20inviting%2C%20rustic%20French%20villa%2C%20Mediterranean%20lifestyle&width=120&height=160&seq=14&orientation=portrait" alt="A Year in Provence" class="w-full h-full object-cover object-top">
+</div>
+<div class="flex-grow min-w-0">
+<h3 class="font-medium text-gray-900 truncate">A Year in Provence</h3>
+<p class="text-sm text-gray-600">Peter Mayle</p>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-half-fill ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.6</span>
+</div>
+<span class="text-xs text-gray-500">17,532 sold</span>
+</div>
+</div>
+<div class="flex-shrink-0 text-right">
+<span class="font-medium text-gray-900">$16.99</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-medium">5</div>
+<div class="flex-shrink-0 w-16 h-20 bg-gray-200 overflow-hidden rounded">
+<img src="https://readdy.ai/api/search-image?query=book%20cover%20for%20The%20Art%20of%20Travel%20with%20artistic%20and%20philosophical%20travel%20imagery%2C%20professional%20travel%20philosophy%20book%20cover%20design%2C%20thoughtful%20and%20contemplative%2C%20abstract%20elements%2C%20cultural%20artifacts%20from%20around%20the%20world&width=120&height=160&seq=15&orientation=portrait" alt="The Art of Travel" class="w-full h-full object-cover object-top">
+</div>
+<div class="flex-grow min-w-0">
+<h3 class="font-medium text-gray-900 truncate">The Art of Travel</h3>
+<p class="text-sm text-gray-600">Alain de Botton</p>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.3</span>
+</div>
+<span class="text-xs text-gray-500">15,789 sold</span>
+</div>
+</div>
+<div class="flex-shrink-0 text-right">
+<span class="font-medium text-gray-900">$19.95</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- User Reviews -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-semibold text-gray-900">Recent Reviews</h2>
+<a href="#" class="text-primary text-sm font-medium hover:underline">View All</a>
+</div>
+<div class="space-y-4">
+<div class="bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20young%20woman%20with%20short%20brown%20hair%2C%20smiling%2C%20neutral%20background%2C%20portrait%20photo&width=80&height=80&seq=16&orientation=squarish" alt="Emily Turner" class="w-full h-full object-cover">
+</div>
+<div class="flex-grow">
+<div class="flex items-center justify-between">
+<h3 class="font-medium text-gray-900">Emily Turner</h3>
+<span class="text-xs text-gray-500">May 18, 2025</span>
+</div>
+<div class="flex text-yellow-400 my-1">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Absolutely essential for Japan travel</h4>
+<p class="text-sm text-gray-700 mb-3">I just returned from a two-week trip to Japan, and this guide was my constant companion. The detailed maps of Tokyo's subway system saved me countless times, and the restaurant recommendations were spot on. The cultural insights helped me avoid some potentially embarrassing faux pas. Worth every penny!</p>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
+<i class="ri-thumb-up-line"></i>
+<span>Helpful (24)</span>
+</button>
+<button class="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
+<i class="ri-thumb-down-line"></i>
+<span>Not helpful (2)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20middle-aged%20man%20with%20glasses%20and%20beard%2C%20smiling%2C%20neutral%20background%2C%20portrait%20photo&width=80&height=80&seq=17&orientation=squarish" alt="Michael Rodriguez" class="w-full h-full object-cover">
+</div>
+<div class="flex-grow">
+<div class="flex items-center justify-between">
+<h3 class="font-medium text-gray-900">Michael Rodriguez</h3>
+<span class="text-xs text-gray-500">May 10, 2025</span>
+</div>
+<div class="flex text-yellow-400 my-1">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+<i class="ri-star-line ri-xs"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Good but needs updating</h4>
+<p class="text-sm text-gray-700 mb-3">While "Lost Cities of the World" has amazing photography and fascinating historical information, some of the practical travel advice is outdated. Several of the sites now have different entry requirements and hours than listed. The historical content is still excellent, but check current info before planning your trip.</p>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
+<i class="ri-thumb-up-line"></i>
+<span>Helpful (18)</span>
+</button>
+<button class="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
+<i class="ri-thumb-down-line"></i>
+<span>Not helpful (3)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20an%20older%20woman%20with%20silver%20hair%2C%20smiling%2C%20neutral%20background%2C%20portrait%20photo&width=80&height=80&seq=18&orientation=squarish" alt="Sarah Johnson" class="w-full h-full object-cover">
+</div>
+<div class="flex-grow">
+<div class="flex items-center justify-between">
+<h3 class="font-medium text-gray-900">Sarah Johnson</h3>
+<span class="text-xs text-gray-500">May 5, 2025</span>
+</div>
+<div class="flex text-yellow-400 my-1">
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-fill ri-xs"></i>
+<i class="ri-star-half-fill ri-xs"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Transformed my Mediterranean trip</h4>
+<p class="text-sm text-gray-700 mb-3">I've been to the Mediterranean several times, but "Mediterranean Escapes" showed me so many hidden gems I'd never discovered before. The island hopping itineraries are well thought out and the ferry schedule information was invaluable. The author's personal anecdotes add charm and the photography is stunning. Highly recommend!</p>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
+<i class="ri-thumb-up-line"></i>
+<span>Helpful (32)</span>
+</button>
+<button class="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
+<i class="ri-thumb-down-line"></i>
+<span>Not helpful (1)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 z-50">
+<div class="container mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full text-gray-700">
+<i class="ri-layout-grid-line"></i>
+</button>
+<button class="flex items-center justify-center w-8 h-8 rounded-full text-gray-500">
+<i class="ri-list-check"></i>
+</button>
+</div>
+<div class="text-sm text-gray-600">
+Showing <span class="font-medium">1-24</span> of <span class="font-medium">1,247</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-sm text-gray-700">
+<span>Sort</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Back to Top Button -->
+<button id="backToTop" class="fixed bottom-20 right-4 bg-primary text-white w-10 h-10 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+<i class="ri-arrow-up-line"></i>
+</button>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Search toggle
+const searchToggle = document.getElementById('searchToggle');
+const searchBar = document.getElementById('searchBar');
+searchToggle.addEventListener('click', function() {
+searchBar.classList.toggle('hidden');
+});
+// Filter toggle
+const filterToggle = document.getElementById('filterToggle');
+const filterPanel = document.getElementById('filterPanel');
+filterToggle.addEventListener('click', function() {
+filterPanel.classList.toggle('hidden');
+});
+// Back to top button
+const backToTopButton = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+if (window.pageYOffset > 300) {
+backToTopButton.classList.remove('opacity-0', 'invisible');
+backToTopButton.classList.add('opacity-100', 'visible');
+} else {
+backToTopButton.classList.remove('opacity-100', 'visible');
+backToTopButton.classList.add('opacity-0', 'invisible');
+}
+});
+backToTopButton.addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+});
+</script>
+</body>
+</html>

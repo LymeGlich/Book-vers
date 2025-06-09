@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your BookVerse Account</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#8b5cf6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .signup-bg {
+            background-image: url('https://readdy.ai/api/search-image?query=A%2520cozy%2520reading%2520environment%2520with%2520bookshelves%2520filled%2520with%2520colorful%2520books.%2520Soft%2520natural%2520light%2520streams%2520through%2520large%2520windows%252C%2520illuminating%2520comfortable%2520reading%2520chairs%2520and%2520a%2520small%2520wooden%2520table%2520with%2520a%2520cup%2520of%2520coffee.%2520The%2520scene%2520has%2520a%2520warm%252C%2520inviting%2520atmosphere%2520with%2520subtle%2520literary%2520elements%2520like%2520bookmarks%2520and%2520reading%2520glasses.%2520The%2520color%2520palette%2520features%2520soft%2520blues%2520and%2520warm%2520wood%2520tones%2520creating%2520a%2520serene%2520and%2520intellectual%2520ambiance.&width=800&height=1200&seq=4&orientation=portrait');
+            background-size: cover;
+            background-position: center;
+        }
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        }
+        .custom-checkbox:checked {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 6px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+        }
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="https://readdy.ai/home/aac5c14c-06e1-44a2-b60a-70fd3837d2d4/cd7b7426-6272-4216-a475-09d9c750d99b" data-readdy="true" class="text-3xl font-['Pacifico'] text-primary">BookVerse</a>
+            <a href="https://readdy.ai/home/aac5c14c-06e1-44a2-b60a-70fd3837d2d4/cd7b7426-6272-4216-a475-09d9c750d99b" data-readdy="true" class="text-gray-700 hover:text-primary flex items-center gap-1 transition-colors">
+                <i class="ri-arrow-left-line"></i>
+                <span>Back to Home</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="max-w-6xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-[60%] p-8 lg:p-12">
+                    <div class="max-w-md mx-auto">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">Create Your BookVerse Account</h1>
+                        <p class="text-gray-600 mb-8">Join thousands of readers and authors in the world's most vibrant book community.</p>
+                        
+                        <form class="space-y-6">
+                            <div>
+                                <label for="fullname" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="ri-user-line text-gray-400"></i>
+                                    </div>
+                                    <input type="text" id="fullname" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="Enter your full name">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="ri-mail-line text-gray-400"></i>
+                                    </div>
+                                    <input type="email" id="email" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="Enter your email address">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="ri-lock-line text-gray-400"></i>
+                                    </div>
+                                    <input type="password" id="password" class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="Create a password">
+                                    <div class="password-toggle">
+                                        <i class="ri-eye-off-line text-gray-400 password-toggle-icon"></i>
+                                    </div>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Must be at least 8 characters with 1 uppercase, 1 number, and 1 special character</p>
+                            </div>
+                            
+                            <div>
+                                <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="ri-lock-line text-gray-400"></i>
+                                    </div>
+                                    <input type="password" id="confirm-password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="Confirm your password">
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <input type="checkbox" id="terms" class="custom-checkbox mt-1">
+                                <label for="terms" class="ml-2 text-sm text-gray-600">I agree to BookVerse's <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>.</label>
+                            </div>
+                            
+                            <button type="submit" class="bg-primary text-white w-full py-2.5 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap font-medium">Create Account</button>
+                        </form>
+                        
+                        <div class="mt-6">
+                            <div class="relative">
+                                <div class="absolute inset-0 flex items-center">
+                                    <div class="w-full border-t border-gray-300"></div>
+                                </div>
+                                <div class="relative flex justify-center text-sm">
+                                    <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 grid grid-cols-3 gap-3">
+                                <button class="social-btn flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white">
+                                    <i class="ri-google-fill text-[#EA4335] text-xl"></i>
+                                </button>
+                                <button class="social-btn flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white">
+                                    <i class="ri-facebook-fill text-[#1877F2] text-xl"></i>
+                                </button>
+                                <button class="social-btn flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white">
+                                    <i class="ri-apple-fill text-[#000000] text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <p class="mt-8 text-center text-sm text-gray-600">
+                            Already have an account? 
+                            <a href="#" class="font-medium text-primary hover:text-primary/80">Sign in</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block md:w-[40%] signup-bg relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/40 flex flex-col justify-center p-12 text-white">
+                        <h2 class="text-2xl font-bold mb-6">Join BookVerse Today</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="ri-book-open-line text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-1">Access Millions of Books</h3>
+                                    <p class="text-white/80">Discover new titles across every genre, from bestsellers to hidden gems.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="ri-magic-line text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-1">Personalized Recommendations</h3>
+                                    <p class="text-white/80">Get tailored book suggestions based on your reading preferences and history.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="ri-quill-pen-line text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-1">Free Publishing Tools</h3>
+                                    <p class="text-white/80">Share your own stories with powerful, easy-to-use writing and publishing tools.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white py-6 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-700 text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 text-sm">Help Center</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password visibility toggle
+            const toggleIcons = document.querySelectorAll('.password-toggle-icon');
+            toggleIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const input = this.closest('.relative').querySelector('input');
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        this.classList.remove('ri-eye-off-line');
+                        this.classList.add('ri-eye-line');
+                    } else {
+                        input.type = 'password';
+                        this.classList.remove('ri-eye-line');
+                        this.classList.add('ri-eye-off-line');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

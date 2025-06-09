@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technology Books | BookVerse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config={
+theme:{
+extend:{
+colors:{
+primary:'#4f46e5',
+secondary:'#818cf8'
+},
+borderRadius:{
+'none':'0px',
+'sm':'4px',
+DEFAULT:'8px',
+'md':'12px',
+'lg':'16px',
+'xl':'20px',
+'2xl':'24px',
+'3xl':'32px',
+'full':'9999px',
+'button':'8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 16px;
+height: 16px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+width: 16px;
+height: 16px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+border: none;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type="number"] {
+-moz-appearance: textfield;
+}
+.custom-checkbox {
+display: flex;
+align-items: center;
+cursor: pointer;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.checkmark {
+height: 18px;
+width: 18px;
+background-color: #fff;
+border: 1px solid #d1d5db;
+border-radius: 4px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.checkmark:after {
+content: "";
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+margin-bottom: 2px;
+}
+.custom-radio {
+display: flex;
+align-items: center;
+cursor: pointer;
+}
+.custom-radio input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.radio-mark {
+height: 18px;
+width: 18px;
+background-color: #fff;
+border: 1px solid #d1d5db;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.custom-radio input:checked ~ .radio-mark {
+border-color: #4f46e5;
+}
+.radio-mark:after {
+content: "";
+display: none;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: #4f46e5;
+}
+.custom-radio input:checked ~ .radio-mark:after {
+display: block;
+}
+.toggle-switch {
+position: relative;
+display: inline-block;
+width: 48px;
+height: 24px;
+}
+.toggle-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.toggle-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 34px;
+}
+.toggle-slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .toggle-slider {
+background-color: #4f46e5;
+}
+input:checked + .toggle-slider:before {
+transform: translateX(24px);
+}
+.star-rating {
+display: flex;
+align-items: center;
+}
+.star {
+color: #d1d5db;
+}
+.star.filled {
+color: #f59e0b;
+}
+.pagination-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 36px;
+height: 36px;
+border-radius: 8px;
+font-weight: 500;
+transition: all 0.2s;
+}
+.pagination-btn.active {
+background-color: #4f46e5;
+color: white;
+}
+.pagination-btn:hover:not(.active) {
+background-color: #f3f4f6;
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">BookVerse</a>
+<button class="flex items-center text-gray-600 hover:text-primary transition-colors !rounded-button">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-line ri-lg"></i>
+</div>
+<span class="ml-1">Back</span>
+</button>
+</div>
+<div class="relative w-1/3">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none w-10 h-10">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+<input type="text" placeholder="Search for books, authors, or topics..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</div>
+<div id="shopping-cart" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary cursor-pointer relative">
+<i class="ri-shopping-cart-line ri-lg"></i>
+<span class="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">3</span>
+<div id="cart-dropdown" class="hidden absolute top-full right-0 mt-2 w-80 bg-white rounded shadow-lg border border-gray-200 z-50">
+<div class="p-4">
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20technology%20book%20about%20artificial%20intelligence%2C%20modern%20design%2C%20minimalist%20style%2C%20blue%20and%20white%20color%20scheme%2C%20professional%20look%2C%20high%20quality%20render&width=80&height=120&seq=1&orientation=portrait" alt="The Future of AI" class="w-12 h-16 object-cover object-top rounded">
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium text-gray-900 truncate">The Future of AI: How Machine Learning is Reshaping Our World</h4>
+<div class="mt-1 flex items-center justify-between">
+<span class="text-sm text-primary font-medium">$32.99</span>
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-500">Qty: 1</span>
+<button class="text-gray-400 hover:text-red-500 transition-colors">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20programming%20book%20about%20Python%2C%20modern%20design%2C%20dark%20blue%20and%20green%20color%20scheme%2C%20code%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=80&height=120&seq=2&orientation=portrait" alt="Python Mastery" class="w-12 h-16 object-cover object-top rounded">
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium text-gray-900 truncate">Python Mastery: From Basics to Advanced Techniques</h4>
+<div class="mt-1 flex items-center justify-between">
+<span class="text-sm text-primary font-medium">$28.50</span>
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-500">Qty: 1</span>
+<button class="text-gray-400 hover:text-red-500 transition-colors">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20cybersecurity%20book%2C%20modern%20design%2C%20dark%20theme%20with%20red%20accents%2C%20lock%20and%20shield%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=80&height=120&seq=3&orientation=portrait" alt="Cyber Defense" class="w-12 h-16 object-cover object-top rounded">
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium text-gray-900 truncate">Cyber Defense: Protecting Your Digital Life</h4>
+<div class="mt-1 flex items-center justify-between">
+<span class="text-sm text-primary font-medium">$25.99</span>
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-500">Qty: 1</span>
+<button class="text-gray-400 hover:text-red-500 transition-colors">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t">
+<div class="flex items-center justify-between text-sm">
+<span class="font-medium text-gray-900">Subtotal</span>
+<span class="font-medium text-primary">$87.48</span>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<button class="flex-1 px-4 py-2 bg-white text-gray-800 font-medium border border-gray-300 !rounded-button hover:bg-gray-50 transition-colors whitespace-nowrap">View Cart</button>
+<button class="flex-1 px-4 py-2 bg-primary text-white font-medium !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">Checkout</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="user-profile" class="w-10 h-10 flex items-center justify-center cursor-pointer relative">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20young%20man%20with%20short%20brown%20hair%2C%20neutral%20expression%2C%20business%20casual%20attire%2C%20soft%20lighting%2C%20studio%20background&width=100&height=100&seq=1&orientation=squarish" alt="User" class="w-8 h-8 rounded-full object-cover">
+<div id="profile-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white rounded shadow-lg border border-gray-200 z-50">
+<div class="py-2">
+<a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-user-line"></i>
+</div>
+<span>My Profile</span>
+</a>
+<a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-history-line"></i>
+</div>
+<span>Order History</span>
+</a>
+<a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+<span>Wishlist</span>
+</a>
+<a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-settings-3-line"></i>
+</div>
+<span>Account Settings</span>
+</a>
+<div class="h-px bg-gray-200 my-2"></div>
+<a href="#" class="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-gray-50 transition-colors">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-logout-box-line"></i>
+</div>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Breadcrumb -->
+<div class="bg-white border-b">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center text-sm text-gray-600">
+<a href="#" class="hover:text-primary">Home</a>
+<div class="w-4 h-4 flex items-center justify-center mx-1">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<a href="#" class="hover:text-primary">Categories</a>
+<div class="w-4 h-4 flex items-center justify-center mx-1">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<span class="text-gray-900 font-medium">Technology</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="bg-white border-b shadow-sm">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="relative">
+<button class="flex items-center gap-2 text-gray-700 px-3 py-2 border border-gray-300 rounded !rounded-button hover:border-gray-400 transition-colors">
+<span>Sort by: Newest</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+<div class="hidden absolute top-full left-0 mt-1 bg-white shadow-lg rounded border border-gray-200 w-48 z-10">
+<div class="py-1">
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Newest</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bestselling</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Price: Low to High</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Price: High to Low</a>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-gray-700">Price:</span>
+<div class="flex items-center gap-2">
+<input type="number" placeholder="Min" class="w-20 px-3 py-2 border border-gray-300 rounded text-sm">
+<span class="text-gray-500">-</span>
+<input type="number" placeholder="Max" class="w-20 px-3 py-2 border border-gray-300 rounded text-sm">
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 border border-gray-200 rounded-full p-1">
+<button class="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white">
+<i class="ri-layout-grid-line"></i>
+</button>
+<button class="flex items-center justify-center w-8 h-8 rounded-full text-gray-500 hover:bg-gray-100">
+<i class="ri-list-check"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="container mx-auto px-4 py-8">
+<div class="flex gap-8">
+<!-- Sidebar -->
+<div class="w-1/4">
+<div class="bg-white rounded shadow-sm p-5 sticky top-24">
+<div class="mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-3">Technology Categories</h3>
+<ul class="space-y-2">
+<li>
+<a href="#" class="flex items-center justify-between text-primary font-medium">
+<span>All Technology</span>
+<span class="text-gray-500 text-sm">245</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center justify-between text-gray-700 hover:text-primary">
+<span>Programming</span>
+<span class="text-gray-500 text-sm">78</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center justify-between text-gray-700 hover:text-primary">
+<span>Artificial Intelligence</span>
+<span class="text-gray-500 text-sm">42</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center justify-between text-gray-700 hover:text-primary">
+<span>Cybersecurity</span>
+<span class="text-gray-500 text-sm">31</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center justify-between text-gray-700 hover:text-primary">
+<span>Web Development</span>
+<span class="text-gray-500 text-sm">56</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center justify-between text-gray-700 hover:text-primary">
+<span>Data Science</span>
+<span class="text-gray-500 text-sm">38</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="border-t pt-5 mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-3">Rating</h3>
+<div class="space-y-2">
+<label class="custom-radio flex items-center gap-2 cursor-pointer">
+<input type="radio" name="rating" checked>
+<span class="radio-mark"></span>
+<div class="flex items-center">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">& up</span>
+</div>
+</label>
+<label class="custom-radio flex items-center gap-2 cursor-pointer">
+<input type="radio" name="rating">
+<span class="radio-mark"></span>
+<div class="flex items-center">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">& up</span>
+</div>
+</label>
+<label class="custom-radio flex items-center gap-2 cursor-pointer">
+<input type="radio" name="rating">
+<span class="radio-mark"></span>
+<div class="flex items-center">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">& up</span>
+</div>
+</label>
+<label class="custom-radio flex items-center gap-2 cursor-pointer">
+<input type="radio" name="rating">
+<span class="radio-mark"></span>
+<div class="flex items-center">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">& up</span>
+</div>
+</label>
+<label class="custom-radio flex items-center gap-2 cursor-pointer">
+<input type="radio" name="rating">
+<span class="radio-mark"></span>
+<div class="flex items-center">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">& up</span>
+</div>
+</label>
+</div>
+</div>
+<div class="border-t pt-5 mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-3">Format</h3>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="text-gray-700">Hardcover</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="text-gray-700">Paperback</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="text-gray-700">eBook</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">Audiobook</span>
+</label>
+</div>
+</div>
+<div class="border-t pt-5 mb-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-3">Language</h3>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="text-gray-700">English</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">Spanish</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">French</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">German</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">Chinese</span>
+</label>
+</div>
+</div>
+<div class="border-t pt-5">
+<h3 class="text-lg font-semibold text-gray-900 mb-3">Publication Year</h3>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="text-gray-700">2025</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="text-gray-700">2024</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">2023</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">2022</span>
+</label>
+<label class="custom-checkbox flex items-center gap-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="text-gray-700">2021 & earlier</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Book Grid -->
+<div class="w-3/4">
+<div class="mb-6">
+<h1 class="text-2xl font-bold text-gray-900">Technology Books</h1>
+<p class="text-gray-600">Showing 1-12 of 245 results</p>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<!-- Book 1 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20technology%20book%20about%20artificial%20intelligence%2C%20modern%20design%2C%20minimalist%20style%2C%20blue%20and%20white%20color%20scheme%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=1&orientation=portrait" alt="The Future of AI" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">The Future of AI: How Machine Learning is Reshaping Our World</h3>
+<p class="text-gray-600 text-sm mb-2">by Dr. Emily Richardson</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-half-fill text-yellow-500"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.5 (128)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$32.99</span>
+<span class="text-xs text-gray-500">Hardcover</span>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20programming%20book%20about%20Python%2C%20modern%20design%2C%20dark%20blue%20and%20green%20color%20scheme%2C%20code%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=2&orientation=portrait" alt="Python Mastery" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Python Mastery: From Basics to Advanced Techniques</h3>
+<p class="text-gray-600 text-sm mb-2">by James Wilson</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">5.0 (93)</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">$28.50</span>
+<span class="text-gray-400 line-through text-sm">$34.99</span>
+</div>
+<span class="text-xs text-gray-500">Paperback</span>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20cybersecurity%20book%2C%20modern%20design%2C%20dark%20theme%20with%20red%20accents%2C%20lock%20and%20shield%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=3&orientation=portrait" alt="Cyber Defense" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Cyber Defense: Protecting Your Digital Life in an Insecure World</h3>
+<p class="text-gray-600 text-sm mb-2">by Michael Chen</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.0 (76)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$25.99</span>
+<span class="text-xs text-gray-500">Paperback</span>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20web%20development%20book%2C%20modern%20design%2C%20purple%20and%20orange%20color%20scheme%2C%20code%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=4&orientation=portrait" alt="Modern Web Development" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Modern Web Development: Full-Stack Engineering with React and Node.js</h3>
+<p class="text-gray-600 text-sm mb-2">by Sarah Johnson</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-half-fill text-yellow-500"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.7 (142)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$39.99</span>
+<span class="text-xs text-gray-500">Hardcover</span>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20data%20science%20book%2C%20modern%20design%2C%20blue%20and%20yellow%20color%20scheme%2C%20graph%20and%20chart%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=5&orientation=portrait" alt="Data Science Essentials" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Data Science Essentials: From Analysis to Insights</h3>
+<p class="text-gray-600 text-sm mb-2">by Dr. Robert Anderson</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.2 (87)</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">$29.99</span>
+<span class="text-gray-400 line-through text-sm">$36.99</span>
+</div>
+<span class="text-xs text-gray-500">eBook</span>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20blockchain%20technology%20book%2C%20modern%20design%2C%20blue%20and%20purple%20color%20scheme%2C%20digital%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=6&orientation=portrait" alt="Blockchain Revolution" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Blockchain Revolution: How Cryptocurrency is Changing Finance</h3>
+<p class="text-gray-600 text-sm mb-2">by Thomas Wright</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-half-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">3.5 (64)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$27.50</span>
+<span class="text-xs text-gray-500">Paperback</span>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20cloud%20computing%20book%2C%20modern%20design%2C%20light%20blue%20and%20white%20color%20scheme%2C%20cloud%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=7&orientation=portrait" alt="Cloud Computing" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Cloud Computing: Architecture and Implementation</h3>
+<p class="text-gray-600 text-sm mb-2">by Jennifer Martinez</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.1 (53)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$34.99</span>
+<span class="text-xs text-gray-500">Hardcover</span>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20UI%2FUX%20design%20book%2C%20modern%20design%2C%20purple%20and%20teal%20color%20scheme%2C%20interface%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=8&orientation=portrait" alt="UI/UX Design" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">UI/UX Design Principles: Creating Exceptional User Experiences</h3>
+<p class="text-gray-600 text-sm mb-2">by Alexandra Kim</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-half-fill text-yellow-500"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.6 (112)</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">$31.50</span>
+<span class="text-gray-400 line-through text-sm">$42.00</span>
+</div>
+<span class="text-xs text-gray-500">eBook</span>
+</div>
+</div>
+</div>
+<!-- Book 9 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20robotics%20book%2C%20modern%20design%2C%20silver%20and%20blue%20color%20scheme%2C%20robot%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=9&orientation=portrait" alt="Robotics Engineering" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Robotics Engineering: Principles and Applications</h3>
+<p class="text-gray-600 text-sm mb-2">by Dr. David Thompson</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.0 (47)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$45.99</span>
+<span class="text-xs text-gray-500">Hardcover</span>
+</div>
+</div>
+</div>
+<!-- Book 10 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20quantum%20computing%20book%2C%20modern%20design%2C%20deep%20blue%20and%20purple%20color%20scheme%2C%20abstract%20quantum%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=10&orientation=portrait" alt="Quantum Computing" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Quantum Computing: The Next Technological Revolution</h3>
+<p class="text-gray-600 text-sm mb-2">by Dr. Richard Feynman</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-half-fill text-yellow-500"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.8 (67)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$38.50</span>
+<span class="text-xs text-gray-500">Hardcover</span>
+</div>
+</div>
+</div>
+<!-- Book 11 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20a%20DevOps%20book%2C%20modern%20design%2C%20green%20and%20blue%20color%20scheme%2C%20pipeline%20and%20workflow%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=11&orientation=portrait" alt="DevOps Handbook" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">The DevOps Handbook: Continuous Integration and Deployment</h3>
+<p class="text-gray-600 text-sm mb-2">by Laura Jenkins</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">4.3 (91)</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">$29.99</span>
+<span class="text-gray-400 line-through text-sm">$34.99</span>
+</div>
+<span class="text-xs text-gray-500">Paperback</span>
+</div>
+</div>
+</div>
+<!-- Book 12 -->
+<div class="bg-white rounded shadow-sm overflow-hidden group">
+<div class="relative pt-[130%] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=realistic%20book%20cover%20for%20an%20IoT%20book%2C%20modern%20design%2C%20blue%20and%20orange%20color%20scheme%2C%20connected%20device%20elements%2C%20professional%20look%2C%20high%20quality%20render&width=400&height=600&seq=12&orientation=portrait" alt="IoT Revolution" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+<div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-gray-800 py-2 font-medium !rounded-button text-sm hover:bg-gray-100 transition-colors whitespace-nowrap preview-btn" data-book-id="book-1">Preview</button>
+<button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">Add to Cart</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-800 !rounded-button hover:bg-gray-100 transition-colors">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">The IoT Revolution: Building the Connected World</h3>
+<p class="text-gray-600 text-sm mb-2">by Daniel Rodriguez</p>
+<div class="flex items-center mb-2">
+<div class="flex">
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-fill text-yellow-500"></i>
+<i class="ri-star-half-fill text-yellow-500"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-gray-600 text-sm ml-1">3.7 (58)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$26.99</span>
+<span class="text-xs text-gray-500">eBook</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-10 flex justify-center">
+<div class="flex items-center gap-2">
+<button class="pagination-btn border border-gray-200 text-gray-600 hover:border-gray-300">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button class="pagination-btn border border-gray-200 text-gray-900 active">1</button>
+<button class="pagination-btn border border-gray-200 text-gray-600 hover:border-gray-300">2</button>
+<button class="pagination-btn border border-gray-200 text-gray-600 hover:border-gray-300">3</button>
+<button class="pagination-btn border border-gray-200 text-gray-600 hover:border-gray-300">4</button>
+<button class="pagination-btn border border-gray-200 text-gray-600 hover:border-gray-300">5</button>
+<span class="px-2 text-gray-600">...</span>
+<button class="pagination-btn border border-gray-200 text-gray-600 hover:border-gray-300">21</button>
+<button class="pagination-btn border border-gray-200 text-gray-600 hover:border-gray-300">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const sortButton = document.querySelector('.relative button');
+const dropdown = document.querySelector('.relative .hidden');
+const userProfile = document.getElementById('user-profile');
+const profileDropdown = document.getElementById('profile-dropdown');
+if (userProfile && profileDropdown) {
+userProfile.addEventListener('click', function(event) {
+event.stopPropagation();
+profileDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(event) {
+if (!userProfile.contains(event.target)) {
+profileDropdown.classList.add('hidden');
+}
+});
+profileDropdown.addEventListener('click', function(event) {
+event.stopPropagation();
+});
+}
+if (sortButton && dropdown) {
+sortButton.addEventListener('click', function() {
+dropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(event) {
+if (!sortButton.contains(event.target) && !dropdown.contains(event.target)) {
+dropdown.classList.add('hidden');
+}
+});
+}
+const cartIcon = document.getElementById('shopping-cart');
+const cartDropdown = document.getElementById('cart-dropdown');
+if (cartIcon && cartDropdown) {
+cartIcon.addEventListener('click', function(event) {
+event.stopPropagation();
+cartDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(event) {
+if (!cartIcon.contains(event.target)) {
+cartDropdown.classList.add('hidden');
+}
+});
+cartDropdown.addEventListener('click', function(event) {
+event.stopPropagation();
+});
+}
+});
+</script>
+<div id="preview-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+  <div class="bg-white w-[900px] h-[600px] rounded-lg shadow-xl relative flex flex-col">
+    <div class="flex items-center justify-between p-4 border-b">
+      <h3 class="text-xl font-semibold text-gray-900" id="preview-title"></h3>
+      <button id="close-preview" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <div class="flex-1 flex">
+      <div class="w-2/3 border-r p-6 relative">
+        <div id="preview-pages" class="h-full overflow-hidden relative">
+          <img id="preview-image" class="w-full h-full object-contain" alt="Book preview">
+          <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between p-4">
+            <button id="prev-page" class="w-10 h-10 flex items-center justify-center bg-white/80 text-gray-800 rounded-full shadow hover:bg-white">
+              <i class="ri-arrow-left-s-line ri-lg"></i>
+            </button>
+            <span id="page-indicator" class="bg-white/80 px-4 py-2 rounded-full text-sm font-medium"></span>
+            <button id="next-page" class="w-10 h-10 flex items-center justify-center bg-white/80 text-gray-800 rounded-full shadow hover:bg-white">
+              <i class="ri-arrow-right-s-line ri-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="w-1/3 p-6">
+        <div class="mb-6">
+          <h4 class="font-medium text-gray-900 mb-2">Table of Contents</h4>
+          <ul class="space-y-2 text-sm text-gray-600" id="preview-toc"></ul>
+        </div>
+        <div class="mb-6">
+          <h4 class="font-medium text-gray-900 mb-2">Book Details</h4>
+          <div class="space-y-2 text-sm text-gray-600" id="preview-details"></div>
+        </div>
+        <div class="flex gap-3">
+          <button class="flex-1 bg-primary text-white py-2 font-medium !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+            Add to Cart
+          </button>
+          <button class="w-10 h-10 flex items-center justify-center border border-gray-200 text-gray-600 !rounded-button hover:border-gray-300 hover:text-primary transition-colors">
+            <i class="ri-heart-line"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const previewModal = document.getElementById('preview-modal');
+  const closePreview = document.getElementById('close-preview');
+  const previewTitle = document.getElementById('preview-title');
+  const previewImage = document.getElementById('preview-image');
+  const prevPage = document.getElementById('prev-page');
+  const nextPage = document.getElementById('next-page');
+  const pageIndicator = document.getElementById('page-indicator');
+  const previewToc = document.getElementById('preview-toc');
+  const previewDetails = document.getElementById('preview-details');
+
+  let currentPage = 1;
+  const totalPages = 5;
+
+  function updatePageIndicator() {
+    pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+  }
+
+  document.querySelectorAll('.preview-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const bookId = this.dataset.bookId;
+      const bookCard = this.closest('.group');
+      const title = bookCard.querySelector('h3').textContent;
+      const author = bookCard.querySelector('p').textContent;
+      const image = bookCard.querySelector('img').src;
+
+      previewTitle.textContent = title;
+      previewImage.src = image;
+      currentPage = 1;
+      updatePageIndicator();
+
+      previewToc.innerHTML = `
+        <li class="cursor-pointer hover:text-primary">Chapter 1: Introduction</li>
+        <li class="cursor-pointer hover:text-primary">Chapter 2: Getting Started</li>
+        <li class="cursor-pointer hover:text-primary">Chapter 3: Core Concepts</li>
+        <li class="cursor-pointer hover:text-primary">Chapter 4: Advanced Topics</li>
+        <li class="cursor-pointer hover:text-primary">Chapter 5: Case Studies</li>
+      `;
+
+      previewDetails.innerHTML = `
+        <p>${author}</p>
+        <p>Publisher: Tech Publishing House</p>
+        <p>Publication Date: May 2025</p>
+        <p>Pages: 450</p>
+        <p>Language: English</p>
+        <p>ISBN: 978-1234567890</p>
+      `;
+
+      previewModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  prevPage.addEventListener('click', function() {
+    if (currentPage > 1) {
+      currentPage--;
+      updatePageIndicator();
+    }
+  });
+
+  nextPage.addEventListener('click', function() {
+    if (currentPage < totalPages) {
+      currentPage++;
+      updatePageIndicator();
+    }
+  });
+
+  closePreview.addEventListener('click', function() {
+    previewModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+
+  previewModal.addEventListener('click', function(event) {
+    if (event.target === previewModal) {
+      previewModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  });
+});
+</script>
+</body>
+</html>

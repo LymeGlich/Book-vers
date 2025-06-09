@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poetry - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#6366f1'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.poetry-title {
+font-family: 'Playfair Display', serif;
+}
+.collection-card:hover {
+transform: translateY(-5px);
+transition: transform 0.3s ease;
+}
+.poet-card:hover {
+transform: translateY(-3px);
+transition: transform 0.3s ease;
+}
+.book-card:hover {
+transform: translateY(-5px);
+transition: transform 0.3s ease;
+}
+.subcategory-card:hover {
+transform: scale(1.03);
+transition: transform 0.3s ease;
+}
+input[type="email"]:focus {
+outline: none;
+border-color: #4f46e5;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+display: inline-block;
+position: relative;
+cursor: pointer;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+border-color: #4f46e5;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.scroll-container::-webkit-scrollbar {
+display: none;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header Navigation -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<div class="flex items-center space-x-8">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">book vers</a>
+<nav class="hidden md:flex space-x-6">
+<a href="#" class="text-gray-600 hover:text-primary font-medium">Home</a>
+<a href="#" class="text-primary font-medium">Categories</a>
+<a href="#" class="text-gray-600 hover:text-primary font-medium">New Releases</a>
+<a href="#" class="text-gray-600 hover:text-primary font-medium">Bestsellers</a>
+<a href="#" class="text-gray-600 hover:text-primary font-medium">About</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<button class="p-2 text-gray-500 hover:text-primary rounded-full bg-gray-100 hover:bg-gray-200 w-10 h-10 flex items-center justify-center">
+<i class="ri-search-line ri-lg"></i>
+</button>
+</div>
+<a href="#" class="text-gray-700 hover:text-primary font-medium">Sign In</a>
+<a href="#" class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap font-medium hover:bg-primary/90">Get Started</a>
+</div>
+</div>
+</header>
+<!-- Back Button and Category Title -->
+<div class="container mx-auto px-4 py-6 flex items-center">
+<a href="#" class="flex items-center text-gray-600 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center mr-2">
+<i class="ri-arrow-left-line ri-lg"></i>
+</div>
+<span>Back to Categories</span>
+</a>
+</div>
+<!-- Hero Section -->
+<section class="relative h-96 mb-16 overflow-hidden" style="background-image: url('https://readdy.ai/api/search-image?query=A%20serene%20and%20atmospheric%20scene%20with%20open%20poetry%20books%2C%20scattered%20pages%20with%20elegant%20handwritten%20verses%2C%20soft%20lighting%2C%20delicate%20feather%20quills%2C%20and%20vintage%20inkwells%20on%20a%20wooden%20desk.%20The%20image%20has%20a%20dreamy%2C%20inspirational%20quality%20with%20soft%20focus%20and%20warm%20tones%2C%20perfect%20for%20a%20poetry%20category%20banner.&width=1920&height=768&seq=poetry-hero&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/30"></div>
+<div class="container mx-auto px-4 h-full flex items-center relative z-10">
+<div class="max-w-2xl">
+<h1 class="poetry-title text-5xl font-bold text-white mb-4">Poetry</h1>
+<p class="text-white/90 text-xl mb-6">Explore the world of rhythm and verse through our curated collection of poetry books. From classical sonnets to contemporary free verse, discover the power of words that move the soul.</p>
+<div class="flex items-center bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg inline-block">
+<span class="text-white font-medium">2,456 Poetry Books Available</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Collections -->
+<section class="container mx-auto px-4 mb-16">
+<div class="flex items-center justify-between mb-8">
+<h2 class="poetry-title text-3xl font-bold text-gray-900">Featured Collections</h2>
+<div class="flex space-x-2">
+<button id="scroll-left" class="p-2 rounded-full border border-gray-300 hover:border-primary hover:text-primary w-10 h-10 flex items-center justify-center">
+<i class="ri-arrow-left-s-line ri-lg"></i>
+</button>
+<button id="scroll-right" class="p-2 rounded-full border border-gray-300 hover:border-primary hover:text-primary w-10 h-10 flex items-center justify-center">
+<i class="ri-arrow-right-s-line ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="relative">
+<div id="collections-container" class="flex space-x-6 overflow-x-auto scroll-container pb-4">
+<div class="collection-card flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20collection%20of%20classical%20poetry%20books%20with%20vintage%20leather%20bindings%2C%20gold%20embossing%2C%20and%20aged%20pages.%20The%20books%20are%20arranged%20artistically%20with%20a%20quill%20pen%20and%20inkwell%20nearby.%20The%20image%20has%20a%20warm%2C%20sepia-toned%20quality%20with%20dramatic%20lighting%20highlighting%20the%20textures%20of%20the%20books.&width=400&height=300&seq=classical-poetry&orientation=landscape" alt="Classical Poetry" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Classical Poetry</h3>
+<p class="text-gray-500 text-sm mb-2">124 books</p>
+<p class="text-gray-700 text-sm">Timeless verses from Shakespeare, Milton, Keats, and other masters of traditional poetic forms.</p>
+</div>
+</div>
+<div class="collection-card flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20contemporary%20arrangement%20of%20modern%20poetry%20books%20with%20minimalist%20covers%20in%20bold%20colors.%20The%20books%20are%20displayed%20in%20an%20artistic%2C%20slightly%20chaotic%20arrangement%20against%20a%20clean%20white%20background.%20Theres%20a%20notebook%20with%20handwritten%20verses%20and%20a%20sleek%20modern%20pen%20nearby.&width=400&height=300&seq=modern-verse&orientation=landscape" alt="Modern Verse" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Modern Verse</h3>
+<p class="text-gray-500 text-sm mb-2">186 books</p>
+<p class="text-gray-700 text-sm">Contemporary poetry that breaks boundaries, featuring works from award-winning modern poets.</p>
+</div>
+</div>
+<div class="collection-card flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20collection%20of%20poetry%20books%20with%20international%20themes%2C%20featuring%20covers%20with%20global%20motifs%20and%20patterns.%20The%20books%20are%20arranged%20with%20small%20flags%20or%20cultural%20symbols%2C%20suggesting%20diversity%20of%20origin.%20The%20lighting%20is%20bright%20and%20even%2C%20highlighting%20the%20colorful%20array%20of%20different%20cultural%20influences.&width=400&height=300&seq=world-poetry&orientation=landscape" alt="World Poetry" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">World Poetry</h3>
+<p class="text-gray-500 text-sm mb-2">203 books</p>
+<p class="text-gray-700 text-sm">Discover poetic traditions from around the globe, translated with care to preserve their original beauty.</p>
+</div>
+</div>
+<div class="collection-card flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20romantic%20arrangement%20of%20poetry%20books%20with%20soft%2C%20pastel-colored%20covers%20featuring%20hearts%2C%20roses%2C%20and%20romantic%20imagery.%20The%20books%20are%20arranged%20with%20dried%20rose%20petals%2C%20a%20small%20candle%2C%20and%20perhaps%20a%20vintage%20locket%20or%20romantic%20token.%20The%20lighting%20is%20soft%20and%20warm%2C%20creating%20an%20intimate%20atmosphere.&width=400&height=300&seq=love-poetry&orientation=landscape" alt="Love Poems" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Love Poems</h3>
+<p class="text-gray-500 text-sm mb-2">157 books</p>
+<p class="text-gray-700 text-sm">Romantic verses that capture the essence of love, passion, and heartache throughout the ages.</p>
+</div>
+</div>
+<div class="collection-card flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20collection%20of%20poetry%20anthologies%20with%20diverse%2C%20colorful%20covers%20representing%20different%20themes.%20The%20books%20are%20arranged%20in%20a%20fan%20or%20circular%20pattern%20to%20show%20variety.%20There%20might%20be%20bookmarks%20sticking%20out%20from%20various%20pages%2C%20suggesting%20curated%20selections.%20The%20lighting%20is%20bright%20and%20even%20to%20showcase%20the%20diversity.&width=400&height=300&seq=poetry-anthologies&orientation=landscape" alt="Poetry Anthologies" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Poetry Anthologies</h3>
+<p class="text-gray-500 text-sm mb-2">98 books</p>
+<p class="text-gray-700 text-sm">Carefully curated collections bringing together diverse voices and themes in comprehensive volumes.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Poets -->
+<section class="container mx-auto px-4 mb-16">
+<h2 class="poetry-title text-3xl font-bold text-gray-900 mb-8">Popular Poets</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="poet-card bg-white rounded-lg shadow-md p-6 transition-all duration-300">
+<div class="flex items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20portrait%20photograph%20of%20a%20middle-aged%20woman%20with%20short%20curly%20gray%20hair%20and%20glasses%2C%20looking%20thoughtful%20and%20intellectual.%20She%20has%20a%20warm%2C%20approachable%20expression%20and%20is%20wearing%20professional%20attire%20in%20neutral%20tones.%20The%20background%20is%20simple%20and%20unobtrusive%2C%20focusing%20attention%20on%20her%20face.&width=200&height=200&seq=poet1&orientation=squarish" alt="Maya Angelou" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">Amanda Wilson</h3>
+<p class="text-gray-500 text-sm mb-3">Modern American poet with 5 published collections</p>
+<p class="text-gray-700 text-sm mb-4">Known for her powerful explorations of identity, resilience, and the human experience in contemporary society.</p>
+<div class="flex items-center justify-between">
+<span class="text-gray-500 text-sm">42.3K followers</span>
+<button class="text-primary border border-primary px-3 py-1 !rounded-button whitespace-nowrap text-sm hover:bg-primary hover:text-white">Follow</button>
+</div>
+</div>
+</div>
+</div>
+<div class="poet-card bg-white rounded-lg shadow-md p-6 transition-all duration-300">
+<div class="flex items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20portrait%20photograph%20of%20an%20elderly%20man%20with%20white%20hair%20and%20a%20neatly%20trimmed%20beard%2C%20looking%20dignified%20and%20contemplative.%20He%20has%20deep-set%20eyes%20with%20crows%20feet%20suggesting%20wisdom%20and%20experience.%20Hes%20wearing%20a%20dark%20blazer%20over%20a%20light%20shirt.%20The%20background%20is%20neutral%20and%20soft-focused.&width=200&height=200&seq=poet2&orientation=squarish" alt="Robert Frost" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">James Richardson</h3>
+<p class="text-gray-500 text-sm mb-3">Pulitzer Prize-winning poet with 8 collections</p>
+<p class="text-gray-700 text-sm mb-4">Celebrated for his evocative nature imagery and profound reflections on rural American life and human nature.</p>
+<div class="flex items-center justify-between">
+<span class="text-gray-500 text-sm">56.7K followers</span>
+<button class="text-primary border border-primary px-3 py-1 !rounded-button whitespace-nowrap text-sm hover:bg-primary hover:text-white">Follow</button>
+</div>
+</div>
+</div>
+</div>
+<div class="poet-card bg-white rounded-lg shadow-md p-6 transition-all duration-300">
+<div class="flex items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20portrait%20photograph%20of%20a%20young%20Asian%20woman%20in%20her%20early%2030s%20with%20long%20black%20hair%2C%20looking%20creative%20and%20artistic.%20She%20has%20a%20gentle%20smile%20and%20is%20wearing%20bohemian-style%20clothing%20with%20some%20artistic%20jewelry.%20The%20background%20suggests%20a%20creative%20space%2C%20perhaps%20with%20bookshelves%20slightly%20blurred.&width=200&height=200&seq=poet3&orientation=squarish" alt="Emily Dickinson" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">Mei Lin Chen</h3>
+<p class="text-gray-500 text-sm mb-3">Award-winning poet with 4 acclaimed collections</p>
+<p class="text-gray-700 text-sm mb-4">Renowned for her delicate imagery and exploration of cultural identity, memory, and the immigrant experience.</p>
+<div class="flex items-center justify-between">
+<span class="text-gray-500 text-sm">38.9K followers</span>
+<button class="text-primary border border-primary px-3 py-1 !rounded-button whitespace-nowrap text-sm hover:bg-primary hover:text-white">Follow</button>
+</div>
+</div>
+</div>
+</div>
+<div class="poet-card bg-white rounded-lg shadow-md p-6 transition-all duration-300">
+<div class="flex items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20portrait%20photograph%20of%20a%20Black%20man%20in%20his%2040s%20with%20short%20hair%20and%20a%20well-groomed%20beard%2C%20looking%20confident%20and%20thoughtful.%20He%20has%20an%20engaging%20smile%20and%20is%20wearing%20a%20stylish%20button-up%20shirt%20or%20sweater.%20The%20background%20is%20simple%20and%20professional%2C%20perhaps%20with%20some%20soft%20bokeh.&width=200&height=200&seq=poet4&orientation=squarish" alt="Langston Hughes" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">Marcus Johnson</h3>
+<p class="text-gray-500 text-sm mb-3">National Book Award winner with 6 collections</p>
+<p class="text-gray-700 text-sm mb-4">Celebrated for his powerful voice exploring themes of heritage, justice, and the complexity of modern life.</p>
+<div class="flex items-center justify-between">
+<span class="text-gray-500 text-sm">47.2K followers</span>
+<button class="text-primary border border-primary px-3 py-1 !rounded-button whitespace-nowrap text-sm hover:bg-primary hover:text-white">Follow</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Poetry Subcategories -->
+<section class="container mx-auto px-4 mb-16">
+<h2 class="poetry-title text-3xl font-bold text-gray-900 mb-8">Poetry Subcategories</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+<div class="subcategory-card bg-white rounded-lg shadow-sm p-6 text-center transition-all duration-300 hover:shadow-md">
+<div class="w-12 h-12 mx-auto mb-4 text-primary flex items-center justify-center">
+<i class="ri-quill-pen-line ri-2x"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">Sonnets</h3>
+<p class="text-gray-500">186 books</p>
+</div>
+<div class="subcategory-card bg-white rounded-lg shadow-sm p-6 text-center transition-all duration-300 hover:shadow-md">
+<div class="w-12 h-12 mx-auto mb-4 text-primary flex items-center justify-center">
+<i class="ri-leaf-line ri-2x"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">Haiku</h3>
+<p class="text-gray-500">124 books</p>
+</div>
+<div class="subcategory-card bg-white rounded-lg shadow-sm p-6 text-center transition-all duration-300 hover:shadow-md">
+<div class="w-12 h-12 mx-auto mb-4 text-primary flex items-center justify-center">
+<i class="ri-draft-line ri-2x"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">Free Verse</h3>
+<p class="text-gray-500">247 books</p>
+</div>
+<div class="subcategory-card bg-white rounded-lg shadow-sm p-6 text-center transition-all duration-300 hover:shadow-md">
+<div class="w-12 h-12 mx-auto mb-4 text-primary flex items-center justify-center">
+<i class="ri-sword-line ri-2x"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">Epic Poetry</h3>
+<p class="text-gray-500">93 books</p>
+</div>
+<div class="subcategory-card bg-white rounded-lg shadow-sm p-6 text-center transition-all duration-300 hover:shadow-md">
+<div class="w-12 h-12 mx-auto mb-4 text-primary flex items-center justify-center">
+<i class="ri-heart-line ri-2x"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">Love Poems</h3>
+<p class="text-gray-500">157 books</p>
+</div>
+</div>
+</section>
+<!-- Trending Poetry Books -->
+<section class="container mx-auto px-4 mb-16">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+<h2 class="poetry-title text-3xl font-bold text-gray-900 mb-4 md:mb-0">Trending Poetry Books</h2>
+<div class="flex space-x-2">
+<button id="latest-btn" class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap">Latest Releases</button>
+<button id="popular-btn" class="bg-white text-gray-700 border border-gray-300 px-4 py-2 !rounded-button whitespace-nowrap hover:border-primary hover:text-primary">Most Popular</button>
+<button id="rated-btn" class="bg-white text-gray-700 border border-gray-300 px-4 py-2 !rounded-button whitespace-nowrap hover:border-primary hover:text-primary">Highly Rated</button>
+</div>
+<div id="loading-indicator" class="hidden">
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div class="bg-white p-4 rounded-lg flex items-center space-x-3">
+<div class="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+<span class="text-gray-700">Loading books...</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="book-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20book%20cover%20design%20for%20a%20poetry%20book%20titled%20Whispers%20of%20the%20Soul.%20The%20cover%20features%20an%20artistic%2C%20minimalist%20design%20with%20subtle%20watercolor%20elements%20in%20blues%20and%20purples.%20The%20typography%20is%20elegant%20and%20modern%2C%20with%20the%20authors%20name%20in%20smaller%20text%20below%20the%20title.%20The%20cover%20has%20a%20sophisticated%2C%20literary%20quality.&width=400&height=600&seq=book1&orientation=portrait" alt="Whispers of the Soul" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Whispers of the Soul</h3>
+<p class="text-gray-600 mb-2">by Eleanor Winters</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">4.5 (128 reviews)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4">A collection of introspective poems exploring the depths of human emotion and the search for meaning.</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$18.99</span>
+<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap text-sm hover:bg-primary/90">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="book-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20book%20cover%20design%20for%20a%20poetry%20book%20titled%20Urban%20Rhythms.%20The%20cover%20features%20a%20stylized%20cityscape%20silhouette%20against%20a%20gradient%20sunset%20background%20in%20oranges%20and%20purples.%20The%20typography%20is%20bold%20and%20contemporary%2C%20with%20the%20authors%20name%20in%20smaller%20text%20below%20the%20title.%20The%20cover%20has%20an%20urban%2C%20modern%20aesthetic.&width=400&height=600&seq=book2&orientation=portrait" alt="Urban Rhythms" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Urban Rhythms</h3>
+<p class="text-gray-600 mb-2">by Marcus Johnson</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">5.0 (94 reviews)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4">Bold verses capturing the pulse of city life, social justice, and the complexity of modern existence.</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$21.50</span>
+<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap text-sm hover:bg-primary/90">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="book-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20book%20cover%20design%20for%20a%20poetry%20book%20titled%20Natures%20Whispers.%20The%20cover%20features%20delicate%20botanical%20illustrations%20or%20natural%20elements%20like%20leaves%2C%20flowers%2C%20or%20branches%20against%20a%20soft%2C%20light%20background.%20The%20typography%20is%20elegant%20and%20understated%2C%20with%20the%20authors%20name%20in%20smaller%20text%20below%20the%20title.%20The%20cover%20has%20a%20serene%2C%20organic%20quality.&width=400&height=600&seq=book3&orientation=portrait" alt="Nature's Whispers" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Nature's Whispers</h3>
+<p class="text-gray-600 mb-2">by Olivia Chen</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">4.0 (76 reviews)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4">Delicate haiku and nature poems celebrating the beauty and wisdom found in the natural world.</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$16.75</span>
+<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap text-sm hover:bg-primary/90">Add to Cart</button>
+</div>
+</div>
+</div>
+<div class="book-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20book%20cover%20design%20for%20a%20poetry%20book%20titled%20Echoes%20of%20Time.%20The%20cover%20features%20an%20artistic%20representation%20of%20a%20vintage%20pocket%20watch%20or%20clock%20face%20with%20subtle%20surreal%20elements%2C%20against%20a%20deep%20blue%20or%20teal%20background.%20The%20typography%20is%20classic%20with%20a%20modern%20twist%2C%20with%20the%20authors%20name%20in%20smaller%20text%20below%20the%20title.%20The%20cover%20has%20a%20timeless%2C%20slightly%20mysterious%20quality.&width=400&height=600&seq=book4&orientation=portrait" alt="Echoes of Time" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Echoes of Time</h3>
+<p class="text-gray-600 mb-2">by Thomas Blackwood</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-2">4.7 (112 reviews)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4">Sonnets and formal verses exploring themes of memory, history, and the passage of time.</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$19.25</span>
+<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap text-sm hover:bg-primary/90">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-10">
+<button class="border border-primary text-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-primary hover:text-white">View All Poetry Books</button>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="bg-gray-100 py-16 mb-16">
+<div class="container mx-auto px-4">
+<div class="max-w-2xl mx-auto text-center">
+<h2 class="poetry-title text-3xl font-bold text-gray-900 mb-4">Stay Inspired with Poetry</h2>
+<p class="text-gray-700 mb-8">Subscribe to our newsletter for weekly poem recommendations, exclusive interviews with poets, and updates on new releases.</p>
+<div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+<input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg border-none focus:ring-2 focus:ring-primary">
+<button class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-primary/90">Subscribe</button>
+</div>
+<p class="text-gray-500 text-sm mt-4">We respect your privacy. Unsubscribe at any time.</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-white border-t border-gray-200">
+<div class="container mx-auto px-4 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<a href="#" class="font-['Pacifico'] text-2xl text-primary mb-4 inline-block">book vers</a>
+<p class="text-gray-600 mb-4">Your trusted source for discovering and purchasing the finest literature across all genres.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-facebook-fill ri-lg"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-twitter-fill ri-lg"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-instagram-fill ri-lg"></i>
+</div>
+</a>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4">Explore</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Categories</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">New Releases</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Bestsellers</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Audiobooks</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">E-books</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4">Customer Service</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Help Center</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Shipping & Returns</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Contact Us</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">FAQs</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4">About</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Our Story</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Privacy Policy</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Terms & Conditions</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Careers</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+<div class="flex items-center space-x-4">
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-visa-fill ri-lg"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-mastercard-fill ri-lg"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-paypal-fill ri-lg"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-apple-fill ri-lg"></i>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const scrollContainer = document.getElementById('collections-container');
+const scrollLeftBtn = document.getElementById('scroll-left');
+const scrollRightBtn = document.getElementById('scroll-right');
+const latestBtn = document.getElementById('latest-btn');
+const popularBtn = document.getElementById('popular-btn');
+const ratedBtn = document.getElementById('rated-btn');
+const loadingIndicator = document.getElementById('loading-indicator');
+scrollLeftBtn.addEventListener('click', function() {
+scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
+});
+scrollRightBtn.addEventListener('click', function() {
+scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+});
+function setActiveButton(activeBtn) {
+[latestBtn, popularBtn, ratedBtn].forEach(btn => {
+if (btn === activeBtn) {
+btn.className = "bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap";
+} else {
+btn.className = "bg-white text-gray-700 border border-gray-300 px-4 py-2 !rounded-button whitespace-nowrap hover:border-primary hover:text-primary";
+}
+});
+}
+popularBtn.addEventListener('click', async function() {
+setActiveButton(popularBtn);
+loadingIndicator.classList.remove('hidden');
+try {
+await new Promise(resolve => setTimeout(resolve, 800));
+const popularBooks = [
+{
+title: "Midnight Musings",
+author: "Sarah Bennett",
+cover: "https://readdy.ai/api/search-image?query=A%20professional%20book%20cover%20design%20for%20a%20poetry%20book%20titled%20Midnight%20Musings.%20The%20cover%20features%20a%20dreamy%20nighttime%20scene%20with%20stars%20and%20moonlight%2C%20using%20deep%20blues%20and%20purples.%20The%20typography%20is%20elegant%20and%20ethereal%2C%20creating%20a%20mysterious%20and%20contemplative%20mood.&width=400&height=600&seq=popular1&orientation=portrait",
+rating: 4.8,
+reviews: 156,
+description: "A haunting collection of nocturnal reflections and dreamlike verses.",
+price: "20.50"
+},
+{
+title: "Seasons of the Heart",
+author: "David Chen",
+cover: "https://readdy.ai/api/search-image?query=A%20professional%20book%20cover%20design%20for%20a%20poetry%20book%20titled%20Seasons%20of%20the%20Heart.%20The%20cover%20features%20four%20subtle%20quadrants%20representing%20different%20seasons%2C%20with%20delicate%20natural%20elements%20and%20color%20transitions.%20The%20typography%20is%20clean%20and%20contemporary%20with%20seasonal%20motifs.&width=400&height=600&seq=popular2&orientation=portrait",
+rating: 4.9,
+reviews: 203,
+description: "An emotional journey through the changing seasons of love and life.",
+price: "22.99"
+},
+{
+title: "City Lights & Shadows",
+author: "Maya Rodriguez",
+cover: "https://readdy.ai/api/search-image?query=A professional book cover design for a poetry book titled City Lights & Shadows. The cover features an artistic urban nightscape with glowing city lights and dramatic shadows. The typography is bold and modern, reflecting the urban theme.&width=400&height=600&seq=popular3&orientation=portrait",
+rating: 4.7,
+reviews: 178,
+description: "Modern verses capturing the essence of urban life after dark.",
+price: "19.75"
+},
+{
+title: "Ocean's Whisper",
+author: "James Morrison",
+cover: "https://readdy.ai/api/search-image?query=A%20professional%20book%20cover%20design%20for%20a%20poetry%20book%20titled%20Oceans%20Whisper.%20The%20cover%20features%20abstract%20waves%20and%20water%20patterns%20in%20serene%20blues%20and%20teals.%20The%20typography%20has%20a%20fluid%2C%20organic%20quality%20that%20complements%20the%20oceanic%20theme.&width=400&height=600&seq=popular4&orientation=portrait",
+rating: 4.6,
+reviews: 142,
+description: "Flowing verses inspired by the rhythms and depths of the sea.",
+price: "18.50"
+}
+];
+const booksContainer = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-4.gap-6');
+booksContainer.innerHTML = popularBooks.map(book => `
+<div class="book-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="${book.cover}" alt="${book.title}" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">${book.title}</h3>
+<p class="text-gray-600 mb-2">by ${book.author}</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+${Array(Math.floor(book.rating)).fill('<i class="ri-star-fill"></i>').join('')}
+${book.rating % 1 >= 0.5 ? '<i class="ri-star-half-fill"></i>' : ''}
+</div>
+<span class="text-gray-500 text-sm ml-2">${book.rating} (${book.reviews} reviews)</span>
+</div>
+<p class="text-gray-700 text-sm mb-4">${book.description}</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">$${book.price}</span>
+<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap text-sm hover:bg-primary/90">Add to Cart</button>
+</div>
+</div>
+</div>
+`).join('');
+} finally {
+loadingIndicator.classList.add('hidden');
+}
+});
+});
+</script>
+</body>
+</html>

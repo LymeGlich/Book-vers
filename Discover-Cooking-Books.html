@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cooking Books - BookVerse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config={
+theme:{
+extend:{
+colors:{
+primary:'#4f46e5',
+secondary:'#f97316'
+},
+borderRadius:{
+'none':'0px',
+'sm':'4px',
+DEFAULT:'8px',
+'md':'12px',
+'lg':'16px',
+'xl':'20px',
+'2xl':'24px',
+'3xl':'32px',
+'full':'9999px',
+'button':'8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.book-card {
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.book-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+.category-tab {
+transition: all 0.3s ease;
+}
+.category-tab.active {
+color: #4f46e5;
+border-color: #4f46e5;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+border: none;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 28px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+border-color: #4f46e5;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #4f46e5;
+border-color: #4f46e5;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.toggle-switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 24px;
+}
+.toggle-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.toggle-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 24px;
+}
+.toggle-slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .toggle-slider {
+background-color: #4f46e5;
+}
+input:checked + .toggle-slider:before {
+transform: translateX(20px);
+}
+.star-rating {
+display: inline-flex;
+font-size: 1rem;
+color: #fbbf24;
+}
+.back-to-top {
+position: fixed;
+bottom: 20px;
+right: 20px;
+z-index: 99;
+transition: opacity 0.3s;
+}
+@media (max-width: 768px) {
+.filter-panel {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 50;
+transform: translateY(100%);
+transition: transform 0.3s ease-out;
+}
+.filter-panel.open {
+transform: translateY(0);
+}
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<a href="#" class="flex items-center justify-center w-10 h-10 text-gray-600 hover:text-primary">
+<i class="ri-arrow-left-line ri-lg"></i>
+</a>
+<a href="#" class="font-['Pacifico'] text-2xl text-gray-800">book vers</a>
+</div>
+<div class="flex-1 max-w-xl mx-4">
+<div class="relative">
+<input type="text" placeholder="Search cooking books..." class="w-full px-4 py-2 pl-10 pr-10 bg-gray-100 border-none rounded-full focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center !rounded-button">
+<i class="ri-equalizer-line text-gray-500 hover:text-primary"></i>
+</button>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<button class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-shopping-cart-line ri-lg"></i>
+</button>
+<div class="relative" id="user-menu">
+<button id="user-menu-button" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-user-line ri-lg"></i>
+</button>
+<div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+<div id="logged-in-menu" class="hidden">
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-user-line w-5 h-5 mr-2"></i>
+My Account
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-settings-3-line w-5 h-5 mr-2"></i>
+Profile Settings
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-history-line w-5 h-5 mr-2"></i>
+Order History
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-bookmark-line w-5 h-5 mr-2"></i>
+Saved Books
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-equalizer-line w-5 h-5 mr-2"></i>
+Preferences
+</a>
+<div class="h-px bg-gray-200 my-2"></div>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-logout-box-line w-5 h-5 mr-2"></i>
+Logout
+</a>
+</div>
+<div id="logged-out-menu">
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-login-box-line w-5 h-5 mr-2"></i>
+Login
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-user-add-line w-5 h-5 mr-2"></i>
+Register
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Category Navigation -->
+<div class="bg-white border-b sticky top-16 z-30">
+<div class="container mx-auto px-4 overflow-x-auto hide-scrollbar">
+<div class="flex space-x-1 py-2 whitespace-nowrap">
+<button class="category-tab active px-4 py-2 text-sm font-medium border-b-2 border-primary !rounded-button whitespace-nowrap">
+All
+</button>
+<button class="category-tab px-4 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:text-gray-900 !rounded-button whitespace-nowrap">
+Baking
+</button>
+<button class="category-tab px-4 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:text-gray-900 !rounded-button whitespace-nowrap">
+International Cuisine
+</button>
+<button class="category-tab px-4 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:text-gray-900 !rounded-button whitespace-nowrap">
+Healthy Cooking
+</button>
+<button class="category-tab px-4 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:text-gray-900 !rounded-button whitespace-nowrap">
+Desserts
+</button>
+<button class="category-tab px-4 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:text-gray-900 !rounded-button whitespace-nowrap">
+Vegetarian
+</button>
+<button class="category-tab px-4 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:text-gray-900 !rounded-button whitespace-nowrap">
+Seasonal
+</button>
+</div>
+</div>
+</div>
+<!-- Active Filters -->
+<div class="bg-white border-b">
+<div class="container mx-auto px-4 py-2 flex items-center overflow-x-auto hide-scrollbar">
+<div class="text-sm text-gray-500 mr-2">Filters:</div>
+<div class="flex space-x-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+Rating: 4+ <button class="ml-1 text-gray-500 hover:text-gray-700"><i class="ri-close-line"></i></button>
+</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+Hardcover <button class="ml-1 text-gray-500 hover:text-gray-700"><i class="ri-close-line"></i></button>
+</span>
+<button class="text-primary text-sm font-medium hover:underline !rounded-button whitespace-nowrap">Clear All</button>
+</div>
+<div class="ml-auto">
+<button id="filter-toggle-btn" class="inline-flex items-center px-3 py-1 border border-gray-300 rounded-full text-sm text-gray-700 bg-white hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<i class="ri-filter-3-line mr-1"></i> Filters
+</button>
+<button class="inline-flex items-center px-3 py-1 border border-gray-300 rounded-full text-sm text-gray-700 bg-white hover:bg-gray-50 ml-2 !rounded-button whitespace-nowrap">
+<span>Popularity</span>
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+</div>
+<main class="container mx-auto px-4 py-6 flex">
+<!-- Filter Panel (Desktop) -->
+<aside id="filter-panel" class="w-64 mr-6 hidden lg:block">
+<div class="bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-medium text-lg">Filters</h3>
+<button class="text-primary text-sm hover:underline !rounded-button whitespace-nowrap">Reset</button>
+</div>
+<!-- Price Range -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Price Range</h4>
+<div class="mb-4">
+<input type="range" min="0" max="100" value="75" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+</div>
+<div class="flex justify-between text-sm text-gray-600">
+<span>$0</span>
+<span>$75</span>
+</div>
+</div>
+<!-- Format -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Format</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Hardcover
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Paperback
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Digital
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Audiobook
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Rating -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Rating</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+<div class="flex items-center">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span>5</span>
+</div>
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+<div class="flex items-center">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span>4+</span>
+</div>
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+<div class="flex items-center">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span>3+</span>
+</div>
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Difficulty Level -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Difficulty Level</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Beginner
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Intermediate
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Advanced
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Language -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Language</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+English
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Spanish
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+French
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Italian
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Publication Date -->
+<div>
+<h4 class="font-medium text-gray-900 mb-3">Publication Date</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Last 30 days
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Last 90 days
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Last year
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Older than 1 year
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex-1">
+<!-- Featured Banner -->
+<div class="mb-8 rounded-lg overflow-hidden shadow-sm relative" style="background-image: url('https://readdy.ai/api/search-image?query=a%20beautiful%20cooking%20book%20with%20fresh%20ingredients%20and%20kitchen%20utensils%20arranged%20artistically%20on%20a%20wooden%20table%2C%20soft%20natural%20lighting%2C%20professional%20food%20photography%20style%2C%20shallow%20depth%20of%20field%2C%20high-end%20cookbook&width=1200&height=400&seq=1&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20"></div>
+<div class="relative p-8 text-white">
+<span class="inline-block px-3 py-1 bg-primary rounded-full text-xs font-medium mb-4">Featured Collection</span>
+<h2 class="text-3xl font-bold mb-2">Modern Cooking Essentials</h2>
+<p class="text-lg mb-4 max-w-md">Discover the latest techniques and recipes from world-renowned chefs.</p>
+<a href="https://readdy.ai/home/db941bf9-5cab-4561-ad9f-95a807cabf6b/674328ff-6f0f-4e6e-b910-d4564e410d12" data-readdy="true">
+<button class="px-6 py-2 bg-white text-primary font-medium rounded-full hover:bg-gray-100 transition !rounded-button whitespace-nowrap">Explore Collection</button>
+</a>
+</div>
+</div>
+<!-- Bestsellers -->
+<div class="mb-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-gray-900">Bestsellers</h2>
+<button class="text-primary text-sm font-medium hover:underline !rounded-button whitespace-nowrap">View All</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20elegant%20plating%20of%20gourmet%20food%2C%20minimalist%20design%2C%20high-end%20food%20photography%2C%20clean%20typography%2C%20modern%20cookbook%20design%2C%20neutral%20background%2C%20professional%20lighting&width=400&height=600&seq=2&orientation=portrait" alt="The Art of Simple Food" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">The Art of Simple Food</h3>
+<p class="text-sm text-gray-600 mb-2">by Alice Waters</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(428)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A culinary classic that emphasizes the use of fresh, seasonal ingredients with simple cooking techniques.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$32.99</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20beautiful%20pastries%20and%20baked%20goods%2C%20elegant%20typography%2C%20soft%20pastel%20colors%2C%20professional%20food%20photography%2C%20clean%20modern%20design%2C%20baking%20cookbook%2C%20high-end%20publishing%20quality&width=400&height=600&seq=3&orientation=portrait" alt="Mastering the Art of French Cooking" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Mastering the Art of French Cooking</h3>
+<p class="text-sm text-gray-600 mb-2">by Julia Child</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(1,245)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">The definitive guide to French cuisine, featuring detailed instructions and authentic recipes.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$45.00</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20Asian%20cuisine%2C%20vibrant%20colors%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=4&orientation=portrait" alt="Salt, Fat, Acid, Heat" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Salt, Fat, Acid, Heat</h3>
+<p class="text-sm text-gray-600 mb-2">by Samin Nosrat</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(892)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A revolutionary approach to cooking that focuses on the four elements that determine a dish's success.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$37.50</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20Mediterranean%20cuisine%2C%20bright%20colors%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=5&orientation=portrait" alt="The Food Lab" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">The Food Lab</h3>
+<p class="text-sm text-gray-600 mb-2">by J. Kenji López-Alt</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(673)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A scientific approach to cooking that explores the why behind successful recipes and techniques.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$49.95</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- New Releases -->
+<div class="mb-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-gray-900">New Releases</h2>
+<button class="text-primary text-sm font-medium hover:underline !rounded-button whitespace-nowrap">View All</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20vegetarian%20dishes%2C%20fresh%20ingredients%2C%20bright%20colors%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=6&orientation=portrait" alt="Plant-Based Gourmet" class="w-full h-60 object-cover object-top">
+<div class="absolute top-2 left-2 px-2 py-1 bg-secondary text-white text-xs font-medium rounded">New</div>
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Plant-Based Gourmet</h3>
+<p class="text-sm text-gray-600 mb-2">by Olivia Green</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(87)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Elevate your plant-based cooking with sophisticated recipes that will impress even the most dedicated meat-eaters.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$39.99</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20international%20street%20food%2C%20vibrant%20colors%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=7&orientation=portrait" alt="Global Street Food" class="w-full h-60 object-cover object-top">
+<div class="absolute top-2 left-2 px-2 py-1 bg-secondary text-white text-xs font-medium rounded">New</div>
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Global Street Food</h3>
+<p class="text-sm text-gray-600 mb-2">by Marcus Chen</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(124)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A journey through the world's most delicious street foods, with authentic recipes adapted for the home kitchen.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$42.50</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20desserts%20and%20pastries%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background%2C%20soft%20lighting&width=400&height=600&seq=8&orientation=portrait" alt="Dessert Masterclass" class="w-full h-60 object-cover object-top">
+<div class="absolute top-2 left-2 px-2 py-1 bg-secondary text-white text-xs font-medium rounded">New</div>
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Dessert Masterclass</h3>
+<p class="text-sm text-gray-600 mb-2">by Claire Patisserie</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(56)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Learn the secrets of professional pastry chefs with this comprehensive guide to creating stunning desserts.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$48.00</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20healthy%20meal%20prep%2C%20clean%20eating%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=9&orientation=portrait" alt="The Weeknight Cookbook" class="w-full h-60 object-cover object-top">
+<div class="absolute top-2 left-2 px-2 py-1 bg-secondary text-white text-xs font-medium rounded">New</div>
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">The Weeknight Cookbook</h3>
+<p class="text-sm text-gray-600 mb-2">by Emma Richards</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(42)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Quick, delicious meals for busy weeknights that don't compromise on flavor or nutrition.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$34.99</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Featured Authors -->
+<div class="mb-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-gray-900">Featured Authors</h2>
+<button class="text-primary text-sm font-medium hover:underline !rounded-button whitespace-nowrap">View All</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+<!-- Author 1 -->
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-2 rounded-full overflow-hidden border-2 border-primary">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20chef%20with%20dark%20hair%2C%20neutral%20background%2C%20professional%20lighting%2C%20confident%20expression%2C%20high-end%20portrait%20photography&width=200&height=200&seq=10&orientation=squarish" alt="Alice Waters" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-medium text-gray-900">Alice Waters</h3>
+<p class="text-xs text-gray-600">12 Books</p>
+</div>
+<!-- Author 2 -->
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-2 rounded-full overflow-hidden border-2 border-primary">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20chef%20with%20blonde%20hair%2C%20neutral%20background%2C%20professional%20lighting%2C%20confident%20expression%2C%20high-end%20portrait%20photography&width=200&height=200&seq=11&orientation=squarish" alt="Julia Child" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-medium text-gray-900">Julia Child</h3>
+<p class="text-xs text-gray-600">8 Books</p>
+</div>
+<!-- Author 3 -->
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-2 rounded-full overflow-hidden border-2 border-primary">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20chef%20with%20glasses%2C%20neutral%20background%2C%20professional%20lighting%2C%20confident%20expression%2C%20high-end%20portrait%20photography&width=200&height=200&seq=12&orientation=squarish" alt="J. Kenji López-Alt" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-medium text-gray-900">J. Kenji López-Alt</h3>
+<p class="text-xs text-gray-600">5 Books</p>
+</div>
+<!-- Author 4 -->
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-2 rounded-full overflow-hidden border-2 border-primary">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20chef%20with%20medium%20brown%20hair%2C%20neutral%20background%2C%20professional%20lighting%2C%20confident%20expression%2C%20high-end%20portrait%20photography&width=200&height=200&seq=13&orientation=squarish" alt="Samin Nosrat" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-medium text-gray-900">Samin Nosrat</h3>
+<p class="text-xs text-gray-600">3 Books</p>
+</div>
+<!-- Author 5 -->
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-2 rounded-full overflow-hidden border-2 border-primary">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20chef%20with%20beard%2C%20neutral%20background%2C%20professional%20lighting%2C%20confident%20expression%2C%20high-end%20portrait%20photography&width=200&height=200&seq=14&orientation=squarish" alt="Gordon Ramsay" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-medium text-gray-900">Gordon Ramsay</h3>
+<p class="text-xs text-gray-600">15 Books</p>
+</div>
+<!-- Author 6 -->
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-2 rounded-full overflow-hidden border-2 border-primary">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20chef%20with%20short%20hair%2C%20neutral%20background%2C%20professional%20lighting%2C%20confident%20expression%2C%20high-end%20portrait%20photography&width=200&height=200&seq=15&orientation=squarish" alt="Ina Garten" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-medium text-gray-900">Ina Garten</h3>
+<p class="text-xs text-gray-600">11 Books</p>
+</div>
+</div>
+</div>
+<!-- All Cooking Books -->
+<div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-gray-900">All Cooking Books</h2>
+<div class="text-sm text-gray-600">Showing 24 of 156 books</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20Italian%20cuisine%2C%20pasta%20dishes%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=16&orientation=portrait" alt="Italian Table" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Italian Table</h3>
+<p class="text-sm text-gray-600 mb-2">by Marco Rossi</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(218)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Authentic Italian recipes passed down through generations, from simple pasta dishes to elaborate feasts.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$38.75</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20Japanese%20cuisine%2C%20sushi%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=17&orientation=portrait" alt="Japanese Home Cooking" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Japanese Home Cooking</h3>
+<p class="text-sm text-gray-600 mb-2">by Yuki Tanaka</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(167)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Demystifying Japanese cuisine with accessible recipes and techniques for the home cook.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$41.25</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20bread%20baking%2C%20artisan%20bread%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=18&orientation=portrait" alt="Artisan Bread" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Artisan Bread</h3>
+<p class="text-sm text-gray-600 mb-2">by Peter Reinhart</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(342)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Master the art of bread making with detailed instructions and foolproof techniques for creating bakery-quality bread at home.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$35.50</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20Indian%20cuisine%2C%20spices%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=19&orientation=portrait" alt="Indian Flavor" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Indian Flavor</h3>
+<p class="text-sm text-gray-600 mb-2">by Priya Sharma</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(189)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">A journey through the diverse regional cuisines of India, with authentic recipes and spice guides.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$36.99</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20cocktails%20and%20drinks%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=20&orientation=portrait" alt="Craft Cocktails" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Craft Cocktails</h3>
+<p class="text-sm text-gray-600 mb-2">by James Wilson</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(276)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Elevate your home bar with professional mixology techniques and creative cocktail recipes.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$32.50</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20Mediterranean%20cuisine%2C%20olive%20oil%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=21&orientation=portrait" alt="Mediterranean Kitchen" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Mediterranean Kitchen</h3>
+<p class="text-sm text-gray-600 mb-2">by Elena Costa</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(204)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Healthy, flavorful recipes from Greece, Italy, Spain, and beyond, celebrating the Mediterranean diet.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$39.25</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20slow%20cooker%20recipes%2C%20comfort%20food%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=22&orientation=portrait" alt="Slow Cooker Revolution" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Slow Cooker Revolution</h3>
+<p class="text-sm text-gray-600 mb-2">by Sarah Johnson</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(312)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">Time-saving, flavorful recipes that make the most of your slow cooker, from soups and stews to desserts.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$29.99</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="book-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20cookbook%20cover%20featuring%20barbecue%20and%20grilling%2C%20elegant%20food%20styling%2C%20professional%20food%20photography%2C%20clean%20modern%20typography%2C%20high-end%20publishing%20quality%2C%20neutral%20background&width=400&height=600&seq=23&orientation=portrait" alt="Mastering the Grill" class="w-full h-60 object-cover object-top">
+<button class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-primary !rounded-button whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 mb-1">Mastering the Grill</h3>
+<p class="text-sm text-gray-600 mb-2">by Robert Thompson</p>
+<div class="flex items-center mb-2">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(247)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 line-clamp-2">The definitive guide to grilling and barbecue, with recipes, techniques, and equipment recommendations.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-gray-900">$43.75</span>
+<div class="flex space-x-2">
+<button id="preview-btn-${bookId}" class="preview-btn px-3 py-1 text-xs border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">Preview</button>
+<button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-8 text-center">
+<button class="px-6 py-2 bg-white border border-gray-300 rounded-full text-gray-700 font-medium hover:bg-gray-50 !rounded-button whitespace-nowrap">
+Load More
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Filter Panel (Hidden by default) -->
+<div id="mobile-filter-panel" class="filter-panel lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+<div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl max-h-[80vh] overflow-y-auto">
+<div class="sticky top-0 bg-white p-4 border-b flex items-center justify-between">
+<h3 class="font-medium text-lg">Filters</h3>
+<div class="flex items-center space-x-4">
+<button class="text-primary text-sm hover:underline !rounded-button whitespace-nowrap">Reset</button>
+<button id="close-filter-btn" class="text-gray-500 !rounded-button whitespace-nowrap">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<!-- Price Range -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Price Range</h4>
+<div class="mb-4">
+<input type="range" min="0" max="100" value="75" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer">
+</div>
+<div class="flex justify-between text-sm text-gray-600">
+<span>$0</span>
+<span>$75</span>
+</div>
+</div>
+<!-- Format -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Format</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Hardcover
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Paperback
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Digital
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Audiobook
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Rating -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Rating</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+<div class="flex items-center">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span>5</span>
+</div>
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+<div class="flex items-center">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span>4+</span>
+</div>
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+<div class="flex items-center">
+<div class="star-rating mr-1">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span>3+</span>
+</div>
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Difficulty Level -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Difficulty Level</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Beginner
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Intermediate
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Advanced
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Language -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Language</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+English
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Spanish
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+French
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Italian
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Publication Date -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">Publication Date</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Last 30 days
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Last 90 days
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Last year
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<label class="custom-checkbox flex items-center text-sm text-gray-700">
+Older than 1 year
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+<!-- Apply Button -->
+<div class="mt-6">
+<button class="w-full py-3 bg-primary text-white font-medium rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">
+Apply Filters
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top opacity-0 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center !rounded-button whitespace-nowrap">
+<i class="ri-arrow-up-line ri-lg"></i>
+</button>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const userMenuButton = document.getElementById('user-menu-button');
+const userDropdown = document.getElementById('user-dropdown');
+const loggedInMenu = document.getElementById('logged-in-menu');
+const loggedOutMenu = document.getElementById('logged-out-menu');
+const isLoggedIn = false; // This should be replaced with actual auth check
+if (isLoggedIn) {
+loggedInMenu.classList.remove('hidden');
+loggedOutMenu.classList.add('hidden');
+} else {
+loggedInMenu.classList.add('hidden');
+loggedOutMenu.classList.remove('hidden');
+}
+userMenuButton.addEventListener('click', (e) => {
+e.stopPropagation();
+userDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', (e) => {
+if (!document.getElementById('user-menu').contains(e.target)) {
+userDropdown.classList.add('hidden');
+}
+});
+// Category tabs
+const categoryTabs = document.querySelectorAll('.category-tab');
+categoryTabs.forEach(tab => {
+tab.addEventListener('click', () => {
+categoryTabs.forEach(t => t.classList.remove('active'));
+tab.classList.add('active');
+});
+});
+// Mobile filter panel
+const filterToggleBtn = document.getElementById('filter-toggle-btn');
+const mobileFilterPanel = document.getElementById('mobile-filter-panel');
+const closeFilterBtn = document.getElementById('close-filter-btn');
+if (filterToggleBtn && mobileFilterPanel && closeFilterBtn) {
+filterToggleBtn.addEventListener('click', () => {
+mobileFilterPanel.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+});
+closeFilterBtn.addEventListener('click', () => {
+mobileFilterPanel.classList.add('hidden');
+document.body.style.overflow = '';
+});
+}
+// Back to top button
+const backToTopButton = document.getElementById('back-to-top');
+if (backToTopButton) {
+window.addEventListener('scroll', () => {
+if (window.pageYOffset > 300) {
+backToTopButton.classList.remove('opacity-0');
+} else {
+backToTopButton.classList.add('opacity-0');
+}
+});
+backToTopButton.addEventListener('click', () => {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+}
+// Custom checkboxes
+const checkboxes = document.querySelectorAll('.custom-checkbox input[type="checkbox"]');
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('change', function() {
+// You can add additional logic here if needed
+});
+});
+});
+</script>
+<!-- Preview Modal -->
+<div id="preview-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white w-full max-w-4xl rounded-lg shadow-xl mx-4">
+<div class="p-4 border-b flex items-center justify-between">
+<h3 class="text-xl font-bold text-gray-900" id="preview-book-title"></h3>
+<button id="close-preview-btn" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="relative">
+<div class="p-6">
+<div id="preview-content" class="space-y-8">
+<!-- Preview Pages -->
+<div class="preview-page" id="toc-page">
+<h4 class="text-lg font-bold mb-4">Table of Contents</h4>
+<div class="space-y-2 text-gray-700">
+<p>1. Introduction</p>
+<p>2. Essential Techniques</p>
+<p>3. Basic Recipes</p>
+<p>4. Advanced Dishes</p>
+<p>5. Special Occasions</p>
+</div>
+</div>
+<div class="preview-page hidden" id="intro-page">
+<h4 class="text-lg font-bold mb-4">Introduction</h4>
+<p class="text-gray-700 mb-4">Welcome to a culinary journey that will transform your cooking experience. This book is designed to guide you through both fundamental techniques and advanced recipes.</p>
+<img src="https://readdy.ai/api/search-image?query=professional%20chef%20preparing%20ingredients%20in%20a%20modern%20kitchen%2C%20soft%20natural%20lighting%2C%20high-end%20cookbook%20photography&width=800&height=400&seq=24&orientation=landscape" alt="Introduction" class="w-full rounded-lg object-cover">
+</div>
+<div class="preview-page hidden" id="recipe-page">
+<h4 class="text-lg font-bold mb-4">Sample Recipe: Classic Risotto</h4>
+<img src="https://readdy.ai/api/search-image?query=beautifully%20plated%20creamy%20risotto%20with%20parmesan%20and%20herbs%2C%20professional%20food%20photography%2C%20soft%20lighting&width=800&height=400&seq=25&orientation=landscape" alt="Recipe" class="w-full rounded-lg object-cover mb-4">
+<div class="grid grid-cols-2 gap-6">
+<div>
+<h5 class="font-medium mb-2">Ingredients</h5>
+<ul class="list-disc list-inside text-gray-700 space-y-1">
+<li>Arborio rice</li>
+<li>White wine</li>
+<li>Parmesan cheese</li>
+<li>Vegetable stock</li>
+</ul>
+</div>
+<div>
+<h5 class="font-medium mb-2">Instructions</h5>
+<p class="text-gray-700">Begin by heating the stock in a separate pan. In your main pan, sauté onions until translucent...</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Navigation Controls -->
+<div class="flex items-center justify-between mt-8">
+<button id="prev-page" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed !rounded-button whitespace-nowrap">
+<i class="ri-arrow-left-line mr-1"></i> Previous
+</button>
+<div class="text-sm text-gray-600" id="page-indicator">Page 1 of 3</div>
+<button id="next-page" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap">
+Next <i class="ri-arrow-right-line ml-1"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4 border-t flex items-center justify-end space-x-3">
+<button id="save-later-btn" class="px-4 py-2 text-sm border border-gray-300 rounded text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<i class="ri-bookmark-line mr-1"></i> Save for Later
+</button>
+<button id="add-cart-btn" class="px-4 py-2 text-sm bg-primary text-white rounded hover:bg-primary/90 !rounded-button whitespace-nowrap">
+<i class="ri-shopping-cart-line mr-1"></i> Add to Cart
+</button>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const previewModal = document.getElementById('preview-modal');
+const closePreviewBtn = document.getElementById('close-preview-btn');
+const prevPageBtn = document.getElementById('prev-page');
+const nextPageBtn = document.getElementById('next-page');
+const pageIndicator = document.getElementById('page-indicator');
+const previewPages = document.querySelectorAll('.preview-page');
+let currentPage = 0;
+function updatePageControls() {
+prevPageBtn.disabled = currentPage === 0;
+nextPageBtn.disabled = currentPage === previewPages.length - 1;
+pageIndicator.textContent = `Page ${currentPage + 1} of ${previewPages.length}`;
+previewPages.forEach((page, index) => {
+page.classList.toggle('hidden', index !== currentPage);
+});
+}
+document.querySelectorAll('.preview-btn').forEach(btn => {
+btn.addEventListener('click', () => {
+const bookCard = btn.closest('.book-card');
+const bookTitle = bookCard.querySelector('h3').textContent;
+document.getElementById('preview-book-title').textContent = bookTitle;
+currentPage = 0;
+updatePageControls();
+previewModal.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+});
+});
+closePreviewBtn.addEventListener('click', () => {
+previewModal.classList.add('hidden');
+document.body.style.overflow = '';
+});
+prevPageBtn.addEventListener('click', () => {
+if (currentPage > 0) {
+currentPage--;
+updatePageControls();
+}
+});
+nextPageBtn.addEventListener('click', () => {
+if (currentPage < previewPages.length - 1) {
+currentPage++;
+updatePageControls();
+}
+});
+previewModal.addEventListener('click', (e) => {
+if (e.target === previewModal) {
+previewModal.classList.add('hidden');
+document.body.style.overflow = '';
+}
+});
+});
+</script>
+</body>
+</html>

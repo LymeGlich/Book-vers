@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal-Themed Books - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6366f1',secondary:'#f59e0b'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Quicksand', sans-serif;
+background-color: #fafafa;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 20px;
+height: 20px;
+border-radius: 50%;
+background: #6366f1;
+cursor: pointer;
+}
+input[type="range"] {
+-webkit-appearance: none;
+appearance: none;
+width: 100%;
+height: 6px;
+border-radius: 5px;
+background: #e5e7eb;
+outline: none;
+}
+.custom-checkbox {
+position: relative;
+display: inline-block;
+width: 20px;
+height: 20px;
+}
+.custom-checkbox input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #6366f1;
+border-color: #6366f1;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 24px;
+}
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 24px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #6366f1;
+}
+input:checked + .slider:before {
+transform: translateX(20px);
+}
+.age-tab.active {
+color: #6366f1;
+border-bottom: 3px solid #6366f1;
+}
+.book-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.hide-scrollbar::-webkit-scrollbar {
+display: none;
+}
+.hide-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+.animal-category.active {
+background-color: #6366f1;
+color: white;
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white shadow-md">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">BookVerse</a>
+<a href="https://readdy.ai/home/c85022b1-b4c1-45ce-a750-fccca815a2eb/8edd7183-6d31-46be-8fb1-7d7f1b05404e" data-readdy="true" class="text-gray-600 hover:text-primary flex items-center gap-1">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span>Back to Categories</span>
+</a>
+</div>
+<div class="relative w-1/3">
+<input type="text" placeholder="Search animal-themed books..." class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button id="filterBtn" class="flex items-center gap-1 text-gray-600 hover:text-primary !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-filter-3-line"></i>
+</div>
+<span>Filter</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+<div class="w-6 h-6 flex items-center justify-center text-gray-600">
+<i class="ri-user-line"></i>
+</div>
+</div>
+</div>
+</div>
+</header>
+
+<!-- Breadcrumb -->
+<div class="bg-white border-b border-gray-200">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center text-sm">
+<a href="#" class="text-gray-500 hover:text-primary">Home</a>
+<div class="w-4 h-4 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<a href="#" class="text-gray-500 hover:text-primary">Children's Books</a>
+<div class="w-4 h-4 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<span class="text-primary font-medium">Animals</span>
+</div>
+</div>
+</div>
+
+<!-- Age Group Navigation -->
+<div class="bg-white border-b border-gray-200 sticky top-16 z-40">
+<div class="container mx-auto px-4">
+<div class="flex overflow-x-auto hide-scrollbar py-3 gap-8">
+<button class="age-tab active whitespace-nowrap font-medium pb-1 px-1 !rounded-button">All Ages</button>
+<button class="age-tab whitespace-nowrap font-medium pb-1 px-1 text-gray-500 !rounded-button">Ages 0-3</button>
+<button class="age-tab whitespace-nowrap font-medium pb-1 px-1 text-gray-500 !rounded-button">Ages 4-7</button>
+<button class="age-tab whitespace-nowrap font-medium pb-1 px-1 text-gray-500 !rounded-button">Ages 8-12</button>
+<button class="age-tab whitespace-nowrap font-medium pb-1 px-1 text-gray-500 !rounded-button">Young Adult</button>
+</div>
+</div>
+</div>
+
+<main class="container mx-auto px-4 py-6">
+<!-- Featured Animals Banner -->
+<section class="mb-12 relative rounded-xl overflow-hidden" style="background-image: url('https://readdy.ai/api/search-image?query=magical%2520animal%2520kingdom%2520with%2520diverse%2520animals%2520in%2520natural%2520habitat%252C%2520forest%2520with%2520river%2520and%2520meadow%252C%2520soft%2520lighting%252C%2520dreamy%2520atmosphere%252C%2520children%2520book%2520illustration%2520style%252C%2520vibrant%2520but%2520soft%2520colors%252C%2520perfect%2520for%2520children%2520books%2520about%2520animals%252C%2520high%2520quality%2520digital%2520art%252C%2520professional%2520illustration&width=1200&height=400&seq=1&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent"></div>
+<div class="relative z-10 flex items-center h-[400px]">
+<div class="w-1/2 p-10 text-white">
+<h1 class="text-4xl font-bold mb-4">Discover Animal Stories</h1>
+<p class="text-lg mb-6">Explore our collection of captivating animal-themed books that educate and entertain children of all ages. From wild adventures to heartwarming tales of friendship.</p>
+<button class="bg-white text-primary px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors !rounded-button whitespace-nowrap">Explore Collection</button>
+</div>
+<div class="w-1/2 flex justify-center items-center gap-4 p-10">
+<div class="transform -rotate-6 shadow-xl">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520safari%2520animals%252C%2520lion%252C%2520elephant%252C%2520giraffe%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=180&height=250&seq=2&orientation=portrait" alt="Safari Animals" class="rounded-lg h-64 w-auto object-cover">
+</div>
+<div class="transform rotate-3 shadow-xl">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520underwater%2520sea%2520creatures%252C%2520dolphin%252C%2520turtle%252C%2520fish%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=180&height=250&seq=3&orientation=portrait" alt="Sea Creatures" class="rounded-lg h-64 w-auto object-cover">
+</div>
+</div>
+</div>
+</section>
+
+<!-- Animal Categories Filter -->
+<section class="mb-8">
+<div class="flex overflow-x-auto hide-scrollbar gap-4 pb-2">
+<button class="animal-category active px-4 py-2 rounded-full text-sm font-medium border border-primary transition-colors !rounded-button whitespace-nowrap">All Animals</button>
+<button class="animal-category px-4 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-colors !rounded-button whitespace-nowrap">Wild Animals</button>
+<button class="animal-category px-4 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-colors !rounded-button whitespace-nowrap">Pets</button>
+<button class="animal-category px-4 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-colors !rounded-button whitespace-nowrap">Sea Creatures</button>
+<button class="animal-category px-4 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-colors !rounded-button whitespace-nowrap">Farm Animals</button>
+<button class="animal-category px-4 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-colors !rounded-button whitespace-nowrap">Birds</button>
+<button class="animal-category px-4 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-colors !rounded-button whitespace-nowrap">Insects</button>
+</div>
+</section>
+
+<!-- Featured Animal Books -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">Featured Animal Books</h2>
+<button class="text-primary flex items-center gap-1 !rounded-button whitespace-nowrap">
+<span>View All</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-6">
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520safari%2520animals%252C%2520lion%2520as%2520main%2520character%252C%2520adventure%2520theme%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=4&orientation=portrait" alt="The Lion King's Journey" class="w-full h-[280px] object-cover rounded-t-xl">
+<span class="absolute top-3 right-3 bg-amber-100 text-amber-700 text-xs px-2 py-1 rounded-full font-medium">Bestseller</span>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">The Lion King's Journey</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.9</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Sarah Johnson</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 4-7</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Wild Animals</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$16.99</span>
+<button class="bg-primary text-white p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520cute%2520dog%2520and%2520cat%2520as%2520main%2520characters%252C%2520friendship%2520theme%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=5&orientation=portrait" alt="Furry Friends" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Furry Friends</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.7</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Michael Roberts</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 0-3</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pets</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$12.99</span>
+<button class="bg-primary text-white p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520underwater%2520ocean%2520scene%252C%2520colorful%2520fish%252C%2520dolphin%252C%2520turtle%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=6&orientation=portrait" alt="Ocean Explorers" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Ocean Explorers</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.8</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Emily Waters</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 4-7</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Sea Creatures</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$14.99</span>
+<button class="bg-primary text-white p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520farm%2520animals%252C%2520cow%252C%2520pig%252C%2520chicken%252C%2520sheep%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=7&orientation=portrait" alt="Farm Adventures" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Farm Adventures</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.6</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by David Wilson</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 2-5</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Farm Animals</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$13.99</span>
+<button class="bg-primary text-white p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Wild Animals Section -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">Wild Animals</h2>
+<button class="text-primary flex items-center gap-1 !rounded-button whitespace-nowrap">
+<span>View All</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-6">
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520elephant%2520as%2520main%2520character%252C%2520safari%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=8&orientation=portrait" alt="Ellie the Elephant" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Ellie the Elephant</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.7</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Jennifer Blake</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 3-6</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Wild Animals</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$15.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520monkey%2520as%2520main%2520character%252C%2520jungle%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=9&orientation=portrait" alt="Monkey Business" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Monkey Business</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.5</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Thomas Green</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 4-7</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Wild Animals</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$14.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520giraffe%2520as%2520main%2520character%252C%2520savanna%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=10&orientation=portrait" alt="Gentle Giant" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Gentle Giant</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.8</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Laura Tall</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 3-6</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Wild Animals</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$15.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520tiger%2520as%2520main%2520character%252C%2520jungle%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=11&orientation=portrait" alt="Tiger Tales" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Tiger Tales</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.9</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Richard Stripes</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 6-9</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Wild Animals</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$16.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Pets Section -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">Pets</h2>
+<button class="text-primary flex items-center gap-1 !rounded-button whitespace-nowrap">
+<span>View All</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-6">
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520golden%2520retriever%2520puppy%2520as%2520main%2520character%252C%2520home%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=12&orientation=portrait" alt="Puppy's First Day" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Puppy's First Day</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.7</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Amanda Barker</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 2-5</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pets</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$13.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520kitten%2520as%2520main%2520character%252C%2520home%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=13&orientation=portrait" alt="Kitty's Adventures" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Kitty's Adventures</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.6</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Sophia Feline</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 3-6</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pets</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$12.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520hamster%2520as%2520main%2520character%252C%2520home%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=14&orientation=portrait" alt="Hammy the Hamster" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Hammy the Hamster</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.5</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Timothy Small</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 4-7</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pets</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$11.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520rabbit%2520as%2520main%2520character%252C%2520garden%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=15&orientation=portrait" alt="Bunny's Garden" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Bunny's Garden</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.8</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Olivia Hopper</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 2-5</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pets</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$13.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Sea Creatures Section -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">Sea Creatures</h2>
+<button class="text-primary flex items-center gap-1 !rounded-button whitespace-nowrap">
+<span>View All</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-6">
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520dolphin%2520as%2520main%2520character%252C%2520ocean%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=16&orientation=portrait" alt="Dolphin Dreams" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Dolphin Dreams</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.9</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Marina Blue</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 4-8</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Sea Creatures</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$15.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520turtle%2520as%2520main%2520character%252C%2520beach%2520and%2520ocean%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=17&orientation=portrait" alt="Turtle's Journey" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Turtle's Journey</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.7</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Samuel Shell</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 5-9</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Sea Creatures</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$14.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520octopus%2520as%2520main%2520character%252C%2520underwater%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=18&orientation=portrait" alt="Octopus Orchestra" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Octopus Orchestra</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.6</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Olivia Tentacle</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 3-7</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Sea Creatures</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$16.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<div class="book-card bg-white rounded-xl shadow-md transition-all duration-300">
+<img src="https://readdy.ai/api/search-image?query=children%2520book%2520cover%2520with%2520whale%2520as%2520main%2520character%252C%2520deep%2520ocean%2520setting%252C%2520professional%2520book%2520cover%2520design%252C%2520simple%2520clean%2520background%252C%2520high%2520quality%2520digital%2520art&width=280&height=320&seq=19&orientation=portrait" alt="Wally the Whale" class="w-full h-[280px] object-cover rounded-t-xl">
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold">Wally the Whale</h3>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm ml-1">4.8</span>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-2">by Benjamin Waters</p>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ages 4-8</span>
+<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Sea Creatures</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary">$15.99</span>
+<button class="bg-primary/10 text-primary p-2 rounded-full !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Filter Panel (Hidden by default) -->
+<div id="filterPanel" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+<div class="absolute right-0 top-0 bottom-0 w-[400px] bg-white shadow-xl p-6 overflow-y-auto">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-xl font-bold">Filter Animal Books</h2>
+<button id="closeFilterBtn" class="text-gray-500 hover:text-gray-700 !rounded-button">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="mb-6">
+<h3 class="font-semibold mb-3">Price Range</h3>
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm text-gray-600">$0</span>
+<span class="text-sm text-gray-600">$50</span>
+</div>
+<input type="range" min="0" max="50" value="25" class="w-full mb-2">
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<span class="text-sm text-gray-600 mr-1">$</span>
+<input type="number" value="0" min="0" max="50" class="w-16 border border-gray-300 rounded p-1 text-sm">
+</div>
+<span class="text-sm text-gray-600">to</span>
+<div class="flex items-center">
+<span class="text-sm text-gray-600 mr-1">$</span>
+<input type="number" value="25" min="0" max="50" class="w-16 border border-gray-300 rounded p-1 text-sm">
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="font-semibold mb-3">Animal Type</h3>
+<div class="grid grid-cols-1 gap-3">
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Wild Animals</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Pets</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Sea Creatures</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Farm Animals</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Birds</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Insects</span>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="font-semibold mb-3">Format</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Hardcover</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Paperback</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Board Book</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>eBook</span>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="font-semibold mb-3">Age Range</h3>
+<div class="grid grid-cols-1 gap-3">
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Ages 0-3</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Ages 4-7</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Ages 8-12</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Young Adult</span>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="font-semibold mb-3">Educational Value</h3>
+<div class="flex items-center mb-3">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<span>Learning About Animals</span>
+</div>
+<div class="flex items-center mb-3">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Environmental Awareness</span>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<span>Character Building</span>
+</div>
+</div>
+<div class="mb-8">
+<h3 class="font-semibold mb-3">Rating</h3>
+<div class="flex items-center mb-2">
+<label class="custom-checkbox mr-2">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+</label>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-gray-300">
+<i class="ri-star-fill"></i>
+</div>
+<span class="ml-1 text-sm">& up</span>
+</div>
+</div>
+<div class="flex items-center mb-2">
+<label class="custom-checkbox mr-2">
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<div class="flex">
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-amber-400">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-gray-300">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center text-gray-300">
+<i class="ri-star-fill"></i>
+</div>
+<span class="ml-1 text-sm">& up</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-semibold w-full !rounded-button whitespace-nowrap">Apply Filters</button>
+<button class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold !rounded-button whitespace-nowrap">Reset</button>
+</div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBtn = document.getElementById('filterBtn');
+    const filterPanel = document.getElementById('filterPanel');
+    const closeFilterBtn = document.getElementById('closeFilterBtn');
+    
+    filterBtn.addEventListener('click', function() {
+        filterPanel.classList.remove('hidden');
+    });
+    
+    closeFilterBtn.addEventListener('click', function() {
+        filterPanel.classList.add('hidden');
+    });
+    
+    // Close filter panel when clicking outside
+    filterPanel.addEventListener('click', function(e) {
+        if (e.target === filterPanel) {
+            filterPanel.classList.add('hidden');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const ageTabs = document.querySelectorAll('.age-tab');
+    ageTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            ageTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const animalCategories = document.querySelectorAll('.animal-category');
+    animalCategories.forEach(category => {
+        category.addEventListener('click', function() {
+            animalCategories.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+</script>
+</body>
+</html>

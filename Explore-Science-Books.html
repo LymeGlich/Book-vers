@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Books | BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4361ee',secondary:'#3f37c9'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+color: #1f2937;
+}
+.book-card {
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.book-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.author-card {
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.author-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.subcategory-item {
+transition: transform 0.2s;
+}
+.subcategory-item:hover {
+transform: translateY(-2px);
+}
+.subcategory-item.active {
+color: #4361ee;
+border-color: #4361ee;
+}
+.difficulty-badge {
+font-size: 0.7rem;
+padding: 0.15rem 0.5rem;
+border-radius: 9999px;
+}
+.difficulty-beginner {
+background-color: #d1fae5;
+color: #065f46;
+}
+.difficulty-intermediate {
+background-color: #e0e7ff;
+color: #3730a3;
+}
+.difficulty-advanced {
+background-color: #fee2e2;
+color: #991b1b;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+background: #4361ee;
+border-radius: 50%;
+cursor: pointer;
+}
+input[type="checkbox"] {
+appearance: none;
+width: 1.2rem;
+height: 1.2rem;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+position: relative;
+cursor: pointer;
+transition: all 0.2s;
+}
+input[type="checkbox"]:checked {
+background-color: #4361ee;
+border-color: #4361ee;
+}
+input[type="checkbox"]:checked::after {
+content: "";
+position: absolute;
+width: 0.4rem;
+height: 0.7rem;
+border: solid white;
+border-width: 0 2px 2px 0;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -60%) rotate(45deg);
+}
+.custom-select {
+appearance: none;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 0.5rem center;
+background-size: 1.2em 1.2em;
+padding-right: 2.5rem;
+}
+.switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 24px;
+}
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 24px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #4361ee;
+}
+input:checked + .slider:before {
+transform: translateX(20px);
+}
+.rating-stars i {
+color: #fbbf24;
+}
+</style>
+</head>
+<body class="bg-white">
+<!-- Fixed Header -->
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">BookVerse</a>
+<a href="#" class="text-gray-600 hover:text-primary flex items-center gap-1 text-sm">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span>Back to Categories</span>
+</a>
+</div>
+<div class="relative w-1/3">
+<input type="text" placeholder="Search science books..." class="w-full px-4 py-2 pl-10 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="flex items-center gap-5">
+<button id="wishlistButton" class="!rounded-button flex items-center gap-1 text-sm text-gray-600 hover:text-primary whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+<span>Wishlist</span>
+</button>
+<div id="wishlistDialog" class="fixed inset-0 bg-black/50 z-50 hidden">
+<div class="fixed right-0 top-0 h-full w-full max-w-lg bg-white shadow-xl flex flex-col">
+<div class="p-4 border-b border-gray-100 flex items-center justify-between">
+<h2 class="text-lg font-semibold">My Wishlist</h2>
+<button id="closeWishlistButton" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div id="wishlistContent" class="flex-grow overflow-auto p-4">
+<div id="emptyWishlist" class="h-full flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 mb-4 text-gray-300">
+<i class="ri-heart-line text-5xl"></i>
+</div>
+<h3 class="text-lg font-medium text-gray-900 mb-2">Your wishlist is empty</h3>
+<p class="text-gray-500 mb-6">Save your favorite books to find them later!</p>
+<button id="browseWishlistBooks" class="!rounded-button bg-primary text-white px-6 py-2 font-medium hover:bg-primary/90">Browse Books</button>
+</div>
+<div id="wishlistItems" class="hidden space-y-4">
+</div>
+</div>
+</div>
+</div>
+<button id="cartButton" class="!rounded-button flex items-center gap-1 text-sm text-gray-600 hover:text-primary whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+<span>Cart</span>
+</button>
+<div id="cartDialog" class="fixed inset-0 bg-black/50 z-50 hidden">
+<div class="fixed right-0 top-0 h-full w-full max-w-lg bg-white shadow-xl flex flex-col">
+<div class="p-4 border-b border-gray-100 flex items-center justify-between">
+<h2 class="text-lg font-semibold">Shopping Cart</h2>
+<button id="closeCartButton" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div id="cartContent" class="flex-grow overflow-auto p-4">
+<div id="emptyCart" class="h-full flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 mb-4 text-gray-300">
+<i class="ri-shopping-cart-line text-5xl"></i>
+</div>
+<h3 class="text-lg font-medium text-gray-900 mb-2">Your cart is empty</h3>
+<p class="text-gray-500 mb-6">Looks like you haven't added any books yet.</p>
+<button id="browseBooks" class="!rounded-button bg-primary text-white px-6 py-2 font-medium hover:bg-primary/90">Browse Books</button>
+</div>
+<div id="cartItems" class="hidden space-y-4">
+</div>
+</div>
+<div id="cartSummary" class="border-t border-gray-100 p-4 space-y-4 hidden">
+<div class="space-y-2">
+<div class="flex justify-between text-sm">
+<span class="text-gray-500">Subtotal</span>
+<span class="font-medium">$0.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-gray-500">Tax (10%)</span>
+<span class="font-medium">$0.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-gray-500">Shipping</span>
+<span class="font-medium">$4.99</span>
+</div>
+<div class="flex justify-between text-base pt-2 border-t border-gray-100">
+<span class="font-medium">Total</span>
+<span class="font-medium">$0.00</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button id="continueShopping" class="!rounded-button bg-white border border-gray-200 text-gray-600 px-4 py-2 font-medium hover:bg-gray-50">Continue Shopping</button>
+<button id="proceedToCheckout" class="!rounded-button bg-primary text-white px-4 py-2 font-medium hover:bg-primary/90">Proceed to Checkout</button>
+</div>
+</div>
+</div>
+</div>
+<div class="h-6 w-px bg-gray-200"></div>
+<div class="relative">
+<button id="userMenuButton" class="!rounded-button w-9 h-9 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-user-line"></i>
+</div>
+</button>
+<div id="userDropdown" class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden">
+<a href="/BookVerse-Sign-In-Page.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-login-box-line"></i>
+<span>Sign In</span>
+</a>
+<a href="/BookVerse-Sign-Up-Page.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-user-add-line"></i>
+<span>Create Account</span>
+</a>
+<a href="/User-Profile-Dashboard.html" data-readdy="true" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-user-settings-line"></i>
+<span>My Profile</span>
+</a>
+<a href="/My-Orders-Overview.html" data-readdy="true" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-shopping-bag-line"></i>
+<span>My Orders</span>
+</a>
+<a href="/Wishlist-of-Educational-Books.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-heart-line"></i>
+<span>Wishlist</span>
+</a>
+<a href="/Settings-Management-Page-١.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-settings-3-line"></i>
+<span>Settings</span>
+</a>
+<div class="h-px bg-gray-200 my-2"></div>
+<a href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+<i class="ri-logout-box-line"></i>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-16">
+<!-- Hero Banner -->
+<section class="relative h-80 flex items-center overflow-hidden" style="background-image: url('https://readdy.ai/api/search-image?query=Science%20background%20with%20abstract%20scientific%20elements%2C%20formulas%2C%20molecules%2C%20DNA%20strands%2C%20and%20cosmic%20elements.%20Modern%2C%20clean%20design%20with%20soft%20blue%20gradient%2C%20perfect%20for%20a%20book%20website%20hero%20section.%20The%20left%20side%20should%20be%20lighter%20for%20text%20placement.&width=1280&height=400&seq=1&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-white/90 to-white/30"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="max-w-2xl">
+<h1 class="text-4xl font-bold mb-3 text-gray-900">Explore Science Books</h1>
+<p class="text-lg text-gray-700 mb-4">Discover the wonders of the universe, unravel the mysteries of life, and explore the frontiers of human knowledge with our extensive collection of science books.</p>
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 bg-primary/10 rounded-full text-primary font-medium text-sm">
+<span>2,457 Books Available</span>
+</div>
+<div class="h-1 w-1 bg-gray-300 rounded-full"></div>
+<div class="text-sm text-gray-600">
+Updated May 21, 2025
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Subcategories Navigation -->
+<section class="py-6 border-b border-gray-100">
+<div class="container mx-auto px-4">
+<div class="flex items-center gap-6 overflow-x-auto pb-2 hide-scrollbar">
+<div class="subcategory-item active flex flex-col items-center gap-1 px-3 py-2 border-b-2 cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+<i class="ri-atom-line"></i>
+</div>
+<span class="text-sm font-medium">All Science</span>
+</div>
+<div class="subcategory-item flex flex-col items-center gap-1 px-3 py-2 border-b-2 border-transparent cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-600">
+<i class="ri-meteor-line"></i>
+</div>
+<span class="text-sm font-medium">Physics</span>
+</div>
+<div class="subcategory-item flex flex-col items-center gap-1 px-3 py-2 border-b-2 border-transparent cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-600">
+<i class="ri-plant-line"></i>
+</div>
+<span class="text-sm font-medium">Biology</span>
+</div>
+<div class="subcategory-item flex flex-col items-center gap-1 px-3 py-2 border-b-2 border-transparent cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-600">
+<i class="ri-flask-line"></i>
+</div>
+<span class="text-sm font-medium">Chemistry</span>
+</div>
+<div class="subcategory-item flex flex-col items-center gap-1 px-3 py-2 border-b-2 border-transparent cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-600">
+<i class="ri-planet-line"></i>
+</div>
+<span class="text-sm font-medium">Astronomy</span>
+</div>
+<div class="subcategory-item flex flex-col items-center gap-1 px-3 py-2 border-b-2 border-transparent cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-600">
+<i class="ri-leaf-line"></i>
+</div>
+<span class="text-sm font-medium">Environmental Science</span>
+</div>
+<div class="subcategory-item flex flex-col items-center gap-1 px-3 py-2 border-b-2 border-transparent cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-600">
+<i class="ri-function-line"></i>
+</div>
+<span class="text-sm font-medium">Mathematics</span>
+</div>
+<div class="subcategory-item flex flex-col items-center gap-1 px-3 py-2 border-b-2 border-transparent cursor-pointer min-w-max">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-600">
+<i class="ri-code-s-slash-line"></i>
+</div>
+<span class="text-sm font-medium">Computer Science</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Filtering Section -->
+<section class="py-6 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-4">
+<div class="relative">
+<select class="custom-select appearance-none bg-white border border-gray-200 rounded px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<option value="">Difficulty Level</option>
+<option value="beginner">Beginner</option>
+<option value="intermediate">Intermediate</option>
+<option value="advanced">Advanced</option>
+</select>
+</div>
+<div class="relative">
+<select class="custom-select appearance-none bg-white border border-gray-200 rounded px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<option value="">Publication Date</option>
+<option value="2025">2025</option>
+<option value="2024">2024</option>
+<option value="2023">2023</option>
+<option value="2022">2022</option>
+<option value="older">Earlier</option>
+</select>
+</div>
+<div class="relative">
+<select class="custom-select appearance-none bg-white border border-gray-200 rounded px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<option value="">Rating</option>
+<option value="5">5 Stars & Up</option>
+<option value="4">4 Stars & Up</option>
+<option value="3">3 Stars & Up</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-sm text-gray-600">In Stock Only</label>
+<label class="switch">
+<input type="checkbox">
+<span class="slider"></span>
+</label>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm text-gray-600">Sort by:</span>
+<div class="relative">
+<select class="custom-select appearance-none bg-white border border-gray-200 rounded px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<option value="popularity">Popularity</option>
+<option value="latest">Latest</option>
+<option value="rating">Highest Rating</option>
+<option value="price-low">Price: Low to High</option>
+<option value="price-high">Price: High to Low</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Science Books -->
+<section class="py-10">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold">Featured Science Books</h2>
+<a href="#" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+<span>View all</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20modern%20physics%20textbook%20cover%20with%20elegant%20design%2C%20showing%20quantum%20particles%20and%20wave%20patterns%20in%20blue%20and%20purple%20tones.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=2&orientation=portrait" alt="The Quantum Universe" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">The Quantum Universe</h3>
+<span class="text-primary font-medium">$29.99</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. Richard Feynman</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(142)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">An exploration of quantum mechanics and its implications for our understanding of the universe, written for the curious non-specialist.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-intermediate">Intermediate</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20biology%20textbook%20cover%20showing%20detailed%20DNA%20structure%20and%20cellular%20components%20in%20green%20and%20blue%20tones.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=3&orientation=portrait" alt="The Cell: A Molecular Approach" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">The Cell: A Molecular Approach</h3>
+<span class="text-primary font-medium">$34.50</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. Emily Johnson</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(89)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A comprehensive guide to cell biology, covering structure, function, and the latest research in molecular biology.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-advanced">Advanced</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=An%20astronomy%20book%20cover%20showing%20the%20cosmos%2C%20galaxies%2C%20and%20stars%20in%20deep%20blue%20and%20purple%20colors.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=4&orientation=portrait" alt="Cosmos: The Definitive Guide" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">Cosmos: The Definitive Guide</h3>
+<span class="text-primary font-medium">$27.95</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. Neil Armstrong</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(217)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A journey through the universe, from our solar system to distant galaxies, exploring the wonders of space.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-beginner">Beginner</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20chemistry%20textbook%20cover%20showing%20molecular%20structures%20and%20chemical%20reactions%20in%20orange%20and%20blue%20tones.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=5&orientation=portrait" alt="Principles of Modern Chemistry" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">Principles of Modern Chemistry</h3>
+<span class="text-primary font-medium">$32.75</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. Marie Curie</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(176)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A comprehensive introduction to chemical principles, reactions, and applications in modern science.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-intermediate">Intermediate</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Science Authors -->
+<section class="py-10 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold">Popular Science Authors</h2>
+<a href="#" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+<span>View all</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-4">
+<!-- Author 1 -->
+<div class="author-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="p-6 flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-primary/20">
+<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20middle-aged%20male%20scientist%20with%20glasses%20and%20neat%20appearance%2C%20neutral%20background%2C%20looking%20scholarly%20and%20approachable&width=200&height=200&seq=6&orientation=squarish" alt="Dr. Stephen Hawking" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-semibold text-gray-900 mb-1">Dr. Stephen Hawking</h3>
+<p class="text-sm text-primary mb-2">Theoretical Physics</p>
+<p class="text-xs text-gray-500 mb-3">24 Published Books</p>
+<button class="!rounded-button w-full bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary/5 whitespace-nowrap">Follow Author</button>
+</div>
+</div>
+<!-- Author 2 -->
+<div class="author-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="p-6 flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-primary/20">
+<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20female%20scientist%20with%20long%20hair%2C%20neutral%20background%2C%20looking%20scholarly%20and%20approachable&width=200&height=200&seq=7&orientation=squarish" alt="Dr. Jane Goodall" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-semibold text-gray-900 mb-1">Dr. Jane Goodall</h3>
+<p class="text-sm text-primary mb-2">Primatology & Conservation</p>
+<p class="text-xs text-gray-500 mb-3">18 Published Books</p>
+<button class="!rounded-button w-full bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary/5 whitespace-nowrap">Follow Author</button>
+</div>
+</div>
+<!-- Author 3 -->
+<div class="author-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="p-6 flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-primary/20">
+<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20middle-aged%20male%20scientist%20with%20beard%2C%20neutral%20background%2C%20looking%20scholarly%20and%20approachable&width=200&height=200&seq=8&orientation=squarish" alt="Dr. Neil deGrasse Tyson" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-semibold text-gray-900 mb-1">Dr. Neil deGrasse Tyson</h3>
+<p class="text-sm text-primary mb-2">Astrophysics</p>
+<p class="text-xs text-gray-500 mb-3">15 Published Books</p>
+<button class="!rounded-button w-full bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary/5 whitespace-nowrap">Follow Author</button>
+</div>
+</div>
+<!-- Author 4 -->
+<div class="author-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="p-6 flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-primary/20">
+<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20female%20scientist%20with%20short%20hair%20and%20glasses%2C%20neutral%20background%2C%20looking%20scholarly%20and%20approachable&width=200&height=200&seq=9&orientation=squarish" alt="Dr. Lisa Randall" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-semibold text-gray-900 mb-1">Dr. Lisa Randall</h3>
+<p class="text-sm text-primary mb-2">Theoretical Physics</p>
+<p class="text-xs text-gray-500 mb-3">12 Published Books</p>
+<button class="!rounded-button w-full bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary/5 whitespace-nowrap">Follow Author</button>
+</div>
+</div>
+<!-- Author 5 -->
+<div class="author-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="p-6 flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-primary/20">
+<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20an%20older%20male%20scientist%20with%20white%20hair%2C%20neutral%20background%2C%20looking%20scholarly%20and%20approachable&width=200&height=200&seq=10&orientation=squarish" alt="Dr. Richard Dawkins" class="w-full h-full object-cover object-top">
+</div>
+<h3 class="font-semibold text-gray-900 mb-1">Dr. Richard Dawkins</h3>
+<p class="text-sm text-primary mb-2">Evolutionary Biology</p>
+<p class="text-xs text-gray-500 mb-3">21 Published Books</p>
+<button class="!rounded-button w-full bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary/5 whitespace-nowrap">Follow Author</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- New Releases -->
+<section class="py-10">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold">New Releases</h2>
+<a href="#" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+<span>View all</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=An%20environmental%20science%20book%20cover%20showing%20climate%20change%20effects%20and%20sustainable%20solutions%20in%20green%20and%20blue%20tones.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=11&orientation=portrait" alt="Climate Crisis: Solutions for a Sustainable Future" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">Climate Crisis: Solutions for a Sustainable Future</h3>
+<span class="text-primary font-medium">$25.99</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. David Attenborough</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(42)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">An urgent analysis of climate change and practical solutions for individuals, businesses, and governments.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-beginner">Beginner</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20mathematics%20book%20cover%20showing%20geometric%20patterns%20and%20mathematical%20formulas%20in%20blue%20and%20gold%20tones.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=12&orientation=portrait" alt="The Beauty of Mathematics" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">The Beauty of Mathematics</h3>
+<span class="text-primary font-medium">$28.50</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. Hannah Fry</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(29)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">An exploration of the elegance and wonder of mathematical concepts, from geometry to chaos theory.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-intermediate">Intermediate</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20computer%20science%20book%20cover%20showing%20algorithms%2C%20data%20structures%2C%20and%20code%20in%20blue%20and%20purple%20tones.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=13&orientation=portrait" alt="Artificial Intelligence: The Next Frontier" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">Artificial Intelligence: The Next Frontier</h3>
+<span class="text-primary font-medium">$32.99</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. Andrew Ng</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(56)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">A comprehensive introduction to AI, machine learning, and their potential to transform society and industry.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-intermediate">Intermediate</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="book-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20physics%20book%20cover%20showing%20quantum%20mechanics%20and%20relativity%20concepts%20in%20dark%20blue%20and%20gold%20tones.%20Professional%20academic%20book%20cover%20design%20with%20clean%20typography.&width=500&height=700&seq=14&orientation=portrait" alt="Beyond Einstein: The New Physics" class="w-full h-full object-cover object-top">
+<div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-gray-900 line-clamp-1">Beyond Einstein: The New Physics</h3>
+<span class="text-primary font-medium">$31.75</span>
+</div>
+<p class="text-sm text-gray-500 mb-2">By Dr. Brian Greene</p>
+<div class="flex items-center gap-1 mb-3">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(38)</span>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-2">Exploring cutting-edge theories in physics that go beyond Einstein's relativity, including string theory and quantum gravity.</p>
+<div class="flex justify-between items-center">
+<span class="difficulty-badge difficulty-advanced">Advanced</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Science Bestsellers -->
+<section class="py-10 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold">Science Bestsellers</h2>
+<a href="#" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+<span>View all</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<!-- Bestseller 1 -->
+<div class="flex items-center p-4 border-b border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold mr-4">
+1
+</div>
+<div class="flex-shrink-0 w-16 h-24 mr-4">
+<img src="https://readdy.ai/api/search-image?query=A%20brief%20history%20of%20time%20book%20cover%2C%20professional%20academic%20style&width=200&height=300&seq=15&orientation=portrait" alt="A Brief History of Time" class="w-full h-full object-cover object-top rounded">
+</div>
+<div class="flex-grow mr-4">
+<h3 class="font-semibold text-gray-900 mb-1">A Brief History of Time</h3>
+<p class="text-sm text-gray-500 mb-1">By Dr. Stephen Hawking</p>
+<div class="flex items-center gap-1">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(1,245)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-primary font-medium mb-1">$24.99</span>
+<span class="text-xs text-gray-500 mb-2">Over 10M copies sold</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 2 -->
+<div class="flex items-center p-4 border-b border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold mr-4">
+2
+</div>
+<div class="flex-shrink-0 w-16 h-24 mr-4">
+<img src="https://readdy.ai/api/search-image?query=Sapiens%20book%20cover%2C%20professional%20academic%20style&width=200&height=300&seq=16&orientation=portrait" alt="Sapiens: A Brief History of Humankind" class="w-full h-full object-cover object-top rounded">
+</div>
+<div class="flex-grow mr-4">
+<h3 class="font-semibold text-gray-900 mb-1">Sapiens: A Brief History of Humankind</h3>
+<p class="text-sm text-gray-500 mb-1">By Dr. Yuval Noah Harari</p>
+<div class="flex items-center gap-1">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(987)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-primary font-medium mb-1">$27.50</span>
+<span class="text-xs text-gray-500 mb-2">Over 8M copies sold</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 3 -->
+<div class="flex items-center p-4 border-b border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold mr-4">
+3
+</div>
+<div class="flex-shrink-0 w-16 h-24 mr-4">
+<img src="https://readdy.ai/api/search-image?query=Cosmos%20book%20cover%20by%20Carl%20Sagan%2C%20professional%20academic%20style&width=200&height=300&seq=17&orientation=portrait" alt="Cosmos" class="w-full h-full object-cover object-top rounded">
+</div>
+<div class="flex-grow mr-4">
+<h3 class="font-semibold text-gray-900 mb-1">Cosmos</h3>
+<p class="text-sm text-gray-500 mb-1">By Dr. Carl Sagan</p>
+<div class="flex items-center gap-1">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(876)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-primary font-medium mb-1">$22.99</span>
+<span class="text-xs text-gray-500 mb-2">Over 7M copies sold</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 4 -->
+<div class="flex items-center p-4 border-b border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold mr-4">
+4
+</div>
+<div class="flex-shrink-0 w-16 h-24 mr-4">
+<img src="https://readdy.ai/api/search-image?query=The%20Selfish%20Gene%20book%20cover%2C%20professional%20academic%20style&width=200&height=300&seq=18&orientation=portrait" alt="The Selfish Gene" class="w-full h-full object-cover object-top rounded">
+</div>
+<div class="flex-grow mr-4">
+<h3 class="font-semibold text-gray-900 mb-1">The Selfish Gene</h3>
+<p class="text-sm text-gray-500 mb-1">By Dr. Richard Dawkins</p>
+<div class="flex items-center gap-1">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500">(754)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-primary font-medium mb-1">$26.75</span>
+<span class="text-xs text-gray-500 mb-2">Over 5M copies sold</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+<!-- Bestseller 5 -->
+<div class="flex items-center p-4">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold mr-4">
+5
+</div>
+<div class="flex-shrink-0 w-16 h-24 mr-4">
+<img src="https://readdy.ai/api/search-image?query=Silent%20Spring%20book%20cover%2C%20professional%20academic%20style&width=200&height=300&seq=19&orientation=portrait" alt="Silent Spring" class="w-full h-full object-cover object-top rounded">
+</div>
+<div class="flex-grow mr-4">
+<h3 class="font-semibold text-gray-900 mb-1">Silent Spring</h3>
+<p class="text-sm text-gray-500 mb-1">By Dr. Rachel Carson</p>
+<div class="flex items-center gap-1">
+<div class="rating-stars flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500">(623)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-primary font-medium mb-1">$21.50</span>
+<span class="text-xs text-gray-500 mb-2">Over 4M copies sold</span>
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+<div>
+<h3 class="font-['Pacifico'] text-2xl mb-4">BookVerse</h3>
+<p class="text-gray-400 text-sm mb-4">Your gateway to the universe of knowledge. Discover, learn, and explore the wonders of science through our curated collection of books.</p>
+<div class="flex gap-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-twitter-x-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-youtube-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-semibold text-lg mb-4">Categories</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Physics</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Biology</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Chemistry</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Astronomy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Environmental Science</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Mathematics</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Computer Science</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Home</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Bestsellers</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">New Releases</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Authors</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">About Us</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Contact</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white text-sm">Blog</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold text-lg mb-4">Newsletter</h4>
+<p class="text-gray-400 text-sm mb-4">Subscribe to receive updates on new science books and exclusive offers.</p>
+<div class="flex mb-4">
+<input type="email" placeholder="Your email address" class="flex-grow px-4 py-2 bg-gray-800 border-none rounded-l text-sm focus:outline-none">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 rounded-l-none whitespace-nowrap">Subscribe</button>
+</div>
+<p class="text-gray-500 text-xs">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+</div>
+</div>
+<div class="pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+<div class="flex gap-4">
+<a href="#" class="text-gray-500 hover:text-white text-xs">Privacy Policy</a>
+<a href="#" class="text-gray-500 hover:text-white text-xs">Terms of Service</a>
+<a href="#" class="text-gray-500 hover:text-white text-xs">Cookie Policy</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Back to Top Button -->
+<button id="backToTop" class="!rounded-button fixed bottom-6 right-6 w-10 h-10 bg-primary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+<i class="ri-arrow-up-line"></i>
+</button>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const userMenuButton = document.getElementById('userMenuButton');
+const userDropdown = document.getElementById('userDropdown');
+const cartButton = document.getElementById('cartButton');
+const wishlistButton = document.getElementById('wishlistButton');
+const wishlistDialog = document.getElementById('wishlistDialog');
+const closeWishlistButton = document.getElementById('closeWishlistButton');
+const browseWishlistBooks = document.getElementById('browseWishlistBooks');
+const wishlistItems = document.getElementById('wishlistItems');
+const cartDialog = document.getElementById('cartDialog');
+const closeCartButton = document.getElementById('closeCartButton');
+const continueShopping = document.getElementById('continueShopping');
+const browseBooks = document.getElementById('browseBooks');
+const cartItems = document.getElementById('cartItems');
+const cartSummary = document.getElementById('cartSummary');
+let isDropdownOpen = false;
+function toggleCart(show) {
+if (show) {
+cartDialog.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+} else {
+cartDialog.classList.add('hidden');
+document.body.style.overflow = '';
+}
+}
+function toggleWishlist(show) {
+if (show) {
+wishlistDialog.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+} else {
+wishlistDialog.classList.add('hidden');
+document.body.style.overflow = '';
+}
+}
+function updateWishlistDisplay() {
+const hasItems = wishlistItems.children.length > 0;
+wishlistItems.classList.toggle('hidden', !hasItems);
+document.getElementById('emptyWishlist').classList.toggle('hidden', hasItems);
+}
+function addToWishlist(book) {
+const itemHtml = `
+<div class="flex gap-4 wishlist-item">
+<img src="${book.image}" alt="${book.title}" class="w-20 h-28 object-cover object-top rounded">
+<div class="flex-grow">
+<h4 class="font-medium text-gray-900 mb-1">${book.title}</h4>
+<p class="text-sm text-gray-500 mb-2">${book.author}</p>
+<p class="font-medium text-primary mb-2">${book.price}</p>
+<div class="flex gap-2">
+<button class="!rounded-button bg-primary text-white px-3 py-1.5 text-sm font-medium hover:bg-primary/90 add-to-cart">Add to Cart</button>
+<button class="!rounded-button bg-white border border-gray-200 text-gray-600 px-3 py-1.5 text-sm font-medium hover:bg-gray-50 remove-from-wishlist">Remove</button>
+</div>
+</div>
+</div>
+`;
+wishlistItems.insertAdjacentHTML('beforeend', itemHtml);
+updateWishlistDisplay();
+}
+function updateCartDisplay() {
+const hasItems = cartItems.children.length > 0;
+cartItems.classList.toggle('hidden', !hasItems);
+cartSummary.classList.toggle('hidden', !hasItems);
+document.getElementById('emptyCart').classList.toggle('hidden', hasItems);
+}
+function addToCart(book) {
+const itemHtml = `
+<div class="flex gap-4 cart-item">
+<img src="${book.image}" alt="${book.title}" class="w-20 h-28 object-cover object-top rounded">
+<div class="flex-grow">
+<h4 class="font-medium text-gray-900 mb-1">${book.title}</h4>
+<p class="text-sm text-gray-500 mb-2">${book.author}</p>
+<div class="flex items-center gap-2">
+<button class="w-6 h-6 flex items-center justify-center border border-gray-200 rounded hover:bg-gray-50 quantity-decrease">-</button>
+<span class="w-8 text-center quantity-value">1</span>
+<button class="w-6 h-6 flex items-center justify-center border border-gray-200 rounded hover:bg-gray-50 quantity-increase">+</button>
+</div>
+</div>
+<div class="text-right">
+<p class="font-medium text-primary">${book.price}</p>
+<button class="text-sm text-red-500 hover:text-red-600 mt-2 remove-item">Remove</button>
+</div>
+</div>
+`;
+cartItems.insertAdjacentHTML('beforeend', itemHtml);
+updateCartDisplay();
+}
+cartButton.addEventListener('click', () => toggleCart(true));
+closeCartButton.addEventListener('click', () => toggleCart(false));
+continueShopping.addEventListener('click', () => toggleCart(false));
+browseBooks.addEventListener('click', () => toggleCart(false));
+wishlistButton.addEventListener('click', () => toggleWishlist(true));
+closeWishlistButton.addEventListener('click', () => toggleWishlist(false));
+browseWishlistBooks.addEventListener('click', () => toggleWishlist(false));
+wishlistDialog.addEventListener('click', (e) => {
+if (e.target === wishlistDialog) {
+toggleWishlist(false);
+}
+});
+wishlistItems.addEventListener('click', (e) => {
+const item = e.target.closest('.wishlist-item');
+if (!item) return;
+if (e.target.classList.contains('add-to-cart')) {
+const bookInfo = {
+image: item.querySelector('img').src,
+title: item.querySelector('h4').textContent,
+author: item.querySelector('p').textContent,
+price: item.querySelector('.text-primary').textContent
+};
+addToCart(bookInfo);
+item.remove();
+updateWishlistDisplay();
+} else if (e.target.classList.contains('remove-from-wishlist')) {
+item.remove();
+updateWishlistDisplay();
+}
+});
+cartDialog.addEventListener('click', (e) => {
+if (e.target === cartDialog) {
+toggleCart(false);
+}
+});
+cartItems.addEventListener('click', (e) => {
+const item = e.target.closest('.cart-item');
+if (!item) return;
+if (e.target.classList.contains('quantity-decrease')) {
+const quantityEl = item.querySelector('.quantity-value');
+let quantity = parseInt(quantityEl.textContent);
+if (quantity > 1) {
+quantityEl.textContent = quantity - 1;
+}
+} else if (e.target.classList.contains('quantity-increase')) {
+const quantityEl = item.querySelector('.quantity-value');
+let quantity = parseInt(quantityEl.textContent);
+quantityEl.textContent = quantity + 1;
+} else if (e.target.classList.contains('remove-item')) {
+item.remove();
+updateCartDisplay();
+}
+});
+userMenuButton.addEventListener('click', function(e) {
+e.stopPropagation();
+isDropdownOpen = !isDropdownOpen;
+if (isDropdownOpen) {
+userDropdown.classList.remove('hidden');
+} else {
+userDropdown.classList.add('hidden');
+}
+});
+document.addEventListener('click', function(e) {
+if (!userDropdown.contains(e.target) && isDropdownOpen) {
+userDropdown.classList.add('hidden');
+isDropdownOpen = false;
+}
+});
+// Back to top button functionality
+const backToTopButton = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+if (window.scrollY > 300) {
+backToTopButton.classList.add('opacity-100');
+backToTopButton.classList.remove('invisible');
+} else {
+backToTopButton.classList.remove('opacity-100');
+backToTopButton.classList.add('invisible');
+}
+});
+backToTopButton.addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Subcategory navigation
+const subcategoryItems = document.querySelectorAll('.subcategory-item');
+subcategoryItems.forEach(item => {
+item.addEventListener('click', function() {
+subcategoryItems.forEach(i => i.classList.remove('active'));
+this.classList.add('active');
+});
+});
+});
+</script>
+</body>
+</html>

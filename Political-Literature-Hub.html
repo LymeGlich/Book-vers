@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Literature & Discourse | BookVerse</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#3b82f6',secondary:'#1e40af'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(120deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-results-button,
+        input[type="search"]::-webkit-search-results-decoration {
+            display: none;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .custom-checkbox {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+        }
+        .custom-checkbox:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            outline: none;
+        }
+        .custom-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .custom-range::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .switch-slider {
+            background-color: #3b82f6;
+        }
+        input:checked + .switch-slider:before {
+            transform: translateX(20px);
+        }
+        .book-card:hover {
+            transform: translateY(-4px);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+        <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="#" class="font-['Pacifico'] text-2xl text-primary">BookVerse</a>
+                <a href="#" class="flex items-center text-gray-700 hover:text-primary transition-colors">
+                    <div class="w-6 h-6 flex items-center justify-center mr-1">
+                        <i class="ri-arrow-left-line"></i>
+                    </div>
+                    <span>Back to Categories</span>
+                </a>
+            </div>
+            
+            <div class="relative w-1/3">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none w-5 h-5">
+                    <i class="ri-search-line text-gray-400"></i>
+                </div>
+                <input type="search" class="w-full pl-10 pr-4 py-2 bg-gray-100 border-none rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Search political books...">
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+                    <i class="ri-notification-3-line text-gray-700"></i>
+                </button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+                    <i class="ri-bookmark-line text-gray-700"></i>
+                </button>
+                <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20photo%20of%20a%20young%20person%20with%20neutral%20expression%2C%20high%20quality%2C%20studio%20lighting%2C%20professional%20headshot&width=100&height=100&seq=avatar1&orientation=squarish" alt="User profile" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 pt-16">
+        <!-- Hero Banner -->
+        <section class="hero-gradient text-white py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl font-bold mb-4">Political Literature & Discourse</h1>
+                    <p class="text-lg text-gray-100 mb-8">Explore thought-provoking works that shape our understanding of governance, power, and society. From classic political theory to contemporary analysis, discover the ideas that influence our world.</p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button class="!rounded-button bg-white/20 hover:bg-white/30 px-4 py-2 text-sm font-medium whitespace-nowrap transition">Political Science</button>
+                        <button class="!rounded-button bg-white/20 hover:bg-white/30 px-4 py-2 text-sm font-medium whitespace-nowrap transition">Biographies</button>
+                        <button class="!rounded-button bg-white/20 hover:bg-white/30 px-4 py-2 text-sm font-medium whitespace-nowrap transition">History</button>
+                        <button class="!rounded-button bg-white/20 hover:bg-white/30 px-4 py-2 text-sm font-medium whitespace-nowrap transition">Current Affairs</button>
+                        <button class="!rounded-button bg-white/20 hover:bg-white/30 px-4 py-2 text-sm font-medium whitespace-nowrap transition">Global Politics</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Books -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900">Featured Political Books</h2>
+                    <div class="flex gap-2">
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex gap-6 overflow-x-auto pb-4 -mx-4 px-4">
+                    <!-- Featured Book 1 -->
+                    <div class="book-card flex-shrink-0 w-64 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                        <div class="h-80 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20New%20Power%20Dynamics%20with%20abstract%20geometric%20patterns%20in%20blue%20and%20red%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol1&orientation=portrait" alt="The New Power Dynamics" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-900 mb-1">The New Power Dynamics</h3>
+                            <p class="text-sm text-gray-600 mb-2">By Eleanor Winters</p>
+                            <div class="flex items-center mb-3">
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-2">4.5 (342 reviews)</span>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-4 line-clamp-2">An incisive analysis of shifting global power structures and their implications for democratic governance in the 21st century.</p>
+                            <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 font-medium whitespace-nowrap">Add to Library</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Book 2 -->
+                    <div class="book-card flex-shrink-0 w-64 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                        <div class="h-80 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Democracy%20Reimagined%20with%20abstract%20illustration%20of%20voting%20or%20democratic%20symbols%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol2&orientation=portrait" alt="Democracy Reimagined" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-900 mb-1">Democracy Reimagined</h3>
+                            <p class="text-sm text-gray-600 mb-2">By Michael Chen</p>
+                            <div class="flex items-center mb-3">
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-2">4.0 (189 reviews)</span>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-4 line-clamp-2">A bold vision for revitalizing democratic institutions and practices in an era of increasing polarization and technological change.</p>
+                            <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 font-medium whitespace-nowrap">Add to Library</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Book 3 -->
+                    <div class="book-card flex-shrink-0 w-64 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                        <div class="h-80 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Authoritarian%20Paradox%20with%20dark%2C%20ominous%20imagery%20suggesting%20political%20control%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol3&orientation=portrait" alt="The Authoritarian Paradox" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-900 mb-1">The Authoritarian Paradox</h3>
+                            <p class="text-sm text-gray-600 mb-2">By Sophia Rodriguez</p>
+                            <div class="flex items-center mb-3">
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-2">4.8 (276 reviews)</span>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-4 line-clamp-2">Examines how authoritarian regimes maintain popular support despite restricting freedoms, offering insights into the complex nature of political legitimacy.</p>
+                            <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 font-medium whitespace-nowrap">Add to Library</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Book 4 -->
+                    <div class="book-card flex-shrink-0 w-64 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                        <div class="h-80 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Geopolitics%20in%20the%20Digital%20Age%20with%20world%20map%20and%20digital%20elements%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol4&orientation=portrait" alt="Geopolitics in the Digital Age" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-900 mb-1">Geopolitics in the Digital Age</h3>
+                            <p class="text-sm text-gray-600 mb-2">By James Harrington</p>
+                            <div class="flex items-center mb-3">
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-2">4.6 (218 reviews)</span>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-4 line-clamp-2">Explores how technology is reshaping international relations, from cyber warfare to digital diplomacy and the competition for technological supremacy.</p>
+                            <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 font-medium whitespace-nowrap">Add to Library</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Book 5 -->
+                    <div class="book-card flex-shrink-0 w-64 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                        <div class="h-80 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Climate%20Politics%20with%20imagery%20of%20earth%20and%20environmental%20themes%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol5&orientation=portrait" alt="Climate Politics" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-900 mb-1">Climate Politics</h3>
+                            <p class="text-sm text-gray-600 mb-2">By Amara Johnson</p>
+                            <div class="flex items-center mb-3">
+                                <div class="flex text-yellow-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-2">4.2 (157 reviews)</span>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-4 line-clamp-2">A comprehensive analysis of the political challenges in addressing climate change, from international agreements to domestic policy debates.</p>
+                            <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 font-medium whitespace-nowrap">Add to Library</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Navigation -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8">Browse by Category</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Category 1 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-book-2-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Political Science</h3>
+                    </div>
+                    
+                    <!-- Category 2 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-user-5-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Political Biographies</h3>
+                    </div>
+                    
+                    <!-- Category 3 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-history-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Political History</h3>
+                    </div>
+                    
+                    <!-- Category 4 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-newspaper-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Current Affairs</h3>
+                    </div>
+                    
+                    <!-- Category 5 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-lightbulb-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Political Philosophy</h3>
+                    </div>
+                    
+                    <!-- Category 6 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-global-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">International Relations</h3>
+                    </div>
+                    
+                    <!-- Category 7 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-government-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Public Policy</h3>
+                    </div>
+                    
+                    <!-- Category 8 -->
+                    <div class="category-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-4 text-primary">
+                            <i class="ri-chat-4-line ri-xl"></i>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Political Commentary</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Releases Section -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900">New Releases</h2>
+                    <div class="relative">
+                        <select class="appearance-none bg-white border border-gray-200 rounded-lg py-2 pl-4 pr-10 text-sm text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20">
+                            <option>Publication Date</option>
+                            <option>Popularity</option>
+                            <option>Rating</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Filters Sidebar -->
+                    <div class="w-full md:w-1/4 bg-gray-50 rounded-lg p-6">
+                        <h3 class="font-medium text-gray-900 mb-4">Filters</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-sm font-medium text-gray-700 mb-3">Publication Date</h4>
+                            <div class="mb-2">
+                                <input type="range" min="2000" max="2025" value="2023" class="custom-range">
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500">
+                                <span>2000</span>
+                                <span>2025</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-sm font-medium text-gray-700 mb-3">Topics</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Democracy</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Global Politics</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Political Theory</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Elections</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Activism</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-sm font-medium text-gray-700 mb-3">Format</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">eBook</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Audiobook</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Hardcover</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Paperback</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-sm font-medium text-gray-700 mb-3">Language</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2" checked>
+                                    <span class="text-sm text-gray-700">English</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">Spanish</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">French</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="custom-checkbox mr-2">
+                                    <span class="text-sm text-gray-700">German</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <button class="flex-1 !rounded-button bg-gray-200 hover:bg-gray-300 py-2 text-sm font-medium text-gray-700 whitespace-nowrap">Reset</button>
+                            <button class="flex-1 !rounded-button bg-primary hover:bg-primary/90 py-2 text-sm font-medium text-white whitespace-nowrap">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Books Grid -->
+                    <div class="w-full md:w-3/4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Book 1 -->
+                            <div class="book-card bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                                <div class="h-56 overflow-hidden">
+                                    <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Future%20of%20Democracy%20with%20abstract%20illustration%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol6&orientation=portrait" alt="The Future of Democracy" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-gray-900 mb-1">The Future of Democracy</h3>
+                                    <p class="text-sm text-gray-600 mb-2">By Robert Thompson</p>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-line"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500 ml-2">4.1 (87 reviews)</span>
+                                    </div>
+                                    <p class="text-xs text-blue-600 mb-3">Released: May 12, 2025</p>
+                                    <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 text-sm font-medium whitespace-nowrap">Add to Library</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Book 2 -->
+                            <div class="book-card bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                                <div class="h-56 overflow-hidden">
+                                    <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Power%20Structures%20with%20abstract%20illustration%20of%20hierarchical%20structures%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol7&orientation=portrait" alt="Power Structures" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-gray-900 mb-1">Power Structures</h3>
+                                    <p class="text-sm text-gray-600 mb-2">By Victoria Nguyen</p>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-half-fill"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500 ml-2">4.5 (124 reviews)</span>
+                                    </div>
+                                    <p class="text-xs text-blue-600 mb-3">Released: April 30, 2025</p>
+                                    <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 text-sm font-medium whitespace-nowrap">Add to Library</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Book 3 -->
+                            <div class="book-card bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                                <div class="h-56 overflow-hidden">
+                                    <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Digital%20Citizen%20with%20illustration%20of%20person%20interacting%20with%20technology%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol8&orientation=portrait" alt="The Digital Citizen" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-gray-900 mb-1">The Digital Citizen</h3>
+                                    <p class="text-sm text-gray-600 mb-2">By Daniel Kwon</p>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-line"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500 ml-2">4.2 (93 reviews)</span>
+                                    </div>
+                                    <p class="text-xs text-blue-600 mb-3">Released: April 18, 2025</p>
+                                    <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 text-sm font-medium whitespace-nowrap">Add to Library</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Book 4 -->
+                            <div class="book-card bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                                <div class="h-56 overflow-hidden">
+                                    <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Global%20Governance%20with%20world%20map%20and%20institutional%20symbols%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol9&orientation=portrait" alt="Global Governance" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-gray-900 mb-1">Global Governance</h3>
+                                    <p class="text-sm text-gray-600 mb-2">By Olivia Martinez</p>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500 ml-2">4.9 (156 reviews)</span>
+                                    </div>
+                                    <p class="text-xs text-blue-600 mb-3">Released: April 5, 2025</p>
+                                    <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 text-sm font-medium whitespace-nowrap">Add to Library</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Book 5 -->
+                            <div class="book-card bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                                <div class="h-56 overflow-hidden">
+                                    <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Political%20Movements%20with%20illustration%20of%20protest%20or%20social%20movement%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol10&orientation=portrait" alt="Political Movements" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-gray-900 mb-1">Political Movements</h3>
+                                    <p class="text-sm text-gray-600 mb-2">By Sarah Williams</p>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-half-fill"></i>
+                                            <i class="ri-star-line"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500 ml-2">3.6 (78 reviews)</span>
+                                    </div>
+                                    <p class="text-xs text-blue-600 mb-3">Released: March 22, 2025</p>
+                                    <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 text-sm font-medium whitespace-nowrap">Add to Library</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Book 6 -->
+                            <div class="book-card bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden transition-all">
+                                <div class="h-56 overflow-hidden">
+                                    <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Politics%20of%20Identity%20with%20abstract%20faces%20or%20identity%20symbols%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=400&height=600&seq=pol11&orientation=portrait" alt="The Politics of Identity" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-gray-900 mb-1">The Politics of Identity</h3>
+                                    <p class="text-sm text-gray-600 mb-2">By Marcus Johnson</p>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-line"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500 ml-2">4.3 (112 reviews)</span>
+                                    </div>
+                                    <p class="text-xs text-blue-600 mb-3">Released: March 15, 2025</p>
+                                    <button class="w-full !rounded-button bg-primary hover:bg-primary/90 text-white py-2 text-sm font-medium whitespace-nowrap">Add to Library</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="flex justify-center mt-8">
+                            <nav class="flex items-center">
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100">
+                                    <i class="ri-arrow-left-s-line"></i>
+                                </button>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white">1</button>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 hover:bg-gray-100">2</button>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 hover:bg-gray-100">3</button>
+                                <span class="mx-1 text-gray-500">...</span>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 hover:bg-gray-100">8</button>
+                                <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100">
+                                    <i class="ri-arrow-right-s-line"></i>
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Reading Lists -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8">Recommended Reading Lists</h2>
+                
+                <!-- List 1 -->
+                <div class="mb-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">Essential Political Theory</h3>
+                        <a href="#" class="text-primary hover:text-primary/80 text-sm font-medium">See All</a>
+                    </div>
+                    
+                    <div class="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4">
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Social%20Contract%20with%20classical%20political%20theory%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol12&orientation=portrait" alt="The Social Contract" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The Social Contract</h4>
+                            <p class="text-sm text-gray-600">Jean-Jacques Rousseau</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20On%20Liberty%20with%20classical%20political%20theory%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol13&orientation=portrait" alt="On Liberty" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">On Liberty</h4>
+                            <p class="text-sm text-gray-600">John Stuart Mill</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Republic%20with%20classical%20political%20theory%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol14&orientation=portrait" alt="The Republic" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The Republic</h4>
+                            <p class="text-sm text-gray-600">Plato</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Prince%20with%20classical%20political%20theory%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol15&orientation=portrait" alt="The Prince" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The Prince</h4>
+                            <p class="text-sm text-gray-600">Niccolò Machiavelli</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Leviathan%20with%20classical%20political%20theory%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol16&orientation=portrait" alt="Leviathan" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">Leviathan</h4>
+                            <p class="text-sm text-gray-600">Thomas Hobbes</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- List 2 -->
+                <div class="mb-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">Modern Political Discourse</h3>
+                        <a href="#" class="text-primary hover:text-primary/80 text-sm font-medium">See All</a>
+                    </div>
+                    
+                    <div class="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4">
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Why%20Nations%20Fail%20with%20modern%20political%20discourse%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol17&orientation=portrait" alt="Why Nations Fail" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">Why Nations Fail</h4>
+                            <p class="text-sm text-gray-600">Daron Acemoglu</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20How%20Democracies%20Die%20with%20modern%20political%20discourse%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol18&orientation=portrait" alt="How Democracies Die" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">How Democracies Die</h4>
+                            <p class="text-sm text-gray-600">Steven Levitsky</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Fifth%20Risk%20with%20modern%20political%20discourse%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol19&orientation=portrait" alt="The Fifth Risk" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The Fifth Risk</h4>
+                            <p class="text-sm text-gray-600">Michael Lewis</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Identity%20with%20modern%20political%20discourse%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol20&orientation=portrait" alt="Identity" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">Identity</h4>
+                            <p class="text-sm text-gray-600">Francis Fukuyama</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Age%20of%20Surveillance%20Capitalism%20with%20modern%20political%20discourse%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol21&orientation=portrait" alt="The Age of Surveillance Capitalism" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The Age of Surveillance Capitalism</h4>
+                            <p class="text-sm text-gray-600">Shoshana Zuboff</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- List 3 -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">Global Politics</h3>
+                        <a href="#" class="text-primary hover:text-primary/80 text-sm font-medium">See All</a>
+                    </div>
+                    
+                    <div class="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4">
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20World%20Order%20with%20global%20politics%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol22&orientation=portrait" alt="World Order" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">World Order</h4>
+                            <p class="text-sm text-gray-600">Henry Kissinger</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Future%20is%20Asian%20with%20global%20politics%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol23&orientation=portrait" alt="The Future is Asian" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The Future is Asian</h4>
+                            <p class="text-sm text-gray-600">Parag Khanna</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20Prisoners%20of%20Geography%20with%20global%20politics%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol24&orientation=portrait" alt="Prisoners of Geography" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">Prisoners of Geography</h4>
+                            <p class="text-sm text-gray-600">Tim Marshall</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20Clash%20of%20Civilizations%20with%20global%20politics%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol25&orientation=portrait" alt="The Clash of Civilizations" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The Clash of Civilizations</h4>
+                            <p class="text-sm text-gray-600">Samuel P. Huntington</p>
+                        </div>
+                        
+                        <div class="flex-shrink-0 w-40">
+                            <div class="h-56 mb-3 overflow-hidden rounded-lg">
+                                <img src="https://readdy.ai/api/search-image?query=book%20cover%20design%20for%20The%20End%20of%20Power%20with%20global%20politics%20imagery%2C%20professional%20book%20cover%20design%2C%20minimalist%2C%20high%20quality&width=300&height=450&seq=pol26&orientation=portrait" alt="The End of Power" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-1">The End of Power</h4>
+                            <p class="text-sm text-gray-600">Moisés Naím</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-2xl mx-auto bg-gray-50 rounded-lg p-8 text-center">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">Stay Updated on Political Literature</h2>
+                    <p class="text-gray-600 mb-6">Subscribe to receive curated recommendations, author interviews, and special offers on political books.</p>
+                    
+                    <div class="flex gap-3">
+                        <input type="email" class="flex-1 px-4 py-3 border-none rounded-lg bg-white shadow-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Your email address">
+                        <button class="!rounded-button bg-primary hover:bg-primary/90 px-6 py-3 text-white font-medium whitespace-nowrap">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2 z-40">
+        <div class="flex justify-around items-center">
+            <a href="#" class="flex flex-col items-center text-gray-500 hover:text-primary">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-home-5-line"></i>
+                </div>
+                <span class="text-xs mt-1">Home</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-primary">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-stack-line"></i>
+                </div>
+                <span class="text-xs mt-1">Categories</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-500 hover:text-primary">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-search-line"></i>
+                </div>
+                <span class="text-xs mt-1">Search</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-500 hover:text-primary">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-bookmark-line"></i>
+                </div>
+                <span class="text-xs mt-1">Library</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-500 hover:text-primary">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-user-line"></i>
+                </div>
+                <span class="text-xs mt-1">Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Custom checkbox functionality
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    this.checked = !this.checked;
+                });
+            });
+            
+            // Custom switch functionality
+            const switches = document.querySelectorAll('.custom-switch input');
+            switches.forEach(switchEl => {
+                switchEl.addEventListener('change', function() {
+                    this.checked = !this.checked;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philosophy Books | BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#818cf8'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #fafafa;
+}
+.custom-scrollbar::-webkit-scrollbar {
+height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+background: #d1d5db;
+border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+background: #a1a1aa;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4f46e5;
+cursor: pointer;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.hero-section {
+background-image: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2)), url('https://readdy.ai/api/search-image?query=Ancient%20Greek%20architecture%20with%20marble%20columns%20and%20steps%2C%20classical%20philosophy%20books%2C%20scrolls%2C%20and%20busts%20of%20philosophers%20like%20Socrates%20and%20Plato%2C%20soft%20natural%20lighting%2C%20serene%20academic%20atmosphere%2C%20high%20quality%20professional%20photography&width=1200&height=400&seq=123456&orientation=landscape');
+background-size: cover;
+background-position: center right;
+}
+.star-rating input {
+display: none;
+}
+.star-rating label {
+cursor: pointer;
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full transition">
+<i class="ri-arrow-left-line ri-lg"></i>
+</button>
+<h1 class="font-['Pacifico'] text-2xl text-primary">book vers</h1>
+</div>
+<div class="w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full transition">
+<i class="ri-filter-3-line ri-lg"></i>
+</div>
+</div>
+<div class="container mx-auto px-4 pb-3">
+<div class="relative">
+<input type="text" placeholder="Search in Philosophy books..." class="w-full px-4 py-2.5 pl-10 bg-gray-100 border-none rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-500">
+<i class="ri-search-line"></i>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="hero-section w-full py-10 md:py-16">
+<div class="container mx-auto px-4">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3">Philosophy</h1>
+<p class="text-lg text-gray-700 mb-4">Explore the fundamental questions of existence, knowledge, ethics, and reality through the works of history's greatest thinkers.</p>
+<div class="flex items-center text-sm text-gray-600 font-medium">
+<span class="flex items-center mr-4">
+<i class="ri-book-open-line mr-1.5"></i>
+2,456 Books Available
+</span>
+<span class="flex items-center">
+<i class="ri-user-line mr-1.5"></i>
+187 Authors
+</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Subcategories Section -->
+<section class="py-6 bg-white border-b">
+<div class="container mx-auto px-4">
+<div class="overflow-x-auto custom-scrollbar">
+<div class="flex space-x-3 py-2 min-w-max">
+<button class="bg-primary text-white px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">All Philosophy</button>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Ancient Philosophy</button>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Modern Philosophy</button>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Ethics</button>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Logic</button>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Political Philosophy</button>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Eastern Philosophy</button>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Existentialism</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Sort and Filter Controls -->
+<section class="py-4 bg-white sticky top-[72px] z-40 border-b">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center">
+<div class="text-sm text-gray-600">Showing <span class="font-medium">2,456</span> results</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button id="gridViewBtn" class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded !rounded-button">
+<i class="ri-layout-grid-line"></i>
+</button>
+<button id="listViewBtn" class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded !rounded-button">
+<i class="ri-list-check"></i>
+</button>
+</div>
+<div class="relative">
+<select class="appearance-none bg-gray-100 text-gray-800 text-sm font-medium py-2 pl-4 pr-8 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer !rounded-button">
+<option>Popular</option>
+<option>Newest</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+<div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Books Section -->
+<section class="py-8 bg-white">
+<div class="container mx-auto px-4">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Featured Philosophy Books</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Republic%20by%20Plato%2C%20minimalist%20design%20with%20Greek%20columns%20silhouette%2C%20blue%20and%20white%20color%20scheme%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12345&orientation=portrait" alt="Republic by Plato" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Republic</h3>
+<p class="text-sm text-gray-600 mb-2">Plato</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(428)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$12.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Meditations%20by%20Marcus%20Aurelius%2C%20elegant%20minimalist%20design%20with%20Roman%20bust%20silhouette%2C%20beige%20and%20gold%20color%20scheme%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12346&orientation=portrait" alt="Meditations by Marcus Aurelius" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Meditations</h3>
+<p class="text-sm text-gray-600 mb-2">Marcus Aurelius</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(612)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$14.50</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Beyond%20Good%20and%20Evil%20by%20Friedrich%20Nietzsche%2C%20dark%20dramatic%20design%20with%20contrast%2C%20abstract%20elements%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12347&orientation=portrait" alt="Beyond Good and Evil by Friedrich Nietzsche" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Beyond Good and Evil</h3>
+<p class="text-sm text-gray-600 mb-2">Friedrich Nietzsche</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(347)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$16.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20The%20Art%20of%20War%20by%20Sun%20Tzu%2C%20elegant%20Asian-inspired%20design%20with%20red%20and%20black%20color%20scheme%2C%20minimalist%20brush%20strokes%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12348&orientation=portrait" alt="The Art of War by Sun Tzu" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">The Art of War</h3>
+<p class="text-sm text-gray-600 mb-2">Sun Tzu</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(892)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$11.25</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Authors Section -->
+<section class="py-8 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-gray-900">Popular Philosophy Authors</h2>
+<a href="#" class="text-primary font-medium text-sm flex items-center">
+View All
+<i class="ri-arrow-right-line ml-1"></i>
+</a>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<div class="flex space-x-6 py-2 min-w-max">
+<!-- Author 1 -->
+<div class="w-56 bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center mb-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mr-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20portrait%20of%20Plato%2C%20ancient%20Greek%20philosopher%2C%20white%20beard%2C%20classical%20style%2C%20high%20quality&width=100&height=100&seq=12349&orientation=squarish" alt="Plato" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Plato</h3>
+<p class="text-xs text-gray-500">24 Books</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-3">Ancient Greek philosopher, student of Socrates and teacher of Aristotle. Founder of the Academy in Athens.</p>
+<a href="#" class="text-primary text-sm font-medium">View Books</a>
+</div>
+<!-- Author 2 -->
+<div class="w-56 bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center mb-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mr-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20portrait%20of%20Aristotle%2C%20ancient%20Greek%20philosopher%2C%20beard%2C%20classical%20style%2C%20high%20quality&width=100&height=100&seq=12350&orientation=squarish" alt="Aristotle" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Aristotle</h3>
+<p class="text-xs text-gray-500">31 Books</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-3">Greek philosopher and polymath, student of Plato. His writings cover physics, biology, zoology, metaphysics, ethics, and more.</p>
+<a href="#" class="text-primary text-sm font-medium">View Books</a>
+</div>
+<!-- Author 3 -->
+<div class="w-56 bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center mb-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mr-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20portrait%20of%20Immanuel%20Kant%2C%2018th%20century%20German%20philosopher%2C%20white%20wig%2C%20classical%20style%2C%20high%20quality&width=100&height=100&seq=12351&orientation=squarish" alt="Immanuel Kant" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Immanuel Kant</h3>
+<p class="text-xs text-gray-500">18 Books</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-3">German philosopher who is a central figure in modern philosophy. His work continues to influence fields including ethics, epistemology, and aesthetics.</p>
+<a href="#" class="text-primary text-sm font-medium">View Books</a>
+</div>
+<!-- Author 4 -->
+<div class="w-56 bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center mb-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mr-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20portrait%20of%20Friedrich%20Nietzsche%2C%2019th%20century%20German%20philosopher%2C%20distinctive%20mustache%2C%20classical%20style%2C%20high%20quality&width=100&height=100&seq=12352&orientation=squarish" alt="Friedrich Nietzsche" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Friedrich Nietzsche</h3>
+<p class="text-xs text-gray-500">22 Books</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-3">German philosopher, cultural critic, composer, and poet who influenced modern intellectual history with his radical questioning of traditional values.</p>
+<a href="#" class="text-primary text-sm font-medium">View Books</a>
+</div>
+<!-- Author 5 -->
+<div class="w-56 bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center mb-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mr-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20portrait%20of%20Simone%20de%20Beauvoir%2C%2020th%20century%20French%20philosopher%2C%20elegant%20style%2C%20high%20quality&width=100&height=100&seq=12353&orientation=squarish" alt="Simone de Beauvoir" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-semibold text-gray-900">Simone de Beauvoir</h3>
+<p class="text-xs text-gray-500">15 Books</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-3 line-clamp-3">French writer, intellectual, existentialist philosopher, political activist, and feminist. Best known for her works on feminist existentialism.</p>
+<a href="#" class="text-primary text-sm font-medium">View Books</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- All Books Section -->
+<section class="py-8 bg-white">
+<div class="container mx-auto px-4">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">All Philosophy Books</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Critique%20of%20Pure%20Reason%20by%20Immanuel%20Kant%2C%20elegant%20philosophical%20design%20with%20abstract%20elements%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12354&orientation=portrait" alt="Critique of Pure Reason by Immanuel Kant" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Critique of Pure Reason</h3>
+<p class="text-sm text-gray-600 mb-2">Immanuel Kant</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(215)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$18.75</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Being%20and%20Nothingness%20by%20Jean-Paul%20Sartre%2C%20existentialist%20design%20with%20abstract%20elements%2C%20dark%20and%20light%20contrast%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12355&orientation=portrait" alt="Being and Nothingness by Jean-Paul Sartre" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Being and Nothingness</h3>
+<p class="text-sm text-gray-600 mb-2">Jean-Paul Sartre</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(183)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$19.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Ethics%20by%20Baruch%20Spinoza%2C%20elegant%20minimalist%20design%20with%20geometric%20elements%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12356&orientation=portrait" alt="Ethics by Baruch Spinoza" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Ethics</h3>
+<p class="text-sm text-gray-600 mb-2">Baruch Spinoza</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(142)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$15.50</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20The%20Second%20Sex%20by%20Simone%20de%20Beauvoir%2C%20elegant%20feminist%20design%20with%20abstract%20elements%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12357&orientation=portrait" alt="The Second Sex by Simone de Beauvoir" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">The Second Sex</h3>
+<p class="text-sm text-gray-600 mb-2">Simone de Beauvoir</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(326)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$17.25</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Thus%20Spoke%20Zarathustra%20by%20Friedrich%20Nietzsche%2C%20dramatic%20design%20with%20mountain%20imagery%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12358&orientation=portrait" alt="Thus Spoke Zarathustra by Friedrich Nietzsche" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Thus Spoke Zarathustra</h3>
+<p class="text-sm text-gray-600 mb-2">Friedrich Nietzsche</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(289)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$14.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20The%20Analects%20by%20Confucius%2C%20elegant%20Asian-inspired%20design%20with%20calligraphy%20elements%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12359&orientation=portrait" alt="The Analects by Confucius" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">The Analects</h3>
+<p class="text-sm text-gray-600 mb-2">Confucius</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(412)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$13.50</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20Tao%20Te%20Ching%20by%20Lao%20Tzu%2C%20elegant%20Asian-inspired%20design%20with%20yin-yang%20elements%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12360&orientation=portrait" alt="Tao Te Ching by Lao Tzu" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">Tao Te Ching</h3>
+<p class="text-sm text-gray-600 mb-2">Lao Tzu</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(528)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$12.75</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+<div class="relative pt-[140%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=Book%20cover%20of%20The%20Prince%20by%20Niccolo%20Machiavelli%2C%20elegant%20Renaissance-inspired%20design%2C%20professional%20book%20cover%20design%2C%20high%20quality&width=300&height=420&seq=12361&orientation=portrait" alt="The Prince by Niccolo Machiavelli" class="absolute inset-0 w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-1">The Prince</h3>
+<p class="text-sm text-gray-600 mb-2">Niccolo Machiavelli</p>
+<div class="flex items-center mb-3">
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(374)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-gray-900">$11.99</span>
+<button class="bg-primary text-white px-3 py-1.5 rounded text-sm font-medium !rounded-button">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center mt-10">
+<nav class="flex items-center space-x-1">
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white font-medium !rounded-button">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50 font-medium !rounded-button">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50 font-medium !rounded-button">3</button>
+<span class="w-10 h-10 flex items-center justify-center text-gray-600">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50 font-medium !rounded-button">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50 !rounded-button">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</nav>
+</div>
+</div>
+</section>
+<!-- Filter Panel (Hidden by default) -->
+<div id="filterPanel" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden">
+<div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-lg transform transition-transform duration-300 translate-x-full">
+<div class="p-4 border-b flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-900">Filters</h3>
+<button id="closeFilter" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="p-6 overflow-y-auto" style="max-height: calc(100vh - 65px);">
+<!-- Price Range -->
+<div class="mb-8">
+<h4 class="text-sm font-semibold text-gray-900 mb-4">Price Range</h4>
+<div class="px-2">
+<input type="range" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-full appearance-none">
+<div class="flex justify-between mt-2">
+<span class="text-sm text-gray-600">$0</span>
+<span class="text-sm text-gray-600">$100</span>
+</div>
+<div class="flex gap-4 mt-4">
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+<input type="number" placeholder="Min" class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded text-sm">
+</div>
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+<input type="number" placeholder="Max" class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded text-sm">
+</div>
+</div>
+</div>
+</div>
+<!-- Rating Filter -->
+<div class="mb-8">
+<h4 class="text-sm font-semibold text-gray-900 mb-4">Rating</h4>
+<div class="space-y-3">
+<label class="flex items-center">
+<input type="radio" name="rating" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-0 transition-opacity"></span>
+</span>
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<span class="ml-2 text-gray-700">& Up</span>
+</div>
+</label>
+<label class="flex items-center">
+<input type="radio" name="rating" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-0 transition-opacity"></span>
+</span>
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<span class="ml-2 text-gray-700">& Up</span>
+</div>
+</label>
+<label class="flex items-center">
+<input type="radio" name="rating" class="hidden" checked>
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-100 transition-opacity"></span>
+</span>
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<span class="ml-2 text-gray-700">& Up</span>
+</div>
+</label>
+<label class="flex items-center">
+<input type="radio" name="rating" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-0 transition-opacity"></span>
+</span>
+<div class="flex text-amber-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<span class="ml-2 text-gray-700">& Up</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Format Filter -->
+<div class="mb-8">
+<h4 class="text-sm font-semibold text-gray-900 mb-4">Format</h4>
+<div class="space-y-3">
+<label class="flex items-center">
+<input type="checkbox" class="hidden" checked>
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-100 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">Hardcover</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="hidden" checked>
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-100 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">Paperback</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-0 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">E-Book</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-0 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">Audiobook</span>
+</label>
+</div>
+</div>
+<!-- Language Filter -->
+<div class="mb-8">
+<h4 class="text-sm font-semibold text-gray-900 mb-4">Language</h4>
+<div class="space-y-3">
+<label class="flex items-center">
+<input type="checkbox" class="hidden" checked>
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-100 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">English</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-0 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">French</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-0 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">German</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center mr-3 relative">
+<i class="ri-check-line text-primary absolute opacity-0 transition-opacity text-sm"></i>
+</span>
+<span class="text-gray-700">Spanish</span>
+</label>
+</div>
+</div>
+<!-- Publication Date -->
+<div class="mb-8">
+<h4 class="text-sm font-semibold text-gray-900 mb-4">Publication Date</h4>
+<div class="space-y-3">
+<label class="flex items-center">
+<input type="radio" name="publication" class="hidden" checked>
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-100 transition-opacity"></span>
+</span>
+<span class="text-gray-700">Any time</span>
+</label>
+<label class="flex items-center">
+<input type="radio" name="publication" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-0 transition-opacity"></span>
+</span>
+<span class="text-gray-700">Last 30 days</span>
+</label>
+<label class="flex items-center">
+<input type="radio" name="publication" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-0 transition-opacity"></span>
+</span>
+<span class="text-gray-700">Last 90 days</span>
+</label>
+<label class="flex items-center">
+<input type="radio" name="publication" class="hidden">
+<span class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3 relative">
+<span class="w-3 h-3 bg-primary rounded-full absolute opacity-0 transition-opacity"></span>
+</span>
+<span class="text-gray-700">Last year</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-4 border-t bg-gray-50 flex gap-3">
+<button class="flex-1 bg-gray-200 text-gray-800 py-3 rounded font-medium !rounded-button">Reset</button>
+<button class="flex-1 bg-primary text-white py-3 rounded font-medium !rounded-button">Apply Filters</button>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const gridViewBtn = document.getElementById('gridViewBtn');
+const listViewBtn = document.getElementById('listViewBtn');
+const bookGrids = document.querySelectorAll('.grid-cols-2.md\\:grid-cols-4');
+function setGridView() {
+bookGrids.forEach(grid => {
+grid.classList.remove('grid-cols-1');
+grid.classList.add('grid-cols-2', 'md:grid-cols-4');
+const books = grid.querySelectorAll('.bg-white.rounded-lg');
+books.forEach(book => {
+book.classList.remove('flex', 'items-start', 'gap-6');
+book.querySelector('.relative').classList.remove('w-1/3');
+book.querySelector('.p-4').classList.remove('flex-1');
+});
+});
+gridViewBtn.classList.remove('bg-gray-100', 'text-gray-600');
+gridViewBtn.classList.add('bg-primary', 'text-white');
+listViewBtn.classList.remove('bg-primary', 'text-white');
+listViewBtn.classList.add('bg-gray-100', 'text-gray-600');
+}
+function setListView() {
+bookGrids.forEach(grid => {
+grid.classList.remove('grid-cols-2', 'md:grid-cols-4');
+grid.classList.add('grid-cols-1');
+const books = grid.querySelectorAll('.bg-white.rounded-lg');
+books.forEach(book => {
+book.classList.add('flex', 'items-start', 'gap-6');
+book.querySelector('.relative').classList.add('w-1/3');
+book.querySelector('.p-4').classList.add('flex-1');
+});
+});
+listViewBtn.classList.remove('bg-gray-100', 'text-gray-600');
+listViewBtn.classList.add('bg-primary', 'text-white');
+gridViewBtn.classList.remove('bg-primary', 'text-white');
+gridViewBtn.classList.add('bg-gray-100', 'text-gray-600');
+}
+gridViewBtn.addEventListener('click', setGridView);
+listViewBtn.addEventListener('click', setListView);
+// Radio button functionality
+const radioButtons = document.querySelectorAll('input[type="radio"]');
+radioButtons.forEach(radio => {
+radio.addEventListener('change', function() {
+// Find all radio buttons with the same name
+const sameNameRadios = document.querySelectorAll(`input[name="${this.name}"]`);
+// Update their indicator spans
+sameNameRadios.forEach(r => {
+const indicator = r.nextElementSibling.querySelector('span');
+if (r.checked) {
+indicator.classList.remove('opacity-0');
+indicator.classList.add('opacity-100');
+} else {
+indicator.classList.remove('opacity-100');
+indicator.classList.add('opacity-0');
+}
+});
+});
+});
+// Checkbox functionality
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('change', function() {
+const checkmark = this.nextElementSibling.querySelector('i');
+if (this.checked) {
+checkmark.classList.remove('opacity-0');
+checkmark.classList.add('opacity-100');
+} else {
+checkmark.classList.remove('opacity-100');
+checkmark.classList.add('opacity-0');
+}
+});
+});
+// Filter panel functionality
+const filterButton = document.querySelector('.ri-filter-3-line').parentElement;
+const filterPanel = document.getElementById('filterPanel');
+const filterPanelContent = filterPanel.querySelector('.transform');
+const closeFilterButton = document.getElementById('closeFilter');
+filterButton.addEventListener('click', function() {
+filterPanel.classList.remove('hidden');
+setTimeout(() => {
+filterPanelContent.classList.remove('translate-x-full');
+}, 10);
+});
+function closeFilterPanel() {
+filterPanelContent.classList.add('translate-x-full');
+setTimeout(() => {
+filterPanel.classList.add('hidden');
+}, 300);
+}
+closeFilterButton.addEventListener('click', closeFilterPanel);
+filterPanel.addEventListener('click', function(e) {
+if (e.target === filterPanel) {
+closeFilterPanel();
+}
+});
+});
+</script>
+</body>
+</html>

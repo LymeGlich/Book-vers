@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-help Books | BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#f97316'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #f9fafb;
+}
+.book-description {
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+.skeleton {
+animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+0%, 100% {
+opacity: 0.5;
+}
+50% {
+opacity: 0.8;
+}
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-scrollbar::-webkit-scrollbar {
+height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+background: #d1d5db;
+border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+background: #9ca3af;
+}
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center">
+<button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors">
+<i class="ri-arrow-left-line ri-lg"></i>
+</button>
+</div>
+<h1 class="text-xl font-semibold text-gray-800">Self-help</h1>
+<div class="flex items-center">
+<button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors">
+<i class="ri-search-line ri-lg"></i>
+</button>
+</div>
+</div>
+</div>
+</header>
+<div class="bg-gradient-to-r from-indigo-50 to-purple-50 py-6">
+<div class="max-w-7xl mx-auto px-4">
+<div class="text-center">
+<h2 class="text-xl font-medium text-gray-800 mb-2">Discover Your Best Self</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">Explore books that inspire personal growth, boost productivity, and help you navigate life's challenges with confidence and clarity.</p>
+</div>
+</div>
+</div>
+<div class="bg-white sticky top-16 z-40 border-b">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex justify-between items-center py-3">
+<div class="overflow-x-auto custom-scrollbar -mx-4 px-4">
+<div class="flex space-x-2 min-w-max">
+<button class="px-4 py-2 text-sm font-medium rounded-full bg-primary text-white !rounded-button whitespace-nowrap">
+All
+</button>
+<button class="px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 !rounded-button whitespace-nowrap">
+Motivation
+</button>
+<button class="px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 !rounded-button whitespace-nowrap">
+Productivity
+</button>
+<button class="px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 !rounded-button whitespace-nowrap">
+Mental Health
+</button>
+<button class="px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 !rounded-button whitespace-nowrap">
+Personal Growth
+</button>
+<button class="px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 !rounded-button whitespace-nowrap">
+Relationships
+</button>
+</div>
+</div>
+<div class="relative ml-4">
+<button id="sortButton" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<span>Sort by</span>
+<i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+</button>
+<div id="sortDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 border border-gray-200">
+<div class="py-1">
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Popularity</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Newest</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Rating</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Price: Low to High</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Price: High to Low</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<main class="py-8">
+<div class="max-w-7xl mx-auto px-4">
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20Atomic%20Habits%20by%20James%20Clear%2C%20minimalist%20style%20with%20simple%20geometric%20shapes%2C%20clean%20typography%2C%20soft%20gradient%20background%2C%20high%20quality%20book%20cover&width=400&height=600&seq=1&orientation=portrait" alt="Atomic Habits" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Atomic Habits</h3>
+<p class="text-sm text-gray-600 mb-2">James Clear</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-half-fill ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.8 (2,345)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">Tiny changes, remarkable results. Learn how to build good habits and break bad ones with practical strategies for transformation.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$18.99</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20The%20Subtle%20Art%20of%20Not%20Giving%20a%20F%2Ack%20by%20Mark%20Manson%2C%20bold%20typography%20on%20simple%20background%2C%20minimalist%20design%2C%20high%20quality%20book%20cover%20with%20orange%20color%20scheme&width=400&height=600&seq=2&orientation=portrait" alt="The Subtle Art of Not Giving a F*ck" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">The Subtle Art of Not Giving a F*ck</h3>
+<p class="text-sm text-gray-600 mb-2">Mark Manson</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-line ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.2 (3,127)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">A counterintuitive approach to living a good life, focusing on embracing life's struggles and finding meaning in suffering.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$16.99</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20Deep%20Work%20by%20Cal%20Newport%2C%20minimalist%20design%20with%20abstract%20geometric%20shapes%20representing%20focus%20and%20concentration%2C%20blue%20color%20scheme%2C%20clean%20typography%2C%20high%20quality%20book%20cover&width=400&height=600&seq=3&orientation=portrait" alt="Deep Work" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Deep Work</h3>
+<p class="text-sm text-gray-600 mb-2">Cal Newport</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-half-fill ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.7 (1,892)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">Rules for focused success in a distracted world. Learn to cultivate deep, meaningful work in an age of constant interruptions.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$19.99</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20Thinking%2C%20Fast%20and%20Slow%20by%20Daniel%20Kahneman%2C%20elegant%20minimalist%20design%20with%20abstract%20representation%20of%20dual%20thinking%20systems%2C%20subtle%20color%20contrast%2C%20clean%20typography%2C%20high%20quality%20book%20cover&width=400&height=600&seq=4&orientation=portrait" alt="Thinking, Fast and Slow" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Thinking, Fast and Slow</h3>
+<p class="text-sm text-gray-600 mb-2">Daniel Kahneman</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-line ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.3 (2,756)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">Explore the two systems that drive the way we think and make choices, and learn about the cognitive biases that affect our decisions.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$21.99</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20Mindset%20by%20Carol%20Dweck%2C%20clean%20minimalist%20design%20with%20abstract%20brain%20or%20growth%20imagery%2C%20soft%20color%20palette%2C%20elegant%20typography%2C%20high%20quality%20book%20cover&width=400&height=600&seq=5&orientation=portrait" alt="Mindset" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Mindset</h3>
+<p class="text-sm text-gray-600 mb-2">Carol S. Dweck</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-line ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.4 (1,658)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">Discover how the power of mindset can influence success. Learn the difference between fixed and growth mindsets and how to develop the latter.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$15.99</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20Daring%20Greatly%20by%20Bren%C3%A9%20Brown%2C%20warm%20and%20inviting%20design%20with%20subtle%20textures%2C%20elegant%20typography%2C%20earthy%20color%20palette%2C%20high%20quality%20book%20cover&width=400&height=600&seq=6&orientation=portrait" alt="Daring Greatly" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Daring Greatly</h3>
+<p class="text-sm text-gray-600 mb-2">Brené Brown</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-half-fill ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.6 (2,103)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">How the courage to be vulnerable transforms the way we live, love, parent, and lead. Embrace vulnerability as a strength.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$17.99</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20The%207%20Habits%20of%20Highly%20Effective%20People%20by%20Stephen%20Covey%2C%20classic%20elegant%20design%20with%20symbolic%20imagery%2C%20balanced%20composition%2C%20professional%20typography%2C%20high%20quality%20book%20cover&width=400&height=600&seq=7&orientation=portrait" alt="The 7 Habits of Highly Effective People" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">The 7 Habits of Highly Effective People</h3>
+<p class="text-sm text-gray-600 mb-2">Stephen R. Covey</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-half-fill ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.8 (5,421)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">Powerful lessons in personal change that have helped millions of people transform their lives through principles of fairness and integrity.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$20.99</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+<div class="aspect-[2/3] overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20Quiet:%20The%20Power%20of%20Introverts%20by%20Susan%20Cain%2C%20serene%20and%20thoughtful%20design%20with%20subtle%20imagery%20suggesting%20introspection%2C%20calm%20color%20palette%2C%20elegant%20typography%2C%20high%20quality%20book%20cover&width=400&height=600&seq=8&orientation=portrait" alt="Quiet: The Power of Introverts" class="w-full h-full object-cover object-top transition-transform hover:scale-105">
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1">Quiet: The Power of Introverts</h3>
+<p class="text-sm text-gray-600 mb-2">Susan Cain</p>
+<div class="flex items-center mb-2">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-line ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.1 (1,876)</span>
+</div>
+<p class="text-sm text-gray-700 mb-3 book-description">Explores how introverts can thrive in a world that often values extroversion, and how society benefits from both personality types.</p>
+<div class="flex justify-between items-center mb-3">
+<span class="font-medium text-gray-900">$18.49</span>
+</div>
+<button class="w-full py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+</div>
+</div>
+<!-- Load More Button -->
+<div class="col-span-2 md:col-span-3 lg:col-span-4 flex justify-center mt-4">
+<button class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 !rounded-button whitespace-nowrap">
+Load More Books
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Empty State (Hidden by default) -->
+<div id="emptyState" class="hidden py-16 max-w-7xl mx-auto px-4">
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-6 flex items-center justify-center bg-gray-100 rounded-full">
+<i class="ri-book-open-line ri-3x text-gray-400"></i>
+</div>
+<h3 class="text-xl font-medium text-gray-800 mb-2">No books found</h3>
+<p class="text-gray-600 max-w-md mx-auto mb-6">We couldn't find any books matching your current filters. Try adjusting your search criteria or browse our other categories.</p>
+<button class="px-6 py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Reset Filters
+</button>
+</div>
+</div>
+<!-- Quick View Modal (Hidden by default) -->
+<div id="quickViewModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+<div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+<div class="fixed inset-0 transition-opacity" aria-hidden="true">
+<div id="modalOverlay" class="absolute inset-0 bg-gray-500 opacity-75"></div>
+</div>
+<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+<div id="modalContent" class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+<div class="absolute top-0 right-0 pt-4 pr-4">
+<button type="button" id="closeModal" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="bg-white p-6">
+<div class="sm:flex sm:items-start">
+<div class="sm:flex-shrink-0 mx-auto sm:mx-0 mb-4 sm:mb-0 sm:mr-4">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20design%20for%20Atomic%20Habits%20by%20James%20Clear%2C%20minimalist%20style%20with%20simple%20geometric%20shapes%2C%20clean%20typography%2C%20soft%20gradient%20background%2C%20high%20quality%20book%20cover&width=200&height=300&seq=9&orientation=portrait" alt="Book Cover" class="w-32 h-48 object-cover object-top rounded">
+</div>
+<div class="text-center sm:text-left">
+<h3 class="text-lg font-semibold text-gray-900 mb-1">Atomic Habits</h3>
+<p class="text-sm text-gray-600 mb-2">James Clear</p>
+<div class="flex items-center mb-2 justify-center sm:justify-start">
+<div class="flex text-amber-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-half-fill ri-sm"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">4.8 (2,345)</span>
+</div>
+<p class="text-gray-700 mb-4">Tiny changes, remarkable results. Learn how to build good habits and break bad ones with practical strategies for transformation. This book offers a proven framework for improving every day.</p>
+<div class="flex justify-between items-center mb-4">
+<span class="font-medium text-gray-900 text-lg">$18.99</span>
+</div>
+<div class="flex space-x-2">
+<button class="flex-1 py-2 bg-primary text-white font-medium rounded !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Add to Cart
+</button>
+<button class="py-2 px-3 bg-gray-100 text-gray-700 font-medium rounded !rounded-button hover:bg-gray-200 transition-colors whitespace-nowrap">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const sortButton = document.getElementById('sortButton');
+const sortDropdown = document.getElementById('sortDropdown');
+const bookCards = document.querySelectorAll('.bg-white.rounded-lg');
+const quickViewModal = document.getElementById('quickViewModal');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalContent = document.getElementById('modalContent');
+const closeModal = document.getElementById('closeModal');
+// Sort dropdown functionality
+sortButton.addEventListener('click', function(e) {
+e.stopPropagation();
+sortDropdown.classList.toggle('hidden');
+});
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+if (!sortButton.contains(event.target) && !sortDropdown.contains(event.target)) {
+sortDropdown.classList.add('hidden');
+}
+});
+// Quick view modal functionality
+bookCards.forEach(card => {
+card.addEventListener('click', function(e) {
+e.stopPropagation();
+quickViewModal.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+});
+});
+// Close modal button
+closeModal.addEventListener('click', function(e) {
+e.stopPropagation();
+closeQuickViewModal();
+});
+// Close modal when clicking overlay
+modalOverlay.addEventListener('click', function(e) {
+if (e.target === modalOverlay) {
+closeQuickViewModal();
+}
+});
+// Prevent modal content clicks from closing
+modalContent.addEventListener('click', function(e) {
+e.stopPropagation();
+});
+// Escape key to close modal
+document.addEventListener('keydown', function(event) {
+if (event.key === 'Escape' && !quickViewModal.classList.contains('hidden')) {
+closeQuickViewModal();
+}
+});
+// Function to close modal
+function closeQuickViewModal() {
+quickViewModal.classList.add('hidden');
+document.body.style.overflow = '';
+}
+});
+</script>
+</body>
+</html>

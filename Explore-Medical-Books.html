@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Books - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#2B4CCE',secondary:'#4A6FE3'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.custom-checkbox {
+position: relative;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 18px;
+width: 18px;
+background-color: #fff;
+border: 1px solid #d1d5db;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+border-color: #a0aec0;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #2B4CCE;
+border-color: #2B4CCE;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+input[type="range"] {
+-webkit-appearance: none;
+width: 100%;
+height: 6px;
+background: #e5e7eb;
+border-radius: 5px;
+outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+background: #2B4CCE;
+border-radius: 50%;
+cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+width: 18px;
+height: 18px;
+background: #2B4CCE;
+border-radius: 50%;
+cursor: pointer;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.toggle-switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 22px;
+}
+.toggle-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 22px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 2px;
+bottom: 2px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #2B4CCE;
+}
+input:checked + .slider:before {
+transform: translateX(22px);
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<div class="flex items-center">
+<a href="#" class="text-2xl font-['Pacifico'] text-primary mr-8">book vers</a>
+<nav class="hidden md:flex space-x-6">
+<a href="#" class="text-gray-600 hover:text-primary">Home</a>
+<a href="#" class="text-gray-600 hover:text-primary">Categories</a>
+<a href="#" class="text-primary font-medium">Medical</a>
+<a href="#" class="text-gray-600 hover:text-primary">New Releases</a>
+<a href="#" class="text-gray-600 hover:text-primary">Bestsellers</a>
+</nav>
+</div>
+<div class="relative w-full max-w-md mx-4">
+<input type="text" placeholder="Search medical books, authors, topics..." class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="flex items-center space-x-5">
+<div class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer">
+<i class="ri-heart-line"></i>
+</div>
+<div class="relative w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer">
+<i class="ri-shopping-cart-line"></i>
+<span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-primary text-white text-xs rounded-full">3</span>
+</div>
+<div id="profileDropdownContainer" class="relative">
+<button id="profileButton" class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer">
+<i class="ri-user-line"></i>
+</button>
+<div id="profileDropdown" class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 hidden opacity-0 transform -translate-y-2 transition-all duration-200">
+<div id="loggedOutMenu">
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-login-box-line w-5 h-5 mr-3"></i>
+<span>Login</span>
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-user-add-line w-5 h-5 mr-3"></i>
+<span>Register</span>
+</a>
+</div>
+<div id="loggedInMenu" class="hidden">
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-user-line w-5 h-5 mr-3"></i>
+<span>My Profile</span>
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-shopping-bag-line w-5 h-5 mr-3"></i>
+<span>My Orders</span>
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-bookmark-line w-5 h-5 mr-3"></i>
+<span>Saved Books</span>
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-settings-3-line w-5 h-5 mr-3"></i>
+<span>Account Settings</span>
+</a>
+<div class="h-px bg-gray-200 my-2"></div>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-logout-box-line w-5 h-5 mr-3"></i>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Breadcrumb -->
+<div class="bg-white border-b">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center text-sm text-gray-500">
+<a href="#" class="hover:text-primary">Home</a>
+<i class="ri-arrow-right-s-line mx-2"></i>
+<a href="#" class="hover:text-primary">Categories</a>
+<i class="ri-arrow-right-s-line mx-2"></i>
+<span class="text-gray-900 font-medium">Medical</span>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="container mx-auto px-4 py-8">
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Sidebar Filters -->
+<aside class="w-full md:w-64 shrink-0">
+<div class="bg-white rounded shadow-sm p-5">
+<h2 class="font-semibold text-lg mb-4">Filters</h2>
+<!-- Medical Specialties -->
+<div class="mb-6">
+<h3 class="font-medium text-gray-900 mb-3">Medical Specialties</h3>
+<div class="space-y-2">
+<label class="flex items-center custom-checkbox">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="ml-7">Anatomy (124)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">Pharmacology (98)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">Nursing (87)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">Surgery (76)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">Cardiology (65)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">Neurology (54)</span>
+</label>
+</div>
+<button class="text-primary text-sm mt-2 hover:underline">Show more</button>
+</div>
+<!-- Publication Year -->
+<div class="mb-6">
+<h3 class="font-medium text-gray-900 mb-3">Publication Year</h3>
+<div class="space-y-2">
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">2025 (42)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="ml-7">2024 (156)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">2023 (203)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">2022 (187)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">2021 (164)</span>
+</label>
+</div>
+</div>
+<!-- Format -->
+<div class="mb-6">
+<h3 class="font-medium text-gray-900 mb-3">Format</h3>
+<div class="space-y-2">
+<label class="flex items-center custom-checkbox">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<span class="ml-7">Hardcover (342)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">Paperback (287)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">eBook (423)</span>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<span class="ml-7">Audiobook (156)</span>
+</label>
+</div>
+</div>
+<!-- Price Range -->
+<div class="mb-6">
+<h3 class="font-medium text-gray-900 mb-3">Price Range</h3>
+<input type="range" min="0" max="200" value="120" class="mb-3" id="priceRange">
+<div class="flex items-center justify-between">
+<div class="w-20 h-10 relative">
+<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+<input type="number" value="0" min="0" max="200" class="w-full h-full pl-7 pr-2 border border-gray-300 rounded text-sm">
+</div>
+<span class="text-gray-400">to</span>
+<div class="w-20 h-10 relative">
+<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+<input type="number" value="120" min="0" max="200" class="w-full h-full pl-7 pr-2 border border-gray-300 rounded text-sm">
+</div>
+</div>
+</div>
+<!-- Rating -->
+<div class="mb-6">
+<h3 class="font-medium text-gray-900 mb-3">Rating</h3>
+<div class="space-y-2">
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-7 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="ml-2 text-gray-600">(87)</span>
+</div>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+<div class="ml-7 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-2 text-gray-600">(143)</span>
+</div>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-7 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-2 text-gray-600">(256)</span>
+</div>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-7 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-2 text-gray-600">(78)</span>
+</div>
+</label>
+<label class="flex items-center custom-checkbox">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-7 flex items-center">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="ml-2 text-gray-600">(24)</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Availability -->
+<div class="mb-6">
+<h3 class="font-medium text-gray-900 mb-3">Availability</h3>
+<div class="flex items-center justify-between">
+<span>In Stock Only</span>
+<label class="toggle-switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-2.5 !rounded-button font-medium hover:bg-primary/90 transition">Apply Filters</button>
+<button class="w-full text-gray-600 py-2 mt-2 hover:text-gray-900">Clear All</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1">
+<!-- Top Filter Bar -->
+<div class="bg-white rounded shadow-sm p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center space-x-3">
+<div class="relative">
+<select class="appearance-none bg-white border border-gray-300 rounded py-2 pl-4 pr-8 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer text-sm">
+<option>All Medical Books</option>
+<option>Anatomy</option>
+<option>Pharmacology</option>
+<option>Nursing</option>
+<option>Surgery</option>
+<option>Cardiology</option>
+</select>
+<div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-white border border-gray-300 rounded py-2 pl-4 pr-8 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer text-sm">
+<option>English</option>
+<option>Spanish</option>
+<option>French</option>
+<option>German</option>
+<option>Chinese</option>
+</select>
+<div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="relative">
+<select class="appearance-none bg-white border border-gray-300 rounded py-2 pl-4 pr-8 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer text-sm">
+<option>Sort by: Relevance</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Newest First</option>
+<option>Bestselling</option>
+<option>Highest Rated</option>
+</select>
+<div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+<div class="flex border border-gray-300 rounded overflow-hidden">
+<button class="w-9 h-9 flex items-center justify-center bg-primary text-white">
+<i class="ri-layout-grid-line"></i>
+</button>
+<button class="w-9 h-9 flex items-center justify-center bg-white text-gray-500 hover:bg-gray-100">
+<i class="ri-list-check"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Featured Medical Books -->
+<div class="bg-white rounded shadow-sm p-6 mb-6">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-semibold">Featured Medical Books</h2>
+<div class="flex space-x-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-100">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-100">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Featured Book 1 -->
+<div class="rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=professional%20medical%20textbook%20cover%20with%20anatomical%20illustration%2C%20clean%20design%2C%20blue%20color%20scheme%2C%20medical%20symbols%2C%20high%20quality%20book%20cover&width=400&height=520&seq=1&orientation=portrait" alt="Gray's Anatomy" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">New Release</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Gray's Anatomy: The Comprehensive Guide (2025 Edition)</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Emily Richardson</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(128 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<span class="text-gray-900 font-semibold">$79.99</span>
+<span class="text-gray-500 text-sm line-through ml-2">$99.99</span>
+</div>
+<button class="bg-primary text-white p-2 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 2 -->
+<div class="rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=modern%20pharmacology%20textbook%20cover%2C%20professional%20design%2C%20medication%20and%20chemical%20formulas%2C%20clean%20medical%20style%2C%20pharmaceutical%20imagery%2C%20high%20quality%20book%20cover&width=400&height=520&seq=2&orientation=portrait" alt="Clinical Pharmacology" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute top-3 left-3 bg-yellow-500 text-white text-xs font-medium px-2 py-1 rounded">Bestseller</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Clinical Pharmacology: Principles and Practice</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Michael Thompson</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(243 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<span class="text-gray-900 font-semibold">$64.50</span>
+<span class="text-gray-500 text-sm line-through ml-2">$85.00</span>
+</div>
+<button class="bg-primary text-white p-2 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 3 -->
+<div class="rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=modern%20nursing%20textbook%20cover%2C%20professional%20healthcare%20design%2C%20nurse%20and%20patient%20imagery%2C%20medical%20equipment%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=3&orientation=portrait" alt="Essentials of Nursing" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute top-3 left-3 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded">20% Off</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">Essentials of Nursing: Theory and Practice</h3>
+<p class="text-gray-600 text-sm mb-2">Sarah Johnson, RN, PhD</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(186 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<span class="text-gray-900 font-semibold">$54.99</span>
+<span class="text-gray-500 text-sm line-through ml-2">$69.99</span>
+</div>
+<button class="bg-primary text-white p-2 !rounded-button whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Medical Books Grid -->
+<div class="mb-8">
+<h2 class="text-xl font-semibold mb-4">Medical Books (876)</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=cardiology%20medical%20textbook%20cover%2C%20heart%20anatomy%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=4&orientation=portrait" alt="Cardiology Principles" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Cardiology Principles and Practice: A Comprehensive Approach</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Robert Williams</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(87 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-gray-900 font-semibold">$72.50</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=neurology%20medical%20textbook%20cover%2C%20brain%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=5&orientation=portrait" alt="Neurology Essentials" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Neurology Essentials: Diagnosis and Treatment</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Jennifer Chen</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(124 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-gray-900 font-semibold">$68.99</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=surgery%20medical%20textbook%20cover%2C%20surgical%20instruments%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=6&orientation=portrait" alt="Modern Surgical Techniques" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+<div class="absolute top-3 left-3 bg-red-500 text-white text-xs font-medium px-2 py-1 rounded">Limited Stock</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Modern Surgical Techniques: A Practical Guide</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. James Anderson</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(56 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-gray-900 font-semibold">$89.99</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=pediatrics%20medical%20textbook%20cover%2C%20child%20healthcare%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=7&orientation=portrait" alt="Pediatric Medicine" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Pediatric Medicine: From Infancy to Adolescence</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Elizabeth Martinez</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(93 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-gray-900 font-semibold">$62.75</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=dermatology%20medical%20textbook%20cover%2C%20skin%20anatomy%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=8&orientation=portrait" alt="Clinical Dermatology" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+<div class="absolute top-3 left-3 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded">15% Off</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Clinical Dermatology: Diagnosis and Treatment</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. David Wilson</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(78 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<span class="text-gray-900 font-semibold">$59.49</span>
+<span class="text-gray-500 text-sm line-through ml-2">$69.99</span>
+</div>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=oncology%20medical%20textbook%20cover%2C%20cancer%20cell%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=9&orientation=portrait" alt="Principles of Oncology" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Principles of Oncology: Modern Approaches to Cancer Care</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Rebecca Harris</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(112 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-gray-900 font-semibold">$82.25</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=orthopedics%20medical%20textbook%20cover%2C%20bone%20and%20joint%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=10&orientation=portrait" alt="Orthopedic Medicine" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+<div class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Orthopedic Medicine: Principles and Practice</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Thomas Brown</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(42 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-gray-900 font-semibold">$75.99</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition group">
+<div class="relative pt-[130%] bg-gray-100">
+<img src="https://readdy.ai/api/search-image?query=psychiatry%20medical%20textbook%20cover%2C%20brain%20and%20psychology%20illustration%2C%20professional%20medical%20design%2C%20clean%20clinical%20style%2C%20high%20quality%20book%20cover&width=400&height=520&seq=11&orientation=portrait" alt="Modern Psychiatry" class="absolute inset-0 w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-gray-900 px-4 py-2 !rounded-button font-medium whitespace-nowrap quick-view-btn" data-book-id="book-1">Quick View</button>
+</div>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 hover:text-primary">
+<i class="ri-heart-line"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1 line-clamp-2">Modern Psychiatry: A Comprehensive Approach</h3>
+<p class="text-gray-600 text-sm mb-2">Dr. Katherine Lee</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400 text-sm">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-xs ml-1">(67 reviews)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-gray-900 font-semibold">$71.50</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center">
+<nav class="flex items-center space-x-1">
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded border border-gray-300 text-gray-600 hover:bg-gray-50">
+<i class="ri-arrow-left-s-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded bg-primary text-white">1</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded border border-gray-300 text-gray-600 hover:bg-gray-50">2</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded border border-gray-300 text-gray-600 hover:bg-gray-50">3</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded border border-gray-300 text-gray-600 hover:bg-gray-50">4</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded border border-gray-300 text-gray-600 hover:bg-gray-50">5</a>
+<span class="w-10 h-10 flex items-center justify-center text-gray-600">...</span>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded border border-gray-300 text-gray-600 hover:bg-gray-50">36</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded border border-gray-300 text-gray-600 hover:bg-gray-50">
+<i class="ri-arrow-right-s-line"></i>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</main>
+<!-- Newsletter -->
+<section class="bg-primary/5 py-12">
+<div class="container mx-auto px-4">
+<div class="max-w-2xl mx-auto text-center">
+<h2 class="text-2xl font-semibold mb-2">Stay Updated on Medical Publications</h2>
+<p class="text-gray-600 mb-6">Subscribe to our newsletter and be the first to know about new releases, special offers, and medical education updates.</p>
+<div class="flex flex-col sm:flex-row gap-3">
+<input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+<button class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">Subscribe Now</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-white border-t">
+<div class="container mx-auto px-4 py-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div>
+<a href="#" class="text-2xl font-['Pacifico'] text-primary mb-4 inline-block">book vers</a>
+<p class="text-gray-600 mb-4">Your trusted source for medical literature and educational resources for healthcare professionals and students.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-twitter-x-fill"></i>
+</a>
+<a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-instagram-line"></i>
+</a>
+<a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition">
+<i class="ri-linkedin-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900 mb-4">Medical Categories</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Anatomy & Physiology</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Pharmacology</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Nursing & Healthcare</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Surgery & Procedures</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Specialty Medicine</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Medical Education</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900 mb-4">Customer Service</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">My Account</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Order History</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Shipping Policy</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Returns & Refunds</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Help Center</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-semibold text-gray-900 mb-4">Download Our App</h3>
+<p class="text-gray-600 mb-4">Access your medical library on the go with our mobile application.</p>
+<div class="flex flex-col space-y-2">
+<a href="#" class="flex items-center bg-black text-white px-4 py-2 rounded">
+<i class="ri-apple-fill text-2xl mr-3"></i>
+<div>
+<div class="text-xs">Download on the</div>
+<div class="font-semibold">App Store</div>
+</div>
+</a>
+<a href="#" class="flex items-center bg-black text-white px-4 py-2 rounded">
+<i class="ri-google-play-fill text-2xl mr-3"></i>
+<div>
+<div class="text-xs">Get it on</div>
+<div class="font-semibold">Google Play</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t mt-12 pt-6">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-600 text-sm mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+<div class="flex items-center space-x-4">
+<a href="#" class="text-gray-600 text-sm hover:text-primary">Privacy Policy</a>
+<a href="#" class="text-gray-600 text-sm hover:text-primary">Terms of Service</a>
+<a href="#" class="text-gray-600 text-sm hover:text-primary">Accessibility</a>
+<div class="flex items-center space-x-2 ml-4">
+<i class="ri-visa-fill text-2xl text-gray-600"></i>
+<i class="ri-mastercard-fill text-2xl text-gray-600"></i>
+<i class="ri-paypal-fill text-2xl text-gray-600"></i>
+<i class="ri-amazon-pay-fill text-2xl text-gray-600"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- Quick View Modal -->
+<div id="quickViewModal" class="fixed inset-0 z-50 hidden">
+<div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+<div class="absolute inset-0 flex items-center justify-center p-4">
+<div class="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+<div class="sticky top-0 bg-white border-b z-10">
+<div class="flex items-center justify-between p-4">
+<h2 class="text-xl font-semibold text-gray-900">Book Details</h2>
+<button id="closeQuickView" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="w-full md:w-1/3">
+<div class="aspect-[3/4] rounded-lg overflow-hidden bg-gray-100">
+<img id="modalBookCover" class="w-full h-full object-cover object-top" src="" alt="">
+</div>
+</div>
+<div class="flex-1">
+<h1 id="modalBookTitle" class="text-2xl font-semibold text-gray-900 mb-2"></h1>
+<p id="modalBookAuthor" class="text-gray-600 mb-4"></p>
+<div class="flex items-center mb-4">
+<div id="modalBookRating" class="flex text-yellow-400"></div>
+<span id="modalBookReviews" class="text-gray-500 text-sm ml-2"></span>
+</div>
+<div class="mb-6">
+<span id="modalBookPrice" class="text-2xl font-semibold text-gray-900"></span>
+<span id="modalBookOriginalPrice" class="text-gray-500 text-lg line-through ml-2"></span>
+</div>
+<p id="modalBookDescription" class="text-gray-600 mb-6"></p>
+<div class="flex flex-wrap gap-4 mb-8">
+<button class="flex-1 bg-primary text-white py-3 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">
+Add to Cart
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full border-2 border-gray-200 text-gray-400 hover:border-primary hover:text-primary transition">
+<i class="ri-heart-line text-xl"></i>
+</button>
+</div>
+<div class="border-t pt-6">
+<h3 class="font-semibold text-gray-900 mb-4">Table of Contents Preview</h3>
+<ul id="modalBookTOC" class="list-disc list-inside text-gray-600 space-y-2"></ul>
+</div>
+<div class="border-t mt-6 pt-6">
+<h3 class="font-semibold text-gray-900 mb-4">Specifications</h3>
+<div class="grid grid-cols-2 gap-4 text-sm">
+<div>
+<span class="text-gray-500">ISBN:</span>
+<span id="modalBookISBN" class="text-gray-900 ml-2"></span>
+</div>
+<div>
+<span class="text-gray-500">Pages:</span>
+<span id="modalBookPages" class="text-gray-900 ml-2"></span>
+</div>
+<div>
+<span class="text-gray-500">Publisher:</span>
+<span id="modalBookPublisher" class="text-gray-900 ml-2"></span>
+</div>
+<div>
+<span class="text-gray-500">Language:</span>
+<span id="modalBookLanguage" class="text-gray-900 ml-2"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const profileButton = document.getElementById('profileButton');
+const profileDropdown = document.getElementById('profileDropdown');
+const loggedInMenu = document.getElementById('loggedInMenu');
+const loggedOutMenu = document.getElementById('loggedOutMenu');
+const profileDropdownContainer = document.getElementById('profileDropdownContainer');
+
+if (!profileButton || !profileDropdown || !loggedInMenu || !loggedOutMenu || !profileDropdownContainer) {
+  console.warn('Some profile elements not found');
+  return;
+}
+
+const isLoggedIn = false;
+
+if (isLoggedIn) {
+  loggedInMenu.classList.remove('hidden');
+  loggedOutMenu.classList.add('hidden');
+} else {
+  loggedOutMenu.classList.remove('hidden');
+  loggedInMenu.classList.add('hidden');
+}
+
+function showDropdown() {
+  profileDropdown.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    profileDropdown.classList.remove('-translate-y-2', 'opacity-0');
+  });
+}
+
+function hideDropdown() {
+  profileDropdown.classList.add('-translate-y-2', 'opacity-0');
+  setTimeout(() => {
+    profileDropdown.classList.add('hidden');
+  }, 200);
+}
+
+profileButton.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (profileDropdown.classList.contains('hidden')) {
+    showDropdown();
+  } else {
+    hideDropdown();
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (!profileDropdownContainer.contains(e.target)) {
+    hideDropdown();
+  }
+});
+const priceRange = document.getElementById('priceRange');
+const minPriceInput = document.querySelector('input[type="number"][min="0"]');
+const maxPriceInput = document.querySelector('input[type="number"][value="120"]');
+
+if (priceRange && minPriceInput && maxPriceInput) {
+  priceRange.addEventListener('input', function() {
+    const value = parseInt(this.value);
+    maxPriceInput.value = value;
+  });
+
+  minPriceInput.addEventListener('input', function() {
+    const min = parseInt(this.value);
+    const max = parseInt(maxPriceInput.value);
+    if (min > max) {
+      this.value = max;
+    }
+  });
+
+  maxPriceInput.addEventListener('input', function() {
+    const min = parseInt(minPriceInput.value);
+    const max = parseInt(this.value);
+    if (max < min) {
+      this.value = min;
+    }
+    priceRange.value = this.value;
+  });
+}
+});
+document.addEventListener('DOMContentLoaded', function() {
+const quickViewModal = document.getElementById('quickViewModal');
+const closeQuickView = document.getElementById('closeQuickView');
+const quickViewButtons = document.querySelectorAll('.quick-view-btn');
+
+if (!quickViewModal || !closeQuickView) {
+  console.warn('Quick view modal elements not found');
+  return;
+}
+const bookData = {
+'book-1': {
+title: "Gray's Anatomy: The Comprehensive Guide (2025 Edition)",
+author: "Dr. Emily Richardson",
+rating: 4.5,
+reviews: 128,
+price: 79.99,
+originalPrice: 99.99,
+description: "The latest edition of the world-renowned anatomy reference, featuring detailed illustrations and comprehensive coverage of human anatomy. This authoritative text has been meticulously updated to reflect the latest advances in anatomical knowledge and medical education.",
+cover: "https://readdy.ai/api/search-image?query=professional%20medical%20textbook%20cover%20with%20anatomical%20illustration%2C%20clean%20design%2C%20blue%20color%20scheme%2C%20medical%20symbols%2C%20high%20quality%20book%20cover&width=400&height=520&seq=1&orientation=portrait",
+toc: [
+"Chapter 1: Introduction to Human Anatomy",
+"Chapter 2: Musculoskeletal System",
+"Chapter 3: Cardiovascular System",
+"Chapter 4: Nervous System",
+"Chapter 5: Digestive System"
+],
+isbn: "978-0123456789",
+pages: 1264,
+publisher: "Medical Press International",
+language: "English"
+}
+};
+function updateModalContent(bookId) {
+const book = bookData[bookId];
+if (!book) return;
+document.getElementById('modalBookCover').src = book.cover;
+document.getElementById('modalBookTitle').textContent = book.title;
+document.getElementById('modalBookAuthor').textContent = book.author;
+const ratingHTML = Array(5).fill('').map((_, i) => {
+return i < Math.floor(book.rating)
+? '<i class="ri-star-fill"></i>'
+: i === Math.floor(book.rating) && book.rating % 1 !== 0
+? '<i class="ri-star-half-fill"></i>'
+: '<i class="ri-star-line"></i>';
+}).join('');
+document.getElementById('modalBookRating').innerHTML = ratingHTML;
+document.getElementById('modalBookReviews').textContent = `(${book.reviews} reviews)`;
+document.getElementById('modalBookPrice').textContent = `$${book.price}`;
+document.getElementById('modalBookOriginalPrice').textContent = `$${book.originalPrice}`;
+document.getElementById('modalBookDescription').textContent = book.description;
+document.getElementById('modalBookTOC').innerHTML = book.toc
+.map(item => `<li>${item}</li>`)
+.join('');
+document.getElementById('modalBookISBN').textContent = book.isbn;
+document.getElementById('modalBookPages').textContent = book.pages;
+document.getElementById('modalBookPublisher').textContent = book.publisher;
+document.getElementById('modalBookLanguage').textContent = book.language;
+}
+quickViewButtons.forEach(button => {
+button.addEventListener('click', (e) => {
+e.preventDefault();
+const bookId = button.dataset.bookId;
+updateModalContent(bookId);
+quickViewModal.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+});
+});
+closeQuickView.addEventListener('click', () => {
+quickViewModal.classList.add('hidden');
+document.body.style.overflow = '';
+});
+quickViewModal.addEventListener('click', (e) => {
+if (e.target === quickViewModal) {
+quickViewModal.classList.add('hidden');
+document.body.style.overflow = '';
+}
+});
+});
+const initCartButtons = () => {
+  const cartButtons = document.querySelectorAll('.w-9.h-9.flex.items-center.justify-center.rounded-full.bg-gray-100');
+  
+  cartButtons.forEach(button => {
+    button.addEventListener('mouseenter', function() {
+      this.classList.add('bg-primary', 'text-white');
+      this.classList.remove('bg-gray-100', 'text-gray-600');
+    });
+    
+    button.addEventListener('mouseleave', function() {
+      this.classList.remove('bg-primary', 'text-white');
+      this.classList.add('bg-gray-100', 'text-gray-600');
+    });
+  });
+};
+
+document.addEventListener('DOMContentLoaded', initCartButtons);
+</script>
+</body>
+</html>

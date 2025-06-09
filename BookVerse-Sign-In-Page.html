@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - BookVerse</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#6b7280'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            background-color: #fff;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+        input[type="checkbox"]:checked {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        input[type="checkbox"]:checked::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7' /%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .divider span {
+            padding: 0 16px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <header class="w-full px-6 py-4 flex justify-between items-center">
+        <a href="/" class="font-['Pacifico'] text-2xl text-primary">BookVerse</a>
+        <a href="/" class="text-sm text-gray-600 hover:text-primary transition-colors flex items-center">
+            <span class="w-5 h-5 flex items-center justify-center mr-1">
+                <i class="ri-arrow-left-line"></i>
+            </span>
+            Back to Home
+        </a>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center px-4 py-8">
+        <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6 text-center">Sign In</h1>
+            
+            <form>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="w-full h-12 px-4 border border-gray-300 rounded text-gray-800 text-sm"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+                
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="w-full h-12 px-4 border border-gray-300 rounded text-gray-800 text-sm pr-10"
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <div class="password-toggle w-5 h-5 flex items-center justify-center">
+                            <i class="ri-eye-line text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="mr-2">
+                        <label for="remember" class="text-sm text-gray-600">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-primary hover:text-primary/80 font-medium">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="w-full h-12 bg-primary text-white font-medium rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <div class="space-y-3">
+                <button class="w-full h-12 border border-gray-300 rounded-button flex items-center justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap">
+                    <span class="w-5 h-5 flex items-center justify-center mr-3">
+                        <i class="ri-google-fill text-[#4285F4]"></i>
+                    </span>
+                    Sign in with Google
+                </button>
+                
+                <button class="w-full h-12 bg-[#1877F2] rounded-button flex items-center justify-center text-sm font-medium text-white hover:bg-[#1877F2]/90 transition-colors whitespace-nowrap">
+                    <span class="w-5 h-5 flex items-center justify-center mr-3">
+                        <i class="ri-facebook-fill"></i>
+                    </span>
+                    Sign in with Facebook
+                </button>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-600">New to BookVerse?</p>
+                <a href="#" class="text-sm font-medium text-primary hover:text-primary/80">Create an account</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordField = document.getElementById('password');
+            const toggleBtn = document.querySelector('.password-toggle');
+            
+            toggleBtn.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                // Toggle icon
+                const icon = toggleBtn.querySelector('i');
+                if (type === 'password') {
+                    icon.classList.remove('ri-eye-off-line');
+                    icon.classList.add('ri-eye-line');
+                } else {
+                    icon.classList.remove('ri-eye-line');
+                    icon.classList.add('ri-eye-off-line');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

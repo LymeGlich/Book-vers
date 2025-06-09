@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manga - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4f46e5',secondary:'#f59e0b'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.manga-banner {
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('https://readdy.ai/api/search-image?query=Vibrant%20manga%20artwork%20collage%20featuring%20diverse%20manga%20styles%20and%20characters%2C%20colorful%20artistic%20composition%20with%20dynamic%20action%20poses%20and%20emotional%20scenes%2C%20professional%20illustration%20quality%20with%20clean%20lines%20and%20expressive%20faces%2C%20soft%20lighting%20effect%20from%20left%20to%20right&width=1200&height=400&seq=1&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+.manga-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center space-x-6">
+<a href="#" class="flex items-center space-x-2">
+<span class="text-2xl font-['Pacifico'] text-primary">book vers</span>
+</a>
+<button class="flex items-center text-gray-600 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-line ri-lg"></i>
+</div>
+<span>Back</span>
+</button>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<input type="text" placeholder="Search manga..." class="pl-10 pr-4 py-2 w-64 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="relative">
+<div id="cartButton" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer">
+<i class="ri-shopping-cart-line ri-lg"></i>
+</div>
+<span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-primary text-white text-xs rounded-full">3</span>
+<div id="cartPanel" class="hidden absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+<div class="p-4">
+<div class="space-y-4 mb-4">
+<div class="flex items-center gap-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20warrior%20with%20spiky%20hair%20and%20determined%20expression%2C%20dynamic%20action%20pose%20with%20energy%20effects%2C%20vibrant%20colors%20with%20dramatic%20lighting%2C%20clean%20professional%20illustration%20style%20with%20sharp%20lines&width=60&height=80&seq=26&orientation=portrait" alt="Demon Slayer" class="w-12 h-16 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-medium">Demon Slayer</h4>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex border rounded-lg">
+<button class="px-2 py-1 text-gray-600 hover:text-gray-800">-</button>
+<span class="px-2 py-1 border-x">1</span>
+<button class="px-2 py-1 text-gray-600 hover:text-gray-800">+</button>
+</div>
+<span class="text-sm font-medium">$12.99</span>
+</div>
+</div>
+<button class="text-gray-400 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20mysterious%20detective%20character%20in%20dark%20coat%20and%20hat%2C%20noir%20style%20with%20shadowy%20atmosphere%2C%20urban%20nighttime%20setting%2C%20dramatic%20contrast%20with%20blue%20and%20gray%20tones%2C%20clean%20professional%20illustration%20style&width=60&height=80&seq=27&orientation=portrait" alt="Death Note" class="w-12 h-16 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-medium">Death Note</h4>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex border rounded-lg">
+<button class="px-2 py-1 text-gray-600 hover:text-gray-800">-</button>
+<span class="px-2 py-1 border-x">1</span>
+<button class="px-2 py-1 text-gray-600 hover:text-gray-800">+</button>
+</div>
+<span class="text-sm font-medium">$13.99</span>
+</div>
+</div>
+<button class="text-gray-400 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20female%20chef%20with%20determined%20expression%2C%20cooking%20in%20kitchen%20with%20steam%20and%20food%20elements%2C%20warm%20colors%20with%20appetizing%20food%20details%2C%20clean%20professional%20illustration%20style%20with%20cute%20character%20design&width=60&height=80&seq=28&orientation=portrait" alt="Food Wars!" class="w-12 h-16 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-medium">Food Wars!</h4>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex border rounded-lg">
+<button class="px-2 py-1 text-gray-600 hover:text-gray-800">-</button>
+<span class="px-2 py-1 border-x">1</span>
+<button class="px-2 py-1 text-gray-600 hover:text-gray-800">+</button>
+</div>
+<span class="text-sm font-medium">$10.99</span>
+</div>
+</div>
+<button class="text-gray-400 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+<div class="border-t pt-3">
+<div class="flex justify-between text-sm mb-3">
+<span class="font-medium">Subtotal</span>
+<span class="font-bold">$37.97</span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap">View Cart</button>
+<button class="flex-1 px-4 py-2 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Checkout</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20portrait%20of%20a%20young%20person%20with%20neutral%20expression%2C%20clean%20background%2C%20high%20quality%20professional%20photo&width=100&height=100&seq=2&orientation=squarish" alt="User" class="w-full h-full object-cover">
+</div>
+</div>
+</div>
+</header>
+<!-- Manga Banner -->
+<section class="manga-banner py-16 text-white">
+<div class="container mx-auto px-4">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-5xl font-bold mb-4">Manga Collection</h1>
+<p class="text-lg mb-6 opacity-90">Explore our vast collection of Japanese comics and graphic novels, featuring everything from action-packed adventures to heartwarming romances.</p>
+<div class="flex items-center space-x-4">
+<div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+<span class="text-xl font-semibold">2,487</span>
+<span class="ml-1 text-sm opacity-90">Titles</span>
+</div>
+<div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+<span class="text-xl font-semibold">128</span>
+<span class="ml-1 text-sm opacity-90">Series</span>
+</div>
+<div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+<span class="text-xl font-semibold">47</span>
+<span class="ml-1 text-sm opacity-90">Publishers</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Filter Section -->
+<section class="bg-white border-b border-gray-200 sticky top-16 z-40">
+<div class="container mx-auto px-4 py-3">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center space-x-4">
+<div class="relative">
+<button class="flex items-center space-x-2 px-4 py-2 border border-gray-200 rounded-button text-gray-700 bg-white hover:bg-gray-50 whitespace-nowrap">
+<span>Genre</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+<div class="hidden absolute left-0 top-full mt-1 w-48 bg-white shadow-lg rounded-lg border border-gray-200 py-2 z-10">
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Action</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Adventure</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Comedy</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Drama</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Fantasy</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Horror</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Romance</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Sci-Fi</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Slice of Life</a>
+</div>
+</div>
+<div class="relative">
+<button class="flex items-center space-x-2 px-4 py-2 border border-gray-200 rounded-button text-gray-700 bg-white hover:bg-gray-50 whitespace-nowrap">
+<span>Sort by: Popular</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+<div class="hidden absolute left-0 top-full mt-1 w-48 bg-white shadow-lg rounded-lg border border-gray-200 py-2 z-10">
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Popular</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">New Releases</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Price: Low to High</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Price: High to Low</a>
+<a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Rating</a>
+</div>
+</div>
+<div class="flex items-center bg-gray-100 rounded-lg p-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-white shadow-sm">
+<i class="ri-layout-grid-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500">
+<i class="ri-list-check"></i>
+</button>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-800">
+Shonen
+<button class="ml-1 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-800">
+Action
+<button class="ml-1 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-800">
+Fantasy
+<button class="ml-1 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</span>
+<button class="text-primary text-sm font-medium">Clear All</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Manga Section -->
+<section class="py-10 bg-white">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-gray-900">Trending Manga</h2>
+<a href="#" class="text-primary font-medium flex items-center">
+View All
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="relative">
+<div class="flex space-x-6 overflow-x-auto pb-4 hide-scrollbar">
+<!-- Trending Manga 1 -->
+<div class="w-64 flex-shrink-0">
+<div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+<div class="h-80 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20warrior%20with%20spiky%20hair%20and%20determined%20expression%2C%20dynamic%20action%20pose%20with%20energy%20effects%2C%20vibrant%20colors%20with%20dramatic%20lighting%2C%20clean%20professional%20illustration%20style%20with%20sharp%20lines&width=300&height=450&seq=3&orientation=portrait" alt="One Piece" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.8 (1.2k)</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Demon Slayer</h3>
+<p class="text-gray-600 text-sm mb-3">Koyoharu Gotouge</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$12.99</span>
+<div class="flex space-x-2">
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 !rounded-button">
+<i class="ri-eye-line"></i>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 text-primary !rounded-button">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trending Manga 2 -->
+<div class="w-64 flex-shrink-0">
+<div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+<div class="h-80 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20high%20school%20student%20with%20glasses%20in%20school%20uniform%2C%20slice%20of%20life%20setting%20with%20cherry%20blossoms%2C%20soft%20pastel%20colors%2C%20clean%20professional%20illustration%20style%20with%20romantic%20atmosphere&width=300&height=450&seq=4&orientation=portrait" alt="My Hero Academia" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.1 (856)</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Your Lie in April</h3>
+<p class="text-gray-600 text-sm mb-3">Naoshi Arakawa</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$11.49</span>
+<div class="flex space-x-2">
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 !rounded-button">
+<i class="ri-eye-line"></i>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 text-primary !rounded-button">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trending Manga 3 -->
+<div class="w-64 flex-shrink-0">
+<div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+<div class="h-80 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20mysterious%20detective%20character%20in%20dark%20coat%20and%20hat%2C%20noir%20style%20with%20shadowy%20atmosphere%2C%20urban%20nighttime%20setting%2C%20dramatic%20contrast%20with%20blue%20and%20gray%20tones%2C%20clean%20professional%20illustration%20style&width=300&height=450&seq=5&orientation=portrait" alt="Attack on Titan" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">5.0 (2.3k)</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Death Note</h3>
+<p class="text-gray-600 text-sm mb-3">Tsugumi Ohba</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$13.99</span>
+<div class="flex space-x-2">
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 !rounded-button">
+<i class="ri-eye-line"></i>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 text-primary !rounded-button">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trending Manga 4 -->
+<div class="w-64 flex-shrink-0">
+<div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+<div class="h-80 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20female%20chef%20with%20determined%20expression%2C%20cooking%20in%20kitchen%20with%20steam%20and%20food%20elements%2C%20warm%20colors%20with%20appetizing%20food%20details%2C%20clean%20professional%20illustration%20style%20with%20cute%20character%20design&width=300&height=450&seq=6&orientation=portrait" alt="Naruto" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.7 (932)</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Food Wars!</h3>
+<p class="text-gray-600 text-sm mb-3">Yuto Tsukuda</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$10.99</span>
+<div class="flex space-x-2">
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 !rounded-button">
+<i class="ri-eye-line"></i>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 text-primary !rounded-button">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trending Manga 5 -->
+<div class="w-64 flex-shrink-0">
+<div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+<div class="h-80 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20group%20of%20high%20school%20students%20in%20sports%20uniforms%2C%20dynamic%20volleyball%20action%20scene%2C%20energetic%20poses%20with%20motion%20lines%2C%20bright%20colors%20with%20team%20spirit%20atmosphere%2C%20clean%20professional%20illustration%20style&width=300&height=450&seq=7&orientation=portrait" alt="Jujutsu Kaisen" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.3 (1.5k)</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Haikyu!!</h3>
+<p class="text-gray-600 text-sm mb-3">Haruichi Furudate</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$12.49</span>
+<div class="flex space-x-2">
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 !rounded-button">
+<i class="ri-eye-line"></i>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 text-primary !rounded-button">
+<i class="ri-bookmark-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="absolute left-0 top-1/2 transform -translate-y-1/2 -ml-4 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-700 z-10 opacity-70 hover:opacity-100">
+<i class="ri-arrow-left-s-line ri-lg"></i>
+</button>
+<button class="absolute right-0 top-1/2 transform -translate-y-1/2 -mr-4 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-700 z-10 opacity-70 hover:opacity-100">
+<i class="ri-arrow-right-s-line ri-lg"></i>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Manga Grid -->
+<section class="py-10 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">All Manga</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+<!-- Manga Card 1 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20ninja%20with%20blonde%20hair%20and%20orange%20outfit%2C%20action%20pose%20with%20energy%20effects%2C%20bright%20colors%20with%20blue%20sky%20background%2C%20clean%20professional%20illustration%20style%20with%20dynamic%20composition&width=300&height=400&seq=8&orientation=portrait" alt="Naruto" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Naruto</h3>
+<p class="text-gray-600 text-sm mb-2">Masashi Kishimoto</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">Follow Naruto Uzumaki, a young ninja who seeks recognition from his peers and dreams of becoming the Hokage, the leader of his village.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.8 (3.2k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$9.99</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 2 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20pirate%20with%20straw%20hat%20and%20red%20vest%2C%20adventure%20scene%20with%20ocean%20and%20ship%2C%20bright%20tropical%20colors%2C%20clean%20professional%20illustration%20style%20with%20cheerful%20character%20design&width=300&height=400&seq=9&orientation=portrait" alt="One Piece" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">One Piece</h3>
+<p class="text-gray-600 text-sm mb-2">Eiichiro Oda</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">The story follows the adventures of Monkey D. Luffy and his crew as they explore the Grand Line in search of the world's ultimate treasure.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">5.0 (5.7k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$10.99</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 3 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20giant%20humanoid%20creatures%20attacking%20a%20walled%20city%2C%20dark%20apocalyptic%20atmosphere%2C%20soldiers%20with%20gear%20equipment%2C%20dramatic%20red%20and%20black%20color%20scheme%2C%20clean%20professional%20illustration%20style%20with%20intense%20action&width=300&height=400&seq=10&orientation=portrait" alt="Attack on Titan" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Attack on Titan</h3>
+<p class="text-gray-600 text-sm mb-2">Hajime Isayama</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">Set in a world where humanity lives within cities surrounded by enormous walls due to the Titans, gigantic humanoid creatures who devour humans seemingly without reason.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.9 (4.1k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$12.99</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 4 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20hero%20with%20green%20hair%20in%20hero%20costume%2C%20superhero%20academy%20setting%2C%20dynamic%20pose%20with%20energy%20effects%2C%20bright%20primary%20colors%2C%20clean%20professional%20illustration%20style%20with%20superhero%20theme&width=300&height=400&seq=11&orientation=portrait" alt="My Hero Academia" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">My Hero Academia</h3>
+<p class="text-gray-600 text-sm mb-2">Kohei Horikoshi</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">In a world where people with superpowers known as "Quirks" are the norm, Izuku Midoriya, a boy born without a Quirk, dreams of becoming a hero himself.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.2 (2.8k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$11.49</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 5 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20high%20school%20student%20with%20notebook%20and%20supernatural%20elements%2C%20dark%20thriller%20atmosphere%2C%20mysterious%20shinigami%20death%20god%20character%2C%20blue%20and%20black%20color%20scheme%2C%20clean%20professional%20illustration%20style%20with%20psychological%20theme&width=300&height=400&seq=12&orientation=portrait" alt="Death Note" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Death Note</h3>
+<p class="text-gray-600 text-sm mb-2">Tsugumi Ohba</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">Light Yagami discovers a supernatural notebook that grants its user the ability to kill anyone whose name and face they know. He begins a quest to create a new world free of evil.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.7 (3.9k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$13.99</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 6 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20alchemist%20with%20red%20coat%20and%20metal%20arm%2C%20mystical%20transmutation%20circle%20elements%2C%20steampunk%20fantasy%20setting%2C%20warm%20gold%20and%20red%20color%20scheme%2C%20clean%20professional%20illustration%20style%20with%20adventure%20theme&width=300&height=400&seq=13&orientation=portrait" alt="Fullmetal Alchemist" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Fullmetal Alchemist</h3>
+<p class="text-gray-600 text-sm mb-2">Hiromu Arakawa</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">Brothers Edward and Alphonse Elric search for the Philosopher's Stone to restore their bodies after a failed attempt to bring their mother back to life using alchemy.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.9 (4.5k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$12.49</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 7 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20exorcist%20with%20blue%20flames%20and%20sword%2C%20supernatural%20battle%20with%20demons%2C%20dark%20fantasy%20setting%20with%20temple%20elements%2C%20blue%20and%20black%20color%20scheme%2C%20clean%20professional%20illustration%20style%20with%20action%20theme&width=300&height=400&seq=14&orientation=portrait" alt="Blue Exorcist" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Blue Exorcist</h3>
+<p class="text-gray-600 text-sm mb-2">Kazue Kato</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">Rin Okumura discovers he is the son of Satan and decides to become an exorcist to defeat his father after the death of his guardian.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.0 (1.8k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$10.99</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 8 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20high%20school%20student%20with%20piano%20and%20musical%20notes%2C%20emotional%20music%20performance%20scene%2C%20cherry%20blossoms%20and%20spring%20setting%2C%20soft%20pastel%20colors%2C%20clean%20professional%20illustration%20style%20with%20emotional%20theme&width=300&height=400&seq=15&orientation=portrait" alt="Your Lie in April" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Your Lie in April</h3>
+<p class="text-gray-600 text-sm mb-2">Naoshi Arakawa</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">A piano prodigy who lost his ability to play after his mother's death meets a violinist who helps him return to music and find his own voice.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.6 (2.3k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$11.49</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 9 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20sorcerer%20with%20blindfold%20and%20cursed%20energy%2C%20supernatural%20battle%20with%20monstrous%20creatures%2C%20modern%20urban%20setting%20with%20mystical%20elements%2C%20dark%20blue%20and%20purple%20color%20scheme%2C%20clean%20professional%20illustration%20style%20with%20horror%20action%20theme&width=300&height=400&seq=16&orientation=portrait" alt="Jujutsu Kaisen" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Jujutsu Kaisen</h3>
+<p class="text-gray-600 text-sm mb-2">Gege Akutami</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">Yuji Itadori, a high school student with impressive physical abilities, joins a secret organization of Jujutsu Sorcerers to kill a powerful Curse named Ryomen Sukuna.</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.8 (3.1k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$13.99</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Manga Card 10 -->
+<div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="h-64 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20high%20school%20volleyball%20players%20in%20dynamic%20jumping%20pose%2C%20sports%20action%20scene%20with%20motion%20lines%2C%20gymnasium%20setting%20with%20team%20spirit%2C%20bright%20energetic%20colors%2C%20clean%20professional%20illustration%20style%20with%20sports%20theme&width=300&height=400&seq=17&orientation=portrait" alt="Haikyuu!!" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg mb-1">Haikyuu!!</h3>
+<p class="text-gray-600 text-sm mb-2">Haruichi Furudate</p>
+<p class="text-gray-700 text-sm mb-3 line-clamp-2">Shoyo Hinata joins his high school volleyball team, determined to overcome his small stature and become like his idol, a legendary player known as the "Little Giant."</p>
+<div class="flex items-center mb-3">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.3 (2.7k)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">$12.49</span>
+<div class="flex space-x-2">
+<button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-button text-sm font-medium whitespace-nowrap preview-btn" data-manga-id="${mangaId}">Preview</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-button text-sm font-medium whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center space-x-2">
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50">
+<i class="ri-arrow-left-s-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white">1</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50">2</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50">3</a>
+<span class="w-10 h-10 flex items-center justify-center text-gray-600">...</span>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50">12</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50">
+<i class="ri-arrow-right-s-line"></i>
+</a>
+</nav>
+</div>
+</div>
+</section>
+<!-- Reading List Floating Button -->
+<div class="fixed bottom-6 right-6 z-50">
+<button id="readingListBtn" class="relative w-14 h-14 bg-primary rounded-full shadow-lg flex items-center justify-center text-white hover:bg-primary/90 transition-all">
+<i class="ri-bookmark-fill ri-lg"></i>
+<span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center bg-secondary text-white text-xs rounded-full">5</span>
+</button>
+</div>
+<!-- Reading List Panel -->
+<div id="readingListPanel" class="fixed top-0 right-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+<div class="h-full flex flex-col">
+<div class="p-4 border-b flex items-center justify-between">
+<h3 class="text-lg font-semibold">My Reading List (5)</h3>
+<button id="closeReadingList" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Reading List Item 1 -->
+<div class="flex gap-3 p-3 bg-gray-50 rounded-lg">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20warrior%20with%20spiky%20hair%20and%20determined%20expression%2C%20dynamic%20action%20pose%20with%20energy%20effects%2C%20vibrant%20colors%20with%20dramatic%20lighting%2C%20clean%20professional%20illustration%20style%20with%20sharp%20lines&width=80&height=120&seq=18&orientation=portrait" alt="Demon Slayer" class="w-16 h-24 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-semibold">Demon Slayer</h4>
+<p class="text-sm text-gray-600">Koyoharu Gotouge</p>
+<div class="flex items-center justify-between mt-2">
+<span class="font-bold">$12.99</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-primary hover:text-primary/80">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Reading List Item 2 -->
+<div class="flex gap-3 p-3 bg-gray-50 rounded-lg">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20high%20school%20student%20with%20glasses%20in%20school%20uniform%2C%20slice%20of%20life%20setting%20with%20cherry%20blossoms%2C%20soft%20pastel%20colors%2C%20clean%20professional%20illustration%20style%20with%20romantic%20atmosphere&width=80&height=120&seq=19&orientation=portrait" alt="Your Lie in April" class="w-16 h-24 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-semibold">Your Lie in April</h4>
+<p class="text-sm text-gray-600">Naoshi Arakawa</p>
+<div class="flex items-center justify-between mt-2">
+<span class="font-bold">$11.49</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-primary hover:text-primary/80">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Reading List Item 3 -->
+<div class="flex gap-3 p-3 bg-gray-50 rounded-lg">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20mysterious%20detective%20character%20in%20dark%20coat%20and%20hat%2C%20noir%20style%20with%20shadowy%20atmosphere%2C%20urban%20nighttime%20setting%2C%20dramatic%20contrast%20with%20blue%20and%20gray%20tones%2C%20clean%20professional%20illustration%20style&width=80&height=120&seq=20&orientation=portrait" alt="Death Note" class="w-16 h-24 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-semibold">Death Note</h4>
+<p class="text-sm text-gray-600">Tsugumi Ohba</p>
+<div class="flex items-center justify-between mt-2">
+<span class="font-bold">$13.99</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-primary hover:text-primary/80">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Reading List Item 4 -->
+<div class="flex gap-3 p-3 bg-gray-50 rounded-lg">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20young%20female%20chef%20with%20determined%20expression%2C%20cooking%20in%20kitchen%20with%20steam%20and%20food%20elements%2C%20warm%20colors%20with%20appetizing%20food%20details%2C%20clean%20professional%20illustration%20style%20with%20cute%20character%20design&width=80&height=120&seq=21&orientation=portrait" alt="Food Wars!" class="w-16 h-24 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-semibold">Food Wars!</h4>
+<p class="text-sm text-gray-600">Yuto Tsukuda</p>
+<div class="flex items-center justify-between mt-2">
+<span class="font-bold">$10.99</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-primary hover:text-primary/80">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Reading List Item 5 -->
+<div class="flex gap-3 p-3 bg-gray-50 rounded-lg">
+<img src="https://readdy.ai/api/search-image?query=Professional%20manga%20cover%20art%20featuring%20a%20group%20of%20high%20school%20students%20in%20sports%20uniforms%2C%20dynamic%20volleyball%20action%20scene%2C%20energetic%20poses%20with%20motion%20lines%2C%20bright%20colors%20with%20team%20spirit%20atmosphere%2C%20clean%20professional%20illustration%20style&width=80&height=120&seq=22&orientation=portrait" alt="Haikyu!!" class="w-16 h-24 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-semibold">Haikyu!!</h4>
+<p class="text-sm text-gray-600">Haruichi Furudate</p>
+<div class="flex items-center justify-between mt-2">
+<span class="font-bold">$12.49</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-500">
+<i class="ri-delete-bin-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-primary hover:text-primary/80">
+<i class="ri-shopping-cart-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div>
+<a href="#" class="inline-block mb-4">
+<span class="text-3xl font-['Pacifico'] text-white">book vers</span>
+</a>
+<p class="text-gray-400 mb-4">Your ultimate destination for manga, comics, and graphic novels. Discover new stories and revisit classics.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-twitter-x-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+<i class="ri-discord-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Explore</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Manga</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Comics</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Graphic Novels</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Light Novels</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">New Releases</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bestsellers</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Order Status</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Returns & Refunds</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping Info</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Gift Cards</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Stay Updated</h3>
+<p class="text-gray-400 mb-4">Subscribe to our newsletter for new releases, exclusive deals, and manga recommendations.</p>
+<form class="mb-4">
+<div class="flex">
+<input type="email" placeholder="Your email address" class="px-4 py-2 w-full rounded-l-button text-gray-900 text-sm border-none focus:outline-none focus:ring-2 focus:ring-primary">
+<button type="submit" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-r-button whitespace-nowrap">Subscribe</button>
+</div>
+</form>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+<div class="flex flex-wrap justify-center gap-4">
+<a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+<a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+<a href="#" class="text-gray-400 hover:text-white text-sm">Accessibility</a>
+<div class="flex items-center space-x-3">
+<i class="ri-visa-fill text-2xl text-gray-400"></i>
+<i class="ri-mastercard-fill text-2xl text-gray-400"></i>
+<i class="ri-paypal-fill text-2xl text-gray-400"></i>
+<i class="ri-apple-fill text-2xl text-gray-400"></i>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- Preview Modal -->
+<div id="previewModal" class="fixed inset-0 bg-black/70 z-[60] hidden">
+<div class="fixed inset-4 md:inset-10 bg-white rounded-xl flex flex-col">
+<div class="p-4 border-b flex items-center justify-between">
+<h3 class="text-xl font-semibold manga-title">Preview</h3>
+<div class="flex items-center gap-4">
+<button id="zoomToggle" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-zoom-in-line text-xl"></i>
+</button>
+<button id="addToCartFromPreview" class="px-4 py-2 bg-primary text-white rounded-button">Add to Cart</button>
+<button id="closePreview" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+</div>
+<div class="flex-1 relative overflow-hidden">
+<div id="previewPages" class="h-full flex transition-transform duration-300">
+<div class="flex-shrink-0 w-full h-full flex items-center justify-center p-4">
+<img src="https://readdy.ai/api/search-image?query=Manga%20page%20with%20dynamic%20action%20scene%2C%20detailed%20character%20art%2C%20dramatic%20panel%20layout%2C%20professional%20comic%20illustration%20style&width=800&height=1200&seq=23&orientation=portrait" class="max-h-full object-contain preview-image" alt="Preview page 1">
+</div>
+<div class="flex-shrink-0 w-full h-full flex items-center justify-center p-4">
+<img src="https://readdy.ai/api/search-image?query=Manga%20page%20with%20emotional%20character%20interaction%2C%20detailed%20backgrounds%2C%20varied%20panel%20composition%2C%20professional%20comic%20illustration%20style&width=800&height=1200&seq=24&orientation=portrait" class="max-h-full object-contain preview-image" alt="Preview page 2">
+</div>
+<div class="flex-shrink-0 w-full h-full flex items-center justify-center p-4">
+<img src="https://readdy.ai/api/search-image?query=Manga%20page%20with%20intense%20battle%20sequence%2C%20special%20effects%2C%20dynamic%20character%20poses%2C%20professional%20comic%20illustration%20style&width=800&height=1200&seq=25&orientation=portrait" class="max-h-full object-contain preview-image" alt="Preview page 3">
+</div>
+</div>
+<button id="prevPage" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-gray-800 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed">
+<i class="ri-arrow-left-s-line text-2xl"></i>
+</button>
+<button id="nextPage" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-gray-800 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed">
+<i class="ri-arrow-right-s-line text-2xl"></i>
+</button>
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 px-4 py-2 rounded-full shadow-lg">
+<span id="pageCounter" class="text-sm font-medium">Page 1 of 3</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const previewModal = document.getElementById('previewModal');
+const cartButton = document.getElementById('cartButton');
+const cartPanel = document.getElementById('cartPanel');
+const mangaTitle = document.getElementById('previewModal').querySelector('.manga-title');
+function openPreviewModal(title) {
+previewModal.classList.remove('hidden');
+mangaTitle.textContent = title;
+showPage(1);
+const previewImages = document.querySelectorAll('.preview-image');
+previewImages.forEach((img, index) => {
+const pageNum = index + 1;
+img.src = `https://readdy.ai/api/search-image?query=Professional%20manga%20$%7Btitle%7D%20sample%20page%20$%7BpageNum%7D%2C%20detailed%20artwork%20with%20dynamic%20panel%20layout%2C%20emotional%20character%20scenes%2C%20high%20quality%20illustration%20style&width=800&height=1200&seq=${30 + index}&orientation=portrait`;
+img.alt = `${title} - Preview page ${pageNum}`;
+});
+}
+document.querySelectorAll('.manga-card').forEach(card => {
+const previewBtn = card.querySelector('.preview-btn');
+const eyeIcon = card.querySelector('.ri-eye-line');
+const eyeBtn = eyeIcon ? eyeIcon.closest('button') : null;
+const title = card.querySelector('h3').textContent;
+
+if (previewBtn) {
+previewBtn.addEventListener('click', (e) => {
+e.preventDefault();
+openPreviewModal(title);
+});
+}
+
+if (eyeBtn) {
+eyeBtn.addEventListener('click', (e) => {
+e.preventDefault();
+openPreviewModal(title);
+});
+}
+});
+cartButton.addEventListener('click', function(e) {
+e.stopPropagation();
+cartPanel.classList.toggle('hidden');
+});
+document.addEventListener('click', function(event) {
+if (!cartPanel.contains(event.target) && !cartButton.contains(event.target)) {
+cartPanel.classList.add('hidden');
+}
+});
+const previewPages = document.getElementById('previewPages');
+const prevPageBtn = document.getElementById('prevPage');
+const nextPageBtn = document.getElementById('nextPage');
+const pageCounter = document.getElementById('pageCounter');
+const closePreview = document.getElementById('closePreview');
+const zoomToggle = document.getElementById('zoomToggle');
+let currentPage = 1;
+const totalPages = 3;
+let isZoomed = false;
+function updatePageCounter() {
+pageCounter.textContent = `Page ${currentPage} of ${totalPages}`;
+prevPageBtn.disabled = currentPage === 1;
+nextPageBtn.disabled = currentPage === totalPages;
+}
+function showPage(pageNum) {
+currentPage = pageNum;
+previewPages.style.transform = `translateX(-${(pageNum - 1) * 100}%)`;
+updatePageCounter();
+}
+function toggleZoom() {
+isZoomed = !isZoomed;
+const images = document.querySelectorAll('.preview-image');
+images.forEach(img => {
+img.style.cursor = isZoomed ? 'zoom-out' : 'zoom-in';
+img.style.objectFit = isZoomed ? 'cover' : 'contain';
+});
+zoomToggle.innerHTML = `<i class="ri-zoom-${isZoomed ? 'out' : 'in'}-line text-xl"></i>`;
+}
+document.querySelectorAll('.preview-btn').forEach(btn => {
+btn.addEventListener('click', () => {
+previewModal.classList.remove('hidden');
+showPage(1);
+});
+});
+closePreview.addEventListener('click', () => {
+previewModal.classList.add('hidden');
+isZoomed = false;
+toggleZoom();
+});
+prevPageBtn.addEventListener('click', () => {
+if (currentPage > 1) showPage(currentPage - 1);
+});
+nextPageBtn.addEventListener('click', () => {
+if (currentPage < totalPages) showPage(currentPage + 1);
+});
+zoomToggle.addEventListener('click', toggleZoom);
+const readingListBtn = document.getElementById('readingListBtn');
+const readingListPanel = document.getElementById('readingListPanel');
+const closeReadingList = document.getElementById('closeReadingList');
+function toggleReadingList() {
+readingListPanel.classList.toggle('translate-x-full');
+}
+readingListBtn.addEventListener('click', toggleReadingList);
+closeReadingList.addEventListener('click', toggleReadingList);
+document.addEventListener('click', function(event) {
+if (!readingListPanel.contains(event.target) && !readingListBtn.contains(event.target) && !readingListPanel.classList.contains('translate-x-full')) {
+readingListPanel.classList.add('translate-x-full');
+}
+});
+// Toggle dropdowns
+const dropdownButtons = document.querySelectorAll('button:has(.ri-arrow-down-s-line)');
+dropdownButtons.forEach(button => {
+button.addEventListener('click', function() {
+const dropdown = this.nextElementSibling;
+dropdown.classList.toggle('hidden');
+});
+});
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(event) {
+dropdownButtons.forEach(button => {
+if (!button.contains(event.target)) {
+const dropdown = button.nextElementSibling;
+if (dropdown && !dropdown.classList.contains('hidden')) {
+dropdown.classList.add('hidden');
+}
+}
+});
+});
+});
+</script>
+</body>
+</html>

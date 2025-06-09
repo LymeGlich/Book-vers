@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History Books - BookVerse</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4361ee',secondary:'#3f37c9'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #f9fafb;
+}
+.skeleton {
+animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+0%, 100% { opacity: 0.7; }
+50% { opacity: 0.5; }
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+appearance: none;
+width: 18px;
+height: 18px;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+background-color: white;
+cursor: pointer;
+position: relative;
+}
+.custom-checkbox:checked {
+background-color: #4361ee;
+border-color: #4361ee;
+}
+.custom-checkbox:checked::after {
+content: '';
+position: absolute;
+left: 5px;
+top: 2px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-radio {
+appearance: none;
+width: 18px;
+height: 18px;
+border: 2px solid #d1d5db;
+border-radius: 50%;
+background-color: white;
+cursor: pointer;
+position: relative;
+}
+.custom-radio:checked {
+border-color: #4361ee;
+}
+.custom-radio:checked::after {
+content: '';
+position: absolute;
+left: 3px;
+top: 3px;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background-color: #4361ee;
+}
+.custom-range {
+-webkit-appearance: none;
+width: 100%;
+height: 6px;
+border-radius: 5px;
+background: #e5e7eb;
+outline: none;
+}
+.custom-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #4361ee;
+cursor: pointer;
+border: 2px solid white;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.switch-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 24px;
+}
+.switch-slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .switch-slider {
+background-color: #4361ee;
+}
+input:checked + .switch-slider:before {
+transform: translateX(20px);
+}
+.book-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.subcategory-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.featured-scroll::-webkit-scrollbar {
+height: 0px;
+}
+.filter-panel {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease-in-out;
+}
+.filter-panel.open {
+max-height: 800px;
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<a href="#" class="flex items-center gap-2">
+<span class="text-2xl font-['Pacifico'] text-primary">logo</span>
+</a>
+<a href="#" class="flex items-center gap-1 text-gray-600 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-line ri-lg"></i>
+</div>
+<span class="text-sm font-medium">Back</span>
+</a>
+</div>
+<div class="relative flex-1 max-w-xl mx-4">
+<div class="relative">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" class="w-full pl-10 pr-10 py-2 border-none bg-gray-100 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Search history books...">
+<button id="filter-toggle" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-primary">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-filter-3-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a href="#" class="hidden md:flex items-center gap-1 text-gray-600 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-heart-line ri-lg"></i>
+</div>
+<span class="text-sm font-medium">Wishlist</span>
+</a>
+<a href="#" class="hidden md:flex items-center gap-1 text-gray-600 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-shopping-cart-line ri-lg"></i>
+</div>
+<span class="text-sm font-medium">Cart</span>
+</a>
+<div class="relative" id="user-profile-container">
+    <button id="profile-button" class="flex items-center gap-1 text-gray-600 hover:text-primary transition-colors">
+        <div class="w-8 h-8 flex items-center justify-center">
+            <i class="ri-user-line ri-lg"></i>
+        </div>
+    </button>
+    <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+        <div id="guest-options">
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-login-circle-line"></i>
+                    </div>
+                    <span>Login</span>
+                </div>
+            </a>
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-user-add-line"></i>
+                    </div>
+                    <span>Register</span>
+                </div>
+            </a>
+        </div>
+        <div id="user-options" class="hidden">
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-user-settings-line"></i>
+                    </div>
+                    <span>My Profile</span>
+                </div>
+            </a>
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-shopping-bag-line"></i>
+                    </div>
+                    <span>My Orders</span>
+                </div>
+            </a>
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-heart-line"></i>
+                    </div>
+                    <span>Wishlist</span>
+                </div>
+            </a>
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-settings-3-line"></i>
+                    </div>
+                    <span>Settings</span>
+                </div>
+            </a>
+            <div class="h-px bg-gray-200 my-2"></div>
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-logout-circle-line"></i>
+                    </div>
+                    <span>Logout</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Category Title -->
+<div class="bg-white border-b">
+<div class="container mx-auto px-4 py-4">
+<h1 class="text-2xl font-bold text-gray-900">History Books</h1>
+<p class="text-gray-600 mt-1">Explore our collection of captivating history books spanning various eras and regions</p>
+</div>
+</div>
+<!-- Filter Panel -->
+<div id="filter-panel" class="filter-panel bg-white border-b">
+<div class="container mx-auto px-4 py-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Time Period</h3>
+<div class="space-y-2">
+<div class="flex items-center">
+<input type="checkbox" id="ancient" class="custom-checkbox">
+<label for="ancient" class="ml-2 text-sm text-gray-700">Ancient History</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="medieval" class="custom-checkbox">
+<label for="medieval" class="ml-2 text-sm text-gray-700">Medieval History</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="renaissance" class="custom-checkbox">
+<label for="renaissance" class="ml-2 text-sm text-gray-700">Renaissance</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="modern" class="custom-checkbox">
+<label for="modern" class="ml-2 text-sm text-gray-700">Modern History</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="contemporary" class="custom-checkbox">
+<label for="contemporary" class="ml-2 text-sm text-gray-700">Contemporary History</label>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Region</h3>
+<div class="space-y-2">
+<div class="flex items-center">
+<input type="checkbox" id="europe" class="custom-checkbox">
+<label for="europe" class="ml-2 text-sm text-gray-700">Europe</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="asia" class="custom-checkbox">
+<label for="asia" class="ml-2 text-sm text-gray-700">Asia</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="americas" class="custom-checkbox">
+<label for="americas" class="ml-2 text-sm text-gray-700">Americas</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="africa" class="custom-checkbox">
+<label for="africa" class="ml-2 text-sm text-gray-700">Africa</label>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="oceania" class="custom-checkbox">
+<label for="oceania" class="ml-2 text-sm text-gray-700">Oceania</label>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Rating</h3>
+<div class="space-y-4">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="text-sm text-gray-700">Minimum Rating</span>
+<span id="rating-value" class="text-sm text-primary font-medium">3.5</span>
+</div>
+<input type="range" min="1" max="5" step="0.5" value="3.5" class="custom-range" id="rating-range">
+</div>
+<div>
+<h4 class="text-sm text-gray-700 mb-2">Language</h4>
+<div class="relative">
+<select class="w-full pr-8 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none bg-white">
+<option value="">All Languages</option>
+<option value="en">English</option>
+<option value="fr">French</option>
+<option value="de">German</option>
+<option value="es">Spanish</option>
+<option value="it">Italian</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-3">Sort By</h3>
+<div class="space-y-2">
+<div class="flex items-center">
+<input type="radio" id="popularity" name="sort" class="custom-radio" checked>
+<label for="popularity" class="ml-2 text-sm text-gray-700">Popularity</label>
+</div>
+<div class="flex items-center">
+<input type="radio" id="latest" name="sort" class="custom-radio">
+<label for="latest" class="ml-2 text-sm text-gray-700">Latest</label>
+</div>
+<div class="flex items-center">
+<input type="radio" id="rating" name="sort" class="custom-radio">
+<label for="rating" class="ml-2 text-sm text-gray-700">Rating: High to Low</label>
+</div>
+<div class="flex items-center">
+<input type="radio" id="price-low" name="sort" class="custom-radio">
+<label for="price-low" class="ml-2 text-sm text-gray-700">Price: Low to High</label>
+</div>
+<div class="flex items-center">
+<input type="radio" id="price-high" name="sort" class="custom-radio">
+<label for="price-high" class="ml-2 text-sm text-gray-700">Price: High to Low</label>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-end mt-6 gap-3">
+<button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-button hover:bg-gray-50 whitespace-nowrap">Reset Filters</button>
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Apply Filters</button>
+</div>
+</div>
+</div>
+<main class="container mx-auto px-4 py-8">
+<!-- Featured History Books -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-gray-900">Featured History Books</h2>
+<div class="flex gap-2">
+<button id="prev-featured" class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button id="next-featured" class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</div>
+</div>
+<div class="relative">
+<div class="featured-scroll overflow-x-auto pb-4">
+<div class="flex gap-6" style="min-width: min-content;">
+<!-- Featured Book 1 -->
+<div class="w-72 flex-shrink-0 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20World%20War%20II%20with%20dramatic%20historical%20imagery%2C%20high%20quality%20professional%20book%20cover%20design%2C%20dark%20blue%20and%20red%20color%20scheme&width=400&height=300&seq=1&orientation=landscape" alt="The Last Battle" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.5 (128)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Last Battle: The Fall of Berlin</h3>
+<p class="text-sm text-gray-600 mb-2">By Cornelius Ryan</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Modern</span>
+<span class="px-2 py-1 text-xs bg-red-50 text-red-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-2">A compelling account of the final battles of World War II, focusing on the fall of Berlin and the end of the Third Reich.</p>
+<div class="mt-3 flex justify-between items-center">
+<span class="font-bold text-gray-900">$19.99</span>
+<button class="px-3 py-1.5 text-sm font-medium text-primary border border-primary rounded-button hover:bg-primary/5 whitespace-nowrap">Read More</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 2 -->
+<div class="w-72 flex-shrink-0 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20ancient%20Egypt%20with%20pyramids%20and%20hieroglyphics%2C%20high%20quality%20professional%20book%20cover%20design%2C%20gold%20and%20black%20color%20scheme&width=400&height=300&seq=2&orientation=landscape" alt="The Rise and Fall of Ancient Egypt" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.0 (96)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Rise and Fall of Ancient Egypt</h3>
+<p class="text-sm text-gray-600 mb-2">By Toby Wilkinson</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-amber-50 text-amber-700 rounded-full">Ancient</span>
+<span class="px-2 py-1 text-xs bg-green-50 text-green-700 rounded-full">Africa</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-2">A comprehensive history of one of the world's first great civilizations, from the predynastic period to Cleopatra's death.</p>
+<div class="mt-3 flex justify-between items-center">
+<span class="font-bold text-gray-900">$22.50</span>
+<button class="px-3 py-1.5 text-sm font-medium text-primary border border-primary rounded-button hover:bg-primary/5 whitespace-nowrap">Read More</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 3 -->
+<div class="w-72 flex-shrink-0 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20medieval%20knights%20and%20castles%2C%20high%20quality%20professional%20book%20cover%20design%2C%20deep%20red%20and%20silver%20color%20scheme&width=400&height=300&seq=3&orientation=landscape" alt="The Medieval World" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.9 (215)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Medieval World: An Illustrated History</h3>
+<p class="text-sm text-gray-600 mb-2">By John M. Roberts</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-purple-50 text-purple-700 rounded-full">Medieval</span>
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-2">A richly illustrated journey through the Middle Ages, exploring the political, social, and cultural developments of this fascinating period.</p>
+<div class="mt-3 flex justify-between items-center">
+<span class="font-bold text-gray-900">$24.99</span>
+<button class="px-3 py-1.5 text-sm font-medium text-primary border border-primary rounded-button hover:bg-primary/5 whitespace-nowrap">Read More</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 4 -->
+<div class="w-72 flex-shrink-0 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20ancient%20Rome%20with%20Roman%20architecture%20and%20statues%2C%20high%20quality%20professional%20book%20cover%20design%2C%20marble%20white%20and%20deep%20red%20color%20scheme&width=400&height=300&seq=4&orientation=landscape" alt="SPQR: A History of Ancient Rome" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.7 (183)</span>
+</div>
+<h3 class="font-bold text-gray-900">SPQR: A History of Ancient Rome</h3>
+<p class="text-sm text-gray-600 mb-2">By Mary Beard</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-amber-50 text-amber-700 rounded-full">Ancient</span>
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-2">A fresh look at Roman history from one of the world's foremost classicists, exploring how Rome grew from an insignificant village to a vast empire.</p>
+<div class="mt-3 flex justify-between items-center">
+<span class="font-bold text-gray-900">$18.75</span>
+<button class="px-3 py-1.5 text-sm font-medium text-primary border border-primary rounded-button hover:bg-primary/5 whitespace-nowrap">Read More</button>
+</div>
+</div>
+</div>
+<!-- Featured Book 5 -->
+<div class="w-72 flex-shrink-0 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20American%20Civil%20War%20with%20battle%20scenes%2C%20high%20quality%20professional%20book%20cover%20design%2C%20navy%20blue%20and%20gray%20color%20scheme&width=400&height=300&seq=5&orientation=landscape" alt="Battle Cry of Freedom" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.2 (157)</span>
+</div>
+<h3 class="font-bold text-gray-900">Battle Cry of Freedom: The Civil War Era</h3>
+<p class="text-sm text-gray-600 mb-2">By James M. McPherson</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Modern</span>
+<span class="px-2 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-full">Americas</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-2">The definitive one-volume history of the American Civil War, examining the conflict's origins, course, and consequences.</p>
+<div class="mt-3 flex justify-between items-center">
+<span class="font-bold text-gray-900">$21.25</span>
+<button class="px-3 py-1.5 text-sm font-medium text-primary border border-primary rounded-button hover:bg-primary/5 whitespace-nowrap">Read More</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination Dots -->
+<div class="flex justify-center mt-4 gap-1.5">
+<button class="w-2 h-2 rounded-full bg-primary"></button>
+<button class="w-2 h-2 rounded-full bg-gray-300"></button>
+<button class="w-2 h-2 rounded-full bg-gray-300"></button>
+<button class="w-2 h-2 rounded-full bg-gray-300"></button>
+<button class="w-2 h-2 rounded-full bg-gray-300"></button>
+</div>
+</div>
+</section>
+<!-- History Subcategories -->
+<section class="mb-12">
+<h2 class="text-xl font-bold text-gray-900 mb-6">Browse by Category</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<!-- Ancient History -->
+<a href="#" class="subcategory-card bg-white rounded-lg shadow-sm p-4 flex flex-col items-center text-center transition-all duration-300">
+<div class="w-16 h-16 flex items-center justify-center rounded-full bg-amber-50 text-amber-600 mb-3">
+<i class="ri-ancient-pavilion-line ri-2x"></i>
+</div>
+<h3 class="font-medium text-gray-900">Ancient History</h3>
+<p class="text-xs text-gray-600 mt-1">3000 BCE - 500 CE</p>
+</a>
+<!-- Medieval History -->
+<a href="#" class="subcategory-card bg-white rounded-lg shadow-sm p-4 flex flex-col items-center text-center transition-all duration-300">
+<div class="w-16 h-16 flex items-center justify-center rounded-full bg-purple-50 text-purple-600 mb-3">
+<i class="ri-sword-line ri-2x"></i>
+</div>
+<h3 class="font-medium text-gray-900">Medieval History</h3>
+<p class="text-xs text-gray-600 mt-1">500 - 1500 CE</p>
+</a>
+<!-- World Wars -->
+<a href="#" class="subcategory-card bg-white rounded-lg shadow-sm p-4 flex flex-col items-center text-center transition-all duration-300">
+<div class="w-16 h-16 flex items-center justify-center rounded-full bg-red-50 text-red-600 mb-3">
+<i class="ri-tank-line ri-2x"></i>
+</div>
+<h3 class="font-medium text-gray-900">World Wars</h3>
+<p class="text-xs text-gray-600 mt-1">1914 - 1945</p>
+</a>
+<!-- Modern History -->
+<a href="#" class="subcategory-card bg-white rounded-lg shadow-sm p-4 flex flex-col items-center text-center transition-all duration-300">
+<div class="w-16 h-16 flex items-center justify-center rounded-full bg-blue-50 text-blue-600 mb-3">
+<i class="ri-building-line ri-2x"></i>
+</div>
+<h3 class="font-medium text-gray-900">Modern History</h3>
+<p class="text-xs text-gray-600 mt-1">1500 - Present</p>
+</a>
+<!-- Regional History -->
+<a href="#" class="subcategory-card bg-white rounded-lg shadow-sm p-4 flex flex-col items-center text-center transition-all duration-300">
+<div class="w-16 h-16 flex items-center justify-center rounded-full bg-green-50 text-green-600 mb-3">
+<i class="ri-global-line ri-2x"></i>
+</div>
+<h3 class="font-medium text-gray-900">Regional History</h3>
+<p class="text-xs text-gray-600 mt-1">By Geography</p>
+</a>
+<!-- Military History -->
+<a href="#" class="subcategory-card bg-white rounded-lg shadow-sm p-4 flex flex-col items-center text-center transition-all duration-300">
+<div class="w-16 h-16 flex items-center justify-center rounded-full bg-gray-50 text-gray-600 mb-3">
+<i class="ri-shield-line ri-2x"></i>
+</div>
+<h3 class="font-medium text-gray-900">Military History</h3>
+<p class="text-xs text-gray-600 mt-1">Conflicts & Wars</p>
+</a>
+</div>
+</section>
+<!-- Book Collection Grid -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold text-gray-900">History Book Collection</h2>
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-600">Showing 12 of 142 books</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20Genghis%20Khan%20and%20the%20Mongol%20Empire%20with%20horses%20and%20warriors%2C%20high%20quality%20professional%20book%20cover%20design%2C%20deep%20green%20and%20gold%20color%20scheme&width=400&height=500&seq=6&orientation=portrait" alt="Genghis Khan and the Making of the Modern World" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.6 (203)</span>
+</div>
+<h3 class="font-bold text-gray-900">Genghis Khan and the Making of the Modern World</h3>
+<p class="text-sm text-gray-600 mb-2">By Jack Weatherford</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-purple-50 text-purple-700 rounded-full">Medieval</span>
+<span class="px-2 py-1 text-xs bg-yellow-50 text-yellow-700 rounded-full">Asia</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A fascinating exploration of how Genghis Khan's empire of the Mongols grew to the largest the world has ever known, and how it laid the groundwork for the modern world.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$17.99</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20Renaissance%20in%20Italy%20with%20art%20and%20architecture%2C%20high%20quality%20professional%20book%20cover%20design%2C%20rich%20burgundy%20and%20gold%20color%20scheme&width=400&height=500&seq=7&orientation=portrait" alt="The Civilization of the Renaissance in Italy" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.1 (87)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Civilization of the Renaissance in Italy</h3>
+<p class="text-sm text-gray-600 mb-2">By Jacob Burckhardt</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Renaissance</span>
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A seminal work on the Italian Renaissance that explores the period's art, culture, politics, and intellectual developments that shaped the modern world.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$15.50</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20Cold%20War%20with%20symbolic%20imagery%20of%20USA%20and%20USSR%2C%20high%20quality%20professional%20book%20cover%20design%2C%20blue%20and%20red%20color%20scheme&width=400&height=500&seq=8&orientation=portrait" alt="The Cold War: A World History" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.8 (176)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Cold War: A World History</h3>
+<p class="text-sm text-gray-600 mb-2">By Odd Arne Westad</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Modern</span>
+<span class="px-2 py-1 text-xs bg-gray-50 text-gray-700 rounded-full">Global</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A comprehensive global history of the Cold War, examining how the conflict between the United States and the Soviet Union shaped international politics for decades.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$23.75</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20Ottoman%20Empire%20with%20Turkish%20architecture%20and%20symbols%2C%20high%20quality%20professional%20book%20cover%20design%2C%20deep%20teal%20and%20gold%20color%20scheme&width=400&height=500&seq=9&orientation=portrait" alt="The Ottoman Empire: A History" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.2 (119)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Ottoman Empire: A History</h3>
+<p class="text-sm text-gray-600 mb-2">By Eugene Rogan</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Modern</span>
+<span class="px-2 py-1 text-xs bg-yellow-50 text-yellow-700 rounded-full">Asia</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A comprehensive history of the Ottoman Empire from its origins in the 13th century through its destruction in the aftermath of World War I.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$20.25</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20French%20Revolution%20with%20revolutionary%20imagery%2C%20high%20quality%20professional%20book%20cover%20design%2C%20red%20white%20and%20blue%20color%20scheme&width=400&height=500&seq=10&orientation=portrait" alt="Citizens: A Chronicle of the French Revolution" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.5 (142)</span>
+</div>
+<h3 class="font-bold text-gray-900">Citizens: A Chronicle of the French Revolution</h3>
+<p class="text-sm text-gray-600 mb-2">By Simon Schama</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Modern</span>
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A vivid narrative of the French Revolution that brings to life the events, personalities, and ideas that shaped this pivotal moment in European history.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$19.95</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 6 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20ancient%20Greece%20with%20classical%20architecture%20and%20statues%2C%20high%20quality%20professional%20book%20cover%20design%2C%20white%20and%20deep%20blue%20color%20scheme&width=400&height=500&seq=11&orientation=portrait" alt="The Greek Way" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.3 (98)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Greek Way</h3>
+<p class="text-sm text-gray-600 mb-2">By Edith Hamilton</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-amber-50 text-amber-700 rounded-full">Ancient</span>
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A classic study of the ancient Greek civilization, exploring its art, literature, philosophy, and contributions to Western culture and thought.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$16.50</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 7 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20Silk%20Road%20with%20caravans%20and%20ancient%20trade%20routes%2C%20high%20quality%20professional%20book%20cover%20design%2C%20sandy%20yellow%20and%20brown%20color%20scheme&width=400&height=500&seq=12&orientation=portrait" alt="The Silk Roads: A New History of the World" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.7 (231)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Silk Roads: A New History of the World</h3>
+<p class="text-sm text-gray-600 mb-2">By Peter Frankopan</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-purple-50 text-purple-700 rounded-full">Medieval</span>
+<span class="px-2 py-1 text-xs bg-yellow-50 text-yellow-700 rounded-full">Asia</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A major reassessment of world history that places the nations of the East and the Silk Roads at the center of global development rather than the West.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$22.99</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 8 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20Russian%20Revolution%20with%20Soviet%20imagery%2C%20high%20quality%20professional%20book%20cover%20design%2C%20red%20and%20black%20color%20scheme&width=400&height=500&seq=13&orientation=portrait" alt="October: The Story of the Russian Revolution" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.0 (112)</span>
+</div>
+<h3 class="font-bold text-gray-900">October: The Story of the Russian Revolution</h3>
+<p class="text-sm text-gray-600 mb-2">By China Miéville</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Modern</span>
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A gripping account of the Russian Revolution, from the fall of the Tsar in February 1917 to the Bolshevik seizure of power in October of the same year.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$18.25</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 9 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20ancient%20Mesopotamia%20with%20ziggurats%20and%20cuneiform%2C%20high%20quality%20professional%20book%20cover%20design%2C%20sandy%20brown%20and%20deep%20blue%20color%20scheme&width=400&height=500&seq=14&orientation=portrait" alt="Mesopotamia: The Invention of the City" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.2 (89)</span>
+</div>
+<h3 class="font-bold text-gray-900">Mesopotamia: The Invention of the City</h3>
+<p class="text-sm text-gray-600 mb-2">By Gwendolyn Leick</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-amber-50 text-amber-700 rounded-full">Ancient</span>
+<span class="px-2 py-1 text-xs bg-yellow-50 text-yellow-700 rounded-full">Asia</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">An exploration of the world's first cities in ancient Mesopotamia, examining their social structures, religious practices, and technological innovations.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$19.50</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 10 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20Aztec%20Empire%20with%20Mesoamerican%20imagery%20and%20temples%2C%20high%20quality%20professional%20book%20cover%20design%2C%20turquoise%20and%20gold%20color%20scheme&width=400&height=500&seq=15&orientation=portrait" alt="The Aztecs: A Very Short Introduction" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.6 (107)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Aztecs: A Very Short Introduction</h3>
+<p class="text-sm text-gray-600 mb-2">By David Carrasco</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-purple-50 text-purple-700 rounded-full">Medieval</span>
+<span class="px-2 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-full">Americas</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A concise introduction to the Aztec civilization, examining their rise to power, social structure, religious beliefs, and eventual conquest by the Spanish.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$14.99</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 11 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20the%20Viking%20Age%20with%20Norse%20ships%20and%20symbols%2C%20high%20quality%20professional%20book%20cover%20design%2C%20dark%20blue%20and%20silver%20color%20scheme&width=400&height=500&seq=16&orientation=portrait" alt="The Viking Age: A Reader" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.3 (124)</span>
+</div>
+<h3 class="font-bold text-gray-900">The Viking Age: A Reader</h3>
+<p class="text-sm text-gray-600 mb-2">By Angus A. Somerville</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-purple-50 text-purple-700 rounded-full">Medieval</span>
+<span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-full">Europe</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A collection of primary sources that illuminates the Viking world, including sagas, poetry, and historical accounts from both Viking and non-Viking perspectives.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$21.75</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Book 12 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 book-card">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20book%20cover%20of%20a%20history%20book%20about%20African%20kingdoms%20with%20traditional%20patterns%20and%20symbols%2C%20high%20quality%20professional%20book%20cover%20design%2C%20rich%20earth%20tones%20and%20gold%20color%20scheme&width=400&height=500&seq=17&orientation=portrait" alt="African Dominion: A New History of Empire in Early and Medieval West Africa" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-4">
+<div class="flex items-center mb-1">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-sm text-gray-600 ml-1">4.8 (92)</span>
+</div>
+<h3 class="font-bold text-gray-900">African Dominion: A New History of Empire in Early and Medieval West Africa</h3>
+<p class="text-sm text-gray-600 mb-2">By Michael A. Gomez</p>
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-purple-50 text-purple-700 rounded-full">Medieval</span>
+<span class="px-2 py-1 text-xs bg-green-50 text-green-700 rounded-full">Africa</span>
+</div>
+<p class="text-sm text-gray-700 line-clamp-3">A groundbreaking history of the great medieval empires of Ghana, Mali, and Songhay, challenging Eurocentric views of African history.</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-bold text-gray-900">$24.50</span>
+<button class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 whitespace-nowrap">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-8 flex justify-center">
+<button class="px-6 py-2 text-sm font-medium text-primary border border-primary rounded-button hover:bg-primary/5 whitespace-nowrap">Load More Books</button>
+</div>
+</section>
+</main>
+<footer class="bg-gray-900 text-white mt-16">
+<div class="container mx-auto px-4 py-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div>
+<a href="#" class="flex items-center gap-2 mb-4">
+<span class="text-2xl font-['Pacifico'] text-white">logo</span>
+</a>
+<p class="text-gray-400 mb-4">Your gateway to the world of history books, connecting readers with the stories of our past.</p>
+<div class="flex gap-4">
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-facebook-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-twitter-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-instagram-fill"></i>
+</div>
+</a>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4">Quick Links</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Categories</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">New Releases</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bestsellers</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Special Offers</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4">Customer Service</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">My Account</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Order History</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Returns & Refunds</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4">Newsletter</h3>
+<p class="text-gray-400 mb-4">Subscribe to receive updates on new history books and exclusive offers.</p>
+<form class="flex flex-col gap-2">
+<input type="email" placeholder="Your email address" class="px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary">
+<button type="submit" class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90 text-sm font-medium whitespace-nowrap">Subscribe</button>
+</form>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 BookVerse. All rights reserved.</p>
+<div class="flex gap-4">
+<a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Profile Dropdown
+const profileButton = document.getElementById('profile-button');
+const profileDropdown = document.getElementById('profile-dropdown');
+const userOptions = document.getElementById('user-options');
+const guestOptions = document.getElementById('guest-options');
+
+// Set initial state (not logged in)
+let isLoggedIn = false;
+
+// Toggle dropdown visibility
+profileButton.addEventListener('click', function(e) {
+    e.stopPropagation();
+    profileDropdown.classList.toggle('hidden');
+    
+    // Show appropriate options based on login state
+    if (isLoggedIn) {
+        userOptions.classList.remove('hidden');
+        guestOptions.classList.add('hidden');
+    } else {
+        userOptions.classList.add('hidden');
+        guestOptions.classList.remove('hidden');
+    }
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    if (!profileDropdown.contains(e.target) && !profileButton.contains(e.target)) {
+        profileDropdown.classList.add('hidden');
+    }
+});
+
+// Prevent dropdown from closing when clicking inside it
+profileDropdown.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+
+// Filter Panel Toggle
+const filterToggle = document.getElementById('filter-toggle');
+const filterPanel = document.getElementById('filter-panel');
+filterToggle.addEventListener('click', function() {
+filterPanel.classList.toggle('open');
+});
+// Rating Range Slider
+const ratingRange = document.getElementById('rating-range');
+const ratingValue = document.getElementById('rating-value');
+ratingRange.addEventListener('input', function() {
+ratingValue.textContent = this.value;
+});
+// Featured Books Carousel
+const prevFeatured = document.getElementById('prev-featured');
+const nextFeatured = document.getElementById('next-featured');
+const featuredScroll = document.querySelector('.featured-scroll');
+nextFeatured.addEventListener('click', function() {
+featuredScroll.scrollBy({
+left: 300,
+behavior: 'smooth'
+});
+});
+prevFeatured.addEventListener('click', function() {
+featuredScroll.scrollBy({
+left: -300,
+behavior: 'smooth'
+});
+});
+// Book Card Hover Animation
+const bookCards = document.querySelectorAll('.book-card');
+bookCards.forEach(card => {
+card.addEventListener('mouseenter', function() {
+this.style.transform = 'translateY(-4px)';
+this.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+});
+card.addEventListener('mouseleave', function() {
+this.style.transform = 'translateY(0)';
+this.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+});
+});
+});
+</script>
+</body>
+</html>

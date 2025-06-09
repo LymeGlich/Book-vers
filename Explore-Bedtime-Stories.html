@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedtime Stories</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#6366f1',secondary:'#a78bfa'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #fafafa;
+        }
+        .banner-gradient {
+            background: linear-gradient(to right, rgba(45, 55, 90, 0.9), rgba(45, 55, 90, 0.6));
+        }
+        .filter-chip {
+            transition: all 0.2s ease;
+        }
+        .filter-chip.active {
+            background-color: #6366f1;
+            color: white;
+        }
+        .age-tab {
+            transition: all 0.2s ease;
+        }
+        .age-tab.active {
+            background-color: #6366f1;
+            color: white;
+        }
+        .book-card:hover .preview-button {
+            opacity: 1;
+        }
+        .preview-button {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .filter-panel {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .filter-panel.open {
+            transform: translateX(0);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6366f1;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6366f1;
+            cursor: pointer;
+        }
+        .custom-checkbox {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 4px;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #6366f1;
+            border-color: #6366f1;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .custom-checkbox .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e2e8f0;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .switch-slider {
+            background-color: #6366f1;
+        }
+        input:checked + .switch-slider:before {
+            transform: translateX(24px);
+        }
+        .star-rating {
+            display: inline-flex;
+            flex-direction: row-reverse;
+        }
+        .star-rating input {
+            display: none;
+        }
+        .star-rating label {
+            cursor: pointer;
+            color: #ddd;
+            font-size: 24px;
+        }
+        .star-rating input:checked ~ label {
+            color: #ffb800;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffb800;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <button class="w-10 h-10 flex items-center justify-center text-gray-700">
+                    <i class="ri-arrow-left-line ri-lg"></i>
+                </button>
+                <h1 class="ml-4 text-xl font-bold text-gray-800">Bedtime Stories</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="w-10 h-10 flex items-center justify-center text-gray-700">
+                    <i class="ri-heart-line ri-lg"></i>
+                </button>
+                <button class="w-10 h-10 flex items-center justify-center text-gray-700">
+                    <i class="ri-user-line ri-lg"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="container mx-auto px-4 pb-3">
+            <div class="relative flex items-center">
+                <div class="absolute left-3 w-5 h-5 flex items-center justify-center text-gray-500">
+                    <i class="ri-search-line"></i>
+                </div>
+                <input type="text" placeholder="Search for bedtime stories..." class="w-full py-2 pl-10 pr-12 rounded-full bg-gray-100 border-none focus:outline-none focus:ring-2 focus:ring-primary text-sm">
+                <button id="filterToggle" class="absolute right-3 w-8 h-8 flex items-center justify-center text-gray-700">
+                    <i class="ri-filter-3-line"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Age Group Tabs -->
+        <div class="bg-white border-t border-b border-gray-200">
+            <div class="container mx-auto px-4">
+                <div class="flex overflow-x-auto py-2 gap-2 no-scrollbar">
+                    <button class="age-tab active whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium !rounded-button">All Ages</button>
+                    <button class="age-tab whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 !rounded-button">0-2 years</button>
+                    <button class="age-tab whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 !rounded-button">3-5 years</button>
+                    <button class="age-tab whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 !rounded-button">6-8 years</button>
+                    <button class="age-tab whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 !rounded-button">9-12 years</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pb-20">
+        <!-- Banner Section -->
+        <section class="relative h-64 md:h-80 overflow-hidden">
+            <div style="background-image: url('https://readdy.ai/api/search-image?query=A%20dreamy%20night%20sky%20scene%20with%20stars%2C%20moon%2C%20and%20soft%20clouds.%20Perfect%20for%20a%20children%5Cs%20bedtime%20story%20book.%20The%20image%20has%20a%20magical%2C%20calming%20atmosphere%20with%20deep%20blue%20and%20purple%20hues.%20Stars%20twinkle%20gently%20across%20the%20sky.&width=1200&height=500&seq=1&orientation=landscape');" class="absolute inset-0 bg-cover bg-center"></div>
+            <div class="banner-gradient absolute inset-0"></div>
+            <div class="absolute inset-0 flex items-center">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Sweet Dreams Begin with Stories</h2>
+                    <p class="text-lg text-white opacity-90 mb-6 max-w-lg">Discover magical tales that will help your little ones drift into peaceful slumber</p>
+                    <button class="bg-primary text-white px-6 py-2.5 rounded-lg font-medium shadow-lg hover:bg-opacity-90 transition-all !rounded-button">Explore Stories</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Length Filter -->
+        <section class="py-4 bg-white border-b border-gray-200">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-semibold text-gray-800">Story Length</h3>
+                    <button class="text-primary text-sm font-medium">Clear</button>
+                </div>
+                <div class="flex gap-3 overflow-x-auto pb-1 no-scrollbar">
+                    <button class="filter-chip active whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium !rounded-button flex items-center">
+                        <span class="w-5 h-5 flex items-center justify-center mr-1">
+                            <i class="ri-time-line"></i>
+                        </span>
+                        5 min
+                    </button>
+                    <button class="filter-chip whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 !rounded-button flex items-center">
+                        <span class="w-5 h-5 flex items-center justify-center mr-1">
+                            <i class="ri-time-line"></i>
+                        </span>
+                        10 min
+                    </button>
+                    <button class="filter-chip whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 !rounded-button flex items-center">
+                        <span class="w-5 h-5 flex items-center justify-center mr-1">
+                            <i class="ri-time-line"></i>
+                        </span>
+                        15 min
+                    </button>
+                    <button class="filter-chip whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 !rounded-button flex items-center">
+                        <span class="w-5 h-5 flex items-center justify-center mr-1">
+                            <i class="ri-time-line"></i>
+                        </span>
+                        20+ min
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Collections -->
+        <section class="py-8">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Featured Collections</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Collection 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=A%20collection%20of%20lullaby-themed%20illustrations%20with%20soft%2C%20pastel%20colors.%20Musical%20notes%2C%20stars%2C%20and%20sleeping%20animals%20create%20a%20peaceful%20atmosphere.%20The%20image%20has%20a%20dreamy%20quality%20with%20gentle%20curves%20and%20soothing%20elements.&width=400&height=200&seq=2&orientation=landscape" alt="Lullabies Collection" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-4">
+                                <h3 class="text-xl font-bold text-white">Lullabies</h3>
+                                <p class="text-white text-sm opacity-90">18 stories</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-gray-700">Gentle stories with soothing rhythms perfect for singing your little one to sleep</p>
+                            <button class="mt-3 text-primary font-medium text-sm flex items-center !rounded-button">
+                                View Collection
+                                <span class="w-5 h-5 flex items-center justify-center ml-1">
+                                    <i class="ri-arrow-right-line"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Collection 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=A%20magical%20dream%20adventure%20scene%20with%20children%20floating%20through%20clouds%2C%20riding%20on%20the%20back%20of%20mythical%20creatures.%20Castles%20in%20the%20sky%2C%20rainbow%20paths%2C%20and%20sparkling%20elements%20create%20a%20fantastical%20journey.%20The%20image%20has%20vibrant%20yet%20soothing%20colors.&width=400&height=200&seq=3&orientation=landscape" alt="Dream Adventures Collection" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-4">
+                                <h3 class="text-xl font-bold text-white">Dream Adventures</h3>
+                                <p class="text-white text-sm opacity-90">24 stories</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-gray-700">Magical journeys through dreamlands that inspire imagination before bedtime</p>
+                            <button class="mt-3 text-primary font-medium text-sm flex items-center !rounded-button">
+                                View Collection
+                                <span class="w-5 h-5 flex items-center justify-center ml-1">
+                                    <i class="ri-arrow-right-line"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Collection 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-40 relative">
+                            <img src="https://readdy.ai/api/search-image?query=A%20serene%20scene%20depicting%20calming%20tales%20for%20children.%20Gentle%20woodland%20animals%20resting%20under%20a%20tree%2C%20soft%20moonlight%20filtering%20through%20leaves%2C%20and%20a%20peaceful%20stream%20nearby.%20The%20image%20has%20muted%20blues%20and%20greens%20with%20a%20tranquil%20atmosphere.&width=400&height=200&seq=4&orientation=landscape" alt="Calming Tales Collection" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-4">
+                                <h3 class="text-xl font-bold text-white">Calming Tales</h3>
+                                <p class="text-white text-sm opacity-90">15 stories</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-gray-700">Soothing stories designed to help anxious children relax and prepare for sleep</p>
+                            <button class="mt-3 text-primary font-medium text-sm flex items-center !rounded-button">
+                                View Collection
+                                <span class="w-5 h-5 flex items-center justify-center ml-1">
+                                    <i class="ri-arrow-right-line"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Releases -->
+        <section class="py-8 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">New Releases</h2>
+                    <button class="text-primary font-medium flex items-center !rounded-button">
+                        View All
+                        <span class="w-5 h-5 flex items-center justify-center ml-1">
+                            <i class="ri-arrow-right-line"></i>
+                        </span>
+                    </button>
+                </div>
+                
+                <div class="flex gap-5 overflow-x-auto pb-4 no-scrollbar">
+                    <!-- Book 1 -->
+                    <div class="min-w-[180px] max-w-[180px] bg-white rounded-lg shadow-sm">
+                        <div class="relative h-64 rounded-t-lg overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20The%20Sleepy%20Moon.%20A%20smiling%20moon%20character%20with%20closed%20eyes%20wearing%20a%20nightcap.%20Stars%20sprinkled%20around%2C%20with%20soft%20blue%20and%20purple%20night%20sky%20background.%20Gentle%20clouds%20floating%20nearby.%20The%20illustration%20style%20is%20cute%20and%20child-friendly.&width=300&height=400&seq=5&orientation=portrait" alt="The Sleepy Moon" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">The Sleepy Moon</h3>
+                            <p class="text-sm text-gray-600 mb-1">Emma Nightingale</p>
+                            <div class="flex items-center mb-1">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-1">4.7</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">3-5 years</span>
+                                <span class="font-medium text-gray-800">$4.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 2 -->
+                    <div class="min-w-[180px] max-w-[180px] bg-white rounded-lg shadow-sm">
+                        <div class="relative h-64 rounded-t-lg overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Whispers%20of%20the%20Forest.%20A%20magical%20forest%20scene%20with%20glowing%20fireflies%2C%20gentle%20woodland%20creatures%2C%20and%20tall%20trees.%20A%20small%20sleeping%20fox%20curled%20up%20on%20a%20bed%20of%20leaves.%20The%20illustration%20has%20rich%20greens%20and%20soft%20golden%20lights.%20The%20style%20is%20whimsical%20and%20enchanting.&width=300&height=400&seq=6&orientation=portrait" alt="Whispers of the Forest" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Whispers of the Forest</h3>
+                            <p class="text-sm text-gray-600 mb-1">Oliver Woodland</p>
+                            <div class="flex items-center mb-1">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-1">4.2</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">6-8 years</span>
+                                <span class="font-medium text-gray-800">$5.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 3 -->
+                    <div class="min-w-[180px] max-w-[180px] bg-white rounded-lg shadow-sm">
+                        <div class="relative h-64 rounded-t-lg overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Bedtime%20for%20Baby%20Bear.%20A%20cute%20baby%20bear%20in%20blue%20pajamas%20being%20tucked%20into%20bed%20by%20mother%20bear.%20A%20cozy%20bedroom%20with%20stuffed%20toys%2C%20a%20nightlight%2C%20and%20moon%20visible%20through%20window.%20The%20illustration%20style%20is%20warm%20and%20comforting%20with%20soft%20textures.&width=300&height=400&seq=7&orientation=portrait" alt="Bedtime for Baby Bear" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Bedtime for Baby Bear</h3>
+                            <p class="text-sm text-gray-600 mb-1">Sophie Chambers</p>
+                            <div class="flex items-center mb-1">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-1">5.0</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">0-2 years</span>
+                                <span class="font-medium text-gray-800">$3.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 4 -->
+                    <div class="min-w-[180px] max-w-[180px] bg-white rounded-lg shadow-sm">
+                        <div class="relative h-64 rounded-t-lg overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20The%20Dream%20Catcher.%20A%20magical%20dream%20catcher%20with%20colorful%20feathers%20and%20beads%20hanging%20above%20a%20childs%20bed.%20Swirling%20dreams%20and%20fantastical%20creatures%20emerging%20from%20it.%20The%20illustration%20style%20is%20vibrant%20yet%20dreamy%20with%20flowing%20lines.&width=300&height=400&seq=8&orientation=portrait" alt="The Dream Catcher" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">The Dream Catcher</h3>
+                            <p class="text-sm text-gray-600 mb-1">Maya Dreamweaver</p>
+                            <div class="flex items-center mb-1">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-1">4.8</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">6-8 years</span>
+                                <span class="font-medium text-gray-800">$5.49</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 5 -->
+                    <div class="min-w-[180px] max-w-[180px] bg-white rounded-lg shadow-sm">
+                        <div class="relative h-64 rounded-t-lg overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Goodnight%2C%20Little%20Star.%20A%20personified%20star%20character%20with%20a%20sweet%20face%20being%20tucked%20into%20a%20cloud%20bed.%20The%20night%20sky%20is%20deep%20blue%20with%20other%20stars%20watching.%20The%20moon%20is%20smiling%20down.%20The%20illustration%20style%20is%20gentle%20and%20soothing%20with%20rounded%20shapes.&width=300&height=400&seq=9&orientation=portrait" alt="Goodnight, Little Star" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Goodnight, Little Star</h3>
+                            <p class="text-sm text-gray-600 mb-1">Benjamin Twinkle</p>
+                            <div class="flex items-center mb-1">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-1">4.1</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">3-5 years</span>
+                                <span class="font-medium text-gray-800">$4.49</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Authors -->
+        <section class="py-8">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Popular Authors</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                    <!-- Author 1 -->
+                    <div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full overflow-hidden mb-3">
+                            <img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20female%20childrens%20book%20author%20with%20warm%20smile%2C%20mid-30s%2C%20with%20shoulder-length%20brown%20hair.%20Natural%2C%20friendly%20expression%20against%20a%20neutral%20background.%20Professional%20but%20approachable%20appearance.&width=200&height=200&seq=10&orientation=squarish" alt="Emma Nightingale" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-center">Emma Nightingale</h3>
+                        <p class="text-sm text-gray-500 text-center mb-1">24 Books</p>
+                        <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full mb-2">Dream Stories Expert</span>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-half-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Author 2 -->
+                    <div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full overflow-hidden mb-3">
+                            <img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20male%20childrens%20book%20author%20with%20kind%20eyes%20and%20beard%2C%20early%2040s.%20Wearing%20casual%20button-up%20shirt.%20Natural%2C%20friendly%20expression%20against%20a%20light%20background.%20Professional%20but%20approachable%20appearance.&width=200&height=200&seq=11&orientation=squarish" alt="Oliver Woodland" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-center">Oliver Woodland</h3>
+                        <p class="text-sm text-gray-500 text-center mb-1">18 Books</p>
+                        <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full mb-2">Nature Tales Specialist</span>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Author 3 -->
+                    <div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full overflow-hidden mb-3">
+                            <img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20female%20childrens%20book%20author%20with%20glasses%20and%20curly%20hair%2C%20late%2030s.%20Warm%20smile%20and%20friendly%20expression%20against%20a%20light%20background.%20Professional%20but%20approachable%20appearance.&width=200&height=200&seq=12&orientation=squarish" alt="Sophie Chambers" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-center">Sophie Chambers</h3>
+                        <p class="text-sm text-gray-500 text-center mb-1">32 Books</p>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full mb-2">Toddler Sleep Expert</span>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Author 4 -->
+                    <div class="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full overflow-hidden mb-3">
+                            <img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20female%20childrens%20book%20author%20with%20long%20dark%20hair%2C%20early%2030s.%20Artistic%20style%20with%20colorful%20scarf.%20Natural%2C%20friendly%20expression%20against%20a%20neutral%20background.%20Professional%20but%20approachable%20appearance.&width=200&height=200&seq=13&orientation=squarish" alt="Maya Dreamweaver" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-center">Maya Dreamweaver</h3>
+                        <p class="text-sm text-gray-500 text-center mb-1">15 Books</p>
+                        <span class="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full mb-2">Fantasy Sleep Stories</span>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-half-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Book Grid -->
+        <section class="py-8 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">All Bedtime Stories</h2>
+                    <div class="flex items-center gap-3">
+                        <button class="text-gray-600 flex items-center">
+                            <span class="w-5 h-5 flex items-center justify-center mr-1">
+                                <i class="ri-sort-desc"></i>
+                            </span>
+                            Sort
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                    <!-- Book 1 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20The%20Sleepy%20Moon.%20A%20smiling%20moon%20character%20with%20closed%20eyes%20wearing%20a%20nightcap.%20Stars%20sprinkled%20around%2C%20with%20soft%20blue%20and%20purple%20night%20sky%20background.%20Gentle%20clouds%20floating%20nearby.%20The%20illustration%20style%20is%20cute%20and%20child-friendly.&width=300&height=400&seq=14&orientation=portrait" alt="The Sleepy Moon" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                            <div class="absolute top-2 right-2 bg-yellow-400 text-xs font-medium text-white px-2 py-0.5 rounded-full">New</div>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">The Sleepy Moon</h3>
+                            <p class="text-sm text-gray-600 mb-1">Emma Nightingale</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">3-5 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    5 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$4.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 2 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Whispers%20of%20the%20Forest.%20A%20magical%20forest%20scene%20with%20glowing%20fireflies%2C%20gentle%20woodland%20creatures%2C%20and%20tall%20trees.%20A%20small%20sleeping%20fox%20curled%20up%20on%20a%20bed%20of%20leaves.%20The%20illustration%20has%20rich%20greens%20and%20soft%20golden%20lights.%20The%20style%20is%20whimsical%20and%20enchanting.&width=300&height=400&seq=15&orientation=portrait" alt="Whispers of the Forest" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Whispers of the Forest</h3>
+                            <p class="text-sm text-gray-600 mb-1">Oliver Woodland</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">6-8 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    10 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$5.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 3 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Bedtime%20for%20Baby%20Bear.%20A%20cute%20baby%20bear%20in%20blue%20pajamas%20being%20tucked%20into%20bed%20by%20mother%20bear.%20A%20cozy%20bedroom%20with%20stuffed%20toys%2C%20a%20nightlight%2C%20and%20moon%20visible%20through%20window.%20The%20illustration%20style%20is%20warm%20and%20comforting%20with%20soft%20textures.&width=300&height=400&seq=16&orientation=portrait" alt="Bedtime for Baby Bear" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                            <div class="absolute top-2 right-2 bg-primary text-xs font-medium text-white px-2 py-0.5 rounded-full">Bestseller</div>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Bedtime for Baby Bear</h3>
+                            <p class="text-sm text-gray-600 mb-1">Sophie Chambers</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">0-2 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    5 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$3.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 4 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20The%20Dream%20Catcher.%20A%20magical%20dream%20catcher%20with%20colorful%20feathers%20and%20beads%20hanging%20above%20a%20childs%20bed.%20Swirling%20dreams%20and%20fantastical%20creatures%20emerging%20from%20it.%20The%20illustration%20style%20is%20vibrant%20yet%20dreamy%20with%20flowing%20lines.&width=300&height=400&seq=17&orientation=portrait" alt="The Dream Catcher" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">The Dream Catcher</h3>
+                            <p class="text-sm text-gray-600 mb-1">Maya Dreamweaver</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">6-8 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    15 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$5.49</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 5 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Goodnight%2C%20Little%20Star.%20A%20personified%20star%20character%20with%20a%20sweet%20face%20being%20tucked%20into%20a%20cloud%20bed.%20The%20night%20sky%20is%20deep%20blue%20with%20other%20stars%20watching.%20The%20moon%20is%20smiling%20down.%20The%20illustration%20style%20is%20gentle%20and%20soothing%20with%20rounded%20shapes.&width=300&height=400&seq=18&orientation=portrait" alt="Goodnight, Little Star" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Goodnight, Little Star</h3>
+                            <p class="text-sm text-gray-600 mb-1">Benjamin Twinkle</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">3-5 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    5 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$4.49</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 6 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Moonlight%20Lullaby.%20A%20mother%20rabbit%20singing%20to%20baby%20rabbits%20under%20moonlight%20in%20a%20cozy%20burrow.%20Soft%20blue%20and%20silver%20moonbeams%20streaming%20through%20a%20small%20window.%20The%20illustration%20style%20is%20gentle%20and%20soothing%20with%20warm%20textures.&width=300&height=400&seq=19&orientation=portrait" alt="Moonlight Lullaby" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Moonlight Lullaby</h3>
+                            <p class="text-sm text-gray-600 mb-1">Olivia Melody</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">0-2 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    5 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$3.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 7 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20The%20Cloud%20Sheep.%20Fluffy%20sheep-shaped%20clouds%20floating%20across%20a%20twilight%20sky.%20A%20child%20looking%20up%20from%20bed%20through%20window.%20Stars%20beginning%20to%20appear.%20The%20illustration%20style%20is%20dreamy%20and%20gentle%20with%20soft%20textures.&width=300&height=400&seq=20&orientation=portrait" alt="The Cloud Sheep" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">The Cloud Sheep</h3>
+                            <p class="text-sm text-gray-600 mb-1">William Skies</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">3-5 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    10 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$4.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 8 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Sleepy%20Safari.%20African%20savanna%20animals%20at%20sunset%20getting%20ready%20for%20sleep.%20A%20lion%20cub%20yawning%2C%20elephants%20cuddling%2C%20giraffes%20resting%20their%20long%20necks.%20The%20illustration%20style%20is%20warm%20with%20orange%20and%20purple%20sunset%20hues.&width=300&height=400&seq=21&orientation=portrait" alt="Sleepy Safari" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Sleepy Safari</h3>
+                            <p class="text-sm text-gray-600 mb-1">Zara Wilde</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">3-5 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    15 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$5.49</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 9 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20The%20Night%20Garden.%20A%20magical%20garden%20that%20comes%20alive%20at%20night%20with%20glowing%20flowers%20and%20friendly%20fireflies.%20A%20child%20in%20pajamas%20discovering%20this%20secret%20world.%20The%20illustration%20style%20is%20enchanting%20with%20bioluminescent%20blues%20and%20purples.&width=300&height=400&seq=22&orientation=portrait" alt="The Night Garden" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">The Night Garden</h3>
+                            <p class="text-sm text-gray-600 mb-1">Flora Nightshade</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">6-8 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    20+ min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$5.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 10 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden book-card">
+                        <div class="relative h-56 md:h-64">
+                            <img src="https://readdy.ai/api/search-image?query=A%20childrens%20book%20cover%20for%20Ocean%20Lullabies.%20Underwater%20scene%20with%20sleeping%20sea%20creatures.%20Baby%20whales%2C%20turtles%2C%20and%20fish%20nestled%20in%20coral%20beds.%20Gentle%20blue%20waves%20and%20moonlight%20filtering%20through%20water%20surface.%20The%20illustration%20style%20is%20peaceful%20with%20flowing%20lines.&width=300&height=400&seq=23&orientation=portrait" alt="Ocean Lullabies" class="w-full h-full object-cover">
+                            <button class="preview-button absolute inset-0 bg-black/40 flex items-center justify-center text-white !rounded-button">
+                                <span class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-sm">
+                                    <i class="ri-play-fill ri-lg"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-800 line-clamp-1">Ocean Lullabies</h3>
+                            <p class="text-sm text-gray-600 mb-1">Marina Waves</p>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">0-2 years</span>
+                                <span class="text-xs flex items-center text-gray-500">
+                                    <span class="w-4 h-4 flex items-center justify-center mr-0.5">
+                                        <i class="ri-time-line"></i>
+                                    </span>
+                                    10 min
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                </div>
+                                <span class="font-medium text-gray-800">$4.49</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex justify-center">
+                    <button class="bg-white border border-gray-300 text-gray-700 px-6 py-2.5 rounded-lg font-medium hover:bg-gray-50 transition-all !rounded-button">Load More</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Filter Panel -->
+    <div id="filterPanel" class="filter-panel fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 p-5 overflow-y-auto">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-800">Filters</h2>
+            <button id="closeFilter" class="w-8 h-8 flex items-center justify-center text-gray-700">
+                <i class="ri-close-line ri-lg"></i>
+            </button>
+        </div>
+        
+        <!-- Theme Filter -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Story Themes</h3>
+            <div class="space-y-2">
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Dreams & Fantasy</span>
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Animals & Nature</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Lullabies & Songs</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Magic & Adventure</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Family & Friends</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Reading Level -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Reading Level</h3>
+            <div class="space-y-2">
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Beginner</span>
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Intermediate</span>
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Advanced</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Duration -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Duration</h3>
+            <div class="space-y-2">
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">5 minutes</span>
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">10 minutes</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">15 minutes</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">20+ minutes</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Language -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Language</h3>
+            <div class="space-y-2">
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">English</span>
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Spanish</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">French</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">German</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Format -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Format</h3>
+            <div class="space-y-2">
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">eBook</span>
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Audio</span>
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="custom-checkbox flex items-center">
+                    <span class="pl-7">Interactive</span>
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Price Range -->
+        <div class="mb-6">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-semibold text-gray-800">Price Range</h3>
+                <span class="text-sm text-gray-600">$0 - $10</span>
+            </div>
+            <input type="range" min="0" max="10" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+        </div>
+        
+        <!-- Rating -->
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Minimum Rating</h3>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5"><i class="ri-star-fill"></i></label>
+                <input type="radio" id="star4" name="rating" value="4" checked>
+                <label for="star4"><i class="ri-star-fill"></i></label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3"><i class="ri-star-fill"></i></label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2"><i class="ri-star-fill"></i></label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1"><i class="ri-star-fill"></i></label>
+            </div>
+        </div>
+        
+        <!-- Filter Buttons -->
+        <div class="flex gap-3">
+            <button class="flex-1 bg-gray-200 text-gray-700 px-4 py-2.5 rounded-lg font-medium hover:bg-gray-300 transition-all !rounded-button">Reset</button>
+            <button class="flex-1 bg-primary text-white px-4 py-2.5 rounded-lg font-medium shadow-sm hover:bg-opacity-90 transition-all !rounded-button">Apply</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Age tabs
+            const ageTabs = document.querySelectorAll('.age-tab');
+            ageTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    ageTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+            
+            // Filter chips
+            const filterChips = document.querySelectorAll('.filter-chip');
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                });
+            });
+            
+            // Filter panel
+            const filterToggle = document.getElementById('filterToggle');
+            const closeFilter = document.getElementById('closeFilter');
+            const filterPanel = document.getElementById('filterPanel');
+            
+            filterToggle.addEventListener('click', () => {
+                filterPanel.classList.add('open');
+            });
+            
+            closeFilter.addEventListener('click', () => {
+                filterPanel.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
